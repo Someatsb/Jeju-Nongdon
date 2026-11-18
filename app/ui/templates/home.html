@@ -3,19 +3,15 @@
 {% block title %}{{ cfg.service_name }} - 우리 집 농사 지원금 찾기{% endblock %}
 {% block body_class %}page-home{% endblock %}
 {% block main_class %}home{% endblock %}
-{% block head %}{% if demo_links %}<link rel="stylesheet" href="/static/demo.css">{% endif %}{% endblock %}
+{% block head %}{% if demo_intro %}<link rel="stylesheet" href="/static/demo.css">{% endif %}{% endblock %}
 {% block header_actions %}<p class="topbar-note">어려우시면 옆에 계신 직원에게 말씀하세요</p>{% endblock %}
 {% block content %}
   <section class="hero">
     <div class="hero-text" data-fit>
       <h1>우리 집이 받을 수 있는<br><em>농사 지원금</em>,<br>종이 한 장으로 찾아 드려요</h1>
       <a class="btn btn-primary btn-xl" href="/counsel">지원금 찾아보기 {{ art.arrow() }}</a>
-      {%- if demo_links %}
-      <div class="demo-pick" aria-label="시연 농가로 해 보기">
-        <p class="demo-title">시연 농가로 해 보기</p>
-        <ul class="demo-list">{% for d in demo_links %}<li><a class="demo-chip" href="/demo/{{ d.id }}">{{ d.label }}</a></li>{% endfor %}</ul>
-        <p class="demo-note">{{ demo_intro }}</p>
-      </div>
+      {%- if demo_intro %}
+      <p class="demo-only-note">{{ demo_intro }}</p>
       {%- endif %}
     </div>
     <div class="hero-frame">{{ art.hero() }}</div>

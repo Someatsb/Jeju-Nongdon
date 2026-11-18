@@ -30,7 +30,7 @@ MAX_SESSIONS = 300          # 동시에 들고 있는 상담 수 한도(넘으�
 MAX_LOG_ENTRIES = 4000      # 검수 로그(메모리)가 이만큼 넘으면 오래된 절반을 버린다
 DEMO_IDS = ("P1", "P2", "P3", "P4", "P5")
 NO_MATCH_PUBLIC = "체험판이라 이 농가는 새 공고 맞춰 보기가 없어요(시연 농가 다섯만 있어요)"
-INTRO_LINE = "체험판이에요. 시연 농가 다섯은 AI 설명까지 보이고, 직접 입력하면 규칙 계산 결과가 나와요. 날짜는 2026년 11월 13일로 고정해 보여 드려요."
+INTRO_LINE = "체험판이에요. 날짜는 2026년 11월 13일로 고정해 보여 드려요."
 
 router = APIRouter()
 
@@ -146,4 +146,4 @@ def home_extra(request: Request) -> dict:
     """첫 화면 템플릿에 더할 값. 공개 체험판이 아니면 빈 dict(PC 화면은 달라지지 않는다)."""
     if not request.app.state.cfg.public_demo:
         return {}
-    return {"demo_links": demo_links(request), "demo_intro": INTRO_LINE}
+    return {"demo_intro": INTRO_LINE}       # 첫 화면에는 안내 한 줄만(시연 농가 단추는 두지 않는다. 주소 /demo/P1~P5 는 열려 있다)

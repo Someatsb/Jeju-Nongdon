@@ -44,10 +44,12 @@ def test_public_mode_needs_replay(monkeypatch):
         create_app(load_config(["--asof", "2026-11-13"]))
 
 
-def test_home_has_demo_farms(pub):
+def test_home_has_no_demo_farm_buttons_but_the_addresses_work(pub):
+    # 첫 화면에는 시연 농가 단추를 두지 않는다(2026-11-19 사장 지시). 주소 /demo/P1~P5 는 그대로 열린다.
     html = pub.get("/").text
-    assert "시연 농가로 해 보기" in html and public_demo.INTRO_LINE in html
-    assert re.findall(r'href="/demo/(P\d)"', html) == list(public_demo.DEMO_IDS)
+    assert "시연 농가로 해 보기" not in html and "/demo/" not in html
+    for pid in public_demo.DEMO_IDS:
+        assert pub.get(f"/demo/{pid}", follow_redirects=False).status_code in (302, 303)
 
 
 @pytest.mark.parametrize("pid", ["P1", "P2", "P3", "P4", "P5"])
