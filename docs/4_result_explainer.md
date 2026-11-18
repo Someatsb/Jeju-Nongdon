@@ -42,7 +42,7 @@
 ## 5. 검증 방법과 한계
 
 검증:
-- 자동 시험(`python -X utf8 -m pytest -m "not live" -q`): 3636 passed, 45 skipped, 1 xfailed, 5분 31초(`tests/REPORT.txt` 2026-11-19 01:45판, 키 없이 잼). 이 파일은 `run_tests.bat`이 쓰는 결과 파일이며 경고도 실패로 세는 `-W error`로 돌린 결과이고 golden 12 passed가 함께 적혀 있습니다. 골든 12건(P1~P5, T1, T2, B02, B04, B05, B06, B12) 통과, 골든 사례 전체 22건(`tests/golden/README.md`)도 시험에서 통과합니다.
+- 자동 시험(`python -X utf8 -m pytest -m "not live" -q`): 3636 passed, 45 skipped, 1 xfailed, 5분 10초(`tests/REPORT.txt` 2026-11-19 08:12판, 키 없이 잼). 이 파일은 `run_tests.bat`이 쓰는 결과 파일이며 경고도 실패로 세는 `-W error`로 돌린 결과이고 golden 12 passed가 함께 적혀 있습니다. 골든 12건(P1~P5, T1, T2, B02, B04, B05, B06, B12) 통과, 골든 사례 전체 22건(`tests/golden/README.md`)도 시험에서 통과합니다.
 - 지시문 버전: 지금 쓰는 판은 narrate-v3·notice-v4·match-v2·judge-v1·scout-v1입니다(`app/agents/prompts/`, README 참고). 위 4절의 실호출 기록은 그 시점의 판(narrate-v1·notice-v1은 11-10 1차 실호출 때 지시문, v2는 길이 상한·제도 낱말 금지·농협경유 포함을 넣은 수정판)으로 잰 것이며 v1 파일은 지금 폴더에 없습니다.
 - AI 설명이 있든 없든 같은 계산 지문이 나오는지 `tests/identity/`로 확인하고, 계산 층이 파일·시계·네트워크를 쓰지 않음을 `tests/test_core_purity.py`와 `tests/test_layering.py`로 확인합니다.
 - 인쇄 전 점검 8가지(출처, 기준일, 설명 문장 숫자 혼입, 넘침, 유효기간, hold 행, 작년 기준 배지, 종이 머리 기준일)가 하나라도 걸리면 종이를 내지 않습니다.
