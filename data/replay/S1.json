@@ -1,0 +1,713 @@
+{
+  "sample_id": "S1",
+  "recorded_at": "2026-11-14T18:00:00",
+  "source": "handwritten",
+  "provider": "handwritten",
+  "model": "demo-script",
+  "prompt_ver": "scout-v1",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "adac1d5f",
+  "calls": [
+    {
+      "purpose": "scout",
+      "section": null,
+      "attempt": 1,
+      "request_hash": "ad074e07cdbc316f1576e6814d9fd38f012f028d07a4d0690a2b0b32f608913d",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "list_board",
+            "args": {
+              "board": "서귀포시 알림마당"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "scout",
+      "section": null,
+      "attempt": 2,
+      "request_hash": "ca8d0e81f85a73aaaeba70f670377e5d764e24529db3d93f31774c40227dbb6c",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "skip",
+            "args": {
+              "row": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                9,
+                10
+              ],
+              "reason": "농가가 신청하는 지원사업이 아닌 안내·행사·모집 글입니다"
+            }
+          },
+          {
+            "call_id": "h2",
+            "name": "skip",
+            "args": {
+              "row": [
+                11,
+                12
+              ],
+              "reason": "같은 사업을 동홍동에서도 올린 글입니다. 대륜동 글을 골랐습니다"
+            }
+          },
+          {
+            "call_id": "h3",
+            "name": "pick",
+            "args": {
+              "row": 6,
+              "reason": "유기농업자재 지원사업 신청 접수 공고입니다"
+            }
+          },
+          {
+            "call_id": "h4",
+            "name": "pick",
+            "args": {
+              "row": 7,
+              "reason": "유기질비료 지원사업 추가 신청 공고입니다"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "scout",
+      "section": null,
+      "attempt": 3,
+      "request_hash": "ec2b44435bb72e22528a2d4d1ee79126546587600d6480a79c6a5bc46706b0ab",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "list_board",
+            "args": {
+              "board": "서귀포시 알림마당",
+              "query": "FTA"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "scout",
+      "section": null,
+      "attempt": 4,
+      "request_hash": "47df0db95db3d7384a23318de70c30a007cddb6ca8c33732dcb29ce05ef5806f",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "skip",
+            "args": {
+              "row": [
+                8,
+                13,
+                14,
+                15
+              ],
+              "reason": "같은 FTA기금 시설 현대화 사업을 읍면동에서 따로 올린 글입니다. 감귤유통과 글을 골랐습니다"
+            }
+          },
+          {
+            "call_id": "h2",
+            "name": "pick",
+            "args": {
+              "row": 16,
+              "reason": "감귤유통과가 올린 원문 공고입니다"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "scout",
+      "section": null,
+      "attempt": 5,
+      "request_hash": "e26b14d0e3b2f43d9684424ba66a3d4c08d0c34991bd95836d36e2383997ac9a",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "list_board",
+            "args": {
+              "board": "제주시 농수축산국 부서소식"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "scout",
+      "section": null,
+      "attempt": 6,
+      "request_hash": "d8b210b61a3374333585879220a0aa042cd92fb6a456758e749212eb82a6f97a",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "peek",
+            "args": {
+              "row": 18
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "scout",
+      "section": null,
+      "attempt": 7,
+      "request_hash": "99e74c4f41bab7a4080537aaadfbbea77c86966aad14a860e80a2e87e312c9e0",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "skip",
+            "args": {
+              "row": 18,
+              "reason": "신청 기간이 이미 끝난 공고입니다"
+            }
+          },
+          {
+            "call_id": "h2",
+            "name": "skip",
+            "args": {
+              "row": [
+                17,
+                19,
+                20,
+                21
+              ],
+              "reason": "방역·교육 안내 글이라 신청하는 지원사업 공고가 아닙니다"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "scout",
+      "section": null,
+      "attempt": 8,
+      "request_hash": "4847148a022a475f17265f8e8eb93330112fdfdbe77647210920d95259d37c03",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "finish",
+            "args": {
+              "summary": "서귀포시 알림마당과 제주시 농수축산국 게시판을 살펴 세 건을 골랐습니다. 같은 사업을 읍면동이 따로 올린 글은 과 글이나 최근 글 하나만 골랐고, 신청 기간이 끝난 글은 건너뛰었습니다"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 1,
+      "request_hash": "f606bb1b6276ecdda8909e8aa87a8c4f6614e0a299ddff2d0a66ddfbe5ec4279",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "doc_search",
+            "args": {
+              "query": "신청기한"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 2,
+      "request_hash": "b0b49a8df4d9998b67b41a5ea2aedb3d25a8d25928348ef3a8e4fb4860a29fc1",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "find_existing_program",
+            "args": {
+              "name": "유기농업자재 지원사업"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 3,
+      "request_hash": "1706645a95a3bda9bee20082253f519fe55ddeeac1195854f11de0c4d3ccdc64",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "validate_draft",
+            "args": {
+              "draft": {
+                "programs": [
+                  {
+                    "action": "NEW",
+                    "match_id": null,
+                    "program_key": "new-organic-materials-2027",
+                    "fields": {
+                      "name": {
+                        "value": "2027년 유기농업자재 지원사업",
+                        "quote": "2027년 유기농업자재 지원사업 신청 접수 계획 알림",
+                        "anchor": null
+                      },
+                      "apply_start": {
+                        "value": "2026-11-02",
+                        "quote": "가. 신청기한: 2026. 11. 2(월)~ 2026. 12. 31.(목)까지",
+                        "anchor": null
+                      },
+                      "apply_end": {
+                        "value": "2026-12-31",
+                        "quote": "가. 신청기한: 2026. 11. 2(월)~ 2026. 12. 31.(목)까지",
+                        "anchor": null
+                      }
+                    },
+                    "questions": [],
+                    "tags": [
+                      {
+                        "label": "읍면동사무소에서 신청",
+                        "quote": "나. 신청장소: 농지 소재지 읍면동사무소",
+                        "anchor": null
+                      },
+                      {
+                        "label": "자부담 절반",
+                        "quote": "다. 지원내용 (자부담 50%)",
+                        "anchor": null
+                      },
+                      {
+                        "label": "토양검정 결과 제출",
+                        "quote": "* 2026년 시군농업기술센터에서 발급받은 토양검정 결과를 제출한 농업인 및 법인에 한해 지원(없는 경우 '25년 토양검정결과 제출 가능)",
+                        "anchor": null
+                      }
+                    ]
+                  }
+                ],
+                "skipped": []
+              }
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 4,
+      "request_hash": "419d467f9c5679c0044241876ca462384b0635032b0b9d021e12819029c0aaa2",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "finish",
+            "args": {
+              "decision": "DRAFT_READY",
+              "reason": "농업인 및 법인이 신청하는 유기농업자재 지원사업이라 초안을 만들었습니다"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 5,
+      "request_hash": "5c6c3b95dd730208a049bb422587c3ec58f1fd027f9e60a09cb39bead98fb39e",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "doc_search",
+            "args": {
+              "query": "신청기간"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 6,
+      "request_hash": "965ffa0cbc43d91d477b8c33b7d451f11014e4d8e6739b9e67533e4c8c086529",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "find_existing_program",
+            "args": {
+              "name": "유기질비료 지원사업"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 7,
+      "request_hash": "a5acbaa9944e3133315ae53d06af8dcf7aeb3b79f1c3cf6b41d9f30869f4e5dd",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "validate_draft",
+            "args": {
+              "draft": {
+                "programs": [
+                  {
+                    "action": "NEW",
+                    "match_id": null,
+                    "program_key": "new-organic-fertilizer-2027-extra",
+                    "fields": {
+                      "name": {
+                        "value": "2027년 유기질비료 지원사업 추가 신청",
+                        "quote": "2027년 유기질비료 지원사업 신청 신청·접수 계획 알림(추가)",
+                        "anchor": null
+                      },
+                      "apply_start": {
+                        "value": "2026-11-10",
+                        "quote": "3. 신청기간: 2026. 11. 10.(화) ~ 12. 4.(금) * 근무시간 내에 한함",
+                        "anchor": null
+                      },
+                      "apply_end": {
+                        "value": "2026-12-04",
+                        "quote": "3. 신청기간: 2026. 11. 10.(화) ~ 12. 4.(금) * 근무시간 내에 한함",
+                        "anchor": null
+                      }
+                    },
+                    "questions": [],
+                    "tags": [
+                      {
+                        "label": "농업경영체(농업인·법인)",
+                        "quote": "1. 신청자격: ｢농어업경영체 육성 및 지원에 관한 법률｣ 제2조제3호에 따른 농업경영체(농업인 및 법인)",
+                        "anchor": null
+                      },
+                      {
+                        "label": "유기질비료 구입비 일부 지원",
+                        "quote": "2. 지원내용: 농산물 생산에 사용되는 부산물비료(유기질비료, 부숙유기질비료) 구입비 일부 지원",
+                        "anchor": null
+                      },
+                      {
+                        "label": "상반기에 못 한 농가 추가 신청",
+                        "quote": "상반기에 신청을 못하거나 신청내용 변경을 희망하는 농가께서는 기한 내 신청하시기 바랍니다.",
+                        "anchor": null
+                      }
+                    ]
+                  }
+                ],
+                "skipped": []
+              }
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 8,
+      "request_hash": "f4a3c951141bac0369ab50f02398a72a6345a14eea57729f535778ee32a65283",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "finish",
+            "args": {
+              "decision": "DRAFT_READY",
+              "reason": "유기질비료 구입비를 돕는 추가 신청 공고라 초안을 만들었습니다"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 9,
+      "request_hash": "2c27fff64dcc34a9674db8d023ec0abc28b4f9c01711afedf2ee923bce5b4a18",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "doc_search",
+            "args": {
+              "query": "신청기간"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 10,
+      "request_hash": "b3f1c8dbf0bc1b78b4db1ac00246164111714d4b4bb21aad6950b840229e07c3",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "find_existing_program",
+            "args": {
+              "name": "FTA기금 고품질시설 현대화사업"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 11,
+      "request_hash": "950c3a54314d12574ce577dbdec02566032202c8b694eda28d62c1d5c14699e4",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "validate_draft",
+            "args": {
+              "draft": {
+                "programs": [
+                  {
+                    "action": "NEW",
+                    "match_id": null,
+                    "program_key": "new-fta-citrus-facility-2027",
+                    "fields": {
+                      "name": {
+                        "value": "2027년 FTA기금 과수(감귤) 고품질시설 현대화사업",
+                        "quote": "2027년 FTA기금 과수(감귤) 고품질시설 현대화사업 신청·접수 계획 알림",
+                        "anchor": null
+                      },
+                      "apply_start": {
+                        "value": "2026-11-09",
+                        "quote": "신청기간: 2026. 11. 9(월)~11. 23(월)",
+                        "anchor": null
+                      },
+                      "apply_end": {
+                        "value": "2026-11-23",
+                        "quote": "신청기간: 2026. 11. 9(월)~11. 23(월)",
+                        "anchor": null
+                      }
+                    },
+                    "questions": [],
+                    "tags": [
+                      {
+                        "label": "지역 농·감협에서 접수",
+                        "quote": "접 수 처: 지역 농·감협",
+                        "anchor": null
+                      },
+                      {
+                        "label": "비가림하우스·스마트팜 등 16개 사업",
+                        "quote": "대상사업: 비가림하우스, 빗물이용시설, 감귤원 원지정비, 보급형 스마트팜 등 16개사업",
+                        "anchor": null
+                      },
+                      {
+                        "label": "감귤 시설 현대화",
+                        "quote": "2027년 FTA기금 과수(감귤) 고품질시설 현대화사업 신청·접수 계획 알림",
+                        "anchor": null
+                      }
+                    ]
+                  }
+                ],
+                "skipped": []
+              }
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 12,
+      "request_hash": "b9be23ca36944d3d2f81cfee548ffd0f5ea210c612df1ef5f26cbb810c86879d",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "finish",
+            "args": {
+              "decision": "DRAFT_READY",
+              "reason": "감귤 시설 현대화 사업의 신청 기간과 접수처를 초안으로 만들었습니다"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    }
+  ]
+}

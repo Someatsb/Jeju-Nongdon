@@ -1,0 +1,55 @@
+{"id":"B01","section":"action","context":"ctx_P4","sentences":[{"text":"먼저 농관원에 가셔서 경영체 등록부터 하시면 아래 줄들이 열립니다.","cites":["A:prereq_mgmt"]},{"text":"땅을 빌려 지으시면 지주분의 계약서가 있어야 등록이 수월합니다.","cites":["A:prereq_mgmt"]},{"text":"서류가 모자라면 창구에서 무엇이 더 필요한지 물어보시면 됩니다.","cites":["A:prereq_mgmt"]},{"text":"일정이 바뀔 수 있으니 가시기 전에 전화로 한 번 더 확인하세요.","cites":["A:prereq_mgmt"]}],"expect":["LENGTH"],"why":"한 구획에 문장 4개"}
+{"id":"B02","section":"support","context":"ctx_P4","text":"경영체 등록을 먼저 하시면 {P:jeju_farmer_allowance}을 신청해 볼 조건이 갖춰지고 등록확인서는 다른 신청에도 쓰이니 읍면사무소 창구에서 이 종이 뒷면을 함께 보여 주시면 됩니다.","cites":["M:jeju_farmer_allowance","A:prereq_mgmt"],"expect":["LENGTH"],"why":"71자 넘는 문장"}
+{"id":"B03","section":"support","context":"ctx_P4","text":"경영체 등록을 먼저 하시면 {P:jeju_farmer_allowance}을 신청해 볼 조건이 갖춰집니다.","expect":["SCHEMA"],"why":"cites 없는 JSON"}
+{"id":"B04","section":"support","context":"ctx_P4","text":"","cites":["M:jeju_farmer_allowance"],"expect":["SCHEMA"],"why":"빈 문자열 문장"}
+{"id":"B05","section":"support","context":"ctx_P4","text":"신청은 3월에 하시면 됩니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_DIGIT"],"why":"아라비아 숫자"}
+{"id":"B06","section":"support","context":"ctx_P4","text":"신청은 ３월에 하시면 됩니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_DIGIT"],"why":"전각 숫자"}
+{"id":"B07","section":"action","context":"ctx_P4","text":"① 경영체 등록부터 하세요.","cites":["A:prereq_mgmt"],"expect":["NUM_DIGIT"],"why":"원문자"}
+{"id":"B08","section":"support","context":"ctx_P4","text":"삼월에 신청하시면 됩니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_SINO_UNIT"],"why":"한자어 수사+단위(월)"}
+{"id":"B09","section":"support","context":"ctx_P4","text":"해마다 오십만원 정도입니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_SINO_UNIT"],"why":"한자어 수사+단위(원)"}
+{"id":"B10","section":"support","context":"ctx_P4","text":"세 가지 제도를 신청해 보세요.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_NATIVE_UNIT"],"why":"고유어 수사+단위(가지)"}
+{"id":"B11","section":"support","context":"ctx_P4","text":"두 번 나눠서 지급됩니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_NATIVE_UNIT","RIGHTS"],"why":"고유어 수사+단위, 권리형"}
+{"id":"B12","section":"insurance","context":"ctx_P3","text":"보험료 절반을 나라에서 냅니다.","cites":["I:crop_ins_garlic"],"expect":["NUM_WORD"],"why":"수량어"}
+{"id":"B13","section":"support","context":"ctx_P4","text":"상인에게 넘기시는 것보다 농협에 내시는 게 낫습니다.","cites":["M:logistics"],"expect":["COMPARE"],"why":"상인 vs 농협 비교(§12-A (2))"}
+{"id":"B14","section":"support","context":"ctx_P4","text":"몇십만 원은 더 받으실 겁니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_WORD","RIGHTS"],"why":"수량어, 권리형"}
+{"id":"B15","section":"support","context":"ctx_P2","text":"당근값이 곧 오를 것으로 보입니다.","cites":["M:price_stab_carrot"],"expect":["FORECAST"],"why":"가격 전망(추측)"}
+{"id":"B16","section":"support","context":"ctx_P4","text":"값이 더 떨어지기 전에 파시는 게 낫습니다.","cites":["M:price_stab_cabbage"],"expect":["FORECAST"],"why":"가격 전망(미래)"}
+{"id":"B17","section":"support","context":"ctx_P2","text":"이번 겨울엔 시세가 하락할 전망입니다.","cites":["M:price_stab_carrot"],"expect":["FORECAST"],"why":"가격 전망"}
+{"id":"B18","section":"support","context":"ctx_P4","text":"이 돈은 확정적으로 나옵니다.","cites":["M:jeju_farmer_allowance"],"expect":["CERTAINTY"],"why":"단정"}
+{"id":"B19","section":"action","context":"ctx_P3","text":"반드시 이번 달 안에 가셔야 합니다.","cites":["A:urgent_crop_ins_garlic"],"expect":["CERTAINTY"],"why":"단정"}
+{"id":"B20","section":"support","context":"ctx_P4","text":"틀림없이 해당되십니다.","cites":["M:nhis_farmer_support"],"expect":["CERTAINTY","RIGHTS"],"why":"단정, 권리형"}
+{"id":"B21","section":"support","context":"ctx_P4","text":"{P:jeju_farmer_allowance}을 받으실 수 있습니다.","cites":["M:jeju_farmer_allowance"],"expect":["RIGHTS"],"why":"권리형"}
+{"id":"B22","section":"support","context":"ctx_P4","text":"{P:logistics}가 자동으로 지급됩니다.","cites":["M:logistics"],"expect":["RIGHTS"],"why":"권리형"}
+{"id":"B23","section":"support","context":"ctx_P1","text":"{P:small_farm_direct} 대상이십니다.","cites":["M:small_farm_direct"],"expect":["RIGHTS"],"why":"권리형"}
+{"id":"B24","section":"support","context":"ctx_P5","text":"어르신은 {P:retire_direct} 자격이 됩니다.","cites":["M:retire_direct"],"expect":["RIGHTS"],"why":"권리형"}
+{"id":"B25","section":"support","context":"ctx_P2","text":"농협에 내시면 {P:price_stab_carrot}을 받게 됩니다.","cites":["M:price_stab_carrot"],"expect":["RIGHTS"],"why":"권리형"}
+{"id":"B26","section":"support","context":"ctx_P4","text":"농민수당은 읍면사무소에서 신청합니다.","cites":["M:jeju_farmer_allowance"],"expect":["RAW_PROGRAM"],"why":"자리표시자 밖 제도명"}
+{"id":"B27","section":"insurance","context":"ctx_P3","text":"재해보험도 같이 드세요.","cites":["I:crop_ins_garlic"],"expect":["OVERPROMISE"],"expect_r7_only":true,"why":"범주어 허용 → 코드 통과, 권유 → 판정"}
+{"id":"B28","section":"support","context":"ctx_P1","text":"직불은 매년 다시 신청하세요.","cites":["M:small_farm_direct"],"expect":["RAW_PROGRAM"],"why":"자리표시자 밖 제도명(직불)"}
+{"id":"B29","section":"support","context":"ctx_P1","text":"{P:fishery_support}도 알아보세요.","cites":["M:farmland_pension"],"expect":["NOT_IN_SHEET"],"why":"표에 없음"}
+{"id":"B30","section":"support","context":"ctx_P4","text":"{P:retire_direct}도 알아보세요.","cites":["M:jeju_farmer_allowance"],"expect":["NOT_IN_SHEET"],"why":"ctx_P4에서 해당 없음"}
+{"id":"B31","section":"support","context":"ctx_P4","text":"어업인 지원금도 신청해 보세요.","cites":["M:jeju_farmer_allowance"],"expect":["UNSUPPORTED","RAW_PROGRAM"],"known_miss":["RAW_PROGRAM"],"why":"R7 판정 몫. R5 알려진 미탐: 띄어쓰기로 지어낸 제도명"}
+{"id":"B32","section":"support","context":"ctx_P4","text":"경영체 등록을 먼저 하시면 {P:jeju_farmer_allowance}을 신청해 볼 조건이 갖춰집니다.","cites":[],"expect":["NO_CITE"],"why":"cites: []"}
+{"id":"B33","section":"support","context":"ctx_P4","text":"경영체 등록을 먼저 하시면 {P:jeju_farmer_allowance}을 신청해 볼 조건이 갖춰집니다.","cites":["M:does_not_exist"],"expect":["BAD_CITE"],"why":"없는 fact"}
+{"id":"B34","section":"insurance","context":"ctx_P4","text":"보험은 가입 기간이 정해져 있어 지금은 안 되고 다음 기간에 농협에 문의하시면 됩니다.","cites":["M:jeju_farmer_allowance"],"expect":["BAD_CITE"],"why":"보험 구획 문장이 지원 구획 fact만 인용"}
+{"id":"B35","section":"support","context":"ctx_P4","text":"경영체 등록을 먼저 하시면 {P:jeju_farmer_allowance}을 신청해 볼 조건이 갖춰집니다.","cites":["jeju_farmer_allowance"],"expect":["BAD_CITE"],"why":"접두어 없음(형식 오류)"}
+{"id":"B36","section":"insurance","context":"ctx_P4","text":"지금 농협에 가시면 {P:crop_ins_cabbage}에 바로 드실 수 있습니다.","cites":["I:crop_ins_cabbage"],"expect":["WRONG_STATUS"],"expect_r7_only":true,"why":"ctx: NEXT_WINDOW"}
+{"id":"B37","section":"support","context":"ctx_P4","text":"{P:jeju_farmer_allowance}은 이번에 바로 신청하시면 됩니다.","cites":["M:jeju_farmer_allowance"],"expect":["WRONG_STATUS"],"expect_r7_only":true,"why":"ctx_P4: 경영체 미등록(BLOCKED_PREREQ)"}
+{"id":"B38","section":"support","context":"ctx_P3","text":"{P:integrated_subsidy}은 올해 공고대로 확정된 내용입니다.","cites":["M:integrated_subsidy"],"expect":["WRONG_STATUS","CERTAINTY"],"why":"ctx: prior_year_reference — CERTAINTY(확정)도 걸림"}
+{"id":"B39","section":"support","context":"ctx_P2","text":"농협에 내고 계시니 {P:price_stab_carrot}은 신경 쓰지 않으셔도 됩니다.","cites":["M:price_stab_carrot"],"expect":["UNSUPPORTED"],"expect_r7_only":true,"why":"원문 ctx: field_contract_done. 이 픽스처의 ctx_P2에서는 참여 확인(CHECK, needs_enrollment) 상태와 어긋나는 주장"}
+{"id":"B40","section":"support","context":"ctx_P2","text":"{P:soil_eco}은 신청만 하면 누구나 나오는 돈입니다.","cites":["M:soil_eco"],"expect":["OVERPROMISE"],"expect_r7_only":true,"why":"과장"}
+{"id":"B41","section":"support","context":"ctx_P4","text":"삼월말까지 신청하시면 됩니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_SINO_UNIT"],"why":"검토 1차 추가: 수사+단위+접미사(말)"}
+{"id":"B42","section":"support","context":"ctx_P4","text":"삼월초에 읍면사무소에 가 보세요.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_SINO_UNIT"],"why":"검토 1차 추가: 수사+단위+접미사(초)"}
+{"id":"B43","section":"support","context":"ctx_P4","text":"유월경에 공고가 나옵니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_SINO_UNIT"],"why":"검토 1차 추가: 달 이름+접미사(경)"}
+{"id":"B44","section":"support","context":"ctx_P4","text":"삼월달에 신청하시면 됩니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_SINO_UNIT"],"why":"검토 1차 추가: 수사+단위+접미사(달)"}
+{"id":"B45","section":"support","context":"ctx_P4","text":"구월중에 농협에 물어보세요.","cites":["M:logistics"],"expect":["NUM_SINO_UNIT"],"why":"검토 1차 추가: 수사+단위+접미사(중)"}
+{"id":"B46","section":"support","context":"ctx_P4","text":"오십만원어치 자재를 받습니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_SINO_UNIT"],"why":"검토 1차 추가: 수사+단위+접미사(어치)"}
+{"id":"B47","section":"support","context":"ctx_P4","text":"오십만 넘게 나오는 제도입니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_SINO_UNIT"],"why":"검토 1차 추가: 단위 없는 금액"}
+{"id":"B48","section":"support","context":"ctx_P4","text":"삼십만이 조금 넘습니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_SINO_UNIT"],"why":"검토 1차 추가: 단위 없는 금액+조사"}
+{"id":"B49","section":"support","context":"ctx_P4","text":"받으실 수 있으니 창구에 가 보세요.","cites":["M:jeju_farmer_allowance"],"expect":["RIGHTS"],"why":"검토 1차 추가: 권리형 어간(문장 중간)"}
+{"id":"B50","section":"support","context":"ctx_P4","text":"받을 수 있는 돈이라 꼭 신청하세요.","cites":["M:jeju_farmer_allowance"],"expect":["RIGHTS"],"why":"검토 1차 추가: 권리형 어간(관형형)"}
+{"id":"B51","section":"support","context":"ctx_P4","text":"지급되니 기다리시면 됩니다.","cites":["M:jeju_farmer_allowance"],"expect":["RIGHTS"],"why":"검토 1차 추가: 권리형 어간(연결형)"}
+{"id":"B52","section":"support","context":"ctx_P4","text":"분명히 이번에 나옵니다.","cites":["M:jeju_farmer_allowance"],"expect":["CERTAINTY"],"why":"검토 1차 추가: 단정(분명히)"}
+{"id":"B53","section":"support","context":"ctx_P4","text":"당연히 해당되는 제도입니다.","cites":["M:jeju_farmer_allowance"],"expect":["CERTAINTY"],"why":"검토 1차 추가: 단정(당연히)"}
+{"id":"B54","section":"support","context":"ctx_P4","text":"열두 분이 함께 신청하셨습니다.","cites":["M:jeju_farmer_allowance"],"expect":["NUM_NATIVE_UNIT"],"why":"검토 1차 추가: 허용 목록(두 분)이 낱말 안에서 가려지면 안 됨"}
+{"id":"B55","section":"support","context":"ctx_P4","text":"양배추가 곧 오를 겁니다.","cites":["M:price_stab_cabbage"],"expect":["FORECAST"],"why":"검토 1차 추가: 값 낱말 없는 추측형 전망"}

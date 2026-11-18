@@ -1,0 +1,13 @@
+{
+  "empty_sheet": false,
+  "items": [
+    {"section": "support", "fact_id": "M:retire_direct", "program_id": "retire_direct", "official_name": "농지이양 은퇴직불",
+     "status": "CHECK", "row_status": "confirmed", "missing": [], "window": "always_open", "office_id": "krc_jeju"},
+    {"section": "support", "fact_id": "M:logistics", "program_id": "logistics", "official_name": "제주산 농산물 물류비 지원",
+     "status": "LIKELY", "row_status": "prior_year_reference", "missing": [], "window": "upcoming", "office_id": "nh_coop"},
+    {"section": "insurance", "fact_id": "I:nh_safety_ins", "program_id": "nh_safety_ins", "official_name": "농업인 NH안전보험",
+     "status": "CHECK", "row_status": "confirmed", "missing": [], "window": "always_open", "office_id": "nh_coop"},
+    {"section": "action", "fact_id": "A:apply_retire_direct", "program_id": "retire_direct", "official_name": "농지이양 은퇴직불",
+     "status": "APPLY_NOW", "row_status": "confirmed", "missing": [], "window": "always_open", "office_id": "krc_jeju"}
+  ]
+}

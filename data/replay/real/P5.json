@@ -1,0 +1,149 @@
+{
+  "sample_id": "P5",
+  "recorded_at": "2026-11-08T16:38:00",
+  "source": "recorded",
+  "provider": "anthropic",
+  "model": "claude-opus-5-5",
+  "prompt_ver": "narrate-v1",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "1a015872",
+  "calls": [
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "d04d59f44da7978469ba2844f14f6e156a03a96abaa34268d3d693779cfa9d6b",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nhis_farmer_support}은 해당될 가능성이 높고 늘 신청할 수 있으니 확인해 보시면 됩니다.\",\"cites\":[\"M:nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:jeju_soil_eco}도 해당될 수 있으니 다음 신청 시기를 기다려 보세요.\",\"cites\":[\"M:jeju_soil_eco\"]},{\"sid\":3,\"text\":\"{P:nat_direct_small}, {P:do_small_machine}, {P:do_irrigation}, {P:js_biodeg}, {P:jeju_pstab}은 소득 기준이나 자부담, 가입 여부를 접수기관에서 확인해 보셔야 합니다.\",\"cites\":[\"M:nat_direct_small\",\"M:do_small_machine\",\"M:do_irrigation\",\"M:js_biodeg\",\"M:jeju_pstab\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2077,
+        "tok_out": 335,
+        "latency_ms": 4125,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 2,
+      "request_hash": "3873a7dda4e59b373a242c8ff886cdcc26e5b510c97a82a8e33bb2f7d0bd41b6",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nhis_farmer_support} 쪽은 해당될 가능성이 높고, 언제든 신청하실 수 있습니다.\",\"cites\":[\"M:nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:jeju_soil_eco} 쪽도 해당될 수 있으니, 다음 신청 때 확인해 보세요.\",\"cites\":[\"M:jeju_soil_eco\"]},{\"sid\":3,\"text\":\"다른 지원들은 소득이나 자부담 같은 조건을 다음 시기에 접수기관에서 확인해 보세요.\",\"cites\":[\"M:nat_direct_small\",\"M:jeju_pstab\",\"M:do_small_machine\",\"M:do_irrigation\",\"M:js_biodeg\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2160,
+        "tok_out": 814,
+        "latency_ms": 8531,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "9a2e19c3376b3c93c2c495a7fd82b5bf177609c89ffb275f39efd050df8e1ed1",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 3607,
+        "tok_out": 190,
+        "latency_ms": 2563,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "fd13c5a527e9da9d37af2c5e0d1cf8758c5df9bdca09d8843d67c371bbf52b26",
+      "response": {
+        "text": "{\"section\":\"insurance\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nh_safety_owner}은 지금 가입을 신청하실 수 있는 시기입니다.\",\"cites\":[\"I:nh_safety_owner\"]},{\"sid\":2,\"text\":\"{P:crop_disaster_a}은 다음 가입 시기가 열리면 알아보시면 됩니다.\",\"cites\":[\"I:crop_disaster_a\"]},{\"sid\":3,\"text\":\"{P:nh_safety_spouse}은 해당되시는지 접수하는 곳에 확인해 보시면 됩니다.\",\"cites\":[\"I:nh_safety_spouse\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 1745,
+        "tok_out": 226,
+        "latency_ms": 3297,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "ccdb39cdc5af05b212c0ab10b33867c66c1707fdcf848ade96951c0c63716829",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 3546,
+        "tok_out": 20,
+        "latency_ms": 1718,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "552fc9285f26e342a03fad095d890f596b0a5d954368f2f0061c12e1113884b7",
+      "response": {
+        "text": "{\"section\":\"action\",\"sentences\":[{\"sid\":1,\"text\":\"{P:a_nhis_farmer_support}은 늘 신청할 수 있으니 지금 접수기관에 문의해 보시면 됩니다.\",\"cites\":[\"A:a_nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:a_mgmt_renewal}은 지금처럼 유지되도록 갱신을 챙겨 두시면 좋습니다.\",\"cites\":[\"A:a_mgmt_renewal\"]},{\"sid\":3,\"text\":\"{P:a_do_irrigation}, {P:a_do_small_machine}, {P:a_js_biodeg}, {P:a_nat_direct_small}, {P:a_jeju_soil_eco}, {P:a_jeju_pstab}은 다음 신청 시기에 확인해 보시면 됩니다.\",\"cites\":[\"A:a_do_irrigation\",\"A:a_do_small_machine\",\"A:a_js_biodeg\",\"A:a_nat_direct_small\",\"A:a_jeju_soil_eco\",\"A:a_jeju_pstab\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2120,
+        "tok_out": 697,
+        "latency_ms": 6625,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "action",
+      "attempt": 2,
+      "request_hash": "118bd1aa40d998dad3bdc895f22ab56ead92df9103da99d4690eb640b8038d8c",
+      "response": {
+        "text": "{\"section\":\"action\",\"sentences\":[{\"sid\":1,\"text\":\"{P:a_mgmt_renewal}은 계속 유지되도록 갱신을 확인해 보시면 됩니다.\",\"cites\":[\"A:a_mgmt_renewal\"]},{\"sid\":2,\"text\":\"{P:a_nhis_farmer_support}은 해당될 수 있으니 지금 신청을 알아보시면 됩니다.\",\"cites\":[\"A:a_nhis_farmer_support\"]},{\"sid\":3,\"text\":\"나머지 지원은 다음 신청 시기가 열리면 접수기관에 확인해 보시면 됩니다.\",\"cites\":[\"A:a_do_irrigation\",\"A:a_do_small_machine\",\"A:a_js_biodeg\",\"A:a_nat_direct_small\",\"A:a_jeju_soil_eco\",\"A:a_jeju_pstab\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2203,
+        "tok_out": 640,
+        "latency_ms": 6734,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "4bc72399c086de325dcac5fff5d80bcbe0475953dd4f7b5724fdb34efc4c4bd4",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 3624,
+        "tok_out": 20,
+        "latency_ms": 1593,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    }
+  ]
+}

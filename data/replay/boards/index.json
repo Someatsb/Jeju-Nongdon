@@ -1,0 +1,14 @@
+{
+  "https://www.seogwipo.go.kr/info/news/notice.htm": "seogwipo_list.html",
+  "https://www.seogwipo.go.kr/info/news/notice.htm?q=FTA&qType=title": "seogwipo_search_fta.html",
+  "https://www.jejusi.go.kr/information/intro/news.do?recordCountPerPage=30": "jejusi_list.html",
+  "https://www.jejusi.go.kr/information/intro/news.do?searchText=FTA&recordCountPerPage=30": "jejusi_search_fta.html",
+  "https://www.jejusi.go.kr/part/farm/intro/news.do?recordCountPerPage=30": "jejusi_farm_list.html",
+  "https://www.jeju.go.kr/farm/notice/notice/notice1.htm": "jeju_farm_list.html",
+  "https://www.seogwipo.go.kr/info/news/notice.htm?act=view&seq=155830189": "detail_sgp_fta_citrus_facility_2027_dept.html",
+  "https://www.seogwipo.go.kr/info/news/notice.htm?act=view&seq=155892046": "detail_sgp_organic_materials_2027.html",
+  "https://www.seogwipo.go.kr/info/news/notice.htm?act=view&seq=155891809": "detail_sgp_organic_fertilizer_2027_extra.html",
+  "https://www.seogwipo.go.kr/info/news/notice.htm?act=view&seq=155891572": "detail_sgp_fta_citrus_facility_2027.html",
+  "https://www.jejusi.go.kr/information/intro/news.do?mode=detail&notice_id=889db4f45941441eabfacd8ac973ab13": "detail_jsi_fta_citrus_2027_a.html",
+  "https://www.jejusi.go.kr/part/farm/intro/news.do?mode=detail&notice_id=16a47b830c1a4522b0b9071ddf20bcc3": "detail_jsi_farm_youth_loan.html"
+}

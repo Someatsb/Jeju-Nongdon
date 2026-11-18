@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% import "_ui.html" as ui %}
+{% import "_art.html" as art %}
+{% block title %}{{ e.title }} · {{ cfg.service_name }}{% endblock %}
+{#- 지원 안내(설계서 2026-11-14-supports-readability-spec). e: app.catalog.Entry · cells: 한눈에 띠 세 칸 · vtable: 작물별 표(없으면 None) · link_label: 원문 단추 글
+    숫자·날짜·금액은 표와 공고에 있는 것만 쓴다. 링크가 없으면 a 태그를 만들지 않는다.
+    위에서 아래로: 이름·기관 → 한눈에 띠(얼마나/언제/어디로) → 두 칸(누가 받나요 / 준비물·창구에서 확인하실 것) → 원문 단추 → 확인한 날. -#}
+{% block head %}<link rel="stylesheet" href="/static/supports.css"><link rel="stylesheet" href="/static/copylink.css"><script src="/static/copylink.js" defer></script>{% endblock %}
+{% block body_class %}page-sp page-sp-one{% endblock %}
+{% block main_class %}spmain{% endblock %}
+{% block content %}
+{% set notice = e.kind == 'notice' %}
+<div class="sp-body">
+  <div class="sp-head sp-head-one">
+    <div class="sp-head-text">
+      <h1>{{ e.title }}{% if notice %} <span class="sp-new">AI가 읽은 공고</span>{% endif %}</h1>
+      <p class="sp-sub">{% if e.agency %}{{ e.agency }}{% endif %}{% if e.crops %}{% if e.agency %} · {% endif %}{{ e.crops }}{% endif %}</p>
+      {%- if notice %}
+      <p class="sp-aside"><span>{{ new_warn }}</span></p>
+      {%- endif %}
+    </div>
+  </div>
+  {%- for n in e.notes if not notice and n != prior_note %}
+  <p class="sp-note">{{ n }}</p>
+  {%- endfor %}
+
+  <div class="sp-glance">
+    {%- for c in cells %}
+    <section class="sp-cell sp-cell-{{ c.id }}" aria-label="{{ c.title }}">
+      <h2>{{ c.title }}</h2>
+      {%- for it in c.items %}
+      <div class="sp-item">
+        <p class="sp-v{% if it.open %} is-open{% endif %}{% if it.phone %} sp-v-phone{% endif %}{% if it.long %} is-long{% endif %}">{{ it.big }}</p>
+        {%- for s in it.small %}<p class="sp-small">{{ s }}</p>{% endfor %}
+        {%- if it.source %}
+        <details class="sp-more"><summary>공고에 적힌 기간 글 보기</summary>{% for s in it.source %}<p class="sp-src">{{ s }}</p>{% endfor %}</details>
+        {%- endif %}
+      </div>
+      {%- endfor %}
+    </section>
+    {%- endfor %}
+  </div>
+
+  {%- set has_right = (not notice and (e.documents or e.checks)) or (notice and e.new_rest) %}
+  <div class="sp-two{% if not has_right %} is-one{% elif vtable %} has-table{% endif %}">
+    <section class="sp-box sp-who" aria-label="누가 받나요">
+      <h2>{{ "공고에 적힌 조건" if notice else "누가 받나요" }}</h2>
+      {%- if notice %}
+        {%- if e.new_target_lines %}
+        <ul class="sp-lines">{% for x in target_plain %}<li>{{ x }}</li>{% endfor %}</ul>
+        {%- if target_legal %}<details class="sp-more"><summary>공고에 적힌 법 이름과 공문 글 {{ target_legal | length }}줄 보기</summary><ul class="sp-lines">{% for x in target_legal %}<li>{{ x }}</li>{% endfor %}</ul></details>{% endif %}
+        {%- elif e.new_who %}
+        <ul class="sp-lines sp-who-list">{% for label, q in e.new_who %}<li><b>{{ label }}</b>{% if q and is_legal(q) %}<details class="sp-more"><summary>공고에 적힌 글 보기</summary><small class="sp-src">{{ q }}</small></details>{% elif q %}<small class="sp-src">{{ q }}</small>{% endif %}</li>{% endfor %}</ul>
+        {%- else %}<p class="sp-text">공고에 대상이 안 적혀 있어요. 창구에 물어보세요</p>{% endif %}
+      {%- else %}
+        {%- if e.conditions %}<ul class="sp-lines">{% for c in e.conditions %}<li>{{ c }}</li>{% endfor %}</ul>
+        {%- elif not vtable %}<p class="sp-text">조건은 창구에서 확인하세요</p>{% endif %}
+        {%- if vtable and vtable.by_condition %}
+        {%- for s in vtable.sections %}
+        <table class="sp-table{% if not loop.first %} is-follow{% endif %}">
+          {%- if s.caption %}<caption>{{ s.caption }}</caption>{% endif %}
+          <thead><tr><th scope="col">{{ vtable.label_head }}</th>{% if vtable.show_amount %}<th scope="col">얼마나</th>{% endif %}{% if vtable.show_window %}<th scope="col">언제 신청해요</th>{% endif %}</tr></thead>
+          <tbody>
+          {%- for r in s.rows %}
+            <tr{% if r.focus %} class="is-focus"{% endif %}><th scope="row">{{ r.label }}{% if r.focus %} <small class="sp-here">보고 계신 줄</small>{% endif %}</th>
+              {%- if vtable.show_amount %}<td data-label="얼마나">{{ r.amount }}</td>{% endif %}
+              {%- if vtable.show_window %}<td data-label="언제 신청해요">{{ r.window }}{% if r.prior %} <small class="sp-prior">지난 공고 기준</small>{% endif %}</td>{% endif %}</tr>
+          {%- endfor %}
+          </tbody>
+        </table>
+        {%- endfor %}
+        {%- elif vtable %}
+        <table class="sp-table">
+          <thead><tr><th scope="col">{{ vtable.label_head }}</th>{% if vtable.show_condition %}<th scope="col">조건</th>{% endif %}{% if vtable.show_amount %}<th scope="col">얼마나</th>{% endif %}{% if vtable.show_window %}<th scope="col">언제 신청해요</th>{% endif %}</tr></thead>
+          <tbody>
+          {%- for r in vtable.rows %}
+            <tr><th scope="row">{{ r.label }}</th>
+              {%- if vtable.show_condition %}<td data-label="조건">{{ r.condition or vtable.same_as_above or "-" }}</td>{% endif %}
+              {%- if vtable.show_amount %}<td>{{ r.amount }}</td>{% endif %}
+              {%- if vtable.show_window %}<td>{{ r.window }}{% if r.prior %} <small class="sp-prior">지난 공고 기준</small>{% endif %}</td>{% endif %}</tr>
+          {%- endfor %}
+          </tbody>
+        </table>
+        {%- endif %}
+      {%- endif %}
+    </section>
+    {%- if has_right %}
+    <div class="sp-col">
+      {%- if notice %}
+      <section class="sp-box" aria-label="공고에 적힌 글">
+        <h2>공고에 적힌 글</h2>
+        <ul class="sp-quotes">{% for label, quote in e.new_rest %}<li><b>{{ label }}</b>{% if quote %}<span>{{ quote }}</span>{% endif %}</li>{% endfor %}</ul>
+      </section>
+      {%- else %}
+      {%- if e.documents %}
+      <section class="sp-box" aria-label="준비물">
+        <h2>준비물</h2>
+        <ul class="sp-lines">{% for d in e.documents %}<li>{{ d }}</li>{% endfor %}</ul>
+      </section>
+      {%- endif %}
+      {%- if checks %}
+      <details class="sp-fold" aria-label="창구에서 확인하실 것">
+        <summary>창구에서 확인하실 것 {{ checks | length }}가지 <span class="sp-when-closed">보기</span><span class="sp-when-open">접기</span></summary>
+        <ul class="sp-lines">{% for c in checks %}<li>{{ c }}</li>{% endfor %}</ul>
+      </details>
+      {%- endif %}
+      {%- endif %}
+    </div>
+    {%- endif %}
+  </div>
+
+  <section class="sp-link" aria-label="원문">
+    {%- if e.link %}
+    <a class="btn btn-ghost sp-ext" href="{{ e.link.url }}" target="_blank" rel="noopener">{{ link_label }}</a>
+    <button type="button" class="btn btn-ghost lk-copy" data-copy-url="{{ e.link.url }}">{{ art.ic_copy("ic") }}링크 복사하기</button>
+    <p class="lk-done" role="status" aria-live="polite" data-msg="복사했어요. 카카오톡이나 문자에 붙여 넣으세요"></p>
+    <input class="lk-fallback" type="text" readonly hidden value="{{ e.link.url }}" aria-label="이 주소를 길게 눌러 복사하세요">
+    <p class="sp-link-note"><span>{{ new_window_note }}</span>{% if e.link.note %}<span>{{ e.link.note }}</span>{% endif %}</p>
+    {%- else %}
+    <p class="sp-nolink">{{ no_link_note }}</p>
+    {%- endif %}
+  </section>
+  <p class="sp-verified">{{ e.verified_text }}</p>
+</div>
+{{ ui.actionbar("내가 받을 수 있는지 찾기", prev=back_label, prev_href=back_href, primary_href="/counsel") }}
+{% endblock %}

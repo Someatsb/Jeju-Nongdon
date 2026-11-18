@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "_art.html" as art %}
+{% block title %}화면을 찾지 못했어요 · {{ cfg.service_name }}{% endblock %}
+{#- 없는 주소 등 오류 화면. 인쇄 보류 화면(print_hold.html)과 같은 틀(flow.css)을 쓴다. -#}
+{% block head %}<link rel="stylesheet" href="/static/flow.css">{% endblock %}
+{% block body_class %}page-h{% endblock %}
+{% block main_class %}hmain{% endblock %}
+{% block content %}
+<section class="hold" role="alert">
+  <h1>찾으시는 화면이 없어요</h1>
+  <p class="lead">주소가 잘못됐거나 이미 없어진 화면이에요. 처음 화면으로 가 주세요.</p>
+  <div class="hold-acts">
+    <a class="btn btn-primary" href="/">처음으로{{ art.arrow() }}</a>
+  </div>
+</section>
+{% endblock %}

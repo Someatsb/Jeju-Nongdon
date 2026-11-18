@@ -1,0 +1,33 @@
+{#- 결과 화면의 "지금 접수 중인 공고" 줄들(설계 result-v4; 2026-11-16 표 하나로). 결과 화면과 /counsel/ai 의 match_html 조각이 같이 쓴다. m: MatchJob.view() (state · lines)
+    run 이면 작은 한 줄(자리를 미리 잡는다), done 이고 맞을 수 있는 공고(lines)가 있으면 공고 한 건 = 표의 소분류 한 묶음(가실 곳 묶음과 같은 모양, 번호 없음), 그 밖에는 아무것도 없다.
+    소분류 칸: 접수처 이름(없으면 "지금 접수 중인 공고") + 작은 꼬리표 "AI가 읽은 공고". 이름 칸: 공고 이름. 설명 칸: 마감 날짜 + 빨간 남은 날 알약 · 왜 맞는지 · 물어볼 것 · "조건은 창구에서 확인하세요" · 자세히 보기.
+    따로 떠 있는 제목은 없다(꼬리표가 그 뜻이다). 첫 묶음에 id="new-notices"(결론 띠 아래 알림 줄이 누르면 내려오는 곳). "그 밖의 새 공고" 이름 나열은 어르신 화면에 없다(직원이 볼 내용 칸에 있다).
+    공고 글(이름·왜·기간·어디서·물어볼 것)은 외부 글이라 자동 이스케이프로만 쓴다. -#}
+{% import "_art.html" as art %}
+{%- if m.state == "run" -%}
+<p class="nn-run" role="status" aria-live="polite"><i class="ai-spin" aria-hidden="true"></i>지금 접수 중인 공고도 찾아보고 있어요…</p>
+{%- elif m.state == "done" and m.lines -%}
+{%- for ln in m.lines %}
+{%- set v = ln | nnv %}
+<article class="bx bx-nn" data-key="{{ ln.key }}"{% if loop.first %} id="new-notices" tabindex="-1"{% endif %}>
+  <header class="bx-band">
+    <span class="bx-pic">{{ art.place_icon(v.place, "ic ic-p") }}</span>
+    <div class="bx-name"><h3 class="bx-t">{% if v.place %}{{ v.place }}{% else %}지금 접수 중인 공고{% endif %}</h3><span class="nn-tag">AI가 읽은 공고</span></div>
+  </header>
+  <ul class="bx-rows">
+    <li class="bxr nn-row">
+      <div class="bxr-top"><b class="bxr-t nn-name">{{ ln.name }}</b></div>
+      <div class="bxr-d">
+        {%- if v.date %}<span class="bxr-when">{{ art.ic_calendar("ic ic-s") }}<span>{{ v.date }}</span></span>{% endif %}
+        {%- if v.left %}<span class="bxr-left"><span class="left-pill{% if v.urgent %} is-urgent{% endif %}">{{ v.left }}</span></span>{% endif %}
+        <p class="nn-why">{{ ln.why }}</p>
+        {%- if v.other %}<p class="nn-where">{{ v.other }}</p>{% endif %}
+        {%- if ln.ask %}<ul class="nn-ask">{% for a in ln.ask[:2] %}<li>{{ a }}</li>{% endfor %}</ul>{% endif %}
+        <p class="nn-ai">조건은 창구에서 확인하세요</p>
+        <a class="btn btn-ghost nn-go" href="/supports/{{ ln.key | urlencode }}?from=result">공고 자세히 보기{{ art.arrow() }}</a>
+      </div>
+    </li>
+  </ul>
+</article>
+{%- endfor %}
+{%- endif -%}

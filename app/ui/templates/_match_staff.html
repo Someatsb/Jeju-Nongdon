@@ -1,0 +1,23 @@
+{#- "직원이 볼 내용" 안의 AI가 읽은 공고 맞춰 보기 요약(서버 쪽에서만 그린다. 어르신용 /counsel/ai 응답에는 싣지 않는다). ms: MatchJob.staff_view() · m: MatchJob.view() -#}
+{%- if ms.source == "ai" and ms["items"] -%}
+<section class="ms" id="match-staff" aria-label="AI가 읽은 공고 맞춰 보기">
+  <h3 class="ms-t">AI가 읽은 공고 맞춰 보기 <small>AI가 읽고 프로그램이 판정했어요{% if ms.note %} · {{ ms.note }}{% endif %}</small></h3>
+  <ul class="ms-counts">
+    {%- for v in ("맞을 수 있음", "알 수 없음", "안 맞음") %}
+    <li><b>{{ v }} {{ ms.counts[v] }}건</b>{% if ms.names[v] %}: {{ ms.names[v] | join(" · ") }}{% else %} · 없음{% endif %}</li>
+    {%- endfor %}
+  </ul>
+  {%- if ms.left_out %}<p class="ms-n">넘쳐서 못 본 공고 {{ ms.left_out }}건</p>{% endif %}
+  <ol class="ms-items">
+    {%- for it in ms["items"] %}
+    <li><b>{{ it.name }}</b> · {{ it.verdict }}{% if it.why %} · {{ it.why }}{% endif %}
+      {%- if it.checks %}<ul class="ms-checks">{% for c in it.checks %}<li><span class="ms-k">{{ c.kind }}</span> 공고 글 “{{ c.quote }}” → <b>{{ c.answer }}</b></li>{% endfor %}</ul>
+      {%- else %}<small> · 확인한 것이 없어요</small>{% endif %}</li>
+    {%- endfor %}
+  </ol>
+</section>
+{%- elif m.state == "run" -%}
+<p class="ai-pend" id="match-staff"><i class="ai-spin" aria-hidden="true"></i>AI가 읽은 공고를 맞춰 보는 중이에요…</p>
+{%- elif ms.note -%}
+<p class="ms-n" id="match-staff">AI가 읽은 공고 맞춰 보기: {{ ms.note }}</p>
+{%- endif -%}

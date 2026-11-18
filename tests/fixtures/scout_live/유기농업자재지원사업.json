@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "name": "유기농업자재지원사업",
+  "agency": "산업팀",
+  "apply_where": "나. 신청장소: 농지소재지 읍∙면사무소 및 동주민센터",
+  "apply_period": "가. 신청기간: 2026. 11. 2.(월) ~ 12. 31.(목)",
+  "target": "다. 지원대상: 농업경영정보를 등록한 농업인 및 농업법인",
+  "content": "",
+  "tags": [
+    {
+      "label": "농업경영체 등록 필요",
+      "quote": "다. 지원대상: 농업경영정보를 등록한 농업인 및 농업법인",
+      "anchor": "p1:L10"
+    },
+    {
+      "label": "농업법인도 신청 가능",
+      "quote": "다. 지원대상: 농업경영정보를 등록한 농업인 및 농업법인",
+      "anchor": "p1:L10"
+    },
+    {
+      "label": "토양검정 받은 농가",
+      "quote": "라. 제출서류: 신청서 및 서약서, 친환경농산물인증서(인증농가), 친환경농산물의무자조금납부확인증(인증농가), 농업경영체등록확인서, 토양검정결과서 등",
+      "anchor": "p1:L11"
+    }
+  ],
+  "url": "https://www.jejusi.go.kr/information/intro/news.do?mode=detail&notice_id=bd160208ba7748268e1800674bcf9edb",
+  "read_date": "2026-11-15",
+  "decision": "DRAFT_READY",
+  "table_key": null
+}

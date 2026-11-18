@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "name": "지난 시설 지원사업",
+  "agency": "",
+  "apply_period": "2026. 10. 1.(목) ~ 10. 20.(화)",
+  "target": "",
+  "content": "",
+  "tags": [
+    {
+      "label": "농가 대상",
+      "quote": "농업인 대상 사업"
+    },
+    {
+      "label": "접수처",
+      "quote": "나. 접수처: 읍면동사무소"
+    }
+  ],
+  "url": "https://www.seogwipo.go.kr/info/news/notice.htm?act=view&seq=6",
+  "read_date": "2026-11-14",
+  "decision": "DRAFT_READY",
+  "table_key": null
+}

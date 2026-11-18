@@ -1,0 +1,336 @@
+{
+  "schema": "golden-spec/2",
+  "case_id": "P4",
+  "phase": 1,
+  "kind": "persona",
+  "title": "양 씨 — 애월 양배추 1.2ha 임차, 1961년생, 경영체 미등록, 상인 판매",
+  "source": "round1-M-persona.md §2-2 P4, 설계 v2 §3·§12-A(7)",
+  "as_of": "2026-11-13",
+  "fixture": {
+    "snapshot": "snap_20261112",
+    "tables": "tables_1st_20261113",
+    "network": "blocked",
+    "jasdc": "recorded_20261112",
+    "llm": "none",
+    "price_override": null,
+    "feature_flags": {
+      "offfarm_money": true
+    }
+  },
+  "profile": {
+    "crop_key": "양배추",
+    "area_m2": 12000,
+    "total_farm_area_m2": 12000,
+    "birth_year": 1961,
+    "birth_year_approx": false,
+    "sex": "M",
+    "region": "제주시",
+    "eupmyeon": "애월읍",
+    "visitor": "self",
+    "jeju_residence_years": 3,
+    "farming_years": 3,
+    "mgmt_registered": "N",
+    "mgmt_years": null,
+    "mgmt_last_registered_year": null,
+    "spouse_status": "none",
+    "spouse_birth_year": null,
+    "coop_member": "N",
+    "coop_shipping": "N",
+    "selfpay_fund_member": "N",
+    "field_sold_contract": "Y",
+    "crop2_key": null,
+    "crop2_area_m2": null,
+    "crop2_coop_shipping": null,
+    "crop2_selfpay_fund_member": null,
+    "crop2_field_sold_contract": null,
+    "owns_farmland": "N",
+    "farmland_owned_years": null,
+    "owned_area_ge_15500m2": "N",
+    "health_insurance": "?",
+    "offfarm_income_band": "?",
+    "disaster_damage": "N",
+    "direct_payment_education": "NA",
+    "already_receiving": [],
+    "insurance_enrolled": [],
+    "flags": [],
+    "disaster_end_date": null
+  },
+  "profile_fields_not_in_C_round1": [
+    "birth_year",
+    "birth_year_approx",
+    "eupmyeon",
+    "visitor",
+    "mgmt_last_registered_year",
+    "spouse_status",
+    "spouse_birth_year",
+    "crop2_key",
+    "crop2_area_m2",
+    "crop2_coop_shipping",
+    "crop2_selfpay_fund_member",
+    "crop2_field_sold_contract",
+    "owned_area_ge_15500m2",
+    "health_insurance",
+    "disaster_damage",
+    "direct_payment_education"
+  ],
+  "profile_fields_dropped_from_C_round1": [
+    "age (→ birth_year)",
+    "flags의 입원·질병 값(사원 F)",
+    "flags의 disaster_damage (→ 독립 필드 disaster_damage)"
+  ],
+  "expect": {
+    "paper_mode": "normal",
+    "header": {
+      "must_include": [
+        "2026-11-13",
+        "기준일"
+      ],
+      "note": "--asof 시연 기준일 표시(§12-A(1))"
+    },
+    "key_lines": [
+      {
+        "id": "P4-K1",
+        "section": "B",
+        "action": "PREREQ:mgmt_registration",
+        "status": "BLOCKED_PREREQ",
+        "must_include": [
+          "농업경영체 등록",
+          "180만",
+          "확인할 조건",
+          "1644-8778"
+        ],
+        "unlocks": [
+          {
+            "program_key": "NAT-DIRECT-AREA",
+            "low_won": 1800000,
+            "high_won": 2580000,
+            "status_after": "CHECK",
+            "calc": "1.2ha × 150만~215만",
+            "pending": "N9: 부서장 문구 '180만~230만'과 불일치",
+            "row_status": "prior_year_reference",
+            "badge": true,
+            "badge_must_include": [
+              "공고 전",
+              "3월"
+            ],
+            "badge_basis": "2026년 기준, 2027년 공고 전"
+          },
+          {
+            "program_key": "NH-SAFETY-INS",
+            "status_after": "OPEN_NOW",
+            "row_status": "confirmed",
+            "badge": false
+          },
+          {
+            "program_key": "NHIS-FARMER-SUPPORT",
+            "status_after": "CHECK",
+            "amount": null,
+            "row_status": "confirmed",
+            "badge": false
+          },
+          {
+            "program_key": "JEJU-FARMER-ALLOW",
+            "status_after": "NOT_ELIGIBLE",
+            "first_year": 2029
+          }
+        ],
+        "documents_must_include": [
+          "임대차계약서",
+          "경작사실확인서"
+        ],
+        "row_status": "confirmed",
+        "badge": false
+      },
+      {
+        "id": "P4-K2",
+        "section": "C",
+        "program_key": "JEJU-PSTAB",
+        "crop_key": "양배추",
+        "status": "BLOCKED_PREREQ",
+        "must_include": [
+          "양배추",
+          "자조금",
+          "참여 신청",
+          "153원"
+        ],
+        "must_not_include": [
+          "만 원"
+        ],
+        "missing_prereqs": [
+          "coop_shipping",
+          "selfpay_fund_member",
+          "enrollment"
+        ],
+        "why": "계통 전환 줄: 조건·날짜만, 사실 한 줄(작년 kg당 153원)만 허용. 농가 총액 금지(§12-A(2)) · 같은 막힘(농협 출하·자조금)을 가진 물류비·토양생태 행도 같은 C칸 계통 전환 줄(Task 15 재검토: 세 행 모두 표에 계통 출하 조건이 있다)",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "2026년 기준",
+          "공고 전"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "id": "P4-K3",
+        "section": "C",
+        "program_key": "JEJU-LOGI",
+        "status": "BLOCKED_PREREQ",
+        "must_include": [
+          "물류비",
+          "자조금",
+          "농협 출하"
+        ],
+        "must_not_include": [
+          "만 원"
+        ],
+        "missing_prereqs": [
+          "coop_shipping",
+          "selfpay_fund_member"
+        ],
+        "why": "계통 전환 줄: 조건·날짜만(§12-A(2)). 금액 없음",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "2026년 기준",
+          "공고 전"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "id": "P4-K4",
+        "section": "C",
+        "program_key": "JEJU-SOIL-ECO",
+        "status": "BLOCKED_PREREQ",
+        "must_include": [
+          "토양생태",
+          "자조금",
+          "농협 출하"
+        ],
+        "must_not_include": [
+          "만 원"
+        ],
+        "missing_prereqs": [
+          "coop_shipping",
+          "selfpay_fund_member"
+        ],
+        "why": "계통 전환 줄: 조건·날짜만(§12-A(2)). 금액 없음",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "2026년 기준",
+          "공고 전"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      }
+    ],
+    "first_actions": [
+      {
+        "section": "B",
+        "kind": "PREREQ",
+        "target": "mgmt_registration",
+        "rank": 1,
+        "must_include": [
+          "농관원"
+        ]
+      }
+    ],
+    "insurance": [
+      {
+        "product_id": "income_stab",
+        "crop_key": "양배추",
+        "status": "NEXT_WINDOW",
+        "reasons": [
+          "needs_mgmt"
+        ],
+        "next_window": {
+          "months": [
+            8,
+            9
+          ]
+        },
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "8월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "product_id": "crop_disaster",
+        "crop_key": "양배추",
+        "status": "NEXT_WINDOW",
+        "reasons": [
+          "needs_mgmt"
+        ],
+        "next_window": {
+          "months": [
+            9,
+            10
+          ]
+        },
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "9월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "product_id": "nh_safety",
+        "status": "CHECK",
+        "reasons": [
+          "needs_mgmt"
+        ],
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "fixed_lines": [
+      {
+        "id": "FIXED-FARM-HELPER",
+        "must_include": [
+          "60일",
+          "농협"
+        ],
+        "must_not_include": [
+          "까지 신청하세요",
+          "남았"
+        ],
+        "note": "사원 F·설계 v2 §7-1: 입원·질병은 묻지 않는다. 영농도우미는 모든 종이에 같은 문장(\"다치거나 3일 넘게 입원하셨으면 60일 안에 농협\")."
+      },
+      {
+        "id": "FIXED-DISCLAIMER",
+        "must_include": [
+          "이 종이를 뽑아 준 곳",
+          "공문서"
+        ],
+        "note": "G 책임 표기 3줄"
+      }
+    ],
+    "banners": [],
+    "also": [],
+    "must_not_print": [
+      "농지연금",
+      "은퇴직불",
+      "600만",
+      "받으실 수 있는 돈",
+      "▶",
+      "오를",
+      "내릴",
+      "예측된",
+      "파세요"
+    ]
+  },
+  "unverified": [
+    "지급대상 농지·지주 직불 수령 여부(manual_check)",
+    "양배추 2026-27 참여 모집"
+  ],
+  "pending_decisions": [],
+  "approval": {
+    "by": [],
+    "at": null,
+    "sha256": null
+  }
+}

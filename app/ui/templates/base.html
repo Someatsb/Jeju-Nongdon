@@ -1,0 +1,29 @@
+{#- 공통 틀. 모든 화면 템플릿은 이 파일을 상속한다.
+    머리(로고 + "제주 농돈" + 꼬리표, 오른쪽은 화면별 header_actions) · 본문(content) · 아래 그림 띠 · 맨 아래 작은 글씨.
+    cfg: Config · replay_note: 체험 모드일 때만 문구, 아니면 None. 날짜·모드 띠는 없다(직원 메뉴 /staff로 옮김). -#}
+{%- import "_art.html" as art -%}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ cfg.service_name }}{% endblock %}</title>
+<link rel="stylesheet" href="/static/app.css">
+{% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+{{ art.crop_symbols() }}
+<header class="topbar">
+  <a class="brand" href="/">{{ art.logo() }}<span class="brand-name">제주 농돈</span><span class="brand-sub">농사 지원금 찾기</span></a>
+  {% block header_actions %}{% endblock %}
+</header>
+<main class="{% block main_class %}{% endblock %}">
+{% block content %}{% endblock %}
+</main>
+{{ art.strip() }}
+<footer class="site-foot">
+  {%- block foot_note %}{% endblock %}
+</footer>
+<script src="/static/app.js" defer></script>
+</body>
+</html>

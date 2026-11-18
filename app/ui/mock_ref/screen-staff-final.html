@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>직원 입력 화면</title>
+<style>
+/*
+  직원 입력 화면(2라운드). 14항목(부서장 정정): 설계 v2 §7-1 순서(A §2-3의 12항목 + 경영체 마지막 등록 연도)
+  + 13 최근 60일 안 태풍·폭우·우박 등 피해(있음/없음, 사원 F 변경: 입원은 묻지 않고 종이에 고정 줄)
+  + 14 올해 직불 교육 이수(예/아니오/직불 안 받음, 설계 v2 §12-A(2)).
+  1920×1080, 직원 눈과 화면 거리 약 60cm. KRDS 본문 최소 16px·기본 17px, 행간 150% → 본문 18px, 행간 1.5.
+  단추 최소 높이 44px. 색은 보조로만(선택 단추는 ✓ 글자 + 두꺼운 테두리 + 색).
+*/
+:root { --bg: #f3f4f6; --card: #fff; --ink: #111; --sub: #4b5563; --line: #c7cbd1; --pri: #1849a9; --sel: #e7eefc; --warn: #8a4b00; --warn-bg: #fff4e0; --ok: #116329; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 18px/1.5 "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; word-break: keep-all; }
+header { display: flex; align-items: center; gap: 18px; height: 60px; padding: 0 24px; background: #fff; border-bottom: 1px solid var(--line); }
+header h1 { font-size: 21px; margin: 0; white-space: nowrap; }
+.no { font-size: 16px; color: var(--sub); white-space: nowrap; }
+.asof { border: 2px solid var(--ink); border-radius: 6px; padding: 0 8px; font-weight: 700; font-size: 15px; white-space: nowrap; }
+.fresh { display: flex; gap: 8px; font-size: 15px; }
+.fresh span { border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; background: #fafafa; white-space: nowrap; }
+.fresh .ok::before { content: "● "; color: var(--ok); }
+.fresh .key::before { content: "◆ "; color: var(--sub); }
+header .sp { flex: 1; }
+.btn { font: inherit; font-weight: 700; border: 2px solid var(--ink); background: #fff; color: var(--ink); border-radius: 8px; padding: 6px 16px; cursor: pointer; min-height: 44px; }
+.btn.pri { background: var(--pri); border-color: var(--pri); color: #fff; }
+.btn:focus-visible, .seg button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--pri); outline-offset: 2px; }
+main { display: grid; grid-template-columns: 1fr 1fr 560px; gap: 16px; padding: 14px 24px; height: calc(100% - 60px); }
+.col { display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+.zero { background: #fff; border: 1px dashed var(--line); border-radius: 10px; padding: 4px 12px; font-size: 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.zero .seg button { min-height: 36px; padding: 2px 12px; font-size: 16px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 6px 16px 8px; }
+.q { display: grid; grid-template-columns: 32px 1fr; gap: 2px 8px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; }
+.q:last-child { border-bottom: 0; }
+.q .n { grid-row: span 3; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 700; font-size: 16px; display: grid; place-items: center; margin-top: 2px; }
+.q.off .n { background: #9ca3af; }
+.q.off { color: #6b7280; }
+.q label.t { font-weight: 700; }
+.q label.t small { font-weight: 400; color: var(--sub); font-size: 15px; margin-left: 6px; }
+.say { font-size: 15px; color: var(--sub); }
+.say::before { content: "묻는 말: "; font-weight: 700; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { font: inherit; min-height: 44px; padding: 4px 14px; border: 1.5px solid #8b929c; background: #fff; color: var(--ink); border-radius: 8px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--sel); border: 2.5px solid var(--pri); font-weight: 700; }
+.seg button[aria-pressed="true"]::before { content: "✓ "; }
+.num { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.num input { font: inherit; font-size: 21px; font-weight: 700; width: 120px; min-height: 44px; padding: 2px 10px; border: 1.5px solid #8b929c; border-radius: 8px; text-align: right; }
+.num select { font: inherit; min-height: 44px; padding: 2px 8px; border: 1.5px solid #8b929c; border-radius: 8px; }
+.conv { color: var(--sub); font-size: 15px; }
+.hint { font-size: 15px; color: var(--sub); }
+aside { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; display: flex; flex-direction: column; gap: 8px; min-height: 0; overflow: auto; }
+aside h2 { font-size: 19px; margin: 0; }
+.slots { display: flex; justify-content: space-between; align-items: baseline; border: 2px solid var(--ink); border-radius: 8px; padding: 6px 12px; font-weight: 700; }
+.slots small { font-weight: 400; color: var(--sub); font-size: 15px; }
+.sum { width: 100%; border-collapse: collapse; font-size: 17px; }
+.sum td { padding: 2px 4px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+.sum td:last-child { text-align: right; font-weight: 700; white-space: nowrap; }
+.sum tr.g td { font-weight: 700; border-bottom: 2px solid var(--ink); padding-top: 5px; }
+.sum tr.g td:last-child { font-weight: 400; color: var(--sub); }
+.r { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+.r h3 { margin: 0 0 4px; font-size: 17px; }
+.r p { margin: 2px 0; font-size: 16px; }
+.r .seg button { min-height: 40px; font-size: 16px; padding: 2px 10px; }
+.todo { border: 2px solid var(--warn); border-radius: 8px; padding: 8px 12px; background: var(--warn-bg); }
+.todo h3 { margin: 0 0 2px; font-size: 17px; }
+.todo ul { margin: 0; padding-left: 20px; font-size: 16px; }
+.acts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
+.acts .btn { min-height: 54px; font-size: 18px; }
+.acts kbd { font: 13px/1 "Malgun Gothic", sans-serif; border: 1px solid currentColor; border-radius: 4px; padding: 2px 5px; margin-left: 6px; }
+.priv { font-size: 14px; color: var(--sub); margin: 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>삼춘 돈 챙김표 · 새 상담</h1>
+  <span class="no">상담번호 K7-3F9Q</span>
+  <span class="asof">기준일 2026-11-13(시연)</span>
+  <div class="fresh">
+    <span class="ok">가격 11-05까지(2일 전)</span>
+    <span class="ok">지원 표 확인 11-05</span>
+    <span class="ok">허브 갱신 성공 09:12</span>
+    <span class="key">키 없음: 계산·인쇄만</span>
+  </div>
+  <div class="sp"></div>
+  <button class="btn" type="button" onclick="location.href='screen-briefing.html'">첫 화면(3줄)</button>
+  <button class="btn" type="button">새 상담</button>
+</header>
+
+<main>
+  <!-- 왼쪽 열: 1~7 -->
+  <div class="col">
+    <div class="zero"><b>직원 표시</b>
+      <div class="seg" data-one><button aria-pressed="true">본인</button><button aria-pressed="false">가족 대리</button></div>
+      <span>·</span><div class="seg" data-one><button aria-pressed="true">남</button><button aria-pressed="false">여</button></div>
+    </div>
+    <section class="card">
+      <div class="q"><span class="n">1</span><label class="t" for="eup">사시는 읍면동 <small>기록에는 행정시만</small></label>
+        <div class="num"><select id="eup" style="min-width:200px"><option>애월읍</option><option>한림읍</option><option>구좌읍</option><option>대정읍</option><option>남원읍</option><option>(43곳 목록)</option></select></div></div>
+      <div class="q"><span class="n">2</span><label class="t" for="yr">태어난 해 <small>공고가 출생일로 끊음</small></label>
+        <div class="num"><input id="yr" inputmode="numeric" value="1961" style="width:110px"><span>년</span><span class="conv" id="age"></span>
+          <div class="seg"><button aria-pressed="false">대략만 앎</button></div></div></div>
+      <div class="q"><span class="n">3</span><label class="t">작물과 면적 <small>최대 2개</small></label>
+        <div>
+          <div class="num"><select><option>양배추</option><option>월동무</option><option>당근</option><option>브로콜리</option><option>노지감귤</option><option>만감류</option><option>마늘</option><option>양파</option></select>
+            <input class="a" inputmode="decimal" value="3630"><span>평</span><span class="conv"></span></div>
+          <div class="num" style="margin-top:6px"><select><option>노지감귤</option><option>양배추</option></select>
+            <input class="a" inputmode="decimal" value="605"><span>평</span><span class="conv"></span></div>
+        </div></div>
+      <div class="q"><span class="n">4</span><label class="t" for="tot">모든 밭 합친 면적</label>
+        <div class="num"><input id="tot" inputmode="decimal" value="4235"><span>평</span><span class="conv" id="totc"></span>
+          <button class="btn" type="button" id="sum3" style="padding:4px 10px">3번 합</button></div>
+        <div class="hint" id="edge"></div></div>
+      <div class="q"><span class="n">5</span><label class="t">땅</label>
+        <div class="seg" data-one><button aria-pressed="false">전부 내 땅</button><button aria-pressed="false">일부 내 땅</button><button aria-pressed="true">전부 빌린 땅</button><button aria-pressed="false">모름</button></div>
+        <div class="hint">조건부 질문 "가진 땅이 4,700평 넘나"는 4번이 302~1,512평이고 내 땅일 때만 나타납니다.</div></div>
+      <div class="q"><span class="n">6</span><label class="t">농업경영체 등록 <small>거의 모든 제도의 전제</small></label>
+        <div class="seg" data-one data-key="reg"><button aria-pressed="false">2년 넘음</button><button aria-pressed="false">2년 안 됨</button><button aria-pressed="true">안 함</button><button aria-pressed="false">모름</button></div></div>
+      <div class="q off" id="q7"><span class="n">7</span><label class="t">경영체 마지막 등록·변경 연도 <small>3년 유효, 끊길 위험</small></label>
+        <div class="num"><input inputmode="numeric" placeholder="예: 2024" disabled style="width:110px"><span>년</span><span class="hint">6번이 "안 함"이라 건너뜀</span></div></div>
+    </section>
+  </div>
+
+  <!-- 가운데 열: 8~13 -->
+  <div class="col">
+    <section class="card">
+      <div class="q"><span class="n">8</span><label class="t">함께 농사짓는 배우자</label>
+        <div class="seg" data-one><button aria-pressed="false">경영체에 같이 올라 있음</button><button aria-pressed="false">같이 짓지만 안 올라 있음</button><button aria-pressed="true">없음(농사 안 지음)</button></div></div>
+      <div class="q"><span class="n">9</span><label class="t">농사지은 햇수 · 제주 산 지</label>
+        <div class="num"><input inputmode="numeric" value="3" style="width:80px"><span>년</span>
+          <div class="seg"><button aria-pressed="false">오래 지음(10년+)</button><button aria-pressed="true">제주 3년 넘음</button></div></div></div>
+      <div class="q"><span class="n">10</span><label class="t">건강보험료 내는 방식</label>
+        <div class="seg" data-one data-key="nhis"><button aria-pressed="false">고지서 받아 직접</button><button aria-pressed="false">자녀 회사 밑</button><button aria-pressed="false">본인·배우자 회사에서 뗌</button><button aria-pressed="true">모름</button></div>
+        <div class="say">고지서가 집으로 와요, 아내분 회사로 올라가 있어요?</div></div>
+      <div class="q"><span class="n">11</span><label class="t">올해 이 작물 파는 길</label>
+        <div class="seg" data-one><button aria-pressed="false">농협에 냄(계통)</button><button aria-pressed="true">상인 밭떼기 계약함</button><button aria-pressed="false">상인에게 넘길 예정</button><button aria-pressed="false">아직 모름</button><button aria-pressed="false">직접 판매</button></div></div>
+      <div class="q"><span class="n">12</span><label class="t">자조금 <small>양배추는 자조금 품목</small></label>
+        <div class="seg" data-one data-key="jajo"><button aria-pressed="false">냄</button><button aria-pressed="true">안 냄</button><button aria-pressed="false">모름</button></div>
+        <div class="say">양배추 연합회 회비, 농협에서 떼 가는 자조금 내세요?</div></div>
+      <div class="q"><span class="n">13</span><label class="t">최근 60일 안 태풍·폭우·우박 등 피해</label>
+        <div class="seg" data-one data-key="dmg"><button aria-pressed="false">있음</button><button aria-pressed="true">없음</button></div>
+        <div class="hint">"있음"이면 종이 맨 위 "급한 것"에 피해 신고. 다침·입원은 묻지 않고 종이에 고정 줄로 찍힘.</div></div>
+      <div class="q"><span class="n">14</span><label class="t">올해 직불 교육 이수 <small>미이수면 직불 감액(끊길 위험)</small></label>
+        <div class="seg" data-one data-key="edu"><button aria-pressed="false">예</button><button aria-pressed="false">아니오</button><button aria-pressed="true">직불 안 받음</button></div></div>
+    </section>
+  </div>
+
+  <!-- 오른쪽: 결과 확인(화면 2) -->
+  <aside>
+    <h2>결과 확인 · 종이에 나갈 내용</h2>
+    <div class="slots"><span>앞면 8칸 중 <span id="slotN">8</span>칸</span><small>넘친 것 <span id="overN">0</span>건 → 뒷면</small></div>
+    <table class="sum">
+      <tr class="g" id="gA" style="display:none"><td>급한 것</td><td>1건</td></tr>
+      <tr id="rA" style="display:none"><td>태풍 피해 신고</td><td>오늘이나 내일</td></tr>
+      <tr class="g"><td>먼저 하실 일</td><td>2건</td></tr>
+      <tr><td>① 농업경영체 등록 <span class="hint">· 확인할 조건 있음</span></td><td>연 약 180만~260만 원</td></tr>
+      <tr><td>② 자조금 내고 농협에 내기 <span class="hint">· 금액 안 씀</span></td><td>예년 10월 참여 신청</td></tr>
+      <tr class="g"><td>농협이 신청해 주는 돈</td><td>1건</td></tr>
+      <tr><td>③ 양배추 가격안정관리제·물류비</td><td>올해 해당 없음</td></tr>
+      <tr class="g"><td>직접 신청하셔야 받는 돈</td><td>3건</td></tr>
+      <tr><td>④ 면적직불금 <span class="hint">· 2027 공고 전</span></td><td>연 약 180만~260만 원</td></tr>
+      <tr><td>⑤ 1월 통합신청(친서민) <span class="hint">· 2027 공고 전</span></td><td>보조 최대 700만 원</td></tr>
+      <tr id="r6"><td>⑥ 건강보험료 경감 <span class="hint">· 농업 밖 제도</span></td><td>보험료 최대 절반</td></tr>
+      <tr class="g"><td>보험</td><td>2건</td></tr>
+      <tr><td>⑦ 양배추 수입·재해(택1) · ⑧ 안전보험</td><td>2027년 8~10월</td></tr>
+    </table>
+    <div class="r">
+      <p><b>R1 이미 받는 것</b> <span class="hint">물을 줄 없음(경영체 미등록)</span></p>
+      <p><b>R2 든 보험</b> <span class="hint">안 누르면 미가입</span></p>
+      <div class="seg"><button aria-pressed="false">양배추 재해</button><button aria-pressed="false">양배추 수입안정</button><button aria-pressed="false">안전보험</button></div>
+    </div>
+    <div class="todo">
+      <h3>⚠ 어르신께 물어볼 것 <span id="todoN"></span></h3>
+      <ul id="todoList"></ul>
+    </div>
+    <div class="acts">
+      <button class="btn pri" type="button" onclick="window.open('screen-farmer-final.html','farmer')">큰 글씨 화면<kbd>F2</kbd></button>
+      <button class="btn pri" type="button" onclick="window.open('paper-final.html','paper')">인쇄 미리보기<kbd>F4</kbd></button>
+    </div>
+    <p class="priv">이름·연락처는 받지 않습니다. 기록에는 연령대·면적 구간·작물·행정시만 남고, LLM에는 숫자·나이·면적·읍면을 보내지 않습니다.</p>
+  </aside>
+</main>
+
+<script>
+(function () {
+  var PY = 3.305785;
+  document.querySelectorAll('.seg').forEach(function (g) {
+    g.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      if (g.hasAttribute('data-one')) g.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' && !g.hasAttribute('data-one') ? 'false' : 'true');
+      update();
+    });
+  });
+  function val(el) { var v = parseFloat(String(el.value).replace(/,/g, '')); return isNaN(v) ? null : v; }
+  function fmt(n, d) { return n.toLocaleString('ko-KR', { maximumFractionDigits: d, minimumFractionDigits: d }); }
+  function pressed(k) { var b = document.querySelector('[data-key="' + k + '"] [aria-pressed="true"]'); return b ? b.textContent : ''; }
+  document.getElementById('sum3').onclick = function () {
+    var t = 0; document.querySelectorAll('input.a').forEach(function (i) { t += val(i) || 0; });
+    document.getElementById('tot').value = Math.round(t); update();
+  };
+  function update() {
+    var y = val(document.getElementById('yr'));
+    document.getElementById('age').textContent = y ? '= ' + (2026 - y) + '세(올해 기준)' : '';
+    document.querySelectorAll('input.a').forEach(function (i) {
+      var v = val(i); i.parentNode.querySelector('.conv').textContent = v ? '= ' + fmt(v * PY / 10000, 2) + 'ha' : '';
+    });
+    var t = val(document.getElementById('tot'));
+    document.getElementById('totc').textContent = t ? '= ' + fmt(t * PY / 10000, 2) + 'ha' : '';
+    var edge = document.getElementById('edge');
+    edge.textContent = !t ? '비어 있으면 3번의 합을 쓰고 "총면적 확인" 꼬리표를 붙입니다.'
+      : (t >= 1300 && t <= 1800) ? '⚠ 소농직불 경계(1,512평) 근처: 다시 확인하세요.'
+      : '소농직불 경계(302~1,512평) 밖: 면적직불로 계산합니다.';
+    var reg = pressed('reg'), todo = [];
+    document.getElementById('q7').classList.toggle('off', reg !== '2년 넘음' && reg !== '2년 안 됨');
+    if (reg !== '2년 넘음' && reg !== '2년 안 됨') todo.push('땅 주인이 계약서나 경작사실확인서를 써 줄 수 있나요? (등록 서류)');
+    todo.push('땅 주인이 이 밭으로 직불을 받고 있나요? (④ 확인)');
+    if (pressed('nhis') === '모름') todo.push('건강보험료 고지서가 본인 이름으로 오나요? (⑥ 확인)');
+    if (pressed('jajo') === '모름') todo.push('자조금을 내고 계신지 농협에 확인');
+    if (pressed('edu') === '아니오') todo.push('직불 교육을 올해 안에 들으셔야 감액이 없습니다(끊기지 않게 할 일로 인쇄)');
+    var dmg = pressed('dmg') === '있음';
+    document.getElementById('gA').style.display = dmg ? '' : 'none';
+    document.getElementById('rA').style.display = dmg ? '' : 'none';
+    document.getElementById('r6').style.opacity = dmg ? .45 : 1;
+    document.getElementById('overN').textContent = dmg ? 1 : 0;   // 9항목 → 8칸 상한, ⑥이 뒷면으로(넘침 규칙)
+    document.getElementById('todoList').innerHTML = todo.map(function (x) { return '<li>' + x + '</li>'; }).join('');
+    document.getElementById('todoN').textContent = todo.length + '가지';
+  }
+  ['yr', 'tot'].forEach(function (id) { document.getElementById(id).addEventListener('input', update); });
+  document.querySelectorAll('input.a').forEach(function (i) { i.addEventListener('input', update); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'F2') { e.preventDefault(); window.open('screen-farmer-final.html', 'farmer'); }
+    if (e.key === 'F4') { e.preventDefault(); window.open('paper-final.html', 'paper'); }
+  });
+  update();
+})();
+</script>
+</body>
+</html>

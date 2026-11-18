@@ -1,0 +1,115 @@
+{
+  "sample_id": "P1",
+  "recorded_at": "2026-11-15T06:02:00",
+  "source": "recorded",
+  "provider": "anthropic",
+  "model": "claude-opus-5-5",
+  "prompt_ver": "narrate-v3",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "004aa1ca",
+  "calls": [
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "2019588cf65b8e7bf217deb74d217ff7ac19b295d7b4aa9e287b6c35338a0be6",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nhis_farmer_support}에 맞을 수 있어요. 언제든 창구에서 물어보세요.\",\"cites\":[\"M:nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:jeju_smallfarm}, {P:jeju_women_voucher}도 맞을 수 있어요.\",\"cites\":[\"M:jeju_smallfarm\",\"M:jeju_women_voucher\"]},{\"sid\":3,\"text\":\"{P:nat_direct_small}도 땅 넓이와 벌이를 창구에서 확인해 보세요.\",\"cites\":[\"M:nat_direct_small\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2499,
+        "tok_out": 994,
+        "latency_ms": 10671,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "12acf07ac0db55f3e35cb01afcca17ca1a7f266efba7d9aef6e9577019aab8a2",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2705,
+        "tok_out": 178,
+        "latency_ms": 2875,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "7c0aaa9e07d7d700619ffa91c9c855624789790ef4484fd154c3a5068509b8fa",
+      "response": {
+        "text": "{\"section\":\"insurance\",\"sentences\":[{\"sid\":1,\"text\":\"{P:crop_disaster_a}, 다음 가입 시기를 기다려야 해요.\",\"cites\":[\"I:crop_disaster_a\"]},{\"sid\":2,\"text\":\"{P:nh_safety_owner}, 지금 가입할 수 있는 때예요.\",\"cites\":[\"I:nh_safety_owner\"]},{\"sid\":3,\"text\":\"내게 맞는지 창구에서 먼저 확인해 보세요.\",\"cites\":[\"I:nh_safety_owner\",\"I:crop_disaster_a\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2331,
+        "tok_out": 527,
+        "latency_ms": 6141,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "973cb50d60c5dd17aa3942a99f149fd805af89f36a317df9185020e506b66a27",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2671,
+        "tok_out": 20,
+        "latency_ms": 1875,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "22e2bfb181cfdfcaa557da7b51afd75cfb12a7db909690d6c0018d6c540b62f9",
+      "response": {
+        "text": "{\"section\":\"action\",\"sentences\":[{\"sid\":1,\"text\":\"{P:a_nhis_farmer_support}부터 지금 창구에서 신청해 보세요.\",\"cites\":[\"A:a_nhis_farmer_support\"]},{\"sid\":2,\"text\":\"나머지는 다음 신청 때가 열리면 창구에서 맞는지 확인해 보세요.\",\"cites\":[\"A:a_jeju_smallfarm\",\"A:a_nat_direct_small\",\"A:a_jeju_women_voucher\"]},{\"sid\":3,\"text\":\"{P:a_ins_a}도 다음 시기에 다시 살펴보세요.\",\"cites\":[\"A:a_ins_a\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2556,
+        "tok_out": 773,
+        "latency_ms": 8030,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "d91a8bc096fbe49892481eb9dda8cffcc1a0e37f6776c5155b47939dd708fa2b",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2703,
+        "tok_out": 93,
+        "latency_ms": 2469,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    }
+  ]
+}

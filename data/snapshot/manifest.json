@@ -1,0 +1,25 @@
+{
+ "built_at": "2026-11-08",
+ "datasets": {
+  "hub_1361": {
+   "file": "hub_1361.csv",
+   "sha256": "dfe0595ff88b9b6be4c2515d0afc8e1b690346e07d083a8a88fef410a8e35693",
+   "source": "제주데이터허브 1361 품종별 일일 거래 통계(전국 도매시장). averagePrice 원/kg(시장·법인 행 단순평균), transactionVolume 톤, transactionAmount 백만원"
+  },
+  "jasdc_citrus_k1": {
+   "file": "jasdc_citrus_k1.csv",
+   "sha256": "574d0a7ef7837fae7981efaf49c5fea371e58816ee0e22d1fc1fd371e22263c4",
+   "source": "감귤출하연합회 수급관리센터 term-day.jsp kind=1(노지온주) 일별. avg 원/5kg 상자, deal 톤, deal=0 행 제외"
+  },
+  "hub_854_jeju_raw": {
+   "file": "hub_854_jeju_raw.csv",
+   "sha256": "e1a7b10fe8c5dd144f7d271c17162f01328bb94a7c7851563d7b4e86de775f2c",
+   "source": "제주데이터허브 854 시도별 노지채소 재배면적(ha). cp949 원본, 전 시도"
+  },
+  "agg_869_ratio": {
+   "file": "agg_869_ratio.csv",
+   "sha256": "7c017d17888e3e789ebb28883fb0483cc044f67a652127aea011bad45034c9d3",
+   "source": "제주데이터허브 869 전국도매시장 일별 경락가격(당근) 원본에서 scripts/build_869_ratio.py로 만든 반월 가락/1361 비"
+  }
+ }
+}

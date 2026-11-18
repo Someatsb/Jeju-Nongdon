@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% import "_ui.html" as ui %}
+{% import "_art.html" as art %}
+{% block title %}마을 안내용 종이 · {{ cfg.service_name }}{% endblock %}
+{#- 마을 안내용 종이 고르기(설계서 3-6). 작물·밭 넓이·나이대를 큰 단추로 고른다. 이름·번호 같은 개인 정보는 받지 않는다.
+    칸 이름(name)·값(value)은 예전과 같다: crop_code · area_band · age_band. crops/areas/ages: [(값, 글)] · values: 이미 고른 값 · error: 한 줄 -#}
+{% block head %}<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="/static/question.css"><link rel="stylesheet" href="/static/typesheet.css">{% endblock %}
+{% block body_class %}page-q page-t{% endblock %}
+{% block main_class %}qmain{% endblock %}
+{% block header_actions %}<p class="proxy-note">이장님·작목반장님용</p>{% endblock %}
+{% block content %}
+<form method="post" action="/typesheet" class="intake" novalidate data-once>
+<div class="steps">
+<section class="qstep is-current t-step" data-fit>
+  <div class="q-head">
+    <h1>마을에 붙일 안내 종이를 만들어요</h1>
+    <p class="lead">세 가지를 누르시면 한 장이 나와요. 이름이나 주소는 필요 없어요.</p>
+    {{ ui.speak("마을에 붙일 안내 종이를 만들어요. 키우는 작물, 밭 넓이, 나이대를 하나씩 누르시고 종이 만들기를 눌러 주세요.") }}
+  </div>
+  {% if error %}<p class="hint" role="alert">{{ error }}</p>{% endif %}
+  <div class="t-group t-crops">
+    <h2 class="t-q"><i class="t-n">1</i> 무엇을 키우세요?</h2>
+    <div class="tiles">
+      {%- for code, label in crops %}{{ ui.choice("radio", "crop_code", code, label, checked=(values.get("crop_code") == code), icon=art.crop_icon(code, "tile-icon"), cls="choice-tile") }}{% endfor %}
+    </div>
+  </div>
+  <div class="t-pair">
+    <div class="t-group">
+      <h2 class="t-q"><i class="t-n">2</i> 밭은 얼마나 되나요?</h2>
+      <div class="choice-row t-row">
+        {%- for code, label in areas %}{{ ui.choice("radio", "area_band", code, sub_area[code], checked=(values.get("area_band") == code), sub=label, cls="choice-sm") }}{% endfor %}
+      </div>
+    </div>
+    <div class="t-group">
+      <h2 class="t-q"><i class="t-n">3</i> 몇 살쯤 되신 분 기준인가요?</h2>
+      <div class="choice-row t-row">
+        {%- for code, label in ages %}{{ ui.choice("radio", "age_band", code, label, checked=(values.get("age_band") == code), cls="choice-sm") }}{% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+{{ ui.actionbar("종이 만들기", prev_href="/") }}
+</form>
+{% endblock %}

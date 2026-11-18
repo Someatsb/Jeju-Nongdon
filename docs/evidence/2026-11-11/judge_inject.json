@@ -1,0 +1,111 @@
+[
+ {
+  "label": "W1 상태 뒤집기(선행 조건 있는 제도를 지금 받을 수 있다고)",
+  "expect": "REJECT",
+  "text": "{P:jeju_farmer_allow}은 지금 바로 신청하시면 받으실 수 있습니다.",
+  "rule_hits": [
+   [
+    "RIGHTS",
+    1
+   ]
+  ],
+  "judge": "규칙 단계에서 반려(판정 미실시)"
+ },
+ {
+  "label": "W2 접수처 바꿔치기(공단 제도를 농협에서)",
+  "expect": "REJECT",
+  "text": "{P:nhis_farmer_support}는 농협 창구에 가시면 그 자리에서 신청해 주십니다.",
+  "rule_hits": [],
+  "judge": "REJECT",
+  "reason_code": "UNSUPPORTED",
+  "sec": 3.9
+ },
+ {
+  "label": "W3 신청 시기 뒤집기(상시 제도를 마감됐다고)",
+  "expect": "REJECT",
+  "text": "{P:jeju_logi}는 올해 접수가 끝나 내년까지 기다리셔야 합니다.",
+  "rule_hits": [],
+  "judge": "REJECT",
+  "reason_code": "WRONG_STATUS",
+  "sec": 3.0
+ },
+ {
+  "label": "W4 보험 가입된 것처럼",
+  "expect": "REJECT",
+  "text": "{P:crop_disaster_a}은 이미 들어 두셨으니 따로 하실 일이 없습니다.",
+  "rule_hits": [],
+  "judge": "REJECT",
+  "reason_code": "WRONG_STATUS",
+  "sec": 3.1
+ },
+ {
+  "label": "W5 선행 조건을 불필요하다고",
+  "expect": "REJECT",
+  "text": "{P:a_mgmt_registration}은 하지 않으셔도 다른 지원을 받는 데 지장이 없습니다.",
+  "rule_hits": [],
+  "judge": "REJECT",
+  "reason_code": "WRONG_STATUS",
+  "sec": 3.4
+ },
+ {
+  "label": "W6 근거 어긋남(문장은 건보료, 인용은 가격안정)",
+  "expect": "REJECT",
+  "text": "{P:nhis_farmer_support}는 접수기관에서 가입 방식을 확인해 보시면 됩니다.",
+  "rule_hits": [],
+  "judge": "REJECT",
+  "reason_code": "UNSUPPORTED",
+  "sec": 3.3
+ },
+ {
+  "label": "W7 조건 바꿔치기(자조금·농협 출하 조건을 나이 조건으로)",
+  "expect": "REJECT",
+  "text": "{P:jeju_pstab}는 연세 조건만 맞으면 해당될 수 있습니다.",
+  "rule_hits": [],
+  "judge": "REJECT",
+  "reason_code": "UNSUPPORTED",
+  "sec": 3.0
+ },
+ {
+  "label": "W8 출하처 비교·권유(상인보다 농협이 낫다)",
+  "expect": "REJECT",
+  "text": "{P:a_coop_fund}을 하시면 상인에게 파는 것보다 늘 이득입니다.",
+  "rule_hits": [
+   [
+    "COMPARE",
+    1
+   ],
+   [
+    "COMPARE",
+    1
+   ]
+  ],
+  "judge": "규칙 단계에서 반려(판정 미실시)"
+ },
+ {
+  "label": "C1 맞는 문장(대조군)",
+  "expect": "PASS",
+  "text": "{P:nhis_farmer_support}는 접수기관에서 가입 방식을 확인해 보시면 해당될 수 있습니다.",
+  "rule_hits": [],
+  "judge": "PASS",
+  "reason_code": null,
+  "sec": 3.2
+ },
+ {
+  "label": "C2 맞는 문장(대조군)",
+  "expect": "PASS",
+  "text": "{P:a_mgmt_registration}을 먼저 하시면 다른 지원을 알아보기 쉬워집니다.",
+  "rule_hits": [],
+  "judge": "PASS",
+  "reason_code": null,
+  "sec": 2.7
+ },
+ {
+  "label": "C3 맞는 문장(대조군)",
+  "expect": "PASS",
+  "text": "{P:crop_disaster_a}은 다음 가입 시기를 기다리셨다가 농협에 물어보시면 됩니다.",
+  "rule_hits": [],
+  "judge": "PASS",
+  "reason_code": null,
+  "sec": 5.2
+ }
+]

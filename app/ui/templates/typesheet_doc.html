@@ -1,0 +1,53 @@
+{#- 유형별 종이(Task 23): 앞면만 1장. 공용 조각은 _sheet_macros.html. 숫자는 모두 nums()/stamp()로 span.num에 담는다. -#}
+{% import "_sheet_macros.html" as m with context %}
+{% import "_art.html" as art %}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ cfg.service_name }} 유형 종이</title>
+<style>
+{{ css }}
+</style>
+</head>
+<body>
+<section class="sheet front v2" data-page="front">
+  <div class="body">
+    {{ m.head() }}
+    <section>
+      <h2 class="line pt17" data-sec="H">{{ art.ic_coin("ic ic-s") }}<span>이 유형이 받을 수 있는 돈{% if sheet.open_money_more %} <small>외 {{ nums(sheet.open_money_more | string, source="calc:typesheet") }}건 · 센터에서 전체 확인</small>{% endif %}</span></h2>
+      {% for line in sheet.open_money %}
+      <div class="it line pt{{ [line.pt, 16] | min }}" data-sec="D"><span class="bx"></span><span class="no">{{ nums(circled(loop.index0), source="sheet") }}</span><div class="main">
+        <div class="r1"><span class="nm">{% if line.print_tag == "CHECK" %}<span class="tag">확인</span>{% endif %}{{ nums(line.title, line) }}</span><span class="ld"></span><span class="am pt{{ [line.pt, 16] | min }}">{{ nums(line.text, line) }}</span></div>
+        {% set sub = sub_text(line) %}{% if sub or line.badge %}<div class="r2 line pt14" data-sec="Dx"><span class="tx">{{ nums(sub, line) }}</span>{% if line.badge %}{{ stamp(line.badge, line, cls="badge prior") }}{% endif %}</div>{% endif %}
+      </div></div>
+      {% else %}<p class="fixed line pt14" data-sec="F">지금 열린 돈이 없어요. 센터에 물어보세요.</p>
+      {% endfor %}
+    </section>
+    <section>
+      <h2 class="line pt17" data-sec="H">{{ art.ic_pencil("ic ic-s") }}<span>먼저 하실 일 {{ nums("3", source="sheet") }}가지</span></h2>
+      {% for a in sheet.first_three %}
+      <div class="it line pt16" data-sec="B"><span class="bx"></span><span class="no">{{ nums(circled(loop.index0), source="sheet") }}</span><div class="main">
+        <div class="r1"><span class="nm">{{ nums(action_text(a), source="calc:typesheet") }}</span></div>
+      </div></div>
+      {% endfor %}
+    </section>
+    <section>
+      <h2 class="line pt17" data-sec="H">{{ art.ic_list("ic ic-s") }}<span>{{ nums("1,000", source="sheet") }}평 밭이라면 (예시){% if examples_dropped %} <small>외 {{ nums(examples_dropped | string, source="calc:typesheet") }}건은 센터에서</small>{% endif %}</span></h2>
+      {% for e in examples %}{% set src = example_source(e) %}
+      <p class="fixed line pt14" data-sec="F" data-n="{{ est_rows(e.label, 14) }}">{{ nums(e.label, source=src[0], asof=src[1]) }}</p>
+      {% endfor %}
+    </section>
+    <section>
+      <h2 class="line pt17" data-sec="H">{{ art.ic_check("ic ic-s") }}<span>자가 체크 <small>(답이 아래와 같으면 종이에 적힌 곳으로)</small></span></h2>
+      {% for c in sheet.self_check5 %}
+      <p class="fixed line pt14" data-sec="F" data-n="{{ est_rows(c.question ~ " · " ~ c.if_no, 14) }}">{{ nums(c.question, source="calc:typesheet") }} · {{ nums(c.if_no, source="calc:typesheet") }}</p>
+      {% endfor %}
+    </section>
+    <p class="note14 line pt13" data-sec="N" data-n="{{ est_rows(sheet.basis_note, 13) }}">{{ nums(sheet.basis_note, source="calc:typesheet") }}</p>
+  </div>
+  {{ m.foot_lines(foot) }}
+</section>
+</body>
+</html>

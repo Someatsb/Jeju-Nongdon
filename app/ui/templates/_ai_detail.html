@@ -1,0 +1,3 @@
+{#- 자세히 보기 안 "한 번 더 쉽게" 칸의 AI 설명 줄. 결과 화면과 /counsel/ai 조각이 같이 쓴다. d: build_view 의 detail · ai_pending: 아직 쓰는 중 -#}
+{%- if ai_pending %}<p class="ai-pend"><i class="ai-spin" aria-hidden="true"></i>설명을 쓰고 있어요…</p>
+{%- elif d.ai_screen %}<ul class="dt-ai">{% for x in d.ai_screen %}<li>{{ x }}</li>{% endfor %}</ul>{% endif -%}

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공고 초안 보고서</title>
+<style>
+  body { font-family: "Malgun Gothic", sans-serif; margin: 1.5rem; color: #1b1b1b; background: #fff; }
+  h1 { font-size: 1.3rem; margin: 0 0 .3rem; }
+  h2 { font-size: 1.05rem; margin: 1.4rem 0 .4rem; }
+  .banner { padding: .6rem .8rem; border: 2px solid #444; margin: .6rem 0; font-weight: bold; }
+  .banner.warn { border-color: #a60; background: #fff4e0; }
+  .banner.stop { border-color: #a00; background: #fde8e8; }
+  table { border-collapse: collapse; width: 100%; table-layout: fixed; }
+  th, td { border: 1px solid #999; padding: .35rem .5rem; vertical-align: top; word-break: break-all; }
+  th { background: #eee; text-align: left; }
+  .mark { width: 2.2rem; text-align: center; font-weight: bold; font-size: 1.1rem; }
+  .name { width: 11rem; }
+  .page { color: #555; font-size: 1rem; }
+  .issue { font-size: 1rem; color: #833; margin-top: .25rem; }
+  .note { color: #555; font-size: 1rem; }
+  body { overflow-wrap: anywhere; }
+  @media (max-width: 700px) { body { margin: .8rem; } .name { width: 6.5rem; } th, td { padding: .3rem .35rem; } }
+  @media (prefers-color-scheme: dark) { body { background: #181818; color: #e6e6e6; } th { background: #2a2a2a; } th, td { border-color: #666; } .banner.warn { background: #3a2c10; } .banner.stop { background: #3a1414; } .issue { color: #e9a; } }
+</style>
+</head>
+<body>
+<h1>공고 초안 보고서 - {{ title }}</h1>
+<p class="note">에이전트는 제안만 하고 표 반영은 직원이 확정해요. 직원이 확정하기 전에는 인쇄에 쓰이지 않아요.</p>
+<div class="banner{% if result.decision in ('BLOCKED_PII', 'UNREADABLE') %} stop{% elif result.partial or result.decision == 'NEEDS_STAFF' %} warn{% endif %}">
+  결정: {{ decision }}{% if result.partial %} (미완 초안){% endif %}
+</div>
+{% if result.reason %}<p>이유: {{ result.reason }}</p>{% endif %}
+{% if result.hint %}<p>안내: {{ result.hint }}</p>{% endif %}
+{% if result.staff_questions %}
+<h2>직원에게 묻는 것</h2>
+<ul>{% for q in result.staff_questions %}<li>{{ q }}</li>{% endfor %}</ul>
+{% endif %}
+{% for g in general_issues %}<p class="issue">{{ '✗' if g.level == 'RED' else '!' }} {{ g.field }} ({{ g.code }}): {{ g.message }}</p>{% endfor %}
+{% for prog in programs %}
+<h2>사업 {{ prog.n }} - {{ {'NEW': '새 사업', 'UPDATE': '기존 행 갱신', 'SAME': '기존 행과 같음'}[prog.p.action] }}
+  {% if prog.p.match_id %}({{ prog.p.match_id }}){% elif prog.p.program_key %}({{ prog.p.program_key }}){% endif %}</h2>
+{% for i in prog.issues %}<p class="issue">{{ '✗' if i.level == 'RED' else '!' }} {{ i.field }} ({{ i.code }}): {{ i.message }}</p>{% endfor %}
+{% for q in prog.p.questions %}<p class="note">질문: {{ q }}</p>{% endfor %}
+<table>
+  <thead><tr><th class="mark">검사</th><th class="name">칸</th><th>초안</th><th>원문 인용</th></tr></thead>
+  <tbody>
+  {% for r in prog.rows %}
+  <tr>
+    <td class="mark" title="{{ {'✓': '문제 없음', '!': '직원 확인', '✗': '확정 불가'}[r.mark] }}">{{ r.mark }}</td>
+    <td class="name">{{ r.name }}</td>
+    <td>{{ r.value }}</td>
+    <td>{% if r.quote %}{{ r.quote }}{% else %}<span class="note">(인용 없음)</span>{% endif %}
+      {% if r.page %}<div class="page">{{ r.page }}쪽{% if r.anchor %} · {{ r.anchor }}{% endif %}</div>{% endif %}
+      {% for i in r.issues %}<div class="issue">{{ '✗' if i.level == 'RED' else '!' }} {{ i.code }}: {{ i.message }}</div>{% endfor %}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% if prog.tags %}
+<p class="note">목록에 보이는 이름표(근거 문장이 원문에 글자 그대로 있는 것만 어르신 목록에 올라갑니다)</p>
+<table>
+  <thead><tr><th class="mark">검사</th><th class="name">칸</th><th>초안</th><th>원문 인용</th></tr></thead>
+  <tbody>
+  {% for t in prog.tags %}
+  <tr>
+    <td class="mark" title="{{ {'✓': '근거 확인', '!': '직원 확인', '✗': '근거가 맞지 않음'}[t.mark] }}">{{ t.mark }}</td>
+    <td class="name">이름표 {{ loop.index }}</td>
+    <td>{{ t.label }}</td>
+    <td>{% if t.quote %}{{ t.quote }}{% else %}<span class="note">(인용 없음)</span>{% endif %}
+      {% if t.page %}<div class="page">{{ t.page }}쪽{% if t.anchor %} · {{ t.anchor }}{% endif %}</div>{% endif %}
+      {% for i in t.issues %}<div class="issue">{{ '✗' if i.level == 'RED' else '!' }} {{ i.code }}: {{ i.message }}</div>{% endfor %}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% if not prog.p.fields.get('office') or prog.p.fields['office'].value == '없음' %}<p class="note">접수처를 공고에서 찾지 못했어요. 어르신 목록에는 접수처 줄 없이 올라가니 원문을 한 번 봐 주세요.</p>{% endif %}
+{% endfor %}
+{% if result.dropped_tags %}<p class="note">조건이 아니거나 근거 문장이 원문과 맞지 않아 뺀 이름표: {{ result.dropped_tags | join(', ') }}</p>{% endif %}
+{% if result.skipped %}
+<h2>초안에 넣지 않은 사업</h2>
+<ul>{% for s in result.skipped %}<li>{{ s.title }} - {{ s.reason }}</li>{% endfor %}</ul>
+{% endif %}
+{% if not programs and result.decision in ('DRAFT_READY', 'NEEDS_STAFF') %}<p class="note">초안에 사업이 없어요. 원문을 보고 직원이 직접 입력해 주세요.</p>{% endif %}
+<p class="note">검사 결과: 빨강 {{ red }}건, 전체 {{ total }}건. ✓ 문제 없음 · ! 직원이 보고 넘어갈 수 있음 · ✗ 고쳐야 확정 가능.</p>
+</body>
+</html>

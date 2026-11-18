@@ -1,0 +1,234 @@
+{
+  "schema": "golden-spec/2",
+  "case_id": "B04",
+  "phase": 1,
+  "kind": "boundary",
+  "title": "당근 1,500평, 합성 반월 평균 700원(하한가 816 아래) — 발동·최대·작년",
+  "source": "round1-I-quality.md §2 S03, 설계 v2 §6-3",
+  "as_of": "2026-11-13",
+  "fixture": {
+    "snapshot": "snap_20261112",
+    "tables": "tables_1st_20261113",
+    "network": "blocked",
+    "jasdc": "recorded_20261112",
+    "llm": "none",
+    "price_override": {
+      "rule": "PRICE_STAB",
+      "crop_key": "당근",
+      "half_month": "2026-11-01~2026-11-15",
+      "avg_won_per_kg": 700,
+      "n_days_with_data": 8,
+      "market_scope": "전국(1361)+경계 구간"
+    },
+    "feature_flags": {
+      "offfarm_money": true
+    }
+  },
+  "profile": {
+    "crop_key": "당근",
+    "area_m2": 4959,
+    "total_farm_area_m2": 4959,
+    "birth_year": 1956,
+    "birth_year_approx": false,
+    "sex": "M",
+    "region": "제주시",
+    "eupmyeon": null,
+    "visitor": "self",
+    "jeju_residence_years": 50,
+    "farming_years": 30,
+    "mgmt_registered": "Y",
+    "mgmt_years": 20,
+    "mgmt_last_registered_year": 2025,
+    "spouse_status": "none",
+    "spouse_birth_year": null,
+    "coop_member": "Y",
+    "coop_shipping": "Y",
+    "selfpay_fund_member": "Y",
+    "field_sold_contract": "N",
+    "crop2_key": null,
+    "crop2_area_m2": null,
+    "crop2_coop_shipping": null,
+    "crop2_selfpay_fund_member": null,
+    "crop2_field_sold_contract": null,
+    "owns_farmland": "Y",
+    "farmland_owned_years": 20,
+    "owned_area_ge_15500m2": "N",
+    "health_insurance": "?",
+    "offfarm_income_band": "?",
+    "disaster_damage": "N",
+    "direct_payment_education": "NA",
+    "already_receiving": [],
+    "insurance_enrolled": [],
+    "flags": [],
+    "disaster_end_date": null
+  },
+  "profile_fields_not_in_C_round1": [
+    "birth_year",
+    "birth_year_approx",
+    "eupmyeon",
+    "visitor",
+    "mgmt_last_registered_year",
+    "spouse_status",
+    "spouse_birth_year",
+    "crop2_key",
+    "crop2_area_m2",
+    "crop2_coop_shipping",
+    "crop2_selfpay_fund_member",
+    "crop2_field_sold_contract",
+    "owned_area_ge_15500m2",
+    "health_insurance",
+    "disaster_damage",
+    "direct_payment_education"
+  ],
+  "profile_fields_dropped_from_C_round1": [
+    "age (→ birth_year)",
+    "flags의 입원·질병 값(사원 F)",
+    "flags의 disaster_damage (→ 독립 필드 disaster_damage)"
+  ],
+  "expect": {
+    "paper_mode": "normal",
+    "header": {
+      "must_include": [
+        "2026-11-13",
+        "기준일"
+      ],
+      "note": "--asof 시연 기준일 표시(§12-A(1))"
+    },
+    "key_lines": [
+      {
+        "id": "B04-K1",
+        "section": "C",
+        "rule_id": "PRICE_STAB",
+        "crop_key": "당근",
+        "status": "MET",
+        "per_kg_max_won": 245,
+        "per_kg_exact": "244.8",
+        "must_include": [
+          "kg당",
+          "최대",
+          "245원",
+          "하한가"
+        ],
+        "must_not_include": [
+          "349원"
+        ],
+        "calc": "(1,088 − max(700, 816)) × 0.9 = 244.8 → 245원. 기준가·하한가가 2025-26 값이라 배지",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "2026년 기준",
+          "공고 전"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "id": "B04-K2",
+        "section": "C",
+        "rule_id": "PRICE_STAB",
+        "crop_key": "당근",
+        "reference": "last_season",
+        "reference_per_kg_won": 71,
+        "must_include": [
+          "작년",
+          "71원",
+          "예측 아님"
+        ],
+        "why": "농가 총액은 '작년 실적 × 예상 물량' 참고 범위. 물량 규칙 확정 전이라 총액 값은 고정하지 않음",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "2026년 기준",
+          "공고 전"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      }
+    ],
+    "first_actions": [],
+    "insurance": [
+      {
+        "product_id": "income_stab",
+        "crop_key": "당근",
+        "status": "NOT_COVERED"
+      },
+      {
+        "product_id": "crop_disaster",
+        "crop_key": "당근",
+        "status": "NEXT_WINDOW",
+        "next_window": {
+          "months": [
+            7,
+            9
+          ]
+        },
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "7월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "product_id": "nh_safety",
+        "status": "OPEN_NOW",
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "fixed_lines": [
+      {
+        "id": "FIXED-FARM-HELPER",
+        "must_include": [
+          "60일",
+          "농협"
+        ],
+        "must_not_include": [
+          "까지 신청하세요",
+          "남았"
+        ],
+        "note": "사원 F·설계 v2 §7-1: 입원·질병은 묻지 않는다. 영농도우미는 모든 종이에 같은 문장(\"다치거나 3일 넘게 입원하셨으면 60일 안에 농협\")."
+      },
+      {
+        "id": "FIXED-DISCLAIMER",
+        "must_include": [
+          "이 종이를 뽑아 준 곳",
+          "공문서"
+        ],
+        "note": "G 책임 표기 3줄"
+      }
+    ],
+    "banners": [],
+    "also": [
+      {
+        "section": "C",
+        "program_key": "JEJU-PSTAB",
+        "crop_key": "당근",
+        "status": "CHECK",
+        "unknown_fields": [
+          "enrollment"
+        ],
+        "must_include": [
+          "참여 신청"
+        ]
+      }
+    ],
+    "must_not_print": [
+      "받으실 수 있는 돈",
+      "▶",
+      "오를",
+      "내릴",
+      "예측된",
+      "파세요"
+    ]
+  },
+  "unverified": [
+    "하한가 816원과 '하한가까지만 보전' 해석(G §8)",
+    "15일 평균이 역일·거래일·가락 단독인지"
+  ],
+  "pending_decisions": [],
+  "approval": {
+    "by": [],
+    "at": null,
+    "sha256": null
+  }
+}

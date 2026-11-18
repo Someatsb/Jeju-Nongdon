@@ -1,0 +1,13 @@
+{
+  "empty_sheet": false,
+  "items": [
+    {"section": "support", "fact_id": "M:integrated_subsidy", "program_id": "integrated_subsidy", "official_name": "[친서민] 소형농기계 지원",
+     "status": "CHECK", "row_status": "prior_year_reference", "missing": [], "window": "upcoming", "office_id": "emd_office"},
+    {"section": "insurance", "fact_id": "I:crop_ins_garlic", "program_id": "crop_ins_garlic", "official_name": "농작물재해보험(마늘)",
+     "status": "OPEN_NOW", "row_status": "confirmed", "missing": [], "window": "open_now", "office_id": "nh_coop"},
+    {"section": "insurance", "fact_id": "I:income_ins_garlic", "program_id": "income_ins_garlic", "official_name": "농업수입안정보험(마늘)",
+     "status": "OPEN_NOW", "row_status": "confirmed", "missing": [], "window": "open_now", "office_id": "nh_coop"},
+    {"section": "action", "fact_id": "A:urgent_crop_ins_garlic", "program_id": "crop_ins_garlic", "official_name": "농작물재해보험(마늘)",
+     "status": "URGENT", "row_status": "confirmed", "missing": [], "window": "open_now", "office_id": "nh_coop"}
+  ]
+}

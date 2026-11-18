@@ -1,0 +1,23 @@
+{#- 담당자용 접힌 칸(설계서 3-5): review_rows = [{name, attempts, rules(한글 규칙 이름), source, trail}] 또는 빈 목록(설명 문장을 만들지 않은 상담).
+    fingerprint: 확인 번호(계산 지문) · replay_msg: 체험 모드에서 저장해 둔 답변과 입력이 달랐을 때 -#}
+<div class="review-body">
+  <p class="cue">확인 번호 <b>{{ fingerprint }}</b></p>
+  {% if replay_msg %}<p class="cue">저장해 둔 AI 답변과 입력이 달라서 기본 문장으로 나왔어요.</p>{% endif %}
+  {% if review_rows %}
+  <table>
+    <caption class="sr">구획별 검수 결과</caption>
+    <thead><tr><th scope="col">구획</th><th scope="col">시도</th><th scope="col">걸린 규칙</th><th scope="col">시도 내역</th><th scope="col">최종 출처</th></tr></thead>
+    <tbody>
+      {% for row in review_rows %}
+      <tr><th scope="row">{{ row.name }}</th><td>{{ row.attempts }}회</td>
+        <td>{% if row.rules %}{{ row.rules | join(", ") }}{% else %}없음{% endif %}</td>
+        <td>{% for t in row.trail %}{{ t.attempt }}회 {{ t.verdict }}{% if not loop.last %} → {% endif %}{% endfor %}</td>
+        <td>{{ row.source }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>설명 없음 · 템플릿</p>
+  <p class="cue">설명 문장을 쓰지 않았어요. 종이의 숫자와 근거는 모두 표 계산에서 나왔어요.</p>
+  {% endif %}
+</div>

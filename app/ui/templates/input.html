@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% import "_ui.html" as ui %}
+{% import "_art.html" as art %}
+{% block title %}지원금 찾기 · {{ cfg.service_name }}{% endblock %}
+{#- 질문 화면: 폼 하나, 한 화면에 질문 하나(설계서 3-2). 스크립트(static/input.js)가 단계를 한 장씩 보여 주고,
+    꺼져 있으면 모든 단계가 차례로 보인다(제출은 그대로). 칸 이름(name)·값(value)은 forms.py 그대로.
+    proxy: 대신 입력 · values: 칸 이름 → 넣은 값 · errors: 칸 이름 → 오류 · F: app.ui.forms -#}
+{% block head %}<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="/static/question.css">
+<script src="/static/input.js" defer></script>{% endblock %}
+{% block body_class %}page-q{% endblock %}
+{% block main_class %}qmain{% endblock %}
+
+{#- 오류가 난 칸이 있는 가장 앞 단계를 연다(없으면 1단계) -#}
+{% set STEP_OF = {"emd_code": 1, "crop1_crop_code": 2, "crop1_area_py": 2, "crop2_crop_code": 2, "crop2_area_py": 2, "total_area_py": 2,
+                  "birth_year": 3, "mgmt_last_reg_year": 4} %}
+{% set ns = namespace(start=1) %}
+{% if errors %}{% set ns.start = 6 %}{% for name in errors %}{% if STEP_OF.get(name, 6) < ns.start %}{% set ns.start = STEP_OF.get(name, 6) %}{% endif %}{% endfor %}{% endif %}
+{% set start = (start_step if (start_step and not errors) else ns.start) %}
+{% set sub2 = start == 2 and (errors.get("crop2_crop_code") or errors.get("crop2_area_py") or errors.get("total_area_py")) %}
+
+{% block header_actions %}
+{% if proxy %}<a class="proxy-note" href="/counsel/input" title="눌러서 본인 입력으로 바꾸기">어르신 대신 답하고 있어요</a>{% endif %}
+{{ ui.progress(start, 6) }}
+<button type="button" class="btn btn-ghost btn-home-q" data-home-q>처음으로</button>
+{% endblock %}
+
+{% macro err(name) -%}
+  {%- if errors.get(name) %}<p class="hint" id="{{ name }}-err" role="alert">{{ errors[name] }}</p>{% endif -%}
+{%- endmacro %}
+{% macro head(n, question, lead, say) -%}
+<div class="q-head">
+  <h1 id="q{{ n }}-title">{{ question }}</h1>
+  <p class="lead">{{ lead }}</p>
+  {{ ui.speak(say or (question ~ " " ~ lead)) }}
+</div>
+{%- endmacro %}
+{% macro crop_tiles(name, checked_code, aria) -%}
+<div class="tiles need-box" data-need-box data-tiles="{{ name }}" role="radiogroup" aria-labelledby="{{ aria }}">
+  {%- for code, label in F.CROPS %}{{ ui.choice("radio", name, code, label, checked=(checked_code == code), sub=F.CROP_HINTS.get(code), icon=art.crop_icon(code, "tile-icon"), cls="choice-tile") }}{% endfor %}
+</div>
+{%- endmacro %}
+{% macro label_of(code) -%}{% for c, l in F.CROPS %}{% if c == code %}{{ l }}{% endif %}{% endfor %}{%- endmacro %}
+
+{% set cur_city = "서귀포시" if values.get("emd_code") in F.EMD_GROUPS[1][1] else ("제주시" if values.get("emd_code") else "") %}
+{% set SALES = [("coop", "농협에 내요"), ("field_contract_done", "밭째 넘겼어요(밭떼기)"), ("merchant_planned", "상인에게 팔 예정이에요"),
+                ("direct", "직접 팔아요"), ("unknown", "잘 모르겠어요")] %}
+{% set FUND = [("paid", "내요"), ("not_paid", "안 내요"), ("unknown", "잘 모르겠어요")] %}
+
+{% block content %}
+{% if expired %}<p class="notice" role="status">오래 쉬어서 처음부터 다시 해요. 앞에 하신 답은 지웠어요.</p>{% endif %}
+<form method="post" action="/counsel/input{% if proxy %}?mode=proxy{% endif %}" class="intake" id="qform" novalidate data-once
+      data-start="{{ start }}" data-year="{{ cfg.as_of.year }}" data-small-lo="{{ F.ASK_5A_PY[0] }}" data-small-hi="{{ F.ASK_5A_PY[1] }}"
+      data-selfpay-crops="{{ F.SELFPAY_CROPS | sort | join(' ') }}" data-crops='{{ dict(F.CROPS) | tojson }}'>
+<input type="hidden" name="farming_10y_plus" value="on">
+<div class="steps">
+
+{#- 1. 어디 사세요? -#}
+<section class="qstep{% if start == 1 %} is-current{% endif %}" data-fit data-step="1" aria-labelledby="q1-title">
+  {{ head(1, "어르신 댁은 어디예요?" if proxy else "어디 사세요?", "먼저 시를 누르고, 사시는 읍·면·동을 눌러 주세요.") }}
+  <div class="need-box" data-need-box>
+  <div class="tabs" role="tablist" aria-label="시">
+    {%- for city, names in F.EMD_GROUPS %}<button type="button" role="tab" class="tab{% if city == cur_city %} on{% endif %}" data-city-tab="{{ city }}" aria-selected="{{ 'true' if city == cur_city else 'false' }}">{{ city }}</button>{% endfor %}
+  </div>
+  {%- for city, names in F.EMD_GROUPS %}
+  <div class="emd-panel{% if city == cur_city %} on{% endif %}" data-city-panel="{{ city }}" role="tabpanel">
+    <p class="panel-title">{{ city }}</p>
+    <div class="emd-grid emd-big" role="radiogroup" aria-label="{{ city }} 읍·면">
+      {%- for n in names if n.endswith(("읍", "면")) %}{{ ui.choice("radio", "emd_code", n, n, checked=(values.get("emd_code") == n), cls="choice-sm") }}{% endfor %}
+    </div>
+    <div class="emd-grid emd-small" role="radiogroup" aria-label="{{ city }} 동">
+      {%- for n in names if n.endswith("동") %}{{ ui.choice("radio", "emd_code", n, n, checked=(values.get("emd_code") == n), cls="choice-sm") }}{% endfor %}
+    </div>
+  </div>
+  {%- endfor %}
+  </div>
+  <p class="pick-city" data-pick-city{% if cur_city %} hidden{% endif %}>먼저 제주시나 서귀포시를 눌러 주세요.</p>
+  {{ ui.hint("사시는 읍·면·동을 눌러 주세요", id="hint-emd") }}{{ err("emd_code") }}
+</section>
+
+{#- 2. 무엇을 키우세요? 같은 2번 질문 안에서 "첫째 작물" 화면과 "둘째 작물" 화면이 바뀐다(진행 표시는 그대로) -#}
+<section class="qstep{% if start == 2 %} is-current{% endif %}{% if sub2 %} is-sub2{% endif %}" data-fit data-step="2" aria-labelledby="q2-title">
+  <div class="sub sub1" data-sub="1">
+  {{ head(2, "어르신은 무엇을 키우세요?" if proxy else "무엇을 키우세요?", "가장 많이 키우시는 것 하나를 눌러 주세요.") }}
+  {{ crop_tiles("crop1_crop_code", values.get("crop1_crop_code"), "q2-title") }}
+  <div class="area-line">
+    <span class="area-q">몇 평이세요?</span><span class="crop-chip" data-crop-chip hidden></span>
+    <button type="button" class="btn btn-ghost step-btn" data-num-for="crop1_area_py" data-delta="-500" aria-label="500평 줄이기">−</button>
+    {{ ui.numfield("crop1_area_py", values.get("crop1_area_py", ""), maxlen=6, unit="평", label="몇 평이세요?", placeholder="여기를 눌러 주세요") }}
+    <button type="button" class="btn btn-ghost step-btn" data-num-for="crop1_area_py" data-delta="500" aria-label="500평 늘리기">+</button>
+    <span class="quick">{% for n, t in ((1000, "1,000평"), (3000, "3,000평"), (5000, "5,000평")) %}<button type="button" class="btn btn-ghost quick-btn" data-num-for="crop1_area_py" data-set="{{ n }}">{{ t }}</button>{% endfor %}</span>
+    <span class="area-note" data-area-note>대충 맞으면 돼요. 칸을 누르거나 평수 단추를 눌러 주세요.</span>
+    <button type="button" class="btn btn-ghost more-btn{% if values.get('crop2_crop_code') %} is-gone{% endif %}" data-more>다른 밭도 있어요</button>
+    <span class="x2-line{% if values.get('crop2_crop_code') %} is-on{% endif %}" data-x2-line><span class="x2-text">둘째 작물: <b data-x2-name>{{ label_of(values.get("crop2_crop_code")) if values.get("crop2_crop_code") else "" }}</b> <span data-x2-area></span></span><button type="button" class="btn btn-ghost quick-btn" data-more>고치기</button></span>
+  </div>
+  {{ ui.hint("몇 평인지 눌러 주세요. 모르시면 이대로 '다음'을 한 번 더 눌러 주세요", id="hint-area") }}{{ err("crop1_area_py") }}
+  {{ ui.hint("키우시는 것을 하나 눌러 주세요", id="hint-crop") }}{{ err("crop1_crop_code") }}
+  </div>
+  <div class="sub sub2" data-sub="2">
+  {{ head("2b", "둘째로 키우시는 것은요?", "둘째로 많이 키우시는 것 하나를 눌러 주세요. 첫째로 고르신 것은 흐리게 보여요.", say="둘째로 키우시는 것은요? 둘째로 많이 키우시는 것 하나를 눌러 주세요.") }}
+  {{ crop_tiles("crop2_crop_code", values.get("crop2_crop_code"), "q2b-title") }}
+  <div class="area-line">
+    <span class="area-q">몇 평이세요?</span><span class="crop-chip" data-crop-chip2 hidden></span>
+    <button type="button" class="btn btn-ghost step-btn" data-num-for="crop2_area_py" data-delta="-500" aria-label="500평 줄이기">−</button>
+    {{ ui.numfield("crop2_area_py", values.get("crop2_area_py", ""), maxlen=6, unit="평", label="둘째 작물은 몇 평이세요?", placeholder="여기를 눌러 주세요") }}
+    <button type="button" class="btn btn-ghost step-btn" data-num-for="crop2_area_py" data-delta="500" aria-label="500평 늘리기">+</button>
+    <span class="quick">{% for n, t in ((500, "500평"), (1000, "1,000평"), (3000, "3,000평")) %}<button type="button" class="btn btn-ghost quick-btn" data-num-for="crop2_area_py" data-set="{{ n }}">{{ t }}</button>{% endfor %}</span>
+  </div>
+  <div class="area-line total-line">
+    <span class="area-q small">농사짓는 땅 전부 합치면 몇 평이세요?</span>
+    {{ ui.numfield("total_area_py", values.get("total_area_py", ""), maxlen=6, unit="평", label="농사짓는 땅을 전부 합치면 몇 평이세요?", placeholder="여기를 눌러 주세요") }}
+    <span class="area-note">모르시면 비워 두셔도 돼요.</span>
+    <button type="button" class="btn btn-ghost more-btn x2-cancel" data-less>둘째 작물 지우기</button>
+  </div>
+  {{ ui.hint("둘째로 키우시는 것을 눌러 주세요. 둘째 작물이 없으면 '둘째 작물 지우기'를 눌러 주세요", id="hint-crop2") }}{{ err("crop2_crop_code") }}
+  {{ ui.hint("몇 평인지 눌러 주세요. 모르시면 이대로 '다음'을 한 번 더 눌러 주세요", id="hint-area2") }}{{ err("crop2_area_py") }}{{ err("total_area_py") }}
+  </div>
+</section>
+
+{#- 3. 농사짓는 분 -#}
+<section class="qstep{% if start == 3 %} is-current{% endif %}" data-fit data-step="3" aria-labelledby="q3-title">
+  {{ head(3, "농사짓는 분은 어떤 분이세요?", "성별을 누르고, 태어난 해를 네 자리로 눌러 주세요.") }}
+  <div class="choice-row two need-box" role="radiogroup" aria-label="성별" data-need-box data-need-for="sex">
+    {{ ui.choice("radio", "owner_sex", "F", "여자", checked=(values.get("owner_sex") == "F")) }}
+    {{ ui.choice("radio", "owner_sex", "M", "남자", checked=(values.get("owner_sex") == "M")) }}
+  </div>
+  {{ ui.hint("여자인지 남자인지 눌러 주세요", id="hint-sex") }}
+  <div class="birth-line">
+    <span class="area-q">태어난 해</span>
+    {{ ui.numfield("birth_year", values.get("birth_year", ""), maxlen=4, unit="년", label="태어난 해(네 자리)", placeholder="여기를 눌러 주세요") }}<span class="area-note">예: 1955</span>
+    <output class="age" data-age aria-live="polite"></output>
+  </div>
+  {{ ui.hint("태어난 해를 눌러 주세요. 모르시면 이대로 '다음'을 한 번 더 눌러 주세요", id="hint-birth") }}{{ err("birth_year") }}
+</section>
+
+{#- 4. 농업경영체 등록 -#}
+<section class="qstep{% if start == 4 %} is-current{% endif %}" data-fit data-step="4" aria-labelledby="q4-title">
+  {{ head(4, "농업경영체 등록을 하셨나요?", "농산물품질관리원(농관원)에 하는 농업인 등록이에요.") }}
+  <div class="choice-grid mgmt" role="radiogroup" aria-labelledby="q4-title">
+    {%- for v, t in (("over_2y", "등록했어요, 2년이 넘었어요"), ("under_2y", "등록했어요, 2년이 안 됐어요"), ("none", "안 했어요"), ("unknown", "잘 모르겠어요")) %}
+    {{ ui.choice("radio", "mgmt_status", v, t, checked=(values.get("mgmt_status") == v)) }}{% endfor %}
+  </div>
+  <div class="year-line{% if values.get('mgmt_status') in ('over_2y', 'under_2y') %} is-on{% endif %}" data-cond data-when="mgmt">
+    <span class="area-q small">마지막으로 등록하거나 고친 해를 아시면 눌러 주세요. 모르시면 비워 두세요.</span>
+    {{ ui.numfield("mgmt_last_reg_year", values.get("mgmt_last_reg_year", ""), maxlen=4, unit="년", label="마지막으로 등록하거나 고친 해", placeholder="여기를 눌러 주세요") }}
+  </div>
+  {{ ui.hint("해를 아시면 적어 주세요. 모르시면 이대로 '다음'을 한 번 더 눌러 주세요", id="hint-year") }}{{ err("mgmt_last_reg_year") }}
+</section>
+
+{#- 5. 어디에 파세요? 작물마다. 자조금 품목이면 파는 곳과 상관없이 자조금을 묻는다 -#}
+<section class="qstep{% if start == 5 %} is-current{% endif %}" data-fit data-step="5" aria-labelledby="q5-title">
+  {{ head(5, "올해 어디에 파시나요?" if proxy else "올해 어디에 파세요?", "작물마다 눌러 주세요. 모르시면 '잘 모르겠어요'를 눌러 주세요.") }}
+  <div class="sell">
+  {%- for i in (1, 2) %}
+    {%- set code = values.get("crop%d_crop_code" % i) %}
+    <div class="sell-crop{% if i == 1 or code %} is-on{% endif %}" data-cond data-crop-row="{{ i }}">
+      <p class="sell-name" data-crop-name="{{ i }}">{{ label_of(code) if code else ("첫째 작물" if i == 1 else "둘째 작물") }}</p>
+      <div class="choice-grid sell-grid" role="radiogroup" aria-label="파는 곳">
+        {%- for v, t in SALES %}{{ ui.choice("radio", "crop%d_sales_channel" % i, v, t, checked=(values.get("crop%d_sales_channel" % i) == v), cls="choice-sm") }}{% endfor %}
+      </div>
+      <div class="fund{% if code in F.SELFPAY_CROPS %} is-on{% endif %}" data-cond data-selfpay-row="{{ i }}">
+        <span class="fund-q">자조금을 내고 계세요?</span><span class="fund-why">팔 때 값에서 조금씩 떼는 돈이에요. 모르시면 농협에 물어보세요.</span>
+        <div class="choice-row" role="radiogroup" aria-label="자조금">
+          {%- for v, t in FUND %}{{ ui.choice("radio", "crop%d_selfpay_fund" % i, v, t, checked=(values.get("crop%d_selfpay_fund" % i) == v), cls="choice-sm") }}{% endfor %}
+        </div>
+      </div>
+    </div>
+  {%- endfor %}
+  </div>
+</section>
+
+{#- 마지막: 해당되는 것만 누른다. 안 누르면 오른쪽 값이 간다 -#}
+<section class="qstep{% if start == 6 %} is-current{% endif %}" data-fit data-step="6" aria-labelledby="q6-title">
+  {{ head(6, "맞는 것을 눌러 주세요", "농사 지은 햇수, 배우자, 제주에 사신 햇수는 꼭 눌러 주세요. 나머지는 맞는 것만 눌러 주세요. 맞는 것이 없으면 '결과 보기'를 눌러 주세요.", say="농사 지은 햇수, 배우자, 제주에 사신 햇수는 꼭 눌러 주세요. 나머지는 맞는 것만 눌러 주세요. 맞는 것이 없으면 결과 보기를 눌러 주세요.") }}
+  {{ ui.hint("농사 지은 햇수, 배우자, 제주에 사신 햇수는 꼭 눌러 주세요. 잘 모르시면 '결과 보기'를 한 번 더 눌러 주세요", id="hint-must") }}
+  {% set fy = values.get("farming_years") %}
+  {% set sp = values.get("spouse") %}
+  {% set rs = values.get("residence_3y") %}
+  {#- 묶음마다 한 줄씩 세로로 쌓는다(사장 지시): 왼쪽에 묶음 이름, 오른쪽에 단추. 어느 묶음도 옆 칸에 나란히 놓지 않는다 -#}
+  <div class="press press6">
+    <div class="press-group q4" data-toggle data-must="farming">
+      <p class="press-q">농사 지은 햇수 <small class="must-tag">꼭 눌러 주세요</small></p>
+      {{ ui.choice("radio", "farming_years", "1", "3년이 안 됐어요", checked=(fy == "1"), cls="choice-sm") }}
+      {{ ui.choice("radio", "farming_years", "3", "3~4년 됐어요", checked=(fy == "3"), cls="choice-sm") }}
+      {{ ui.choice("radio", "farming_years", "5", "5~9년 됐어요", checked=(fy == "5"), cls="choice-sm") }}
+      {{ ui.choice("radio", "farming_years", "", "10년이 넘었어요", checked=(fy is not none and fy not in ("1", "3", "5")), cls="choice-sm") }}
+    </div>
+    <div class="press-group" data-toggle data-must="spouse">
+      <p class="press-q">배우자 <small class="must-tag">꼭 눌러 주세요</small></p>
+      {{ ui.choice("radio", "spouse", "none", "혼자 하거나 배우자는 농사 안 지어요", checked=(sp == "none"), cls="choice-sm") }}
+      {{ ui.choice("radio", "spouse", "registered", "배우자도 농사를 지어요 · 등록했어요", checked=(sp == "registered"), cls="choice-sm") }}
+      {{ ui.choice("radio", "spouse", "cofarming_unregistered", "배우자도 농사를 지어요 · 등록은 안 했어요", checked=(sp == "cofarming_unregistered"), cls="choice-sm") }}
+    </div>
+    <div class="press-group g-res" data-toggle data-must="residence">
+      <p class="press-q">제주에 사신 햇수 <small class="must-tag">꼭 눌러 주세요</small></p>
+      {{ ui.choice("radio", "residence_3y", "on", "3년 넘었어요", checked=(rs == "on"), cls="choice-sm") }}
+      {{ ui.choice("radio", "residence_3y", "", "3년 안 됐어요", checked=(rs is not none and rs != "on"), cls="choice-sm") }}
+    </div>
+    <div class="press-group" data-toggle>
+      <p class="press-q">건강보험 <small>맞으면 눌러 주세요</small></p>
+      {{ ui.choice("radio", "health_ins", "employee", "직장에서 내요", checked=(values.get("health_ins") == "employee"), cls="choice-sm") }}
+      {{ ui.choice("radio", "health_ins", "dependent", "자녀·배우자 밑에 올라 있어요", checked=(values.get("health_ins") == "dependent"), cls="choice-sm") }}
+      {{ ui.choice("radio", "health_ins", "regional", "국민건강보험 고지서를 따로 받아요(직장 아님)", checked=(values.get("health_ins") == "regional"), cls="choice-sm") }}
+    </div>
+    <div class="press-group g-dis" data-toggle>
+      <p class="press-q">피해 <small>맞으면 눌러 주세요</small></p>
+      {{ ui.choice("radio", "disaster_damage", "yes", "올해 태풍·폭우 피해를 입었어요", checked=(values.get("disaster_damage") == "yes"), cls="choice-sm") }}
+    </div>
+    <div class="press-group g-land" data-toggle>
+      <p class="press-q">농사짓는 땅 <small>맞으면 눌러 주세요</small></p>
+      <span class="own-only" data-cond data-when="land">
+      {{ ui.choice("radio", "land_tenure", "own_all", "내 땅이에요", checked=(values.get("land_tenure") == "own_all"), cls="choice-sm") }}
+      {{ ui.choice("radio", "land_tenure", "own_part", "내 땅도 있고 빌린 땅도 있어요", checked=(values.get("land_tenure") == "own_part"), cls="choice-sm") }}
+      </span>
+      {{ ui.choice("radio", "land_tenure", "rent_all", "내 땅이 아니라 빌려서 지어요", checked=(values.get("land_tenure") == "rent_all"), cls="choice-sm") }}
+    </div>
+    <div class="press-group g-big" data-cond data-when="own4700" data-toggle>
+      <p class="press-q">가진 땅 <small>맞으면 눌러 주세요</small></p>
+      {{ ui.choice("radio", "owned_over_4700py", "yes", "가진 땅이 4,700평을 넘어요", checked=(values.get("owned_over_4700py") == "yes"), cls="choice-sm") }}
+    </div>
+  </div>
+  {#- 화면에 따로 칸을 두지 않은 칸의 오류(조작한 값 등)도 쉬운 말 한 줄로 보인다 -#}
+  {%- for name, msg in errors.items() if name not in ("emd_code", "crop1_crop_code", "crop1_area_py", "crop2_crop_code", "crop2_area_py", "total_area_py", "birth_year", "mgmt_last_reg_year") %}<p class="hint" role="alert">{{ msg }}</p>{% endfor %}
+</section>
+
+</div>
+{% set lab %}<span class="lab-next">다음</span><span class="lab-go">결과 보기</span>{% endset %}
+{% set note %}<p class="bar-note" data-bar-note aria-live="polite" role="status"></p>{% endset %}
+{{ ui.actionbar(lab, prev_href=("/counsel/preview" if edit else "/"), note=note) }}
+</form>
+{{ ui.numpad() }}
+{% endblock %}

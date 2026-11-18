@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "name": "2026년 출산 농가도우미 지원사업",
+  "agency": "서귀포시 서홍동",
+  "apply_period": "1. 신청기간: 연중 상시 모집",
+  "target": "3. 지원대상: 도내 출산(예정) 여성농업인\n※ 농외소득 3,700만원 미만의 직장가입자 가능",
+  "content": "4. 지원일수: 출산 전 90일부터 출산 후 120일 기간 중 최대 70일 지원\n5. 지원기준: 농가도우미 1일 기준 단가 82,560원(정액지원)",
+  "tags": [
+    {
+      "label": "출산 예정 여성농업인",
+      "quote": "3. 지원대상: 도내 출산(예정) 여성농업인",
+      "anchor": null
+    },
+    {
+      "label": "연중 상시 모집",
+      "quote": "1. 신청기간: 연중 상시 모집",
+      "anchor": null
+    }
+  ],
+  "url": "https://www.seogwipo.go.kr/info/news/notice.htm?act=view&seq=155217781",
+  "read_date": "2026-09-11",
+  "decision": "DRAFT_READY",
+  "table_key": null
+}

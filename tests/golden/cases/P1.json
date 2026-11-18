@@ -1,0 +1,285 @@
+{
+  "schema": "golden-spec/2",
+  "case_id": "P1",
+  "phase": 1,
+  "kind": "persona",
+  "title": "고 할망 — 남원 노지온주 0.5ha, 74세 독거, 상인 밭떼기",
+  "source": "round1-M-persona.md §2-2 P1",
+  "as_of": "2026-11-13",
+  "fixture": {
+    "snapshot": "snap_20261112",
+    "tables": "tables_1st_20261113",
+    "network": "blocked",
+    "jasdc": "recorded_20261112",
+    "llm": "none",
+    "price_override": null,
+    "feature_flags": {
+      "offfarm_money": true
+    }
+  },
+  "profile": {
+    "crop_key": "노지온주",
+    "area_m2": 4959,
+    "total_farm_area_m2": 4959,
+    "birth_year": 1952,
+    "birth_year_approx": false,
+    "sex": "F",
+    "region": "서귀포시",
+    "eupmyeon": "남원읍",
+    "visitor": "self",
+    "jeju_residence_years": 74,
+    "farming_years": 45,
+    "mgmt_registered": "Y",
+    "mgmt_years": 8,
+    "mgmt_last_registered_year": 2024,
+    "spouse_status": "none",
+    "spouse_birth_year": null,
+    "coop_member": "?",
+    "coop_shipping": "N",
+    "selfpay_fund_member": "?",
+    "field_sold_contract": "Y",
+    "crop2_key": null,
+    "crop2_area_m2": null,
+    "crop2_coop_shipping": null,
+    "crop2_selfpay_fund_member": null,
+    "crop2_field_sold_contract": null,
+    "owns_farmland": "Y",
+    "farmland_owned_years": 45,
+    "owned_area_ge_15500m2": "N",
+    "health_insurance": "?",
+    "offfarm_income_band": "?",
+    "disaster_damage": "N",
+    "direct_payment_education": "N",
+    "already_receiving": [
+      "JEJU-FARMER-ALLOW",
+      "NAT-DIRECT-ANY"
+    ],
+    "insurance_enrolled": [],
+    "flags": [],
+    "disaster_end_date": null
+  },
+  "profile_fields_not_in_C_round1": [
+    "birth_year",
+    "birth_year_approx",
+    "eupmyeon",
+    "visitor",
+    "mgmt_last_registered_year",
+    "spouse_status",
+    "spouse_birth_year",
+    "crop2_key",
+    "crop2_area_m2",
+    "crop2_coop_shipping",
+    "crop2_selfpay_fund_member",
+    "crop2_field_sold_contract",
+    "owned_area_ge_15500m2",
+    "health_insurance",
+    "disaster_damage",
+    "direct_payment_education"
+  ],
+  "profile_fields_dropped_from_C_round1": [
+    "age (→ birth_year)",
+    "flags의 입원·질병 값(사원 F)",
+    "flags의 disaster_damage (→ 독립 필드 disaster_damage)"
+  ],
+  "expect": {
+    "paper_mode": "normal",
+    "header": {
+      "must_include": [
+        "2026-11-13",
+        "기준일"
+      ],
+      "note": "--asof 시연 기준일 표시(§12-A(1))"
+    },
+    "key_lines": [
+      {
+        "id": "P1-K1",
+        "section": "D",
+        "program_key": "NAT-DIRECT-SMALL",
+        "status": "CHECK",
+        "must_include": [
+          "소농직불",
+          "130만",
+          "통지서",
+          "확인할 조건",
+          "전환하면",
+          "23만",
+          "56만"
+        ],
+        "amount": {
+          "kind": "DIFF_IF_SWITCH",
+          "low_won": 233815,
+          "high_won": 556150,
+          "display": "약 23만~56만 원 더"
+        },
+        "calc": "소농 130만 − 면적직불(0.4959ha × 150만~215만 = 743,850~1,066,185원)",
+        "why": "직불 종류 모름(NAT-DIRECT-ANY). 작년 통지서 금액으로 확인",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "3월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "id": "P1-K2",
+        "section": "E",
+        "product_id": "income_stab",
+        "crop_key": "노지온주",
+        "status": "NOT_COVERED",
+        "must_include": [
+          "수입안정보험",
+          "온주",
+          "대상이 아니에요",
+          "재해보험",
+          "4월"
+        ],
+        "why": "온주는 수입안정 대상 아님(G §0-A). 실험판 결함 #3 회귀 시험. 다음 재해보험 창은 작년 기준",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "4월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      }
+    ],
+    "first_actions": [
+      {
+        "section": "B",
+        "kind": "KEEP_RISK",
+        "target": "direct_payment_education",
+        "must_include": [
+          "직불 교육"
+        ],
+        "why": "직불 받는 중 + 올해 교육 안 들음(N) → 직불금 10% 감액 가능(K, 농관원 ◎). 2027년은 예년 9월 30일까지. 끊길 위험 ⑦"
+      },
+      {
+        "section": "F",
+        "kind": "APPLY_NEXT",
+        "program_key": "NAT-DIRECT-SMALL",
+        "due_month": "2027-03"
+      }
+    ],
+    "insurance": [
+      {
+        "product_id": "income_stab",
+        "crop_key": "노지온주",
+        "status": "NOT_COVERED"
+      },
+      {
+        "product_id": "crop_disaster",
+        "crop_key": "노지온주",
+        "status": "NEXT_WINDOW",
+        "next_window": {
+          "months": [
+            4,
+            5
+          ],
+          "basis": "2026 실제 4.27~5.29"
+        },
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "4월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "product_id": "nh_safety",
+        "status": "OPEN_NOW",
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "fixed_lines": [
+      {
+        "id": "FIXED-FARM-HELPER",
+        "must_include": [
+          "60일",
+          "농협"
+        ],
+        "must_not_include": [
+          "까지 신청하세요",
+          "남았"
+        ],
+        "note": "사원 F·설계 v2 §7-1: 입원·질병은 묻지 않는다. 영농도우미는 모든 종이에 같은 문장(\"다치거나 3일 넘게 입원하셨으면 60일 안에 농협\")."
+      },
+      {
+        "id": "FIXED-DISCLAIMER",
+        "must_include": [
+          "이 종이를 뽑아 준 곳",
+          "공문서"
+        ],
+        "note": "G 책임 표기 3줄"
+      }
+    ],
+    "banners": [],
+    "also": [
+      {
+        "section": "D",
+        "program_key": "JEJU-SMALLFARM",
+        "status": "CHECK",
+        "amount_won": 150000,
+        "due_month": "2027-02",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "2월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "section": "D",
+        "program_key": "JEJU-WOMEN-VOUCHER",
+        "status": "CHECK",
+        "amount_won": 200000,
+        "due_month": "2027-03",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "3월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "section": "D",
+        "program_key": "NHIS-FARMER-SUPPORT",
+        "status": "CHECK",
+        "must_include": [
+          "건강보험료"
+        ],
+        "must_not_include": [
+          "만 원"
+        ],
+        "depends_on_row": "NHIS-FARMER-SUPPORT가 confirmed일 때만. hold면 이 줄 없음",
+        "why": "§12-A(1) 기본값: 사장 답이 없으면 넣는다. 보험료를 입력받지 않으므로 금액 없음(비율·소급만) (사장 결정 2026-11-08 §12-B 2: \"농업 밖 제도\" 표시 폐기)",
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "must_not_print": [
+      "수입안정보험 대상 품목",
+      "공고가 날 조건",
+      "받으실 수 있는 돈",
+      "▶",
+      "오를",
+      "내릴",
+      "예측된",
+      "파세요"
+    ]
+  },
+  "unverified": [
+    "면적직불 단가 진흥지역 여부(150만 vs 215만)",
+    "2027 행복이용권 출생연도 범위"
+  ],
+  "pending_decisions": [],
+  "approval": {
+    "by": [],
+    "at": null,
+    "sha256": null
+  }
+}

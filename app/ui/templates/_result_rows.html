@@ -1,0 +1,112 @@
+{#- 좌우로 나눈 줄 조각(2026-11-14 결과 화면 2차 5절, 2026-11-15 3차 9절). 결과 화면(result.html)과 종이 앞면이 같이 쓴다.
+    쓰는 법:  {% import "_result_rows.html" as rr %}   {{ rr.rows(v.cards) }}      (머리 둘 + 가실 곳마다 한 줄)
+              머리만 {{ rr.head() }} · 한 줄만 {{ rr.row(card) }}
+    넣는 값: app/ui/result_view.build_view(...)["cards"] 의 카드(dict). 한 줄 = 가실 곳 하나 = 할 일 하나.
+      c.no 번호 · c.head 가실 곳 이름(곳 이름만) · c.icon 접수처 이름(그림 고르는 말) 또는 c.icon_name(그림 이름) · c.phone·c.tel_note 전화
+      c.todo[] 왼쪽 하실 일 줄 · c.gets[] 오른쪽 받을 수 있는 것 줄 · c.act 하실 일 줄이 없을 때 왼쪽에 적는 한 낱말("신청하기") · c.wide 오른쪽이 비면 참(왼쪽을 넓힌다)
+      c.hidden_n·c.hidden_names "외 ○가지: 이름 · 종이에 있어요" · c.pill 딱지 글("먼저 하실 일"/"먼저 가실 곳", 굵은 테두리 줄에만) · c.emphasis 굵은 테두리(첫 줄) · c.no_n 번호 숫자
+      줄(todo·gets)마다: role(do·confirm·insurance·benefit) title text text_when pre amt whens[] notes[] check unlocks_n
+    눈이 가는 순서(세로로 쌓는다, 가로로 잇지 않는다):
+      왼쪽  번호 + 가실 곳 그림 | 기관 이름 → 하실 일(연필) → 전화(수화기) → 확인 줄(체크 한 줄)
+      오른쪽 받을 것마다 이름 → 금액(앞 말 + 주황 금액) → 언제(달력) → 덧말(회색)
+    그림은 _art.html 의 것(같은 그림). 모든 그림은 aria-hidden 이고 옆에 글이 있다. 색만으로 구분하지 않는다.
+    종이에서 쓰려면 print.css 에서 .rr·.rh 의 모양만 덮어쓴다(마크업은 그대로). -#}
+{% import "_art.html" as art %}
+{#- 덧말 조각: 언제(달력 그림) · 덧말(회색) · 조건 확인(돋보기). 위에서 아래로 한 줄씩 -#}
+{% macro notes(it) -%}
+{%- for n in it.notes %}<span class="rx rx-note">{{ n }}</span>{% endfor -%}
+{%- endmacro %}
+{% macro when_line(pieces) -%}
+{%- if pieces %}<span class="rx rx-when">{{ art.ic_calendar("ic ic-s") }}<span>{{ pieces | join(" · ") }}</span></span>{% endif -%}
+{%- endmacro %}
+{% macro head(n=0) -%}
+<div class="rh">
+  <h2 class="rh-l">{{ art.ic_pencil("ic ic-h") }}<b>하실 일</b>{% if n %}<span class="rh-n">모두 {{ n }}가지</span>{% endif %}<small>어디로 가서 무엇을</small></h2>
+  <span class="rh-gap" aria-hidden="true"></span>
+  <h2 class="rh-r">{{ art.ic_coin("ic ic-h") }}<b>받을 수 있는 것</b></h2>
+</div>
+{%- endmacro %}
+{#- 하실 일 한 건(왼쪽 둘째 줄): 연필 그림 + 굵은 글. 글(text)과 시기·덧말은 그 아래에 한 줄씩 -#}
+{% macro do_item(it, act=False) -%}
+<li class="rt rt-do{% if act %} rt-act{% endif %}"><span class="rt-ic">{{ art.ic("pencil", "ic ic-l") }}</span><div class="rt-body"><b class="rt-t">{{ it.title }}</b>
+  {%- if it.text %}<span class="rt-m{% if it.text_when %} is-when{% endif %}">{% if it.text_when %}{{ art.ic_calendar("ic ic-s") }}{% endif %}{{ it.text }}</span>{% endif -%}
+  {%- if it.whens %}{{ when_line(it.whens) }}{% endif %}{{ notes(it) }}</div></li>
+{%- endmacro %}
+{#- 확인 줄(왼쪽 맨 아래): 체크 그림 + "이름 · 안내" 한 줄 -#}
+{% macro check_item(it, notitle=False) -%}
+<li class="rt rt-confirm{% if notitle %} no-t{% endif %}"><span class="rt-ic">{{ art.ic("confirm", "ic ic-l") }}</span><div class="rt-body">{% if not notitle %}<b class="rt-t">{{ it.title }}</b>{% endif %}{% if it.text %} <span class="rt-m">{{ it.text }}</span>{% endif %}
+  {%- for w in it.whens %} <span class="rx rx-when">{{ w }}</span>{% endfor %}{% for n in it.notes %} <span class="rx rx-note">{{ n }}</span>{% endfor %}</div></li>
+{%- endmacro %}
+{#- 받을 것 한 건(오른쪽): 이름 → 금액 → 언제 → 덧말 -#}
+{% macro get_item(it, unlock_more="") -%}
+<li class="rg rg-{{ it.role }}"><span class="rg-ic">{{ art.ic("umbrella" if it.role == "insurance" else "coin", "ic ic-l") }}</span><div class="rg-body"><b class="rg-t">{{ it.title }}</b>
+  {%- if it.amt %}<span class="rg-m">{% if it.pre %}<span class="rg-pre">{{ it.pre }}</span> {% endif %}<span class="rg-amt">{{ it.amt }}</span></span>
+  {%- elif it.text and not it.text_when %}<span class="rg-m is-text">{{ it.text }}</span>{% endif -%}
+  {%- if it.urgent %}<span class="rx rx-urgent"><b>{{ it.urgent }}</b></span>{% endif -%}
+  {%- if it.text and it.text_when and not it.amt %}{{ when_line([it.text] + it.whens) }}{% else %}{{ when_line(it.whens) }}{% endif -%}
+  {{ notes(it) }}{% if it.unlocks_n %}{% if unlock_more %}<span class="rx rx-unlock">이것을 하시면 알아볼 수 있는 지원 {{ it.unlocks_n }}가지{{ unlock_more }}</span>{% else %}<a class="rx rx-unlock" href="#detail" data-dt-open>이것을 하시면 알아볼 수 있는 지원 {{ it.unlocks_n }}가지</a>{% endif %}{% endif %}</div></li>
+{%- endmacro %}
+{% macro row(c, more="종이에 있어요", nohead="신청하는 곳은 종이에 있어요", unlock_more="") -%}
+{%- set todo = c.todo | rejectattr("role", "equalto", "confirm") | list -%}
+{%- set checks = c.todo | selectattr("role", "equalto", "confirm") | list -%}
+{#- 하실 일 줄이 없고 확인 줄만 있는 곳(농관원에 문의 등): 확인하실 일의 이름을 하실 일 줄(연필, 굵은 글)로 올리고, 안내 글은 전화 아래 확인 줄에 둔다 -#}
+{%- set promo = (not todo and not c.act and checks | length > 0) -%}
+<article class="rr{% if c.emphasis %} is-first{% endif %}{% if c.pill %} has-pill{% endif %}{% if c.wide %} is-wide{% endif %}" data-fit>
+  {%- if c.pill %}<span class="rr-pill">{{ c.pill }}</span>{% endif %}
+  <div class="rr-l">
+    <p class="rr-lab">{{ art.ic_pencil("ic") }}<span>하실 일</span></p>
+    <div class="rr-head">
+      {%- if c.no %}<i class="rr-no">{{ c.no_n or c.no }}</i>{% endif %}
+      <span class="rr-pic">{% if c.icon_name %}{{ art.ic(c.icon_name, "ic ic-p") }}{% else %}{{ art.place_icon(c.icon, "ic ic-p") }}{% endif %}</span>
+      <div class="rr-main">
+        <h3 class="rr-name">{{ (c.head or nohead) | replace("읍·면·동", '<span class="nb">읍·면·동</span>' | safe) }}</h3>
+        {%- if c.where %}<p class="rr-where">{{ c.where }}</p>{% endif %}
+        {%- if todo or c.act or promo %}
+        <ul class="rr-todo">
+          {%- for it in todo %}
+          {{ do_item(it) }}
+          {%- endfor %}
+          {%- if not todo and c.act %}{{ do_item({"title": c.act, "text": "", "whens": [], "notes": [], "check": False}, True) }}{% endif %}
+          {%- if promo %}{{ do_item({"title": checks[0].title, "text": "", "whens": [], "notes": [], "check": False}, True) }}{% endif %}
+        </ul>
+        {%- endif %}
+        {%- if c.phone or c.tel_note %}
+        <p class="rr-tel"><span class="rr-ph">{{ art.ic_phone("ic ic-t") }}{% if c.phone %}<b>{{ c.phone }}</b>{% else %}<small>{{ c.tel_note }}</small>{% endif %}</span>{% if c.phone and c.tel_note %}<small>{{ c.tel_note }}</small>{% endif %}</p>
+        {%- endif %}
+        {%- if checks %}
+        <ul class="rr-checks">
+          {%- for it in checks %}
+          {%- if promo and loop.first %}{% if it.text or it.whens or it.notes or it.check %}
+          {{ check_item(it, True) }}{% endif %}
+          {%- else %}
+          {{ check_item(it) }}
+          {%- endif %}
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+      </div>
+    </div>
+    {%- if c.hidden_n and c.wide %}<p class="rr-more">외 {{ c.hidden_n }}가지{% if c.hidden_names %}: {{ c.hidden_names | join(" · ") }}{% endif %} · {{ more }}</p>{% endif %}
+  </div>
+  {%- if not c.wide %}
+  <span class="rr-arrow" aria-hidden="true">{{ art.arrow("right", "arrow") }}</span>
+  <div class="rr-r">
+    <p class="rr-lab">{{ art.ic_coin("ic") }}<span>받을 수 있는 것</span></p>
+    <ul class="rr-gets">
+      {%- for it in c.gets %}
+      {{ get_item(it, unlock_more) }}
+      {%- endfor %}
+    </ul>
+    {%- if c.hidden_n %}<p class="rr-more">외 {{ c.hidden_n }}가지{% if c.hidden_names %}: {{ c.hidden_names | join(" · ") }}{% endif %} · {{ more }}</p>{% endif %}
+  </div>
+  {%- endif %}
+</article>
+{%- endmacro %}
+{% macro rows(cards, aria="가실 곳별 하실 일과 받을 수 있는 것", more="종이에 있어요", nohead="신청하는 곳은 종이에 있어요") -%}
+<section class="rrows" id="cards" aria-label="{{ aria }}">
+  {{ head(cards | length) }}
+  {%- for c in cards %}
+  {{ row(c, more, nohead) }}
+  {%- endfor %}
+</section>
+{%- endmacro %}

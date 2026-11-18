@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "name": "2027년 유기농업자재 지원사업",
+  "agency": "서귀포시 대륜동",
+  "apply_period": "가. 신청기한: 2026. 11. 2(월)~ 2026. 12. 31.(목)까지",
+  "target": "사업을 희망하는 농가께서는 기간 내에 신청하시기 바랍니다.",
+  "content": "나. 신청장소: 농지 소재지 읍면동사무소\n다. 지원내용 (자부담 50%)\n○ 유기농업자재(자재원료): (유기) 200만원/ha, (무농약) 150만원/ha, (일반) 100만원/ha",
+  "tags": [
+    {
+      "label": "자부담이 있어요",
+      "quote": "다. 지원내용 (자부담 50%)",
+      "anchor": null
+    },
+    {
+      "label": "농지 있는 곳 사무소에서 신청",
+      "quote": "나. 신청장소: 농지 소재지 읍면동사무소",
+      "anchor": null
+    }
+  ],
+  "url": "https://www.seogwipo.go.kr/info/news/notice.htm?act=view&seq=155892046",
+  "read_date": "2026-11-13",
+  "decision": "DRAFT_READY",
+  "table_key": null
+}

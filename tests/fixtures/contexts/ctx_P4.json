@@ -1,0 +1,17 @@
+{
+  "empty_sheet": false,
+  "items": [
+    {"section": "support", "fact_id": "M:jeju_farmer_allowance", "program_id": "jeju_farmer_allowance", "official_name": "제주 농민수당",
+     "status": "BLOCKED_PREREQ", "row_status": "prior_year_reference", "missing": ["needs_mgmt"], "window": "upcoming", "office_id": "emd_office"},
+    {"section": "support", "fact_id": "M:price_stab_cabbage", "program_id": "price_stab_cabbage", "official_name": "제주형 가격안정관리제(양배추)",
+     "status": "BLOCKED_PREREQ", "row_status": "prior_year_reference", "missing": ["needs_coop"], "window": "upcoming", "office_id": "nh_coop"},
+    {"section": "support", "fact_id": "M:logistics", "program_id": "logistics", "official_name": "제주산 농산물 물류비 지원",
+     "status": "CHECK", "row_status": "prior_year_reference", "missing": ["needs_coop"], "window": "upcoming", "office_id": "nh_coop"},
+    {"section": "support", "fact_id": "M:nhis_farmer_support", "program_id": "nhis_farmer_support", "official_name": "농어업인 건강보험료 지원",
+     "status": "CHECK", "row_status": "confirmed", "missing": ["health_ins_in"], "window": "always_open", "office_id": "nhis_branch"},
+    {"section": "insurance", "fact_id": "I:crop_ins_cabbage", "program_id": "crop_ins_cabbage", "official_name": "농작물재해보험(양배추)",
+     "status": "NEXT_WINDOW", "row_status": "prior_year_reference", "missing": [], "window": "upcoming", "office_id": "nh_coop"},
+    {"section": "action", "fact_id": "A:prereq_mgmt", "program_id": "mgmt_registration", "official_name": "농업경영체 등록",
+     "status": "PREREQ", "row_status": null, "missing": [], "window": "always_open", "office_id": "naqs_jeju"}
+  ]
+}

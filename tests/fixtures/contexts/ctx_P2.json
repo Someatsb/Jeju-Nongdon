@@ -1,0 +1,17 @@
+{
+  "empty_sheet": false,
+  "items": [
+    {"section": "support", "fact_id": "M:price_stab_carrot", "program_id": "price_stab_carrot", "official_name": "제주형 가격안정관리제(당근)",
+     "status": "CHECK", "row_status": "prior_year_reference", "missing": ["needs_enrollment"], "window": "upcoming", "office_id": "nh_coop"},
+    {"section": "support", "fact_id": "M:soil_eco", "program_id": "soil_eco", "official_name": "토양생태환경보전(월동채소 면적조절)",
+     "status": "CHECK", "row_status": "prior_year_reference", "missing": ["manual_check"], "window": "upcoming", "office_id": "emd_office"},
+    {"section": "support", "fact_id": "M:jeju_farmer_allowance", "program_id": "jeju_farmer_allowance", "official_name": "제주 농민수당",
+     "status": "ALREADY", "row_status": "prior_year_reference", "missing": [], "window": "upcoming", "office_id": "emd_office"},
+    {"section": "action", "fact_id": "A:spouse_register", "program_id": "spouse_register", "official_name": "배우자 공동경영주 등록",
+     "status": "PREREQ", "row_status": null, "missing": [], "window": "always_open", "office_id": "naqs_jeju"},
+    {"section": "action", "fact_id": "A:ask_coop_price_stab", "program_id": "price_stab_carrot", "official_name": "제주형 가격안정관리제(당근)",
+     "status": "ASK_COOP", "row_status": "prior_year_reference", "missing": [], "window": "upcoming", "office_id": "nh_coop"},
+    {"section": "action", "fact_id": "A:disaster_report", "program_id": "disaster_recovery", "official_name": "농업재해 복구비",
+     "status": "DISASTER_REPORT", "row_status": "confirmed", "missing": [], "window": "always_open", "office_id": "emd_office"}
+  ]
+}

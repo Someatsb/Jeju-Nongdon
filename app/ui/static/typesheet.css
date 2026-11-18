@@ -1,0 +1,25 @@
+/* 제주 농돈 - 마을 안내용 종이 고르기(typesheet.html). question.css(한 화면 틀·그림 단추)와 공용 부품 위에 얹는다. */
+.t-step { gap: clamp(6px, 1.4vh, 16px); }
+.t-group { display: flex; flex-direction: column; gap: clamp(4px, 1vh, 10px); min-width: 0; }
+.t-crops { flex: 1; min-height: 0; }
+.t-q { font-size: clamp(20px, 3.2vh, 30px); font-weight: 800; color: var(--sea); }
+.t-pair { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 7fr); gap: clamp(12px, 2vw, 32px); }
+.t-row { gap: clamp(6px, 1.2vh, 12px); }
+.t-row .choice { flex: 1 1 0; min-width: 0; }
+.t-row .choice-face { padding-right: 40px; }
+.t-row .choice-sub { font-size: clamp(18px, 2.4vh, 22px); }
+.t-step .tiles { min-height: clamp(90px, 18vh, 200px); }
+.js .t-step .tiles { flex: 1; }
+.t-row .choice-label { white-space: nowrap; }
+@media (max-width: 1500px) { .t-pair { grid-template-columns: 1fr; } .t-row .choice { flex: 1 1 auto; } }
+
+.t-n { display: inline-grid; place-items: center; width: 1.5em; height: 1.5em; margin-right: 10px; border-radius: 50%; background: var(--sea); color: #fff; font-style: normal; font-weight: 800; }
+.t-pair { grid-template-columns: minmax(0, 8fr) minmax(0, 7fr); }
+.t-row .choice-label { font-size: clamp(20px, 2.8vh, 26px); }
+.t-row .choice-face { padding-left: 12px; padding-right: 44px; }
+.t-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.t-row .choice-label { font-size: clamp(22px, 2.6vh, 24px); }
+.t-row .choice-face { padding-left: 10px; padding-right: 40px; }
+.t-row .choice-mark { right: 8px; }
+
+.t-row .choice-face { min-height: 52px; }

@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: jeju-nongdon-demo
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -X utf8 -m app.serve
+    healthCheckPath: /health
+    envVars:
+      - key: JC_PUBLIC_DEMO
+        value: "1"
+      - key: PYTHON_VERSION
+        value: "3.12.10"

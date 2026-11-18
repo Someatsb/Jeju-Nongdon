@@ -1,0 +1,6 @@
+{#- "직원이 볼 내용" 안의 AI가 한 일 세 줄과 검수 표. 결과 화면과 /counsel/ai 조각이 같이 쓴다. ai_pending 이면 자리 표시만 -#}
+{%- if ai_pending %}<p class="ai-pend"><i class="ai-spin" aria-hidden="true"></i>설명을 쓰고 있어요…</p>
+{%- else %}<ol class="ai-list">
+  {%- for line in ai_steps %}<li>{{ line }}</li>{% endfor %}
+</ol>
+{% include "review_panel.html" %}{% endif -%}

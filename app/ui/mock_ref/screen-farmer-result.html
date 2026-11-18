@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>농가용 결과 화면</title>
+<style>
+/*
+  크기 근거 (제안서 §6 참고)
+  - 가정: 23.8인치 FHD 모니터(화소 간격 약 0.2745mm), 어르신 눈과 화면 거리 2m.
+  - 미국 ADA 2010 표지 기준: 시거리 6ft(1.83m)까지 글자 높이 5/8인치(15.9mm), 그 너머 1ft당 1/8인치 추가 → 2m에서 약 17.7mm.
+  - 맑은 고딕 한글 글자 높이 ≈ 0.91em(실측) → 17.7mm ÷ 0.91 ÷ 0.2745mm ≈ 71px → 본문 72px.
+  - 숫자 높이 ≈ 0.74em → 금액은 104px(숫자 높이 약 21mm).
+  - 어르신이 읽는 글자는 최소 64px(한글 약 16mm). 직원만 쓰는 조작 단추는 예외(28px).
+  - 모든 크기는 --u 하나에 비례. 아래 스크립트가 창 크기에 맞춰 --u를 자동으로 셈(Windows 배율 125%여도 실제 크기 유지).
+  - 거리가 다르면 + / − 키로 0.1배씩(1m면 약 0.5배).
+*/
+:root { --u: 1; --ink: #000; --paper: #fff; --rule: #000; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--paper); color: var(--ink); overflow: hidden;
+  font-family: "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  word-break: keep-all; }
+.slide { position: absolute; inset: 0; padding: calc(48px * var(--u)) calc(96px * var(--u)) calc(110px * var(--u)); display: none; }
+.slide.on { display: block; }
+.hd { display: flex; justify-content: space-between; align-items: baseline; border-bottom: calc(8px * var(--u)) solid var(--rule);
+  padding-bottom: calc(12px * var(--u)); margin-bottom: calc(28px * var(--u)); }
+.hd h1 { margin: 0; font-size: calc(76px * var(--u)); line-height: 1.2; font-weight: 700; }
+.hd .pg { font-size: calc(64px * var(--u)); font-weight: 400; white-space: nowrap; }
+.hd .sub { font-size: calc(64px * var(--u)); font-weight: 400; }
+.it { display: flex; gap: calc(28px * var(--u)); padding: calc(14px * var(--u)) 0 calc(18px * var(--u)); border-bottom: calc(3px * var(--u)) solid var(--rule); }
+.it .main { flex: 1; min-width: 0; }
+.r1 { display: flex; align-items: baseline; gap: calc(24px * var(--u)); }
+.nm { font-size: calc(72px * var(--u)); font-weight: 700; line-height: 1.2; white-space: nowrap; }
+.ld { flex: 1; border-bottom: calc(6px * var(--u)) dotted var(--rule); transform: translateY(calc(-14px * var(--u))); min-width: calc(40px * var(--u)); }
+.am { font-size: calc(104px * var(--u)); font-weight: 700; line-height: 1.12; white-space: nowrap; }
+.r2 { font-size: calc(64px * var(--u)); line-height: 1.3; }
+.ask { margin-top: calc(22px * var(--u)); font-size: calc(64px * var(--u)); line-height: 1.3; }
+.tag { display: inline-block; border: calc(5px * var(--u)) solid var(--rule); padding: 0 calc(14px * var(--u)); font-weight: 700; margin-right: calc(16px * var(--u)); line-height: 1.2; }
+/* 상자: 빈 상자 = 하실 일, 체크 = 이미 됨, 가로줄 = 필요 없음 (인쇄물 C와 같은 기호) */
+.bx { position: relative; flex: none; width: calc(68px * var(--u)); height: calc(68px * var(--u)); border: calc(6px * var(--u)) solid var(--rule); margin-top: calc(14px * var(--u)); }
+.bx.done::after { content: ""; position: absolute; left: calc(18px * var(--u)); top: calc(0px * var(--u)); width: calc(20px * var(--u)); height: calc(42px * var(--u));
+  border: solid var(--rule); border-width: 0 calc(9px * var(--u)) calc(9px * var(--u)) 0; transform: rotate(45deg); }
+.bx.no { border-color: transparent; }
+.bx.no::after { content: ""; position: absolute; left: calc(6px * var(--u)); right: calc(6px * var(--u)); top: calc(26px * var(--u)); border-top: calc(8px * var(--u)) solid var(--rule); }
+.cover { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+.cover .t { font-size: calc(104px * var(--u)); font-weight: 700; line-height: 1.2; margin: 0 0 calc(36px * var(--u)); }
+.cover .p { font-size: calc(76px * var(--u)); line-height: 1.35; margin: 0; }
+.cover .p b { font-weight: 700; }
+.big { font-size: calc(72px * var(--u)); line-height: 1.4; margin: 0 0 calc(24px * var(--u)); }
+.place { border: calc(6px * var(--u)) solid var(--rule); padding: calc(18px * var(--u)) calc(32px * var(--u)); margin-bottom: calc(28px * var(--u)); }
+.place .pn { font-size: calc(76px * var(--u)); font-weight: 700; line-height: 1.25; }
+.place .pd { font-size: calc(64px * var(--u)); line-height: 1.3; }
+/* 직원 조작 단추: 어르신용 글자가 아니므로 작게 둠 */
+.nav { position: fixed; left: 0; right: 0; bottom: 0; height: calc(84px * var(--u)); display: flex; justify-content: space-between; align-items: center;
+  padding: 0 calc(96px * var(--u)); border-top: 2px solid #000; background: #fff; }
+.nav button { font: 700 calc(28px * var(--u))/1 "Malgun Gothic", sans-serif; padding: calc(12px * var(--u)) calc(28px * var(--u)); border: 2px solid #000;
+  background: #fff; color: #000; border-radius: 6px; cursor: pointer; white-space: nowrap; }
+.nav button:focus-visible { outline: 4px solid #000; outline-offset: 3px; }
+.nav .help { font: calc(22px * var(--u))/1.3 "Malgun Gothic", sans-serif; color: #333; padding: 0 calc(16px * var(--u)); text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- 1. 표지 -->
+<section class="slide on">
+  <div class="cover">
+    <p class="t">어르신께 해당될 수 있는 돈</p>
+    <p class="p"><b>양배추 1,500평</b> · 68세 · 농협 조합원</p>
+    <p class="p">모두 6가지입니다. 종이로도 드립니다.</p>
+  </div>
+</section>
+
+<!-- 2. ① -->
+<section class="slide">
+  <div class="hd"><h1>① 농협이 신청해 주는 돈</h1><span class="pg">2 / 7</span></div>
+  <div class="it"><span class="bx"></span><div class="main">
+    <div class="r1"><span class="nm">양배추 값 차액</span><span class="ld"></span><span class="am">약 360만~470만 원</span></div>
+    <div class="r2">2027년 7월쯤 · 한림농협 · 서류 없음</div></div></div>
+  <div class="it"><span class="bx"></span><div class="main">
+    <div class="r1"><span class="nm">배삯 지원</span><span class="ld"></span><span class="am">최대 약 70만 원</span></div>
+    <div class="r2">2027년 봄~여름 · 한림농협 · 서류 없음</div></div></div>
+  <p class="ask"><span class="tag">확인</span>10월까지 참여 신청 하셨나요?</p>
+</section>
+
+<!-- 3. ② -->
+<section class="slide">
+  <div class="hd"><h1>② 직접 신청하셔야 하는 돈</h1><span class="pg">3 / 7</span></div>
+  <div class="it"><span class="bx"></span><div class="main">
+    <div class="r1"><span class="nm">소농 직불금</span><span class="ld"></span><span class="am">130만 원</span></div>
+    <div class="r2">2027년 3월~5월 · 한림읍사무소</div></div></div>
+  <div class="it"><span class="bx"></span><div class="main">
+    <div class="r1"><span class="nm">농자재값 지원</span><span class="ld"></span><span class="am">최대 15만 원</span></div>
+    <div class="r2">2027년 2월 · 한림읍사무소</div></div></div>
+  <p class="ask"><span class="tag">확인</span>밭을 다 합치면 1,512평이 넘나요?</p>
+</section>
+
+<!-- 4. ③ -->
+<section class="slide">
+  <div class="hd"><h1>③ 재해 피해를 보셨다면</h1><span class="pg">4 / 7</span></div>
+  <div class="it"><span class="bx"></span><div class="main">
+    <div class="r1"><span class="nm">수입보험 보험금</span><span class="ld"></span><span class="am">가입 금액 안에서</span></div>
+    <div class="r2">피해 나면 바로 · 한림농협</div></div></div>
+  <div class="it"><span class="bx"></span><div class="main">
+    <div class="r1"><span class="nm">재해 복구 지원</span><span class="ld"></span><span class="am">피해 넓이에 따라</span></div>
+    <div class="r2">피해 뒤 10일 안 · 한림읍사무소</div></div></div>
+</section>
+
+<!-- 5. 보험 -->
+<section class="slide">
+  <div class="hd"><h1>들어 두시면 좋은 보험</h1><span class="pg">5 / 7</span></div>
+  <div class="it"><span class="bx done"></span><div class="main">
+    <div class="r1"><span class="nm">수입안정보험</span><span class="ld"></span><span class="am" style="font-size:calc(80px * var(--u))">가입하셨음</span></div>
+    <div class="r2">2027년 8~9월에 다시 가입</div></div></div>
+  <div class="it"><span class="bx"></span><div class="main">
+    <div class="r1"><span class="nm">농업인 안전보험</span><span class="ld"></span><span class="am" style="font-size:calc(80px * var(--u))">알아보세요</span></div>
+    <div class="r2">일하다 다치면 보상 · 1년 약 5만~10만 원</div></div></div>
+  <div class="it"><span class="bx no"></span><div class="main">
+    <div class="r1"><span class="nm">농작물 재해보험</span><span class="ld"></span><span class="am" style="font-size:calc(80px * var(--u))">안 드셔도 됨</span></div>
+    <div class="r2">수입안정보험과 둘 중 하나만</div></div></div>
+</section>
+
+<!-- 6. 어디로 -->
+<section class="slide">
+  <div class="hd"><h1>어디로 가세요</h1><span class="pg">6 / 7</span></div>
+  <div class="place"><div class="pn">1. 한림농협 · 11월 안에</div>
+    <div class="pd">값 차액 참여 묻기 · 안전보험<br>가져갈 것: 이 종이, 신분증, 보험증권</div></div>
+  <div class="place"><div class="pn">2. 한림읍사무소 · 2027년 2~3월</div>
+    <div class="pd">농자재값 · 농민수당 · 직불금 신청</div></div>
+</section>
+
+<!-- 7. 끝 -->
+<section class="slide">
+  <div class="hd"><h1>꼭 알아 두세요</h1><span class="pg">7 / 7</span></div>
+  <p class="big"><b>공문서가 아닙니다.</b></p>
+  <p class="big">받을 수 있는지와 금액은<br>농협·읍사무소가 심사해 정합니다.</p>
+  <p class="big">금액은 2026년 기준 "약" 금액입니다.</p>
+</section>
+
+<div class="nav">
+  <button id="prev" type="button">◀ 이전</button>
+  <span class="help">직원 조작: ← → 또는 PageUp / PageDown(발표용 리모컨) · Home 처음 · 거리 바꾸기: + / − 키 (Edge 확대는 쓰지 않음)</span>
+  <button id="next" type="button">다음 ▶</button>
+</div>
+
+<script>
+(function () {
+  var s = Array.prototype.slice.call(document.querySelectorAll('.slide')), i = 0;
+  function go(n) { s[i].classList.remove('on'); i = Math.max(0, Math.min(s.length - 1, n)); s[i].classList.add('on'); }
+  document.getElementById('prev').onclick = function () { go(i - 1); };
+  document.getElementById('next').onclick = function () { go(i + 1); };
+  document.addEventListener('keydown', function (e) {
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) >= 0) { e.preventDefault(); go(i + 1); }
+    else if (['ArrowLeft', 'PageUp', 'Backspace'].indexOf(e.key) >= 0) { e.preventDefault(); go(i - 1); }
+    else if (e.key === 'Home') go(0); else if (e.key === 'End') go(s.length - 1);
+  });
+  var m = location.hash.match(/^#(\d+)$/); if (m) go(+m[1] - 1);   /* 예: #2 → 둘째 장 */
+
+  /* 화면 맞춤: Windows 배율(125%·150%)이나 창 크기가 달라도 실제 글자 크기가 같게 --u를 다시 셈.
+     거리 조절은 Edge 확대 대신 + / − 키(0.5~1.5배)로. Edge 확대를 쓰면 이 맞춤이 확대를 되돌림. */
+  var dist = 1;
+  function fit() {
+    var u = Math.min(window.innerWidth / 1920, window.innerHeight / 1080) * dist;
+    document.documentElement.style.setProperty('--u', u.toFixed(3));
+  }
+  window.addEventListener('resize', fit);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === '+' || e.key === '=') { dist = Math.min(1.5, dist + 0.1); fit(); }
+    if (e.key === '-' || e.key === '_') { dist = Math.max(0.5, dist - 0.1); fit(); }
+  });
+  fit();
+})();
+</script>
+</body>
+</html>

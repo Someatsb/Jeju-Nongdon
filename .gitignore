@@ -1,0 +1,11 @@
+logs/
+data/live/
+data/inbox/*
+!data/inbox/.gitkeep
+data/backup/
+data/reminders/
+runtime/
+.env
+*.pyc
+tests/.junit.xml
+dist/

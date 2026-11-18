@@ -1,0 +1,7 @@
+{
+  "empty_sheet": true,
+  "items": [
+    {"section": "empty", "fact_id": "A:keep_mgmt_update", "program_id": "mgmt_update", "official_name": "농업경영체 정보 갱신",
+     "status": "KEEP", "row_status": null, "missing": [], "window": "always_open", "office_id": "naqs_jeju"}
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "sample_id": "P4",
+  "recorded_at": "2026-11-15T06:15:00",
+  "source": "handwritten",
+  "provider": "handwritten",
+  "model": "demo-script",
+  "prompt_ver": "narrate-v3",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "4345db92",
+  "calls": [
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "53c8f5d7875b9cb88f6ba070cc9b1c36057b519f1f2a05ac2e9db32f99c42506",
+      "response": {
+        "text": "{\"section\": \"support\", \"sentences\": [{\"sid\": 1, \"text\": \"{P:jeju_farmer_allow}, 신청만 하시면 50만 원을 받아요.\", \"cites\": [\"M:jeju_farmer_allow\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": true
+    },
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 2,
+      "request_hash": "53a2798c203a1d4175465eac45643663e9681b45e00100e5eedaf812e10f35c6",
+      "response": {
+        "text": "{\"section\": \"support\", \"sentences\": [{\"sid\": 1, \"text\": \"농업경영체 등록을 먼저 하시면 아래 지원을 알아볼 수 있어요.\", \"cites\": [\"M:jeju_farmer_allow\"]}, {\"sid\": 2, \"text\": \"{P:nhis_farmer_support}, 가입 방식이 맞는지 창구에서 확인해 보세요.\", \"cites\": [\"M:nhis_farmer_support\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "3d3cd4c2afd340d0a7492b84c5727c4272de9cc405e20b31e7e6d9e333c09113",
+      "response": {
+        "text": "{\"verdict\": \"PASS\", \"reason_code\": null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "7ebd722d7fabb11813678f571113c2abbce63efae05944b6c657c0f38f955d05",
+      "response": {
+        "text": "{\"section\": \"insurance\", \"sentences\": [{\"sid\": 1, \"text\": \"{P:crop_disaster_a}, 다음 가입 때 농협 창구에서 알아보세요.\", \"cites\": [\"I:crop_disaster_a\"]}, {\"sid\": 2, \"text\": \"{P:nh_safety_owner}, 가입했는지 창구에서 확인해 보세요.\", \"cites\": [\"I:nh_safety_owner\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "b51fdfadadafea6b9ac47ebb8d426d6032ad132d690786d827b72538ed9b11d0",
+      "response": {
+        "text": "{\"verdict\": \"PASS\", \"reason_code\": null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "05b1c4284c87e93cd634dc85576d193ec62d8e3926ee3b4009741ad54983a49f",
+      "response": {
+        "text": "{\"section\": \"action\", \"sentences\": [{\"sid\": 1, \"text\": \"먼저 농관원에 가서 {P:a_mgmt_registration}부터 알아보세요.\", \"cites\": [\"A:a_mgmt_registration\"]}, {\"sid\": 2, \"text\": \"{P:a_nhis_farmer_support} 신청은 늘 열려 있으니 창구에 물어보세요.\", \"cites\": [\"A:a_nhis_farmer_support\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "c891d7a9806dc3e21120a00ac8b037450cd69363303f0ab57ef822087c182446",
+      "response": {
+        "text": "{\"verdict\": \"PASS\", \"reason_code\": null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    }
+  ]
+}

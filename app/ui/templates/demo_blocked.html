@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "_art.html" as art %}
+{% block title %}체험판에서는 쓸 수 없어요 · {{ cfg.service_name }}{% endblock %}
+{#- 공개 체험판에서 잠근 직원 기능을 눌렀을 때 보이는 한 장(print_hold.html 과 같은 틀). -#}
+{% block head %}<link rel="stylesheet" href="/static/flow.css">{% endblock %}
+{% block body_class %}page-h{% endblock %}
+{% block main_class %}hmain{% endblock %}
+{% block content %}
+<section class="hold" role="alert">
+  <h1>{{ line }}</h1>
+  <p class="lead">처음 화면으로 돌아가서 시연 농가를 눌러 보세요.</p>
+  <div class="hold-acts">
+    <a class="btn btn-primary" href="/">처음으로{{ art.arrow() }}</a>
+  </div>
+</section>
+{% endblock %}

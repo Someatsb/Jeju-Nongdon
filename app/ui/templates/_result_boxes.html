@@ -1,0 +1,76 @@
+{#- 결과 화면의 가실 곳 묶음들(2026-11-15 4차, 설계 result-v4; 2026-11-16 표 하나로: 가실 곳 하나 = 표의 소분류 칸 하나, 그 오른쪽에 받는 것이 한 줄에 하나씩(이름 칸 | 설명 칸)). 위아래로만 쌓는다.
+    종이 앞면은 이 조각을 쓰지 않고 _result_rows.html 을 쓴다(종이는 한 장에 맞춰야 해서 모양이 다르다). 화면에는 가실 곳·줄 수 한도가 없다.
+    쓰는 법:  {% import "_result_boxes.html" as bx %}   {{ bx.boxes(v.cards) }}
+    넣는 값: result_view.build_view(..., screen=True)["cards"] 의 카드(dict).
+      c.no_n 번호 · c.head 가실 곳 이름(곳 이름만, "에 가세요"는 붙이지 않는다) · c.icon·c.icon_name 그림 · c.phone·c.tel_note 전화 · c.where(빈 종이의 기관 이름)
+      c.rows[] 상자 안 줄을 보이는 순서대로(kind do 하실 일 · get 받을 것). 결과 화면은 "지금 하실 일" 구역의 상자에만 쓴다: 딱지·굵은 테두리는 없다(구역 제목이 그 뜻이다)
+      줄(role do·confirm·insurance·benefit): title text text_when pre amt whens[] notes[] place_notes[](합친 상자에서 그 줄이 원래 어느 곳 이름에서 왔는지) check urgent unlocks_n unlock_text("이것을 해야 ○○을 받을 수 있어요") counted
+    줄 모양: 이름 칸(굵게, 하실 일은 연필·체크 그림 앞에) | 설명 칸(맨 앞 금액(주황) 또는 금액이 아닌 글(검정) → 달력 + 언제 + 빨간 남은 날 알약 → 덧말(회색) → 이것을 해야 ○○을 받을 수 있어요). "신청하기" 같은 채움말은 없다.
+    모든 그림은 aria-hidden 이고 옆에 글이 있다. 색만으로 뜻을 나누지 않는다(딱지에는 글이 있다). -#}
+{% import "_art.html" as art %}
+{% macro line_rest(it, text_shown=False) -%}
+{%- if it.text and it.text_when and not it.amt and not text_shown %}{{ _when(([it.text | replace("오늘 ", "", 1) | replace(" · " ~ it.urgent, "")] if it.urgent else [it.text]) + it.whens) }}{% else %}{{ _when(it.whens) }}{% endif -%}
+{%- if it.urgent %}<span class="bxr-left"><span class="left-pill is-urgent">{{ it.urgent }}</span></span>{% endif -%}
+{%- for n in it.notes %}<span class="bxr-note">{{ n }}</span>{% endfor -%}
+{%- for n in it.place_notes %}<span class="bxr-note">{{ n }}</span>{% endfor -%}
+{%- if it.unlock_text %}<span class="bxr-opens">{{ it.unlock_text }}</span>{% endif -%}
+{%- endmacro %}
+{% macro _when(pieces) -%}
+{%- if pieces %}<span class="bxr-when">{{ art.ic_calendar("ic ic-s") }}<span>{{ pieces | join(" · ") }}</span></span>{% endif -%}
+{%- endmacro %}
+{#- 하실 일 한 줄(연필·체크 + 이름 + 안내 글) -#}
+{% macro do_row(it) -%}
+<li class="bxr bxr-do{% if it.role == 'confirm' %} is-confirm{% endif %}">
+  <div class="bxr-top"><span class="bxr-ic">{{ art.ic("confirm" if it.role == "confirm" else "pencil", "ic ic-l") }}</span><b class="bxr-t">{{ it.title }}</b></div>
+  <div class="bxr-d">
+    {%- if it.text %}<span class="bxr-text{% if it.text_when %} is-when{% endif %}">{{ it.text }}</span>{% endif -%}
+    {{ line_rest(it, True) }}
+  </div>
+</li>
+{%- endmacro %}
+{#- 받을 것 한 줄(표의 한 줄): 이름 칸 | 설명 칸. 설명 칸은 금액(주황, 맨 앞) → 언제·며칠 남음 → 덧말. 금액이 없으면 그 자리에 지금 쓰던 글(검정)을 두거나 언제부터 쓴다. 폭이 좁으면 설명 칸이 이름 아래로 내려간다 -#}
+{% macro get_row(it) -%}
+<li class="bxr bxr-get bxr-{{ it.role }}"{% if it.counted %} data-n="1"{% endif %}>
+  <div class="bxr-top"><b class="bxr-t">{{ it.title }}</b></div>
+  <div class="bxr-d">
+    {%- if it.amt %}<span class="bxr-m">{% if it.pre %}<span class="bxr-pre">{{ it.pre }}</span> {% endif %}<span class="bxr-amt">{{ it.amt }}</span></span>
+    {%- elif it.text and not it.text_when %}<span class="bxr-m is-text">{{ it.text }}</span>{% endif -%}
+    {{ line_rest(it) }}
+    {%- if it.unlocks_n %}<span class="bxr-unlock">이것을 하시면 알아볼 수 있는 지원 {{ it.unlocks_n }}가지</span>{% endif %}
+  </div>
+</li>
+{%- endmacro %}
+{% macro box(c, n) -%}
+<article class="bx" aria-labelledby="bx-t{{ n }}">
+  <header class="bx-band">
+    <span class="bx-pic">{% if c.icon_name %}{{ art.ic(c.icon_name, "ic ic-p") }}{% else %}{{ art.place_icon(c.icon, "ic ic-p") }}{% endif %}</span>
+    <div class="bx-name">
+      <h3 class="bx-t" id="bx-t{{ n }}">{{ (c.head or "가실 곳은 창구에 물어보세요") | replace("읍·면·동", '<span class="nb">읍·면·동</span>' | safe) }}</h3>
+      {%- if c.where %}<p class="bx-where">{{ c.where }}</p>{% endif %}
+    </div>
+    {%- if c.phone or c.tel_note %}
+    <p class="bx-tel">{{ art.ic_phone("ic ic-t") }}{% if c.phone %}<b class="nb">{{ c.phone }}</b>{% if c.tel_note %}<small>{{ c.tel_note }}</small>{% endif %}{% else %}<span class="bx-tel-note">{{ c.tel_note }}</span>{% endif %}</p>
+    {%- endif %}
+  </header>
+  <ul class="bx-rows">
+    {%- for it in c.rows %}
+    {%- if it.kind == "do" %}
+    {{ do_row(it) }}
+    {%- else %}
+    {{ get_row(it) }}
+    {%- endif %}
+    {%- endfor %}
+  </ul>
+</article>
+{%- endmacro %}
+{#- {% call bx.boxes(...) %}…{% endcall %} 로 부르면 그 안의 조각을 "언제든 신청할 수 있는 줄만 든 상자" 바로 앞(없으면 맨 끝)에 끼운다: 결과 화면이 "지금 접수 중인 공고" 상자를 마감 있는 상자 뒤, 언제든 상자 앞에 두는 데 쓴다 -#}
+{% macro boxes(cards, aria="가실 곳별로 받을 수 있는 지원") -%}
+<section class="rbx" id="cards" aria-label="{{ aria }}">
+  {%- set ns = namespace(done=False) %}
+  {%- for c in cards %}
+  {%- if c.always and not ns.done and caller is defined %}{% set ns.done = True %}{{ caller() }}{% endif %}
+  {{ box(c, loop.index) }}
+  {%- endfor %}
+  {%- if not ns.done and caller is defined %}{{ caller() }}{% endif %}
+</section>
+{%- endmacro %}

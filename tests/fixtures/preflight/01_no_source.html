@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>제주 농돈 종이</title>
+<style>
+/* =====================================================================
+   인쇄 CSS (research/dept/mock/paper-final.html 기준, Task 17)
+   [쪽] @page는 A4 세로 margin 0. 안쪽 여백은 .sheet padding(위 10 / 좌우 12 / 아래 9mm)이 준다.
+        앞면은 297mm 고정 높이 블록이고 break-after: page로 나눈다(표가 한 쪽에 안 들면 이어진 쪽이 더 있을 수 있다). 넘치면 잘리므로 렌더 단계(check_overflow)가 먼저 막는다.
+   [색] 상담 종이(앞면 v2)는 결과 화면과 같은 색(2026-11-17 사장 지시: 인쇄도 컬러, 검정을 줄이고 제주 색으로). 바탕은 흰색, 글자와 □(펜으로 표시하는 칸)는 먹색(--ink). 주황(--tang-deep)은 금액에만.
+        줄·테두리는 검정이 아니라 진한 청록(--sea: 표 바깥 테두리 · 구역 사이 · 머리 줄 · 알아 두세요 · 같이 확인해요)과 모래색(--sand: 곳(달) 사이 · --sand-soft: 같은 곳 안 지원 사이)이다.
+        진한 청록을 바탕으로 칠하는 곳은 맨 위 결론 띠와 번호 동그라미뿐. 대분류 칸은 지금 하실 일 = 옅은 주황(--tang-soft #FFE6BF), 앞으로 신청할 것 = 옅은 청록(--sea-soft), 둘 다 먹색 굵은 글자(회색으로 뽑으면 두 바탕이 거의 같은 밝기라 구역은 청록 줄과 글로 가른다).
+        빨강(--urgent)은 마감 날짜 알약에만. 흑백 프린터로 뽑아도 읽히게 색만으로 뜻을 나누지 않는다: 글·굵기·테두리·그림이 함께 있고, 진한 바탕에는 흰 글자, 옅은 바탕에는 먹색 글자만 쓴다. 유형별 종이(typesheet)도 같은 틀이다.
+   [글꼴] 맑은 고딕. 굵기는 400·700만. ✓☐ 같은 기호 문자를 쓰지 않고 상자는 CSS 테두리로 그린다.
+   [앞면 글씨] 제목 22pt · 묶음 제목 17pt · 항목 1줄째 16pt(금액 18pt 굵게) · 2·3줄째 14pt · 책임 표기 13pt. 13pt 미만 없음().
+   ===================================================================== */
+@page { size: A4 portrait; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #fff; color: #000;
+  font-family: "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  font-size: 14pt; line-height: 1.3;
+  word-break: keep-all; overflow-wrap: break-word;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+b, strong, h1, h2, h3, th { font-weight: 700; }
+p { margin: 0; }
+.sheet { width: 210mm; height: 297mm; padding: 10mm 12mm 9mm; position: relative; overflow: hidden;
+  break-after: page; page-break-after: always; }
+.sheet:last-of-type { break-after: auto; page-break-after: auto; }
+.nb { white-space: nowrap; }
+.foot { position: absolute; left: 12mm; right: 12mm; bottom: 10mm; border-top: 1pt solid #000; padding-top: 1.4mm; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* ---------- 앞면 ---------- */
+.titlerow { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2.5pt solid #000; padding-bottom: 1mm; }
+h1 { font-size: 22pt; line-height: 1.2; margin: 0; }
+.subt { font-size: 14pt; }
+.meta { font-size: 13pt; line-height: 1.3; text-align: right; }
+.asof { border: 1pt solid #000; padding: 0 1.2mm; font-weight: 700; white-space: nowrap; }
+.r2 { display: flex; align-items: baseline; gap: 2mm; }
+.r2 .tx { flex: 1; min-width: 0; }
+.badge, .py { flex: none; font-size: 13pt; line-height: 1.2; border: 0.9pt solid #000; padding: 0 1mm; white-space: nowrap; }
+h2 { font-size: 17pt; line-height: 1.15; margin: 0.8mm 0 0; padding: 0 0 0.3mm 2.4mm; border-left: 5pt solid #000; border-bottom: 1.2pt solid #000; }
+.narr { font-size: 14pt; line-height: 1.28; margin-top: 0.8mm; padding-left: 2.4mm; }
+.it { display: flex; align-items: flex-start; gap: 1.6mm; padding: 0.35mm 0 0.45mm; border-bottom: 0.75pt solid #000; break-inside: avoid; }
+.bx { position: relative; flex: none; width: 4.6mm; height: 4.6mm; border: 1.3pt solid #000; margin-top: 1.1mm; }
+.no { flex: none; font-size: 16pt; font-weight: 700; line-height: 1.25; width: 5.6mm; }
+.main { flex: 1; min-width: 0; }
+.r1 { display: flex; align-items: baseline; gap: 1.6mm; flex-wrap: wrap; }   /* 금액 글자가 길면 다음 줄 오른쪽으로 내려간다(잘리지 않게) */
+.nm { font-size: 16pt; font-weight: 700; line-height: 1.25; white-space: nowrap; }
+.ld { flex: 1; min-width: 4mm; border-bottom: 1.2pt dotted #000; transform: translateY(-1.3mm); }
+.am { font-weight: 700; line-height: 1.2; white-space: nowrap; margin-left: auto; }
+.am.pt22 { font-size: 22pt; } .am.pt18 { font-size: 18pt; } .am.pt16 { font-size: 16pt; }
+.am.pt14 { font-size: 14pt; } .am.pt13 { font-size: 13pt; }
+.hst { display: flex; justify-content: space-between; align-items: baseline; }
+.st2 { font-size: 16pt; border: 1.2pt solid #000; padding: 0 1.4mm; }
+.r2, .r3 { font-size: 14pt; line-height: 1.28; }
+.tag { display: inline-block; border: 1pt solid #000; padding: 0 1mm; font-weight: 700; line-height: 1.2; margin-right: 1mm; }
+.more { font-size: 14pt; margin-top: 0.6mm; font-weight: 700; }
+.grpA { border: 2.5pt solid #000; padding: 0.4mm 1.6mm 0.2mm; margin-top: 1.6mm; }
+.tagA { flex: none; font-size: 16pt; font-weight: 700; line-height: 1.25; border: 1.5pt solid #000; padding: 0 1.2mm; margin-right: 0.6mm; }
+.grpA .it { border-bottom: 0; }
+.pls { display: flex; gap: 2mm; margin-top: 0.8mm; }
+.pl { flex: 1 1 0; min-width: 0; border: 1.5pt solid #000; padding: 0.4mm 1.8mm 0.5mm; break-inside: avoid; }
+.pl .p1 { font-size: 16pt; font-weight: 700; line-height: 1.25; }
+.pl .p2 { font-size: 14pt; line-height: 1.25; }
+.tel { white-space: nowrap; }
+.cal { display: flex; align-items: stretch; gap: 2mm; margin-top: 0.8mm; }
+.cal .lb { flex: none; font-size: 14pt; font-weight: 700; line-height: 1.25; width: 28mm; align-self: center; }
+.cal .c { flex: 1 1 0; min-width: 0; border: 1.5pt solid #000; padding: 0.6mm 1.8mm 0.8mm; }
+.cal .m { display: block; font-size: 16pt; font-weight: 700; line-height: 1.25; }
+.cal .d { display: block; font-size: 14pt; line-height: 1.25; }
+.cal .badge { white-space: normal; display: inline-block; font-size: 13pt; }
+.fixed { font-size: 14pt; line-height: 1.28; margin-top: 0.6mm; padding-left: 2.4mm; border-left: 2.5pt solid #000; }
+.front .foot { font-size: 13pt; line-height: 1.28; }
+/* 앞면은 세로 flex: 본문(.body)이 남는 높이만 차지하고 바닥글은 그 아래 고정. 본문이 길어도 바닥글(책임 표기) 위로 올라와 겹치지 않는다. 넘침 자체는 render.check_overflow가 먼저 막는다. */
+.sheet.front { display: flex; flex-direction: column; }
+.front .body { flex: 1 1 auto; min-height: 0; overflow: hidden; }
+.front .foot { position: static; flex: none; margin-top: auto; }
+/* 빈 종이 */
+.banner { border: 2.5pt solid #000; padding: 1.4mm 2.4mm 1.6mm; margin-top: 1.8mm; }
+.banner .b1 { display: flex; justify-content: space-between; align-items: baseline; gap: 3mm; }
+.banner .big { font-size: 22pt; font-weight: 700; line-height: 1.2; }
+.banner .keep { font-size: 18pt; font-weight: 700; white-space: nowrap; }
+.banner .b2 { font-size: 14pt; line-height: 1.3; margin-top: 0.4mm; }
+.stale { font-size: 14pt; line-height: 1.3; font-weight: 700; border: 1pt solid #000; padding: 0 1.2mm; margin-top: 1mm; }
+.note14 { font-size: 14pt; line-height: 1.3; margin-top: 1mm; }
+
+/* ---------- 앞면 카드 배치(2026-11-14 종이 단순화) ----------
+   머리 · 한마디로 칸 · 가실 곳별 카드(최대 셋) · 가실 때 · 그 밖에 · 올해는 어려운 것 · 알아 두세요 · 바닥글.
+   본문 14pt 이상: 카드 제목 20pt · 지원 줄 16pt · 금액 18pt(굵게) · 작은 줄 14pt · 바닥글 14pt. 색은 화면과 같고 흑백 프린터에서도 글·굵기·테두리로 구분된다.
+   줄 수 추정(render.check_overflow)은 .line ptNN 클래스와 data-n 으로 센다. 글자 크기를 바꾸면 클래스·추정도 같이 맞출 것. */
+.cardsheet .subt .badge.prior.hd { border: 0; padding: 0; font-size: 14pt; line-height: inherit; white-space: normal; }
+.cardsheet .meta { align-self: flex-end; }
+.sh { position: relative; border: 3pt solid #000; padding: 2mm 3mm 1.6mm; margin-top: 4.2mm; }
+.sh .s0 { position: absolute; top: -3.6mm; left: 3mm; background: #fff; padding: 0 1.6mm; font-size: 14pt; font-weight: 700; line-height: 1.2; }
+.sh .s1 { font-size: 22pt; font-weight: 700; line-height: 1.22; }
+.sh .narr { margin-top: 0.8mm; padding-left: 0; }
+.cardsheet h2 { margin-top: 2.6mm; }
+.cd { display: flex; align-items: flex-start; gap: 2mm; border: 1.8pt solid #000; padding: 1.4mm 2.6mm 1.6mm; margin-top: 2mm; break-inside: avoid; }
+.cd.em { border-width: 3.2pt; }
+.cd .cb { flex: 1; min-width: 0; }
+.cardsheet .bx { width: 6mm; height: 6mm; margin-top: 1.3mm; border-width: 1.6pt; }
+.cardsheet .no { font-size: 20pt; width: 8mm; line-height: 1.2; margin-top: 0; }
+.ct { font-size: 20pt; font-weight: 700; line-height: 1.2; }
+.cx { font-size: 20pt; font-weight: 700; line-height: 1.2; }
+.cx.pt18 { font-size: 18pt; } .cx.pt16 { font-size: 16pt; } .cx.pt14 { font-size: 14pt; } .cx.pt13 { font-size: 14pt; }
+.cs { font-size: 14pt; line-height: 1.26; }
+.cm { font-size: 14pt; line-height: 1.26; margin-top: 0.4mm; }
+.cp { font-size: 16pt; line-height: 1.25; margin-top: 0.8mm; padding-top: 0.7mm; border-top: 1pt dashed #000; }
+.cp.top { margin-top: 0; padding-top: 0; border-top: 0; border-bottom: 1pt dashed #000; padding-bottom: 0.7mm; margin-bottom: 0.4mm; }
+.cd .cr { padding: 0.3mm 0 0.5mm; border-bottom: 0.75pt dotted #000; }
+.cd .cr:last-child { border-bottom: 0; }
+.cd .r1 .nm { font-size: 16pt; }
+.fx { font-size: 14pt; line-height: 1.28; margin-top: 1.4mm; padding-left: 2.4mm; border-left: 2.5pt solid #000; }
+.cardsheet .foot { font-size: 14pt; line-height: 1.28; }
+.cardsheet.empty .banner { margin-top: 3mm; }
+
+.dt { font-size: 13pt; line-height: 1.25; margin-top: 0.4mm; }
+
+/* ---------- 종이 v2 (2026-11-14 결과 화면 2차 3절): 결과 화면과 같은 모양 ----------
+   앞면 = 결론 띠 · 두 칸 머리 · 가실 곳마다 한 줄(왼쪽 하실 일 → 오른쪽 받을 수 있는 것) · 가실 때 · 끊기지 않게 · 그 밖에 · 올해는 어려운 것 · 알아 두세요 · 바닥글.
+   줄 마크업은 화면과 같은 조각(templates/_result_rows.html)이라 여기서 그 클래스(.rr·.rh …)의 모양만 종이 크기로 정한다.
+   색은 화면과 같은 두 색(감귤색·청록)이되 글자는 검정에 가깝게 하고, 구분은 테두리·굵기·그림·글 이름표로도 한다(바탕색이 빠져도 뜻이 통한다). 본문 14pt 이상 · 금액 18pt 이상.
+   줄 높이 추정(render.paper_row_lines)은 이 칸 크기와 같은 값이다: 글자 폭 186mm − 체크 칸 6mm − 사이 2mm, 왼쪽 46% · 화살표 9mm · 오른쪽 54%. 바꾸면 추정도 같이 맞출 것. */
+.v2 { --ink: #1c1916; --ink-soft: #4a4540; --tang-deep: #A94607; --sea: #1F6F78; --sea-soft: #DCEEEC; --urgent: #C62828; --later-bg: #F7F5EF; --line: #c8c8c8; --sand: #B8A98A; --sand-soft: #DDD3BC; --sand-dark: #8F8468; --tang-soft: #FFE6BF; --tang: #F28C1E; --rcol: minmax(0, 48fr) 8mm minmax(0, 52fr); color: var(--ink); }
+.v2 .ic { display: block; flex: none; width: 1em; height: 1em; }
+/* 그림: 선 색 하나(검정), 채움은 없거나 흰색(결과 화면과 같다). 모양은 그대로 */
+.v2 svg.ic:not(.ic-p) [stroke]:not([stroke="#fff"]):not([stroke="none"]) { stroke: var(--ink); }
+.v2 svg.ic:not(.ic-p) [fill]:not([fill="none"]) { fill: #fff; }
+.v2 svg.ic:not(.ic-p) [fill="#2B2724"]:not([fill="none"]) { fill: var(--ink); }
+.v2 svg.ic:not(.ic-p) [fill]:not([fill="none"]):not([stroke]) { fill: var(--ink); }
+.v2 .ic-p { width: 16mm; height: 16mm; } .v2 .ic-l { width: 7mm; height: 7mm; } .v2 .ic-t { width: 6.5mm; height: 6.5mm; }
+.v2 .ic-h { width: 8mm; height: 8mm; } .v2 .ic-s { width: 5.5mm; height: 5.5mm; }
+.v2 .titlerow { border-bottom: 2.5pt solid var(--sea); }
+.v2 .sh { border: 3pt solid var(--tang); border-radius: 3.5mm; background: var(--tang); color: var(--ink); margin-top: 2mm; padding: 1.8mm 4mm 1.6mm; }      /* 결론 칸: 감귤 주황 바탕 + 먹색 글자(화면 결론 띠와 같다) */
+.v2 .sh .s1 { font-size: 22pt; line-height: 1.18; font-weight: 700; }
+.v2 .rb-hi { color: var(--ink); text-decoration: underline; text-decoration-color: var(--ink); text-decoration-thickness: 2.2pt; text-underline-offset: 0.7mm; }   /* 밑줄은 글자 장식으로(테두리로 그으면 아랫줄 글자에 닿는다) */
+.v2 .sh .narr { font-size: 14pt; line-height: 1.26; margin-top: 0.7mm; color: var(--ink); }
+.v2 .sh .note14 { margin-top: 0.7mm; font-weight: 700; }
+.v2 .rhw { margin-top: 1.4mm; text-align: right; }
+/* 두 구역(2026-11-15): 「지금 하실 일」 상자 · 「앞으로 신청할 것」 달 목록. 제목 줄 높이는 render.ZT_MM, 목록 칸 크기는 render.LG_*·LR_*·H_GT·H_NOTE 와 같은 값이다 */
+.v2 .zt { display: flex; align-items: baseline; gap: 3mm; margin-top: 2mm; padding-bottom: 0.3mm; border-bottom: 2.5pt solid var(--sea); }
+.v2 .zt-h { font-size: 18pt; line-height: 1.2; font-weight: 800; }
+.v2 .zt-d { font-size: 14pt; line-height: 1.25; font-weight: 700; color: var(--ink-soft); }
+.v2 .zt .chk-tip { margin-left: auto; align-self: center; }
+.v2 .lr-shared { font-size: var(--td, 14pt); line-height: 1.25; color: var(--ink-soft); padding: 0.6mm 0 0; }
+/* ---------- 앞면 표(2026-11-17 사장 지시): 대분류 | 소분류 | 지원 ----------
+   대분류 칸(지금 하실 일 · 앞으로 신청할 것)은 그 구역 모든 줄에 걸친 한 칸, 소분류 칸은 가실 곳(지금) 또는 때(앞으로), 지원 칸은 지원 이름(굵게) + 오른쪽 끝 금액 + 아래 설명 줄.
+   줄 높이 어림은 render.TB_C1_MM·TB_C2_MM·TB_C3_MM 과 같은 칸 폭(26 · 48 · 나머지 mm). 선: 구역 사이 굵게 · 곳(달) 사이 보통 · 같은 곳 안 지원 사이 가늘게 · 바깥 테두리 하나. */
+.v2 .ptb-note { display: flex; align-items: center; justify-content: flex-end; gap: 3mm; margin-top: 1.6mm; font-size: 14pt; line-height: 1.3; font-weight: 700; }
+.v2 .ptb { --tn: 16pt; --td: 14pt; --ta: 18pt; --tw: 15pt; margin-top: 1mm; border: 2pt solid var(--sea); border-radius: 1.6mm; overflow: hidden; background: #fff; }
+.v2[data-tier="0"] .ptb { --tn: 18pt; --td: 15pt; --ta: 20pt; --tw: 16pt; }      /* 글자 단계(render.TIER_K): 0 은 줄이 적은 농가를 위한 가장 큰 단계, 1 이 기본(위), 한 쪽에 안 들어가면 한 단계씩 2·3 으로. 더는 줄이지 않는다 */
+.v2[data-tier="2"] .ptb { --tn: 15pt; --td: 13pt; --ta: 17pt; --tw: 14pt; }
+.v2[data-tier="3"] .ptb { --tn: 14pt; --td: 12pt; --ta: 16pt; --tw: 13pt; }
+.v2 .cont-h { margin: 0 0 1.6mm; padding-bottom: 1mm; font-size: 16pt; line-height: 1.3; font-weight: 700; border-bottom: 2.5pt solid var(--sea); }      /* 이어진 쪽 맨 위 한 줄 */
+.v2 .pz { display: grid; grid-template-columns: 26mm minmax(0, 1fr); }
+.v2 .pz + .pz { border-top: 2.5pt solid var(--sea); }
+.v2 .pz-h { margin: 0; padding: 2mm 1.2mm; border: 0; border-right: 1.4pt solid var(--sea); display: block; font-size: 15pt; line-height: 1.25; font-weight: 800; background: var(--tang-soft); color: var(--ink); word-break: keep-all; }
+.v2 .pz-later .pz-h { background: var(--sea-soft); }
+.v2 .pz-b { min-width: 0; }
+.v2 .pz-b > * + * { border-top: 1.5pt solid var(--sand); }
+.v2 .pg, .v2 .lg { display: grid; grid-template-columns: 52mm minmax(0, 1fr); margin: 0; padding: 0; gap: 0; break-inside: avoid; }
+.v2 .pc, .v2 .lg-when { min-width: 0; padding: 1.6mm 2mm; border-right: 1.2pt solid var(--sand); }
+.v2 .pc { display: grid; grid-template-columns: 10mm minmax(0, 1fr); column-gap: 1.6mm; align-content: start; align-items: start; }      /* 번호·체크 칸(왼쪽 세로로) + 곳 이름, 그 아래 어디서·전화·딱지 */
+.v2 .pc > * { grid-column: 1 / -1; }
+.v2 .pc > .pc-top { grid-column: 1; grid-row: 1; }
+.v2 .pc > .pb-t { grid-column: 2; grid-row: 1; }
+/* 긴 곳 이름(.is-wide: 소분류 칸의 이름 자리에 한 낱말이 안 든다)은 그림·□ 를 한 줄에 나란히 위에 두고 이름이 칸 폭 전체를 쓴다(낱말 가운데서 꺾이지 않게. 글자는 16pt 를 넘기지 않는다) */
+.v2 .pc.is-wide > .pc-top { grid-column: 1 / -1; grid-row: 1; flex-direction: row; justify-content: flex-start; gap: 2.4mm; }
+.v2 .pc.is-wide > .pb-t { grid-column: 1 / -1; grid-row: 2; font-size: min(var(--tn, 16pt), 16pt); margin-top: 1.2mm; }
+.v2 .pc-top { display: flex; flex-direction: column; align-items: center; gap: 1.2mm; }
+.v2 .pc-pic { display: block; width: 10mm; height: 10mm; }      /* 가실 곳 그림(화면 상자 띠와 같은 그림, 색 그대로). 이름 두 줄 높이쯤 */
+.v2 .pc-pic .ic-p { width: 10mm; height: 10mm; display: block; }
+.v2 .pg .pc .bx, .v2 .rnt .pc .bx { margin: 0; width: 5.4mm; height: 5.4mm; border-width: 1.5pt; }
+.v2 .pc-r { min-width: 0; }
+.v2 .pg .pb-rows { padding: 0 2.5mm; }
+.v2 .pg .pr-m { font-size: var(--ta, 18pt); line-height: 1.18; white-space: normal; text-align: right; }      /* 좁은 칸: 긴 글(조건이 맞으면 알아볼 수 있는 지원 …)이 잘리지 않게 꺾는다 */
+.v2 .pg .pr-m.has-pre { flex-basis: 100%; margin-left: 0; text-align: left; }      /* '조건이 맞으면 / 연 약 …' 은 위의 '이것을 하시면 받을 수 있는 돈' 과 이어 읽도록 왼쪽 맞춤 */
+.v2 .pg .pr-m.is-text { flex-basis: 100%; margin-left: 0; text-align: left; font-size: var(--td, 14pt); line-height: 1.25; }      /* 금액 없는 글은 이름 아래 줄에(좁은 칸에서 이름이 꺾이지 않게) */
+.v2 .pc .pb-t { font-size: var(--tn, 16pt); line-height: 1.22; }
+.v2 .pc .pb-where { font-size: var(--td, 14pt); font-weight: 400; color: var(--ink-soft); }
+.v2 .pc .pb-tel b { font-size: var(--tn, 16pt); line-height: 1.2; }
+.v2 .pc .pb-tel .ic-t { width: 6mm; height: 6mm; }
+.v2 .pc .pb-tags { justify-content: flex-start; margin-top: 0.4mm; }
+.v2 .rnt-top { display: flex; align-items: flex-start; gap: 1.6mm; }
+.v2 .rnt-p { font-size: var(--tn, 16pt); line-height: 1.22; font-weight: 700; }
+.v2 .rnt .pc { gap: 0.8mm; }
+.v2 .rnt-tag { margin-left: 0; }
+.v2 .rnt-b { padding: 0.8mm 2.5mm; font-size: var(--tn, 16pt); line-height: 1.3; }
+.v2 .rnt-t { font-weight: 800; }
+.v2 .rnt-s { margin: 0; font-size: var(--td, 14pt); line-height: 1.25; color: var(--ink-soft); }      /* 공고 줄의 왜 맞는지 · 안내 · 물어볼 것(굵게) · 조건은 창구에서 확인하세요(화면과 같은 글) */
+.v2 .rnt-a { color: var(--ink); font-weight: 700; }
+.v2 .rnt-a::before { content: "물어볼 것 · "; font-weight: 800; }      /* 화면 공고 줄의 '물어볼 것 ·' 꼬리말과 같게 */
+.v2 .rnt-d { display: inline-block; border: 1.6pt solid var(--urgent); color: var(--urgent); border-radius: 999px; padding: 0 3mm; font-size: var(--td, 14pt); line-height: 1.2; font-weight: 800; }        /* 마감 날짜: 빨강 테두리 + 빨강 글자(흑백에서도 굵은 글 + 테두리 알약) */
+.v2 .zempty { padding: 1.6mm 2.5mm; font-size: var(--tn, 16pt); line-height: 1.3; font-weight: 700; }
+.v2 .lg-when { font-size: var(--tn, 16pt); line-height: 1.22; font-weight: 800; padding: 1.4mm 2mm; }
+.v2 .lg-rows { min-width: 0; padding: 0.8mm 2.5mm; }
+.v2 .lr { display: flex; align-items: flex-start; gap: 2.4mm; padding: 0.6mm 0; border-top: 0.8pt solid var(--sand-soft); }
+.v2 .lg-where { margin: 0.6mm 0 0; font-size: var(--td, 14pt); line-height: 1.25; font-weight: 400; color: var(--ink-soft); }      /* 이름 옆에 곳을 못 실은 달: 때 아래 작은 글로 신청할 곳 */
+.v2 .lr:first-child { border-top: 0; }
+.v2 .lr-shared + .lr { border-top: 0; }
+.v2 .lr .bx { width: 5mm; height: 5mm; margin-top: 0.9mm; border-width: 1.4pt; }
+.v2 .lr-body { flex: 1; min-width: 0; }
+.v2 .lr-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 3mm; }
+.v2 .lr-l { flex: 1 1 0; min-width: 0; }
+.v2 .lr-t { font-size: var(--tn, 16pt); line-height: 1.22; font-weight: 700; overflow-wrap: anywhere; }
+.v2 .lr-m { flex: none; margin-left: auto; font-size: var(--tn, 16pt); line-height: 1.22; font-weight: 700; white-space: nowrap; }
+.v2 .lr-m.is-text { flex-basis: 100%; margin-left: 0; white-space: normal; text-align: left; font-size: var(--td, 14pt); line-height: 1.25; }      /* 금액이 아닌 글(작년처럼 다시 신청하세요)은 이름 아래 줄에: 좁은 칸에서 이름이 꺾이지 않게 */
+.v2 .lr-m.has-pre, .v2 .lr-m.is-stack { flex-basis: 100%; margin-left: 0; text-align: right; }      /* 앞 말이 붙은 금액 · 이름 옆에 두면 이름이 낱말 가운데서 꺾이는 금액: 이름 아래 줄 오른쪽 끝에 */
+.v2 .lr-pre { font-weight: 400; }
+.v2 .lr-amt { color: var(--tang-deep); font-weight: 900; }
+.v2 .lr-sub { display: inline-block; font-size: var(--td, 14pt); line-height: 1.25; color: var(--ink-soft); }         /* 곳 이름은 한 덩어리로 다음 줄에 내려간다(낱말 하나만 넘어가지 않게) */
+.v2 .lr-note { font-size: var(--td, 14pt); line-height: 1.25; color: var(--ink-soft); }
+.v2 .chk-tip { display: inline-block; font-size: 14pt; line-height: 1.3; font-weight: 700; white-space: nowrap; border: 1.4pt solid var(--sea); border-radius: 2mm; padding: 0 2.4mm; background: #fff; }      /* 체크 칸(□) 쓰임: 다녀오면 ✓ */
+.v2 .rrw { display: flex; align-items: flex-start; gap: 2mm; margin-top: 1.6mm; break-inside: avoid; }
+.v2 .rrw .bx { margin-top: 4.5mm; width: 6mm; height: 6mm; }       /* 체크 칸은 제목 띠 높이의 가운데쯤 */
+.v2 .pg.rrw { display: grid; align-items: stretch; margin-top: 0; gap: 0; }
+/* 가실 곳 상자(빈 종이 앞면만: 결과가 있는 종이는 위 표를 쓴다): 제목 띠(옅은 청록 바탕 먹색 글자) + 받는 것이 한 줄에 하나씩 세로로. 흑백에서도 읽힌다 */
+.v2 .pbox { flex: 1; min-width: 0; border: 2.2pt solid var(--sea); border-radius: 3mm; background: #fff; overflow: hidden; }
+.v2 .pbox.is-first { border-color: var(--sea); }
+.v2 .pb-band { display: flex; align-items: center; gap: 2.4mm; background: var(--sea-soft); color: var(--ink); border-bottom: 1.4pt solid var(--sea); padding: 1.6mm 2.4mm; }
+.v2 .pb-pic { flex: none; display: grid; place-items: center; width: 12mm; height: 12mm; background: #fff; border: 1.2pt solid var(--sand); border-radius: 2mm; }
+.v2 .pb-pic .ic-p { width: 10mm; height: 10mm; }
+.v2 .pb-name { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 0.6mm; }
+.v2 .pb-t { margin: 0; padding: 0; border: 0; display: block; font-size: 18pt; line-height: 1.18; font-weight: 700; color: var(--ink); word-break: keep-all; overflow-wrap: break-word; }
+.v2 .pb-where { margin: 0; font-size: 14pt; font-weight: 700; line-height: 1.25; }
+.v2 .pb-side { flex: none; max-width: 64mm; display: flex; flex-direction: column; align-items: flex-end; gap: 0.6mm; }
+.v2 .pb-tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 1.6mm; }
+.v2 .pb-tag { display: inline-block; background: #fff; color: var(--ink); border: 1.2pt solid var(--sea); border-radius: 999px; padding: 0 3.2mm; font-size: var(--td, 14pt); line-height: 1.25; font-weight: 700; white-space: nowrap; }
+.v2 .pb-tel { margin: 0; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0 1.6mm; }
+.v2 .pb-tel .ic { grid-row: 1; }
+.v2 .pb-tel b { font-size: 17pt; line-height: 1.15; font-weight: 700; white-space: nowrap; }
+.v2 .pb-tel small { grid-column: 1 / -1; font-size: 14pt; line-height: 1.25; font-weight: 700; }
+.v2 .pb-tel .ic + small { grid-column: 2; }
+.v2 .pb-rows { list-style: none; margin: 0; padding: 0 3mm; }
+.v2 .pr { padding: 0.8mm 0; border-top: 1pt solid var(--sand-soft); display: flex; flex-direction: column; gap: 0.2mm; }
+.v2 .pr:first-child { border-top: 0; }
+.v2 .pr-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 2mm; }
+.v2 .pr-do .pr-top { align-items: center; flex-wrap: nowrap; }
+.v2 .pr-ic { flex: none; display: grid; place-items: center; }
+.v2 .pr-ic .ic-l { width: 6mm; height: 6mm; }
+.v2 .pr-t { font-size: var(--tn, 16pt); line-height: 1.22; font-weight: 700; overflow-wrap: anywhere; }
+.v2 .pr-ld { flex: 1 1 4mm; min-width: 4mm; border-bottom: 1.2pt dotted var(--sand); transform: translateY(-1.2mm); }
+.v2 .pr-m { margin-left: auto; font-size: 20pt; line-height: 1.18; font-weight: 700; color: var(--ink); white-space: nowrap; }
+.v2 .pr-m.is-text { font-size: var(--tn, 16pt); white-space: normal; text-align: right; }      /* 금액이 아닌 글은 금액보다 작게, 검정 */
+.v2 .pr-m.has-pre { flex-basis: 100%; text-align: right; }      /* 앞 말이 붙은 금액('하시고 조건 맞으면 연 약 …')은 이름 아래 줄 오른쪽 끝에 */
+.v2 .pr-pre { font-size: var(--tn, 16pt); font-weight: 400; }
+.v2 .pr-amt { color: var(--tang-deep); font-weight: 900; }      /* 금액: 주황 굵게(화면과 같다) */
+.v2 .pr-text { font-size: var(--td, 14pt); line-height: 1.25; font-weight: 700; color: var(--ink); }
+.v2 .pr-when, .v2 .pr-check { display: flex; align-items: center; gap: 1.2mm; }
+.v2 .pr-when { font-size: var(--tw, 15pt); line-height: 1.25; font-weight: 700; color: var(--ink); }
+.v2 .pr-check { font-size: var(--td, 14pt); line-height: 1.25; font-weight: 700; color: var(--ink-soft); }
+.v2 .pr-note { font-size: var(--td, 14pt); line-height: 1.25; color: var(--ink-soft); }
+.v2 .pr-unlock { font-size: var(--tw, 15pt); line-height: 1.25; font-weight: 700; color: var(--ink); }
+.v2 .pr-pill { align-self: flex-start; display: inline-block; border: 1.6pt solid var(--urgent); border-radius: 999px; padding: 0 3mm; font-size: var(--td, 14pt); line-height: 1.25; font-weight: 800; color: var(--urgent); }      /* 마감 날짜: 빨강 테두리 + 빨강 글자(흑백에서도 굵은 글 + 테두리 알약) */
+.v2 .lg-more { margin: 0; padding: 1.6mm 2.5mm; font-size: var(--tw, 15pt); line-height: 1.25; color: var(--ink-soft); }      /* 앞으로 신청할 것 끝의 조용한 한 줄(먼 달 지원이 더 있다는 안내) */
+.v2 .lg-more b { color: var(--ink); font-weight: 700; }
+.v2 .pb-more { margin: 0; padding: 0.8mm 3mm 1mm; border-top: 1pt solid var(--sand); font-size: 14pt; line-height: 1.25; font-weight: 700; color: var(--ink-soft); }
+.v2 .fx { border-left: 2.5pt solid var(--sea); margin-top: 0.8mm; }
+/* 알아 두세요 상자(화면과 같은 모양): 제목 + 점 목록, 흰 바탕 검정 테두리 */
+.v2 .keepl { margin: 2.4mm 1mm 0; }      /* 표 아래 줄들(가실 때 · 끊기지 않게 …): 상자도 제목도 없다 */
+.v2 .keepl p { margin: 0; font-size: 14pt; line-height: 1.28; font-weight: 400; }
+.v2 .keepl b { font-weight: 700; }
+.v2 .keepl p.fx { border-left: 0; margin: 0; padding-left: 0; }
+/* 마을 안내용 종이(typesheet_doc)도 같은 틀: 머리 선·묶음 제목(그림 + 글, 청록 선)·바닥글. 줄 모양은 옛 규칙 그대로. */
+.v2 h2 { display: flex; align-items: center; gap: 1.8mm; border-left-color: var(--sea); border-bottom-color: var(--sea); }
+.v2 h2 small { font-size: 14pt; font-weight: 700; }
+.v2 .it { border-bottom-color: var(--sand); }
+.v2 .tag { border-color: var(--sea); color: var(--ink); }
+.v2 .foot { border-top-color: var(--sand); }
+.v2.empty .banner { margin-top: 3mm; }
+.v2 .asof, .v2 .badge, .v2 .py { border-color: var(--sea); }
+.v2 .tagA, .v2 .tag { border-color: var(--sea); }
+.v2 .cp { border-top-color: var(--sand); }
+.v2 .cp.top { border-bottom-color: var(--sand); }
+.v2 .stale { border: 1.4pt solid var(--sea); border-radius: 1.6mm; background: var(--tang-soft); }      /* 값이 옛것이라는 경고 줄: 검정 테두리 대신 청록 테두리 + 옅은 주황 바탕(먹색 글자) */
+.v2 .banner { border-color: var(--sea); }
+
+/* ---------- 화면 미리보기 ---------- */
+@media screen {
+  body { background: #d4d4d4; padding-bottom: 16mm; }
+  .sheet { margin: 8mm auto 0; background: #fff; outline: 1px solid #000; }
+}
+@media print { .screen-only { display: none !important; } }
+
+</style>
+</head>
+<body>
+<section class="sheet front cardsheet v2" data-page="front" data-tier="0">
+  <div class="body">    <div class="titlerow">
+  <div><h1 class="line pt22" data-sec="T">제주 농돈 · 양배추 · 애월읍</h1><p class="subt line pt14" data-sec="T" data-n="1">농가가 받을 돈, 한 장으로 · <span class="badge prior hd num" data-asof="2026-11-07">2026년 기준 · 2027년 공고 전</span></p></div>
+  <div class="meta"><span class="asof num" data-source="config" data-asof="2026-11-13">기준일 2026-11-13</span></div>
+</div>
+    <div class="ptb-note line pt16" data-sec="Z" data-n="1.36"><span class="pn-d">지금 = <span class="zt-d"><span class="num" data-source="config" data-asof="2026-11-13">11</span>월 <span class="num" data-source="config" data-asof="2026-11-13">13</span>일 기준</span></span><span class="chk-tip">다녀오면 □에 ✓</span></div>    <div class="ptb">      <section class="pz pz-now">
+        <h2 class="pz-h zt-h">지금 <span class="nb">하실 일</span></h2>
+        <div class="pz-b">          <article class="pg rrw line pt16" data-sec="Rr" data-n="9.01">
+  <header class="pc is-wide">
+    <div class="pc-top"><span class="pc-pic"><svg class="ic ic-p" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M8 4 h20 l9 9 v31 H8z" fill="#FFFDF5" stroke="#2B2724" stroke-width="3" stroke-linejoin="round"/><path d="M28 4 v9 h9" fill="#F2DDB5" stroke="#2B2724" stroke-width="3" stroke-linejoin="round"/><path d="M14 19 h12 M14 26 h8" stroke="#1F6F78" stroke-width="3.5" stroke-linecap="round"/><circle cx="32" cy="34" r="9.5" fill="#FFF1DC" stroke="#BF5208" stroke-width="3.5"/><path d="M27.5 34 l3 3 l5.5 -6.5" stroke="#BF5208" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="bx"></span></div>
+    <h3 class="pb-t">농산물품질관리원<wbr>(농관원) 제주지원</h3>    <p class="pb-tel"><svg class="ic ic-t" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M10 6 h7 l4 10 -5 3.5 a24 24 0 0 0 12.5 12.5 l3.5 -5 L42 31 v7 a4 4 0 0 1 -4 4 C20 42 6 28 6 10 a4 4 0 0 1 4 -4z" fill="#DCEEEC" stroke="#2B2724" stroke-width="3" stroke-linejoin="round"/><path d="M28 9 a11 11 0 0 1 11 11 M28 15 a5 5 0 0 1 5 5" stroke="#BF5208" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg><b><span class="num" data-source="sheet" data-asof="2026-11-13">1644</span>-<span class="num" data-source="sheet" data-asof="2026-11-13">8778</span></b></p>  </header>
+  <div class="pc-r">
+    <ul class="pb-rows">      <li class="pr pr-do"><div class="pr-top"><span class="pr-ic"><svg class="ic ic-l" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M9 39 l2.5 -9.5 L31 10 l7 7 L18.5 36.5z" fill="#FFF1DC" stroke="#2B2724" stroke-width="3" stroke-linejoin="round"/><path d="M31 10 l3.5 -3.5 a2.5 2.5 0 0 1 3.5 0 l3.5 3.5 a2.5 2.5 0 0 1 0 3.5 L38 17z" fill="#BF5208" stroke="#2B2724" stroke-width="3" stroke-linejoin="round"/><path d="M11.5 29.5 l7 7" stroke="#2B2724" stroke-width="3" stroke-linecap="round"/><path d="M8 43 h14" stroke="#BF5208" stroke-width="4" stroke-linecap="round"/></svg></span><b class="pr-t">농업경영체 등록</b></div></li>      <li class="pr pr-get"><div class="pr-top"><b class="pr-t">이것을 하시면 받을 수 있는 돈</b><span class="pr-m has-pre"><span class="pr-pre">조건이 맞으면</span> <span class="pr-amt nb">연 약 <span class="num" data-source="calc:test" data-asof="2026-11-13">179</span>만~<span class="num" data-source="calc:test" data-asof="2026-11-13">256</span>만 원</span></span></div>
+  <span class="pr-when"><svg class="ic ic-s" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect x="6" y="9" width="36" height="33" rx="6" fill="#FFFDF5" stroke="#2B2724" stroke-width="3"/><path d="M6 20 h36 V15 a6 6 0 0 0 -6 -6 H12 a6 6 0 0 0 -6 6z" fill="#1F6F78" stroke="#2B2724" stroke-width="3" stroke-linejoin="round"/><path d="M15 4 v9 M33 4 v9" stroke="#2B2724" stroke-width="3.5" stroke-linecap="round"/><path d="M15 28 h4 M22 28 h4 M29 28 h4 M15 35 h4 M22 35 h4" stroke="#BF5208" stroke-width="4" stroke-linecap="round"/></svg><span>직불은 내년 <span class="num" data-source="calc:test" data-asof="2026-11-13">3</span>~<span class="num" data-source="calc:test" data-asof="2026-11-13">5</span>월쯤 신청해요</span></span><span class="pr-note">임차 땅은 증빙 서류를 물어보세요</span><span class="pr-unlock">이것을 해야 제주 농민수당, 면적직불금 외 <span class="num" data-source="calc:test" data-asof="2026-11-13">2</span>가지를 받을 수 있어요</span></li>    </ul>
+  </div>
+</article>          <article class="pg rrw line pt16" data-sec="Rr" data-n="5.35">
+  <header class="pc is-wide">
+    <div class="pc-top"><span class="pc-pic"><svg class="ic ic-p" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 4 L40 9 V23 C40 33 33 40 24 44 C15 40 8 33 8 23 V9Z" fill="#DCEEEC" stroke="#2B2724" stroke-width="3" stroke-linejoin="round"/><path d="M24 33 C17 28 16 23 19 20.5 C21.5 18.5 23.5 20 24 22.5 C24.5 20 26.5 18.5 29 20.5 C32 23 31 28 24 33Z" fill="#BF5208" stroke="#2B2724" stroke-width="2.5" stroke-linejoin="round"/></svg></span><span class="bx"></span></div>
+    <h3 class="pb-t">건강보험공단 지사</h3>    <p class="pb-tel"><svg class="ic ic-t" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M10 6 h7 l4 10 -5 3.5 a24 24 0 0 0 12.5 12.5 l3.5 -5 L42 31 v7 a4 4 0 0 1 -4 4 C20 42 6 28 6 10 a4 4 0 0 1 4 -4z" fill="#DCEEEC" stroke="#2B2724" stroke-width="3" stroke-linejoin="round"/><path d="M28 9 a11 11 0 0 1 11 11 M28 15 a5 5 0 0 1 5 5" stroke="#BF5208" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg><b><span class="num" data-source="supports:NHIS-FARMER-SUPPORT@2026#읍면" data-asof="2026-11-07">1577</span>-<span class="num" data-source="supports:NHIS-FARMER-SUPPORT@2026#읍면" data-asof="2026-11-07">1000</span></b></p>  </header>
+  <div class="pc-r">
+    <ul class="pb-rows">      <li class="pr pr-get"><div class="pr-top"><b class="pr-t">농어업인 건강보험료 지원</b></div>
+  <span class="pr-when"><svg class="ic ic-s" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect x="6" y="9" width="36" height="33" rx="6" fill="#FFFDF5" stroke="#2B2724" stroke-width="3"/><path d="M6 20 h36 V15 a6 6 0 0 0 -6 -6 H12 a6 6 0 0 0 -6 6z" fill="#1F6F78" stroke="#2B2724" stroke-width="3" stroke-linejoin="round"/><path d="M15 4 v9 M33 4 v9" stroke="#2B2724" stroke-width="3.5" stroke-linecap="round"/><path d="M15 28 h4 M22 28 h4 M29 28 h4 M15 35 h4 M22 35 h4" stroke="#BF5208" stroke-width="4" stroke-linecap="round"/></svg><span>언제든 신청할 수 있어요</span></span></li>    </ul>
+  </div>
+</article>        </div>
+      </section>      <section class="pz pz-later">
+        <h2 class="pz-h zt-h">앞으로 <span class="nb">신청할 것</span></h2>
+        <div class="pz-b">          <p class="lg-more line pt16" data-sec="L" data-n="2.55">그 뒤에도 <b><span class="num" data-source="sheet" data-asof="2026-11-13">1</span>가지</b>가 더 있어요 · 내년 <span class="num" data-source="sheet" data-asof="2026-11-13">8</span>월부터 신청해요 · 문자 알림을 받으시면 그 달에 알려 드려요</p>        </div>
+      </section>    </div>    <div class="keepl line pt14" data-sec="K" data-n="1"><p><b>가실 때:</b> 이 종이와 신분증 · 필요한 서류는 창구에서 알려 줘요</p></div>
+  </div>
+  <div class="foot">
+<span class="line pt14" data-sec="G">이 종이를 뽑아 준 곳: 제주빅데이터센터 창구 · 궁금하면 그곳에 물어보세요</span><br><span class="line pt14" data-sec="G">공문서가 아니에요 · 신청과 결정은 해당 기관이 해요</span><br><span class="line pt14" data-sec="G">금액은 약·범위·최대 기준이에요 · 공고가 바뀌면 달라질 수 있어요</span></div>
+</section>
+</body>
+</html>

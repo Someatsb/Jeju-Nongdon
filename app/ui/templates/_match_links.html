@@ -1,0 +1,13 @@
+{#- 자세히 보기 "공고 원문" 상자에 더하는 맞을 수 있는 새 공고 줄(공고 주소가 있는 것만). links: MatchJob.links() [{key, title, url}] -#}
+{% import "_art.html" as art %}
+{%- for x in links %}
+<li class="lk" data-key="{{ x.key }}" data-keys="{{ x.key }}">
+  <b class="lk-name">{{ x.title }} <small class="lk-new">AI가 읽은 공고</small></b>
+  <span class="lk-btns">
+    <a class="btn btn-ghost lk-open" href="{{ x.url }}" target="_blank" rel="noopener">{{ art.ic_list("ic ic-s") }}공고문 보기</a>
+    <button type="button" class="btn btn-ghost lk-copy" data-copy-url="{{ x.url }}">{{ art.ic_copy("ic ic-s") }}링크 복사하기</button>
+  </span>
+  <p class="lk-done" role="status" aria-live="polite" data-msg="복사했어요. 카카오톡이나 문자에 붙여 넣으세요"></p>
+  <input class="lk-fallback" type="text" readonly hidden value="{{ x.url }}" aria-label="이 주소를 길게 눌러 복사하세요">
+</li>
+{%- endfor %}

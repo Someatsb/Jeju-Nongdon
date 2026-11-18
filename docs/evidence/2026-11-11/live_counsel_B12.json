@@ -1,0 +1,118 @@
+{
+ "sample": "B12",
+ "measured_at": "2026-11-11T22:24:17",
+ "elapsed_s": 28.88,
+ "n_calls": 6,
+ "tok_in_total": 18470,
+ "tok_out_total": 2358,
+ "error": null,
+ "calls": [
+  {
+   "purpose": "narrate",
+   "section": "support",
+   "attempt": 1,
+   "tok_in": 2616,
+   "tok_out": 862,
+   "n_tool_calls": 0,
+   "text_head": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:do_calcium_sulfur}에 해당될 수 있으니 다음 신청 때 여쭤 보세요.\",\"cites\":[\"M:do_calcium_sulfur\"]},{\"sid\":2,\"text\":\"{P:jeju_soil_eco}도 해당될 수 있어 다음 시기를 기다려 보세요.\",\"cit"
+  },
+  {
+   "purpose": "judge",
+   "section": "support",
+   "attempt": 1,
+   "tok_in": 3897,
+   "tok_out": 314,
+   "n_tool_calls": 0,
+   "text_head": "{\"verdict\":\"PASS\",\"reason_code\":null}"
+  },
+  {
+   "purpose": "narrate",
+   "section": "insurance",
+   "attempt": 1,
+   "tok_in": 1930,
+   "tok_out": 215,
+   "n_tool_calls": 0,
+   "text_head": "{\"section\":\"insurance\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nh_safety_owner}은 지금 가입을 알아보실 수 있습니다.\",\"cites\":[\"I:nh_safety_owner\"]},{\"sid\":2,\"text\":\"{P:crop_disaster_a}은 다음 가입 시기를 기다리셔야 합니다.\",\"cites\":[\"I:cr"
+  },
+  {
+   "purpose": "judge",
+   "section": "insurance",
+   "attempt": 1,
+   "tok_in": 3791,
+   "tok_out": 122,
+   "n_tool_calls": 0,
+   "text_head": "{\"verdict\":\"PASS\",\"reason_code\":null}"
+  },
+  {
+   "purpose": "narrate",
+   "section": "action",
+   "attempt": 1,
+   "tok_in": 2371,
+   "tok_out": 617,
+   "n_tool_calls": 0,
+   "text_head": "{\"section\":\"action\",\"sentences\":[{\"sid\":1,\"text\":\"{P:a_nhis_farmer_support}는 지금 신청해 보실 수 있습니다.\",\"cites\":[\"A:a_nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:a_fund}는 먼저 갖출 조건이 있어 미리 챙겨 두시면 좋습니다.\",\"cites\":"
+  },
+  {
+   "purpose": "judge",
+   "section": "action",
+   "attempt": 1,
+   "tok_in": 3865,
+   "tok_out": 228,
+   "n_tool_calls": 0,
+   "text_head": "{\"verdict\":\"PASS\",\"reason_code\":null}"
+  }
+ ],
+ "review_entries": [
+  {
+   "section": "support",
+   "attempt": 1,
+   "rules_ver": "rules-v1.0#afa7e540",
+   "sentences": 3,
+   "checks": [],
+   "judge": {
+    "prompt_ver": "judge-v1",
+    "provider": "anthropic",
+    "model": "claude-opus-5-5",
+    "skipped": false,
+    "verdict": "PASS"
+   },
+   "verdict": "PASS",
+   "feedback": []
+  },
+  {
+   "section": "insurance",
+   "attempt": 1,
+   "rules_ver": "rules-v1.0#afa7e540",
+   "sentences": 3,
+   "checks": [],
+   "judge": {
+    "prompt_ver": "judge-v1",
+    "provider": "anthropic",
+    "model": "claude-opus-5-5",
+    "skipped": false,
+    "verdict": "PASS"
+   },
+   "verdict": "PASS",
+   "feedback": []
+  },
+  {
+   "section": "action",
+   "attempt": 1,
+   "rules_ver": "rules-v1.0#afa7e540",
+   "sentences": 3,
+   "checks": [],
+   "judge": {
+    "prompt_ver": "judge-v1",
+    "provider": "anthropic",
+    "model": "claude-opus-5-5",
+    "skipped": false,
+    "verdict": "PASS"
+   },
+   "verdict": "PASS",
+   "feedback": []
+  }
+ ],
+ "fingerprint": "5caa6052",
+ "title": "당근 2,000평, 계통 Y·자조금 N",
+ "tuned_sample": false
+}

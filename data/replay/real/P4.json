@@ -1,0 +1,132 @@
+{
+  "sample_id": "P4",
+  "recorded_at": "2026-11-08T16:38:00",
+  "source": "recorded",
+  "provider": "anthropic",
+  "model": "claude-opus-5-5",
+  "prompt_ver": "narrate-v1",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "eb64bbee",
+  "calls": [
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "1b92f5d57e515f7f19c91a57f9b678d27d8bcd7766ef82c27dccc872570095cc",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nhis_farmer_support}은 건강보험 가입 여부를 접수기관에 확인해 보시면 됩니다.\",\"cites\":[\"M:nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:jeju_farmer_allow}, {P:nat_direct_area}, {P:do_small_machine}, {P:js_biodeg}은 농업경영체 등록과 소득 기준 같은 조건을 먼저 갖추시면 다음 신청 때 해당될 수 있습니다.\",\"cites\":[\"M:jeju_farmer_allow\",\"M:nat_direct_area\",\"M:do_small_machine\",\"M:js_biodeg\"]},{\"sid\":3,\"text\":\"{P:jeju_pstab}, {P:jeju_logi}, {P:jeju_soil_eco}은 조합원 가입과 자부담 준비가 먼저 필요합니다.\",\"cites\":[\"M:jeju_pstab\",\"M:jeju_logi\",\"M:jeju_soil_eco\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2315,
+        "tok_out": 841,
+        "latency_ms": 8609,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 2,
+      "request_hash": "154b2b0eb4dadf557a009ce376bdd2bdaf99ff6a61f09bd03f3c65ffc63c3e65",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nhis_farmer_support}는 건강보험 가입 여부를 접수기관에서 확인해 보시면 됩니다.\",\"cites\":[\"M:nhis_farmer_support\"]},{\"sid\":2,\"text\":\"다른 지원은 농업경영체 등록과 소득 조건을 먼저 갖추셔야 해당될 수 있습니다.\",\"cites\":[\"M:jeju_farmer_allow\",\"M:nat_direct_area\",\"M:do_small_machine\",\"M:js_biodeg\"]},{\"sid\":3,\"text\":\"{P:jeju_logi} 등은 조합 가입과 자부담 준비가 먼저 필요합니다.\",\"cites\":[\"M:jeju_logi\",\"M:jeju_pstab\",\"M:jeju_soil_eco\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2475,
+        "tok_out": 860,
+        "latency_ms": 8718,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 3,
+      "request_hash": "0b6be3ab0e7c86a3a9a4ffcc9475f4c4107f0e4594ff9daa3f611f62a5a807e6",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nhis_farmer_support}는 해당될 수 있으니, 건강보험 가입 여부를 접수기관에 확인해 보시면 됩니다.\",\"cites\":[\"M:nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:jeju_farmer_allow}, {P:nat_direct_area}, {P:do_small_machine}, {P:js_biodeg}는 농업경영체 등록과 소득 조건을 먼저 갖추셔야 할 수 있습니다.\",\"cites\":[\"M:jeju_farmer_allow\",\"M:nat_direct_area\",\"M:do_small_machine\",\"M:js_biodeg\"]},{\"sid\":3,\"text\":\"{P:jeju_pstab}, {P:jeju_logi}, {P:jeju_soil_eco}는 조합 가입과 자부담 준비가 먼저 필요할 수 있습니다.\",\"cites\":[\"M:jeju_pstab\",\"M:jeju_logi\",\"M:jeju_soil_eco\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2393,
+        "tok_out": 707,
+        "latency_ms": 6594,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "63883a3f5d427be57ba1ee58fd1b8338fa2f54a098e38c447319ab0d3ff2934c",
+      "response": {
+        "text": "{\"section\":\"insurance\",\"sentences\":[{\"sid\":1,\"text\":\"{P:crop_disaster_a}, {P:income_stab_a} 보험은 다음 가입 시기를 기다리셔야 합니다.\",\"cites\":[\"I:crop_disaster_a\",\"I:income_stab_a\"]},{\"sid\":2,\"text\":\"가입 시기가 열리면 가입하실 수 있는지 살펴보시면 됩니다.\",\"cites\":[\"I:crop_disaster_a\",\"I:income_stab_a\"]},{\"sid\":3,\"text\":\"{P:nh_safety_owner} 보험은 해당되는지와 가입 시기를 접수기관에 확인해 보시면 됩니다.\",\"cites\":[\"I:nh_safety_owner\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 1742,
+        "tok_out": 699,
+        "latency_ms": 7000,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "1675ed8ff2b92c14a47225ff7525d7ce18405ced6f7a5d07f4955cb4f7da058b",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 3328,
+        "tok_out": 20,
+        "latency_ms": 1625,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "811bf1536329a934a887ee1c7526895458a412cac755059262e1f2b49824a160",
+      "response": {
+        "text": "{\"section\":\"action\",\"sentences\":[{\"sid\":1,\"text\":\"{P:a_mgmt_registration}부터 먼저 챙겨 두시면 좋습니다. 다음 접수 시기를 기다려 주세요.\",\"cites\":[\"A:a_mgmt_registration\"]},{\"sid\":2,\"text\":\"{P:a_nhis_farmer_support}도 늘 신청할 수 있으니 확인해 보시면 됩니다.\",\"cites\":[\"A:a_nhis_farmer_support\"]},{\"sid\":3,\"text\":\"{P:a_coop_fund}, {P:a_ins_a}도 다음 시기가 열리면 다시 살펴보시면 됩니다.\",\"cites\":[\"A:a_coop_fund\",\"A:a_ins_a\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 1812,
+        "tok_out": 746,
+        "latency_ms": 7109,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "8e5b03829b0e042332f807cc63903b74a67456df21e44701175b3fe2a43472a7",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 3335,
+        "tok_out": 237,
+        "latency_ms": 2765,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    }
+  ]
+}

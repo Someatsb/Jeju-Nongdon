@@ -1,0 +1,39 @@
+{
+  "sample_id": "N1",
+  "recorded_at": "2026-11-08T16:38:00",
+  "source": "recorded",
+  "provider": "anthropic",
+  "model": "claude-opus-5-5",
+  "prompt_ver": "notice-v1",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "8c54353e",
+  "calls": [
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 1,
+      "request_hash": "ebee55ca60e8f54e476adeb1c3af86f8de38cf1f9078767b42fbf4ab5345a014",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "toolu_013E9fRPTfwfTSf8UqFkH3Dg",
+            "name": "finish",
+            "args": {
+              "decision": "NOT_RELEVANT",
+              "reason": "신청자격이 '월동무·양배추·당근·조생양파를 출하하는 지역농협 및 영농조합법인'이고 법인 설립 연수·출자금 요건이 붙어 있어 개인 농업인 대상 지원사업이 아님."
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 6268,
+        "tok_out": 262,
+        "latency_ms": 2968,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    }
+  ]
+}

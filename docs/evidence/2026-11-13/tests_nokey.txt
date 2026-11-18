@@ -1,0 +1,4 @@
+# 키 없는 시험(2026-11-13, 개발 PC, .env를 잠시 치우고 실행: python -X utf8 -m pytest -q)
+1694 passed, 3 skipped, 1 xfailed in 128.83s (0:02:08)
+건너뜀 3: 키 필요 실호출 1, N1 원본 PDF 경로 없음 1, 비Windows 전용 1 / 예상 실패 1: 문장 규칙의 알려진 미탐
+키가 있으면 1695 passed, 2 skipped, 1 xfailed (tests/REPORT.txt)

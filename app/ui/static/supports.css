@@ -1,0 +1,231 @@
+/* 제주 농돈 - 지원 전체 보기(supports.html)·지원 안내(support.html). 공통 틀·공용 부품(app.css) 위에 얹는다.
+   목록·안내는 세로 스크롤을 허용한다. 아래 고정 띠(.actionbar)는 늘 보인다.
+   글자는 20px 아래로 내리지 않는다. 목록 줄의 굵은 글은 이름과 기간뿐이다. */
+.page-sp .strip { display: none; }
+.page-sp .site-foot { display: none; }
+.spmain { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.sp-body { flex: 1; display: flex; flex-direction: column; gap: clamp(6px, 1vh, 10px); padding: 0 var(--pad-x) 24px; }
+.sp-body:has(> .sp-boxes) { gap: 8px; }
+.spmain .actionbar { margin-top: auto; }
+@media (min-width: 1000px) {
+  .page-sp .topbar { height: clamp(50px, 5.8vh, 58px); min-height: 0; }
+  .page-sp .logo { width: clamp(38px, 4.8vh, 46px); height: clamp(38px, 4.8vh, 46px); }
+  .page-sp .brand-name { font-size: clamp(30px, 4vh, 38px); }
+}
+
+/* ---------- 머리 ---------- */
+.sp-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px clamp(16px, 2.4vw, 36px); }
+.sp-head h1 { font-size: clamp(30px, 4.2vh, 38px); line-height: 1.1; font-weight: 800; letter-spacing: -0.03em; }
+.sp-count { font-size: clamp(22px, 3vh, 28px); font-weight: 600; color: var(--ink-soft); }
+.sp-count b { color: var(--ink); font-weight: 800; }
+.sp-shown { font-size: 22px; font-weight: 700; color: var(--ink); }
+
+/* ---------- 걸러 보기 단추 ---------- */
+.sp-filters { display: flex; flex-wrap: wrap; gap: 10px 12px; }
+.sp-chip {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 18px; border-radius: 999px; text-decoration: none;
+  background: var(--paper); border: 3px solid var(--line); box-shadow: 0 3px 0 var(--line); color: var(--ink);
+  font-size: clamp(22px, 3vh, 24px); font-weight: 700; line-height: 1.1;
+}
+.sp-chip small { font-size: 20px; font-weight: 600; color: var(--ink-soft); }
+.sp-chip:hover { border-color: var(--tang); }
+.sp-chip:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--line); }
+.sp-chip:focus-visible { outline: 5px solid var(--ink); outline-offset: 4px; }
+.sp-chip-mark { display: none; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); place-items: center; flex: none; }
+.sp-chip-mark svg { width: 16px; height: 16px; }
+.sp-chip.is-on { background: #fff; border: 5px solid var(--tang-deep); box-shadow: 0 3px 0 var(--tang-deep); padding: 0 16px; font-weight: 800; }
+.sp-chip.is-on .sp-chip-mark { display: grid; }
+
+/* ---------- 지원 목록: 묶음마다 상자 하나(4차, 설계서 2026-11-14-supports-readability-spec) ----------
+   묶음(지금 신청 받는 것 / 언제든 신청할 수 있어요 / 올해 신청은 끝났어요 ...)마다 떨어진 흰 상자 하나. 상자의 머리가 청록 제목 띠이고, 그 아래에 칸 머리(지원 | 어디서 신청해요 | 언제까지)가 작은 회색 글로 되풀이된다.
+   칸 폭은 모든 상자에서 같다(표마다 같은 colgroup + table-layout: fixed). 줄 하나가 링크 하나: 이름 칸의 링크가 ::after 로 줄 전체를 덮는다. 줄 바탕은 흰색 하나, 줄 사이는 선으로만 나눈다. */
+.sp-vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.sp-newnote { font-size: 20px; font-weight: 500; color: var(--ink-soft); line-height: 1.3; }
+.sp-boxes { display: flex; flex-direction: column; gap: 44px; width: 100%; max-width: 1360px; margin-top: 20px; }
+.sp-newnote + .sp-boxes { margin-top: 14px; }
+.sp-bx { background: #fff; border: 2px solid var(--ink); border-radius: 24px; overflow: clip; --gh-h: 64px; }
+.sp-tab { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; background: #fff; }
+.sp-col-name { width: 37%; }
+.sp-col-where { width: 37%; }
+.sp-col-when { width: 26%; }
+.sp-gh {
+  position: sticky; top: 0; z-index: 3; box-sizing: border-box; height: var(--gh-h);       /* 긴 상자 한가운데서도 묶음 이름이 위에 붙어 있다(자기 상자 안에서만) */
+  display: flex; align-items: center; gap: 14px; padding: 10px 28px; background: var(--sea-soft); color: var(--ink); border-bottom: 3px solid var(--sea); border-radius: 22px 22px 0 0;
+  font-size: 26px; font-weight: 800; line-height: 1.2;
+}
+.sp-gh small { font-size: 22px; font-weight: 700; color: var(--ink); }
+.sp-tab thead th { text-align: left; font-size: 20px; font-weight: 700; line-height: 1.2; color: var(--ink-soft); padding: 10px 24px; background: #fff; border-bottom: 2px solid #CBBFAE; position: sticky; top: var(--gh-h); z-index: 2; }
+.sp-tab thead th:first-child { padding-left: 28px; }
+.sp-tab thead th:last-child { text-align: right; padding-right: 76px; }
+.sp-row { position: relative; background: #fff; }
+.sp-row:hover { background: #FAF3E6; }
+.sp-row:has(.sp-card:active) { background: #FFEBD0; box-shadow: inset 0 3px 0 var(--ink); }
+.sp-row > * { height: 76px; padding: 14px 24px; border-bottom: 2px solid #CBBFAE; text-align: left; vertical-align: middle; font-weight: 400; }
+.sp-tab .sp-row:last-child > * { border-bottom: 0; }
+.sp-row > .sp-c-name { padding-left: 28px; }
+.sp-card { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; color: var(--ink); text-decoration: none; }
+.sp-card::after { content: ""; position: absolute; inset: 0; }                  /* 줄 전체가 눌리는 곳 */
+.sp-card:focus-visible { outline: none; }
+.sp-card:focus-visible::after { outline: 5px solid var(--ink); outline-offset: -5px; border-radius: 8px; }
+.sp-name { font-size: clamp(22px, 2.9vh, 26px); font-weight: 800; line-height: 1.25; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.sp-new { font-size: 20px; font-weight: 700; color: #6B4600; background: #FFE08A; border-radius: 999px; padding: 0 12px; line-height: 1.4; white-space: nowrap; }
+.sp-tab .sp-new { font-size: 18px; font-weight: 700; color: var(--ink); background: #fff; border: 1.5px solid var(--ink); border-radius: 8px; padding: 0 9px; line-height: 1.4; }
+h1 .sp-new { font-size: 22px; vertical-align: middle; }
+/* 가실 곳: 신청하러 갈 곳 글 그대로(전화번호 칸은 두지 않는다). 낱말 중간에서 끊지 않고 칸 안에서 줄을 바꾼다 */
+.sp-c-where { font-size: 22px; line-height: 1.3; color: var(--ink); }
+.sp-where { display: block; font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--ink); word-break: keep-all; overflow-wrap: break-word; }
+.sp-tel { white-space: nowrap; }
+.sp-phone { display: flex; align-items: center; gap: 8px; margin-top: 2px; font-size: 22px; font-weight: 800; line-height: 1.3; white-space: nowrap; }
+.sp-phone svg { flex: none; width: 26px; height: 26px; }
+.sp-ask-lab { font-weight: 700; color: var(--ink-soft); }      /* 한 곳이 아닌 곳(읍·면·동, 지역농협)의 번호는 담당 부서 번호라 "문의"라고 단다 */
+.sp-where + .sp-where { margin-top: 2px; }
+.sp-nowhere { color: var(--ink-soft); font-weight: 500; }
+.sp-c-when { text-align: right; padding-right: 76px; }
+.sp-when { display: block; font-size: clamp(22px, 2.9vh, 24px); font-weight: 800; line-height: 1.25; color: var(--ink); }
+.sp-flag { margin-bottom: 4px; font-size: clamp(20px, 2.6vh, 24px); }                       /* 남은 날 큰 표시: 모양은 app.css 의 .left-pill(첫 화면 카드와 같은 규칙) */
+.sp-c-when.has-flag .sp-when { font-size: 20px; font-weight: 600; color: var(--ink-soft); }   /* 마감이 있는 줄: 날짜는 남은 날 표시 아래 작은 글 */
+.sp-left { display: block; margin-top: 4px; font-size: 20px; line-height: 1.3; color: var(--ink-soft); }
+.sp-part { white-space: nowrap; }
+.sp-go { position: absolute; right: 22px; top: 50%; width: 36px; height: 36px; margin-top: -18px; color: var(--ink); display: grid; place-items: center; pointer-events: none; }
+.sp-go svg { width: 30px; height: 30px; }
+/* 끝난 것·시기 모름: 흐리게(글은 읽을 수 있게: 대비 4.5:1 이상) */
+.sp-row.is-low .sp-name, .sp-row.is-low .sp-when, .sp-row.is-low .sp-left, .sp-row.is-low .sp-where, .sp-row.is-low .sp-nowhere { color: #5F5750; }
+.sp-row.is-low .sp-name, .sp-row.is-low .sp-when, .sp-row.is-low .sp-where { font-weight: 700; }
+.sp-row.is-low .sp-go { color: #766C64; }
+
+/* ---------- 지원 안내 ---------- */
+.sp-head-one { flex-wrap: nowrap; align-items: flex-start; justify-content: space-between; gap: 4px 24px; }
+.sp-head-text { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.sp-head-one h1 { font-size: clamp(32px, 4.6vh, 44px); }
+.sp-sub { font-size: 20px; font-weight: 500; color: var(--ink-soft); }
+.sp-aside { display: flex; flex-direction: column; font-size: 20px; font-weight: 500; color: var(--ink-soft); }
+.sp-note { font-size: 22px; font-weight: 700; color: var(--ink); background: #FFE9C9; border-left: 10px solid var(--tang-deep); border-radius: 14px; padding: 6px 18px; }
+/* 한눈에 띠: 얼마나 / 언제 / 어디로 */
+.sp-glance { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.4vw, 20px); align-items: stretch; }
+.sp-cell { background: var(--paper); border: 3px solid var(--ink); border-radius: 22px; box-shadow: 0 4px 0 var(--line); padding: clamp(8px, 1.2vh, 12px) clamp(14px, 1.4vw, 22px); min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.sp-cell h2 { font-size: 20px; font-weight: 700; color: var(--sea); line-height: 1.2; }
+.sp-item { display: flex; flex-direction: column; gap: 2px; }
+.sp-item + .sp-item { margin-top: 6px; }
+.sp-v { font-size: clamp(26px, 3.6vh, 32px); font-weight: 800; line-height: 1.25; overflow-wrap: anywhere; }
+.sp-v.is-open { color: var(--sea); }
+.sp-v.is-long { font-size: clamp(22px, 3vh, 26px); }
+.sp-v-phone { font-size: clamp(28px, 4vh, 36px); color: var(--tang-deep); letter-spacing: 0.01em; white-space: nowrap; }
+.sp-small { font-size: 20px; font-weight: 400; line-height: 1.3; color: var(--ink-soft); overflow-wrap: anywhere; }
+/* 아래 두 칸 */
+.sp-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(10px, 1.4vw, 20px); align-items: start; }
+.sp-two.is-one { grid-template-columns: minmax(0, 1fr); }
+.sp-two.has-table { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+.sp-col { display: flex; flex-direction: column; gap: clamp(10px, 1.4vh, 16px); min-width: 0; }
+.sp-box { background: var(--paper); border: 3px solid var(--ink); border-radius: 22px; box-shadow: 0 4px 0 var(--line); padding: clamp(8px, 1.3vh, 14px) clamp(14px, 1.4vw, 22px); min-width: 0; }
+.sp-box h2 { font-size: clamp(24px, 3.2vh, 28px); font-weight: 800; color: var(--sea); margin-bottom: 4px; }
+.sp-text { font-size: 22px; line-height: 1.5; overflow-wrap: anywhere; }
+.sp-lines { display: flex; flex-direction: column; gap: 3px; }
+.sp-lines li { position: relative; padding-left: 20px; font-size: 22px; line-height: 1.4; overflow-wrap: anywhere; }
+.sp-lines li::before { content: ""; position: absolute; left: 2px; top: .6em; width: 9px; height: 9px; border-radius: 50%; background: var(--tang); }
+.sp-lines b { font-weight: 800; }
+.sp-prior { display: inline-block; margin-left: 6px; font-size: 20px; font-weight: 700; color: #6B4600; background: #FFE08A; border-radius: 999px; padding: 0 12px; }
+.sp-quotes { display: flex; flex-direction: column; gap: 8px; }
+.sp-quotes li { display: flex; flex-direction: column; font-size: 22px; }
+.sp-quotes b { font-weight: 800; }
+.sp-quotes span { font-size: 20px; color: var(--ink-soft); overflow-wrap: anywhere; }
+/* 작물별 표 */
+.sp-table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 20px; line-height: 1.35; }
+.sp-table th, .sp-table td { text-align: left; vertical-align: top; padding: 6px 10px; border-bottom: 2px solid var(--line); overflow-wrap: anywhere; }
+.sp-table thead th { font-size: 20px; font-weight: 700; color: var(--ink-soft); border-bottom: 3px solid var(--ink); }
+.sp-table tbody th { font-weight: 800; }
+.sp-table caption { text-align: left; font-size: 22px; font-weight: 600; line-height: 1.35; padding: 8px 10px 4px; color: var(--ink); caption-side: top; }
+.sp-table.is-follow { margin-top: 10px; }
+.sp-table.is-follow thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }      /* 둘째 표부터 머리글은 소리 읽기용으로만 */
+.sp-table.is-follow caption { border-top: 3px solid var(--line); }
+.sp-table tr.is-focus th, .sp-table tr.is-focus td { background: #FFE6BF; }
+.sp-table tr.is-focus th { border-left: 8px solid var(--tang-deep); }
+.sp-here { display: block; font-size: 20px; font-weight: 700; color: var(--tang-deep); }
+.sp-table tbody tr:last-child th, .sp-table tbody tr:last-child td { border-bottom: 0; }
+/* 접어 둔 칸 */
+.sp-fold { background: var(--paper); border: 3px solid var(--sea); border-radius: 22px; padding: 0 clamp(14px, 1.4vw, 22px); overflow: hidden; }
+.sp-fold summary { display: flex; align-items: center; min-height: 56px; margin: 0 calc(-1 * clamp(14px, 1.4vw, 22px)); padding: 0 clamp(14px, 1.4vw, 22px); cursor: pointer; font-size: 24px; font-weight: 800; color: var(--ink); background: var(--sea-soft); border-bottom: 3px solid var(--sea); list-style: none; }
+.sp-when-open { display: none; }
+.sp-fold[open] .sp-when-closed { display: none; }
+.sp-fold[open] .sp-when-open { display: inline; }
+.sp-when-closed, .sp-when-open { margin-left: .3em; }
+.sp-fold summary::-webkit-details-marker { display: none; }
+.sp-fold summary::before { content: "+"; display: inline-grid; place-items: center; flex: none; width: 32px; height: 32px; margin-right: 12px; border-radius: 50%; background: #fff; border: 2px solid var(--sea); box-sizing: border-box; color: var(--sea); font-size: 26px; font-weight: 800; line-height: 1; }
+.sp-fold[open] summary::before { content: "\2212"; }
+.sp-fold summary:focus-visible { outline: 5px solid var(--tang-deep); outline-offset: -5px; }
+.sp-fold .sp-lines { padding-top: 10px; }
+.sp-fold[open] { padding-bottom: 12px; }
+/* 작은 접이식(공고 기간 원문, 법 이름과 공문 글) */
+.sp-more { margin-top: 6px; }
+.sp-more summary { display: flex; align-items: center; min-height: 48px; cursor: pointer; font-size: 20px; font-weight: 700; color: var(--sea); text-decoration: underline; list-style: none; }
+.sp-more summary::-webkit-details-marker { display: none; }
+.sp-more summary::before { content: "+"; margin-right: 8px; font-size: 24px; font-weight: 800; text-decoration: none; }
+.sp-more[open] summary::before { content: "2"; }
+.sp-more summary:focus-visible { outline: 5px solid var(--sea); outline-offset: 2px; }
+/* 원문 단추(본문 맨 아래 한 줄) */
+.sp-link { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
+.sp-ext { min-height: 56px; font-size: 24px; text-decoration: none; }
+.sp-link-note { font-size: 20px; font-weight: 500; color: var(--ink-soft); flex: 1 1 260px; }
+.sp-link-note span { display: block; }
+.sp-nolink { font-size: 22px; font-weight: 500; }
+.sp-verified { font-size: 20px; color: var(--ink-soft); }
+/* 새 공고 안내: 이름표 아래 근거 글 */
+.sp-who-list li { display: flex; flex-direction: column; }
+.sp-src { display: block; font-size: 20px; font-weight: 500; color: var(--ink-soft); line-height: 1.35; overflow-wrap: anywhere; }
+.sp-who-list .sp-src { margin-top: 1px; }
+
+/* ---------- 창 크기 ---------- */
+@media (max-width: 1199px) { .sp-col-name { width: 34%; } .sp-col-where { width: 36%; } .sp-col-when { width: 30%; } .sp-dot { display: none; } .sp-part { display: block; } }       /* 덧말은 덩어리마다 한 줄씩(끝에 점이 홀로 남지 않게) */       /* 좁아지면 날짜 칸을 넓혀 남은 날 글이 꺾이지 않게 */
+@media (max-width: 999px) {
+  .sp-body { padding-bottom: 16px; }
+  .sp-glance, .sp-two, .sp-two.has-table { grid-template-columns: minmax(0, 1fr); }
+  .sp-chip { min-height: 52px; padding: 0 16px; font-size: 22px; }
+  .sp-chip.is-on { padding: 0 14px; }
+  .sp-ext { width: 100%; }
+}
+@media (max-width: 760px) {
+  .sp-filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
+  .sp-chip { flex: none; scroll-snap-align: start; }
+  /* 좁은 창: 표를 풀어 줄마다 세로로 이름 → 가실 곳 → 날짜. 머리 줄이 숨으므로 칸마다 작은 회색 머리 글("어디서", "언제까지")을 붙인다 */
+  .sp-tab, .sp-tab tbody, .sp-tab colgroup { display: block; }
+  .sp-tab colgroup, .sp-tab thead { display: none; }
+  .sp-boxes { margin-top: 16px; gap: 40px; }
+  .sp-bx { border-radius: 20px; }
+  .sp-bx { --gh-h: 56px; }
+  .sp-gh { font-size: 24px; padding: 8px 16px; }
+  .sp-row { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 10px; align-items: start; padding: 16px 56px 16px 16px; border-bottom: 2px solid #CBBFAE; }
+  .sp-tab .sp-row:last-child { border-bottom: 0; }
+  .sp-row > *, .sp-row > .sp-c-name { display: block; height: auto; padding: 0; border: 0; }
+  /* 줄 안 차례: 이름 -> 남은 날 표시 -> 어디서 -> 언제까지(날짜) -> 덧말. 언제까지 칸을 풀어(display: contents) 남은 날 표시를 이름 바로 아래로 올린다 */
+  .sp-row > * { grid-column: 1; }
+  .sp-c-name { order: 1; }
+  .sp-row > .sp-c-when { display: contents; text-align: left; }
+  .sp-c-when > .sp-flag { order: 2; justify-self: start; margin-bottom: 0; }
+  .sp-c-where { order: 3; }
+  .sp-c-when::before { order: 4; }
+  .sp-c-when > .sp-when { order: 5; }
+  .sp-c-when > .sp-left { order: 6; }
+  .sp-c-where::before, .sp-c-when::before { display: block; font-size: 18px; font-weight: 600; line-height: 1.3; color: var(--ink-soft); }
+  .sp-c-where::before { content: "어디서"; }
+  .sp-c-when::before { content: "언제까지"; }
+  .sp-c-when > .sp-left { margin-top: 0; }
+  .sp-name { overflow-wrap: break-word; }
+  .sp-dot { display: none; }                                    /* 좁은 창: 날짜 칸의 둘째 줄 글을 덩어리마다 한 줄씩 */
+  .sp-part { display: block; }
+  .sp-go { right: 12px; }
+  .sp-table th, .sp-table td { padding: 6px 6px; }
+}
+@media (max-width: 499px) {
+  .sp-count { font-size: 22px; }
+}
+/* 좁은 창: 표를 줄마다 카드로 쌓는다(작물 이름이 한 글자씩 꺾이지 않게) */
+@media (max-width: 560px) {
+  .sp-table, .sp-table thead, .sp-table tbody, .sp-table tr, .sp-table th, .sp-table td, .sp-table caption { display: block; width: 100%; }
+  .sp-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .sp-table tbody tr { padding: 6px 0; border-bottom: 2px solid var(--line); }
+  .sp-table tbody tr:last-child { border-bottom: 0; }
+  .sp-table tbody th, .sp-table tbody td { border: 0; padding: 2px 6px; word-break: keep-all; }
+  .sp-table tbody th { font-size: 22px; }
+  .sp-table td[data-label]::before { content: attr(data-label) ": "; font-weight: 700; color: var(--ink-soft); }
+  .sp-table tr.is-focus th { border-left: 8px solid var(--tang-deep); }
+}
+@media (prefers-reduced-motion: reduce) { .sp-card, .sp-chip { transition: none; } }

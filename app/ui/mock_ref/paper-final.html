@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>삼춘 돈 챙김표 종이</title>
+<style>
+/* =====================================================================
+   인쇄 CSS 규칙 (2라운드 확정안, 사원 H)
+   ---------------------------------------------------------------------
+   [쪽]
+   R1. @page는 A4 세로, margin 0. 여백은 .sheet 안쪽 padding(위 12 / 좌우 12 / 아래 10mm)으로 준다.
+       이유: margin 0이면 브라우저 머리글·바닥글(URL·날짜)이 찍힐 자리가 없다.
+       위험: 인쇄 대화상자에서 "여백"을 기본값 말고 다른 값으로 바꾸면 이 규칙이 무시된다.
+       대응: 앱은 Edge 헤드리스(msedge --headless --print-to-pdf)로 PDF를 만들어 그 PDF를 인쇄한다.
+             Edge는 Windows 11 기본 설치라 추가 설치가 없다.
+   R2. 프린터가 못 찍는 가장자리(기종별 약 4~5mm) 때문에 안쪽 여백은 10mm 밑으로 내리지 않는다.
+   R3. 배율은 100%만. "페이지에 맞춤"·배율 조정 금지(글자 pt가 줄어듦). PDF 인쇄 시 "실제 크기".
+   [페이지 나뉨]
+   R4. 앞면·뒷면은 고정 높이(297mm) 블록이고 break-after: page로 나눈다(양면 인쇄 → 한 장 앞뒤).
+       단면 프린터면 두 장이 나오고, 뒷면 머리에 "창구 담당자께"가 있어 그대로 쓸 수 있다.
+   R5. 고정 높이 블록은 넘치면 조용히 잘린다(overflow: hidden). 그래서 렌더 단계에서 넘침을 검사한다.
+       검사: 바닥글(.foot) 위치 - 본문(.body) 끝 = 여유(mm). 음수면 인쇄를 막고 넘침 규칙을 적용.
+       넘침 규칙(부서장 승인): 글자 축소 금지 → 앞면 8항목·돈 항목 6개 상한 → 넘친 줄은 뒷면
+       "앞면에 못 넣은 것"으로, 앞면 해당 묶음 끝에 "더 있음 n건 → 뒷면".
+   R6. 표 행은 break-inside: avoid(뒷면 표가 길어져 흐름 배치로 바꿀 경우 대비).
+   [글꼴]
+   R7. 글꼴은 맑은 고딕(Windows 11 기본 UI 글꼴, regular·bold·semilight 설치 확인). 대체 순서는 아래 body.
+       굵기는 400·700만 쓴다(500·600·800은 맑은 고딕에 없어 가짜 굵게·대체 위험).
+       맑은 고딕 숫자는 폭이 같아(0·1 모두 0.551em 실측) 금액 정렬이 흔들리지 않는다.
+   R8. ✓☐ 같은 기호 문자를 쓰지 않는다. 상자·체크는 CSS 테두리로 그린다.
+       기호 문자는 Segoe UI Symbol·Emoji로 대체돼 기종마다 모양이 다르고, 이모지는 컬러 글꼴이라 흑백에서 회색 덩어리가 된다.
+       예외: ①~⑧ 원 숫자, ☎는 맑은 고딕에 있어 대체되지 않는다.
+   [흑백]
+   R9. 배경색·회색 글자를 쓰지 않는다. Edge 인쇄 기본값은 "배경 그래픽" 꺼짐이라 배경은 사라진다.
+       구분은 굵기·선 두께(0.75~5pt)·상자·글자 이름표로만. 가장 가는 선은 0.75pt(흐린 토너 대비).
+   R10. 점선 이음(.ld)은 장식이다. 흐린 프린터에서 사라져도 뜻은 남는다.
+   [글씨 크기: 앞면] 제목 22pt · 묶음 제목 17pt(A안 18pt에서 쪽 맞춤으로 1pt 내림, 본문은 그대로) · 항목 1줄째 16pt(금액 18pt 굵게) · 2·3줄째 14pt ·
+       책임 표기 13pt. 13pt 미만 없음. 줄 간격 1.2~1.3. (A §3-4, 설계 v2 §7-2: 본문 14~16pt, 금액 18pt)
+   [글씨 크기: 뒷면] 10pt, 줄 간격 1.25(창구 담당자용, A §3-4).
+   ===================================================================== */
+@page { size: A4 portrait; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #fff; color: #000;
+  font-family: "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  font-size: 14pt; line-height: 1.3;
+  word-break: keep-all; overflow-wrap: break-word;      /* 어절 단위 줄바꿈 */
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;   /* 넣되 기대지 않음(R9) */
+}
+b, strong, h1, h2, h3, th { font-weight: 700; }
+p { margin: 0; }
+.sheet { width: 210mm; height: 297mm; padding: 12mm 12mm 10mm; position: relative; overflow: hidden;
+  break-after: page; page-break-after: always; }
+.sheet:last-of-type { break-after: auto; page-break-after: auto; }
+.nb { white-space: nowrap; }
+.foot { position: absolute; left: 12mm; right: 12mm; bottom: 10mm; border-top: 1pt solid #000; padding-top: 1.4mm; }
+
+/* ---------- 앞면 ---------- */
+.titlerow { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2.5pt solid #000; padding-bottom: 1mm; }
+h1 { font-size: 22pt; line-height: 1.2; margin: 0; }
+.subt { font-size: 14pt; }
+.meta { font-size: 13pt; line-height: 1.3; text-align: right; }
+.asof { border: 1pt solid #000; padding: 0 1.2mm; font-weight: 700; white-space: nowrap; }
+/* 작년 공고 행(prior_year_reference) 배지: 금액 줄 오른쪽 끝, 작은 테두리, 12pt(앞면에서 유일한 12pt) */
+.r2 { display: flex; align-items: baseline; gap: 2mm; }
+.r2 .tx { flex: 1; min-width: 0; }
+.py { flex: none; font-size: 12pt; line-height: 1.2; border: 0.9pt solid #000; padding: 0 1mm; white-space: nowrap; }
+.out { font-size: 13pt; font-weight: 700; border: 1pt solid #000; padding: 0 0.8mm; margin-right: 1mm; }
+h2 { font-size: 17pt; line-height: 1.15; margin: 1.3mm 0 0; padding: 0 0 0.4mm 2.4mm; border-left: 5pt solid #000; border-bottom: 1.2pt solid #000; }
+/* 항목: [상자][번호] 이름 ······ 금액 / 2줄째 / (확인 줄) */
+.it { display: flex; align-items: flex-start; gap: 1.6mm; padding: 0.6mm 0 0.7mm; border-bottom: 0.75pt solid #000; break-inside: avoid; }
+.bx { position: relative; flex: none; width: 4.6mm; height: 4.6mm; border: 1.3pt solid #000; margin-top: 1.1mm; }
+.no { flex: none; font-size: 16pt; font-weight: 700; line-height: 1.25; width: 5.6mm; }
+.main { flex: 1; min-width: 0; }
+.r1 { display: flex; align-items: baseline; gap: 1.6mm; }
+.nm { font-size: 16pt; font-weight: 700; line-height: 1.25; white-space: nowrap; }
+.ld { flex: 1; min-width: 4mm; border-bottom: 1.2pt dotted #000; transform: translateY(-1.3mm); }
+.am { font-size: 18pt; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+.hst { display: flex; justify-content: space-between; align-items: baseline; }
+.st2 { font-size: 16pt; border: 1.2pt solid #000; padding: 0 1.4mm; margin-bottom: 0.4mm; }      /* 상태 이름표 */
+.it1 .bx { margin-top: 0.6mm; }
+.r2, .r3 { font-size: 14pt; line-height: 1.28; }
+.tag { display: inline-block; border: 1pt solid #000; padding: 0 1mm; font-weight: 700; line-height: 1.2; margin-right: 1mm; }
+.more { font-size: 14pt; margin-top: 0.6mm; font-weight: 700; }
+/* 급한 것(A): 굵은 테두리 상자 하나로 묶어 맨 위에서 가장 세게 보이게 */
+.grpA { border: 2.5pt solid #000; padding: 0.4mm 1.6mm 0.2mm; margin-top: 1.6mm; }
+.tagA { flex: none; font-size: 16pt; font-weight: 700; line-height: 1.25; border: 1.5pt solid #000; padding: 0 1.2mm; margin-right: 0.6mm; }
+.grpA .it { border-bottom: 0; }
+/* 가실 곳 */
+.pls { display: flex; gap: 2mm; margin-top: 1.2mm; }
+.pl { flex: 1 1 0; min-width: 0; border: 1.5pt solid #000; padding: 0.6mm 1.8mm 0.8mm; break-inside: avoid; }
+.pl .p1 { font-size: 16pt; font-weight: 700; line-height: 1.25; white-space: nowrap; }
+.pl .p0 { display: flex; align-items: center; gap: 1.4mm; font-size: 14pt; line-height: 1.28; }
+.pl .p0 .bx { margin-top: 0; }
+.pl .refs { font-weight: 700; }
+.pl .tel { white-space: nowrap; }
+.pl .p2 { font-size: 14pt; line-height: 1.25; }
+.cal { display: flex; align-items: stretch; gap: 2mm; margin-top: 1.2mm; }
+.cal .lb { flex: none; font-size: 14pt; font-weight: 700; line-height: 1.25; width: 36mm; align-self: center; }
+.fixed { font-size: 14pt; line-height: 1.28; margin-top: 1.2mm; padding-left: 2.4mm; border-left: 2.5pt solid #000; }
+.cal .c { flex: 1; border: 1.5pt solid #000; padding: 0.6mm 1.8mm 0.8mm; }
+.cal .m { display: block; font-size: 16pt; font-weight: 700; line-height: 1.25; }
+.cal .d { display: block; font-size: 14pt; line-height: 1.25; }
+.front .foot { font-size: 13pt; line-height: 1.28; }
+
+/* ---------- 뒷면(창구 담당자용) ---------- */
+.back { font-size: 10pt; line-height: 1.25; }
+.back h1 { font-size: 14pt; }
+.back h3 { font-size: 11pt; margin: 1.8mm 0 0.6mm; }
+.back .lead { margin-top: 1mm; }
+.back .basis { border: 1pt solid #000; padding: 1mm 1.6mm; margin-top: 1.4mm; }
+.back table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.back th, .back td { font-size: 9.5pt; line-height: 1.22; border: 0.6pt solid #000; padding: 0.5mm 1mm; vertical-align: top; text-align: left; break-inside: avoid; }
+.back tr { break-inside: avoid; }
+.back .ck td { height: 6.4mm; vertical-align: middle; }
+.back .cb { display: inline-block; width: 3.2mm; height: 3.2mm; border: 0.9pt solid #000; vertical-align: -0.5mm; margin-right: 1mm; }
+.back .foot { font-size: 9.5pt; line-height: 1.3; }
+.back .sample { border: 1pt dashed #000; padding: 0.6mm 1.6mm; font-weight: 700; margin-bottom: 1.4mm; }
+
+/* ---------- 시안 보조(인쇄 안 됨) ---------- */
+.onlyA { display: none; }
+body.withA .onlyA { display: block; }
+body.withA .noA { display: none; }
+body.withA tr.onlyA { display: table-row; }
+.onlyAi { display: none; }
+body.withA .onlyAi { display: inline; }
+@media screen {
+  body { background: #d4d4d4; padding-bottom: 16mm; }
+  .sheet { margin: 8mm auto 0; background: #fff; outline: 1px solid #888; }
+  .mockbar { position: sticky; top: 0; z-index: 9; background: #1e1e1e; color: #fff; font: 14px/1.6 "Malgun Gothic", sans-serif; padding: 8px 16px; }
+  .mockbar .warn { color: #ff9a9a; font-weight: 700; } .mockbar .ok { color: #9be39b; font-weight: 700; }
+  .mockbar label { margin-left: 8px; cursor: pointer; }
+}
+@media print { .mockbar { display: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="mockbar">
+  <b>최종 종이(C 체크리스트형) · 샘플 P4 애월 양배추·경영체 미등록</b> — 제목 22 · 묶음 17 · 1줄째 16 / 금액 18 굵게 · 2줄째 14 · 바닥 13pt · 뒷면 10pt ·
+  ☎ ○○○-○○○○ 자리는 창구표 데이터(미작성) ·
+  <label><input type="checkbox" id="tA"> 급한 것(A) 넣어 보기: 최근 60일 태풍 피해일 때 → 9항목이 되어 넘침 규칙 작동</label> ·
+  <span id="fit">쪽 여유 계산 중…</span>
+</div>
+
+<!-- ============================ 앞면 (어르신용) ============================ -->
+<section class="sheet front">
+  <div class="body">
+    <div class="titlerow">
+      <div><h1>양배추 3,630평 · 애월읍</h1><p class="subt">어르신께 해당될 수 있는 돈과 보험</p></div>
+      <!-- --asof 시연 기준일 스위치가 켜지면 날짜 대신 테두리 이름표로 표시(설계 v2 §12-A(1)). 꺼지면 "2026년 11월 13일" -->
+      <div class="meta"><span class="asof">기준일 2026-11-13(시연)</span><br>상담번호 K7-3F9Q</div>
+    </div>
+
+    <!-- A 급한 것: 30일 안 마감 또는 최근 60일 재해·입원일 때만. P4 기본값은 해당 없음 -->
+    <section class="grpA onlyA">
+      <div class="it"><span class="bx"></span><span class="tagA">급한 것</span><div class="main">
+        <div class="r1"><span class="nm">태풍 피해 신고</span><span class="ld"></span><span class="am">오늘이나 내일</span></div>
+        <div class="r2"><span class="tx">기한이 짧습니다 · 밭 사진을 찍어 가세요 · [애월읍사무소]</span></div>
+      </div></div>
+    </section>
+
+    <section>
+      <h2>먼저 하실 일</h2>
+      <div class="it"><span class="bx"></span><span class="no">①</span><div class="main">
+        <div class="r1"><span class="nm">농업경영체 등록</span><span class="ld"></span><span class="am">하시면 연 약 180만~260만 원</span></div>
+        <div class="r2"><span class="tx">= 아래 ④ 직불 · <span class="tag">확인할 조건 있음</span>· 등록증 최대 30일 · [농관원]</span></div>
+      </div></div>
+      <div class="it"><span class="bx"></span><span class="no">②</span><div class="main">
+        <div class="r1"><span class="nm">자조금 내고 농협에 내기</span><span class="ld"></span><span class="am">예년 10월 참여 신청</span></div>
+        <div class="r2"><span class="tx">자조금 가입 + 농협 출하 + 가을 참여 신청 → 아래 ③ · [애월농협]</span></div>
+      </div></div>
+    </section>
+
+    <section>
+      <!-- 상태만 있는 묶음(올해 해당 없음·시즌 전 등)은 제목 줄 오른쪽에 상태를 붙이고 1줄로 접는다 -->
+      <h2 class="hst"><span>농협이 신청해 주는 돈</span><span class="st2">③ 올해 해당 없음</span></h2>
+      <div class="it it1"><span class="bx"></span><div class="main">
+        <div class="r2"><span class="tx">상인 계약 물량은 빠짐 · 작년 계통출하 농가 kg당 평균 153원</span></div>
+      </div></div>
+    </section>
+
+    <section>
+      <h2 class="hst"><span>직접 신청하셔야 받는 돈</span><span class="st2 onlyAi">⑥ 더 있음 → 뒷면</span></h2>
+      <div class="it"><span class="bx"></span><span class="no">④</span><div class="main">
+        <div class="r1"><span class="nm">면적직불금</span><span class="ld"></span><span class="am">연 약 180만~260만 원</span></div>
+        <div class="r2"><span class="tx">①부터 · 2027년 3월~5월 · [애월읍사무소]</span><span class="py">2026년 기준 · 2027년 공고 전</span></div>
+        <div class="r3"><span class="tag">확인</span>땅 주인이 이 밭 직불을 받고 있지 않아야</div>
+      </div></div>
+      <div class="it"><span class="bx"></span><span class="no">⑤</span><div class="main">
+        <div class="r1"><span class="nm">1월 농업보조사업 통합신청</span><span class="ld"></span><span class="am">보조 최대 700만 원</span></div>
+        <div class="r2"><span class="tx">구입비 70% · 선정돼야 · [애월읍사무소]</span><span class="py">2026년 기준 · 2027년 공고 전</span></div>
+      </div></div>
+      <div class="it noA"><span class="bx"></span><span class="no">⑥</span><div class="main">
+        <div class="r1"><span class="nm">건강보험료 경감</span><span class="ld"></span><span class="am">보험료의 최대 절반</span></div>
+        <div class="r2"><span class="tx"><span class="out">농업 밖 제도</span>①부터 · 6개월 치 소급 · ☎ 1577-1000</span></div>
+        <div class="r3"><span class="tag">확인</span>고지서가 본인 이름으로 올 때(아내 회사 보험이면 해당 없음)</div>
+      </div></div>
+    </section>
+
+    <section>
+      <h2>들어 두시면 좋은 보험</h2>
+      <div class="it"><span class="bx"></span><span class="no">⑦</span><div class="main">
+        <div class="r1"><span class="nm">양배추 보험(둘 중 하나)</span><span class="ld"></span><span class="am">2027년 8월~10월</span></div>
+        <div class="r2"><span class="tx">(수입안정 또는 재해) ①부터 · [애월농협]</span><span class="py">2026년 기준 · 2027년 일정 전</span></div>
+      </div></div>
+      <div class="it"><span class="bx"></span><span class="no">⑧</span><div class="main">
+        <div class="r1"><span class="nm">농업인 안전보험</span><span class="ld"></span><span class="am">① 하신 뒤 바로</span></div>
+        <div class="r2"><span class="tx">농사일 중 다치면 보상 · 보험료 절반을 나라가 냄 · [애월농협]</span></div>
+      </div></div>
+    </section>
+
+    <section>
+      <h2>가실 곳 · 다음에 오실 때</h2>
+      <div class="pls">
+        <div class="pl" style="flex-grow:1.35"><p class="p1">농관원 제주사무소 ①</p>
+          <p class="p0"><span class="bx"></span><span class="tel">☎ 1644-8778</span></p>
+          <p class="p2">가져갈 것: 신분증, 임대차계약서나 경작사실확인서(이장 확인)</p></div>
+        <div class="pl" style="flex-grow:1.1"><p class="p1">애월읍사무소 ④⑤<span class="onlyAi">·!</span></p>
+          <p class="p0"><span class="bx"></span><span class="tel">☎ ○○○-○○○○</span></p>
+          <p class="p2">가져갈 것: 신분증, 경영체 등록확인서, 지방세 완납증명서</p></div>
+        <div class="pl" style="flex-grow:1"><p class="p1">애월농협 ②⑦⑧</p>
+          <p class="p0"><span class="bx"></span><span class="tel">☎ ○○○-○○○○</span></p>
+          <p class="p2">가져갈 것: 신분증, 경영체 등록확인서</p></div>
+      </div>
+      <div class="cal">
+        <span class="lb">다음에 오실 때<br>이 종이 지참</span>
+        <span class="c"><span class="m">2027년 1월 초</span><span class="d">⑤ 통합신청 2주</span></span>
+        <span class="c"><span class="m">3월~5월</span><span class="d">④ 직불 신청</span></span>
+        <span class="c"><span class="m">8월~10월</span><span class="d">②⑦ 자조금·보험</span></span>
+      </div>
+      <!-- 공통 고정 줄(사원 F 변경): 입원은 입력에서 묻지 않고 모든 종이에 늘 찍는다 -->
+      <p class="fixed">다치거나 3일 넘게 입원하셨으면 60일 안에 농협(영농도우미)</p>
+    </section>
+  </div>
+
+  <!-- G 책임 표기 3줄(A §3-5 확정안) -->
+  <div class="foot">
+    센터가 2026년 공고로 정리한 안내이며, 나라 공문서가 아닙니다.<br>
+    받으실지와 금액은 농협·읍면이 서류로 정합니다. 내년에 바뀔 수 있습니다.<br>
+    보험은 제도 안내이고 상품 권유가 아닙니다. 문의 ☎ 센터 ○○○-○○○○
+  </div>
+</section>
+
+<!-- ============================ 뒷면 (창구 담당자용) ============================ -->
+<section class="sheet back">
+  <div class="body">
+    <h1>농협·읍면 창구 담당자께</h1>
+    <p class="lead">이 어르신의 상담 조건과 근거입니다. 이름·연락처는 적지 않았습니다. 앞면 번호(①~⑧)와 이 면의 번호가 같습니다.</p>
+
+    <div class="basis"><b>입력 요약</b> 애월읍 / 1961년생 / 양배추 1.2ha(3,630평) · 감귤 0.2ha(어머니 명의, 관리) / 총 1.4ha / 전부 빌린 땅(구두 계약) /
+      경영체 안 함 / 배우자 농사 안 지음 / 영농 3년 · 제주 3년 넘음 / 건강보험 모름 / 올해 상인 밭떼기 계약함 / 자조금 안 냄 / 최근 60일 일 없음 /
+      이미 받는 것 없음 · 든 보험 없음 / 오신 분: 본인</div>
+
+    <h3>줄별 조건 대조 (✓ 충족 · ? 확인 필요 · ✗ 안 됨)</h3>
+    <table>
+      <colgroup><col style="width:14%"><col style="width:32%"><col style="width:30%"><col style="width:24%"></colgroup>
+      <thead><tr><th>번호·항목</th><th>조건 대조</th><th>계산</th><th>출처 · 확인일</th></tr></thead>
+      <tbody>
+        <tr class="onlyA"><td>급한 것 재해</td><td>✓ 최근 60일 태풍 피해</td><td>기한·단가 확인 전 비인쇄</td><td>설계 v2 §13</td></tr>
+        <tr><td>① 경영체 등록</td><td>✓ 1,000㎡ 이상 경작(14,000㎡) · ? 임대 증빙(구두 계약 → 임대차계약서 또는 경작사실확인서)</td><td>등록확인서는 접수 후 30일 이내 발급</td><td>농관원 경영체 안내(2026.1.12 개정) · 2026-11-05</td></tr>
+        <tr><td>② 자조금·계통출하</td><td>✗ 양배추 자조금 미납 · ✗ 올해 밭떼기 계약 · ? 조합원이 아니어도 계통출하 가능한지</td><td>조건과 날짜만(예년 10월 참여 신청)</td><td>제주도 보도자료 2025-09-30(참여 조건)</td></tr>
+        <tr><td>③ 가격안정관리제 · 물류비</td><td>✗ 계통출하 · ✗ 자조금 · ✗ 2026-27 참여 신청(직전 모집 10/31 마감)</td><td>계통 전환 줄은 금액을 적지 않음(설계 v2 §12-A). 사실: 기준가 723 · 하한가 542원/kg, 작년 계통 농가 kg당 평균 153원, 물류비 23원/kg</td><td>제주도 보도자료 2026-06-24 · 공고 제2026-2547호 · 단수 crop-costs §6</td></tr>
+        <tr><td>④ 면적직불 [2027 공고 전]</td><td>✗→① 경영체 · ✓ 직전 3년 중 1년 이상 실경작 · ? 지급대상 농지 · ? 지주 수령 여부 · ? 농외소득 4,700만 원 미만</td><td>1.2ha × 150만(진흥지역 밖 밭)~215만(진흥지역) = 180만~258만 → 약 180만~260만 원</td><td>농식품부 2026 공익직불 · 농외소득 기준 고시 2026-11-13 시행</td></tr>
+        <tr><td>⑤ 통합신청 [2027 공고 전]</td><td>✓ 1962.12.31 이전 출생 · ✗→① 경영체 · ? 임차 농지 임차기간 요건 · 선정 경쟁</td><td>보조 70%, 보조 최대 700만 원</td><td>2026 농업보조사업 통합공고 도8 · 2026-11-05</td></tr>
+        <tr><td>⑥ 건보료 경감 [농업 밖 제도]</td><td>? 지역가입자(아내 직장보험 피부양자면 ✗) · ✓ 읍 지역 거주 · ✗→① 농업인 확인</td><td>계산 안 함(고지서 필요). 농업인 28% + 농어촌 22% = 최대 50%, 6개월 소급</td><td>복지부 고시 제2025-221호 · 2026-11-05</td></tr>
+        <tr><td>⑦ 양배추 보험(택1)</td><td>✗→① 경영체 · ✓ 최소 면적(재해 700㎡, 수입 1,000㎡) · 두 보험은 같은 작물에 하나만</td><td>재해보험 농가 부담 약 15~21%(국비+도비)</td><td>2026 사업시행지침 · 수입 8~9월, 재해 9.2~10.30(제주시)</td></tr>
+        <tr><td>⑧ 안전보험</td><td>✓ 15~87세 · ✗→① 경영체</td><td>보험료 국고 50%</td><td>농식품부 2026 · 2026-11-05</td></tr>
+      </tbody>
+    </table>
+
+    <h3>가격 판정 근거 (예측이 아니라 규칙과 과거 사실)</h3>
+    <p>허브 1361 양배추(일반) 전국 평균, 기준일 2026-11-05(정상). 1362 가락 반월 평균 재현 뒤 교체. 판정 기간 12월~5월 → 오늘 <b>시즌 전</b>.
+      기준가 723 · 하한가 542원/kg(2025-26 값, 2026-27 미공표). 2025-26 기준가 아래 9회, kg당 평균 153원 지급(제주도 2026-06-24). 2026-03 양배추 2,000t 시장격리(보도).</p>
+
+    <h3>앞면에 못 넣은 것 · 뺀 것</h3>
+    <table>
+      <colgroup><col style="width:28%"><col style="width:72%"></colgroup>
+      <tbody>
+        <tr class="onlyA"><td>⑥ 건보료 경감(넘침)</td><td>앞면 8항목 상한 → 계산 불가·상시 줄을 이 면으로. 근거는 위 ⑥ 행</td></tr>
+        <tr><td>농민수당</td><td>① 등록 후 2년 계속 등록 요건 → 2029년 3월 신청부터, 1인 경영체 연 50만 원</td></tr>
+        <tr><td>소농직불 · 소규모 농가 지원</td><td>✗ 총 경영 1.4ha. 면적직불 산정액이 130만 원 이상이라 소농 선택 불가</td></tr>
+        <tr><td>농지연금 · 은퇴직불</td><td>✗ 전부 빌린 땅</td></tr>
+        <tr><td>행복이용권</td><td>✗ 여성 경영체 대상(본인 남성, 아내 농사 안 지음)</td></tr>
+        <tr><td>이미 받음으로 뺀 것</td><td>없음</td></tr>
+      </tbody>
+    </table>
+
+    <h3>창구 확인란 (실효성 기록: 다음 상담 때 센터가 묻습니다)</h3>
+    <table class="ck">
+      <colgroup><col style="width:22%"><col style="width:12%"><col style="width:16%"><col style="width:30%"><col style="width:20%"></colgroup>
+      <thead><tr><th>창구</th><th>번호</th><th><span class="cb"></span>접수함</th><th><span class="cb"></span>해당 없음(사유) · <span class="cb"></span>서류 부족(무엇)</th><th>확인(도장)</th></tr></thead>
+      <tbody>
+        <tr><td>농관원 제주사무소</td><td>①</td><td></td><td></td><td></td></tr>
+        <tr><td>애월읍사무소</td><td>④⑤</td><td></td><td></td><td></td></tr>
+        <tr><td>애월농협</td><td>②⑦⑧</td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot">
+    <b>데이터 기준일</b> 지원 표 확인 2026-11-05(2026년 공고) · 가격 2026-11-05까지(허브 1361) · 외부 갱신 성공 2026-11-07 09:12 ·
+    <b>계산 지문</b> 7C4E-19A2(같은 입력·같은 표면 같은 지문) · 상담 2026-11-07 · 프로그램 v0.2 · <b>시안 샘플(P4 가명, 골든 샘플 검증 전)</b>
+  </div>
+</section>
+
+<script>
+/* 화면에서만: (1) 급한 것(A) 넣어 보기 토글 (2) 앞·뒷면 여유(mm) 계산. 실제 앱은 같은 계산을 렌더 단계(R5)에서 한다. */
+(function () {
+  var px2mm = 25.4 / 96;
+  function fit() {
+    var out = [];
+    document.querySelectorAll('.sheet').forEach(function (s, i) {
+      var body = s.querySelector('.body'), foot = s.querySelector('.foot');
+      var free = (foot.offsetTop - 1.5 * 3.78) - (body.offsetTop + body.offsetHeight);
+      var mm = Math.round(free * px2mm);
+      out.push((i === 0 ? '앞면' : '뒷면') + (mm >= 0 ? ' 여유 ' + mm + 'mm' : ' 넘침 ' + (-mm) + 'mm'));
+      s.style.outline = mm < 0 ? '3px solid red' : '';
+    });
+    var n = Array.prototype.filter.call(document.querySelectorAll('.front .it'), function (e) { return e.offsetParent !== null; }).length;
+    out.push('앞면 항목 ' + n + '개');
+    var el = document.getElementById('fit');
+    el.textContent = out.join(' · ');
+    el.className = out.join('').indexOf('넘침') >= 0 || n > 8 ? 'warn' : 'ok';
+  }
+  var t = document.getElementById('tA');
+  t.addEventListener('change', function () { document.body.classList.toggle('withA', t.checked); fit(); });
+  if (location.hash === '#a') { t.checked = true; document.body.classList.add('withA'); }
+  fit();
+})();
+</script>
+</body>
+</html>

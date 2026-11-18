@@ -1,0 +1,165 @@
+{
+ "sample": "N7",
+ "measured_at": "2026-11-11T22:26:10",
+ "elapsed_s": 63.73,
+ "n_calls": 6,
+ "tok_in_total": 80132,
+ "tok_out_total": 6069,
+ "error": null,
+ "calls": [
+  {
+   "purpose": "notice",
+   "section": null,
+   "attempt": 1,
+   "tok_in": 7056,
+   "tok_out": 373,
+   "n_tool_calls": 3,
+   "text_head": ""
+  },
+  {
+   "purpose": "notice",
+   "section": null,
+   "attempt": 2,
+   "tok_in": 11522,
+   "tok_out": 191,
+   "n_tool_calls": 1,
+   "text_head": ""
+  },
+  {
+   "purpose": "notice",
+   "section": null,
+   "attempt": 3,
+   "tok_in": 13043,
+   "tok_out": 648,
+   "n_tool_calls": 1,
+   "text_head": ""
+  },
+  {
+   "purpose": "notice",
+   "section": null,
+   "attempt": 4,
+   "tok_in": 13206,
+   "tok_out": 1684,
+   "n_tool_calls": 1,
+   "text_head": ""
+  },
+  {
+   "purpose": "notice",
+   "section": null,
+   "attempt": 5,
+   "tok_in": 16259,
+   "tok_out": 2904,
+   "n_tool_calls": 1,
+   "text_head": ""
+  },
+  {
+   "purpose": "notice",
+   "section": null,
+   "attempt": 6,
+   "tok_in": 19046,
+   "tok_out": 269,
+   "n_tool_calls": 1,
+   "text_head": ""
+  }
+ ],
+ "review_entries": [],
+ "notice_result": "DRAFT_READY",
+ "n_programs": 1,
+ "programs": [
+  {
+   "action": "UPDATE",
+   "match_id": "DO-CALCIUM-SULFUR@2026",
+   "program_key": null,
+   "fields": {
+    "edition": {
+     "value": "2026",
+     "quote": "4.2026년 사업계획m 지원대상 품목:당근,감자",
+     "anchor": "p1:L2"
+    },
+    "name": {
+     "value": "농업환경개선 칼슘유황비료 지원사업",
+     "quote": "3 농업환경개선 칼슘유황비료 지원사업 지침",
+     "anchor": "p1:L2"
+    },
+    "agency": {
+     "value": "제주특별자치도 친환경농업정책과",
+     "quote": "이 사업시행지침에 대한 해석기관은 제주특별자치도 친환경농업정책과입니다.",
+     "anchor": "p1:L2"
+    },
+    "crop_in": {
+     "value": [
+      "당근",
+      "감자"
+     ],
+     "quote": "지원대상 품목:당근,감자",
+     "anchor": "p1:L2"
+    },
+    "amount_value": {
+     "value": 2000,
+     "quote": "지원단가:분상‧입상 구분없이 2,000원/포(20kg)정액지원",
+     "anchor": "p1:L3"
+    },
+    "unit_name": {
+     "value": "포(20kg)",
+     "quote": "지원단가:분상‧입상 구분없이 2,000원/포(20kg)정액지원",
+     "anchor": "p1:L3"
+    },
+    "min_ha": {
+     "value": 0.1,
+     "quote": "지원규모:재배면적 0.1~5ha범위 내에서 시비량 기준 지원",
+     "anchor": "p1:L3"
+    },
+    "max_ha": {
+     "value": 5,
+     "quote": "지원규모:재배면적 0.1~5ha범위 내에서 시비량 기준 지원",
+     "anchor": "p1:L3"
+    },
+    "amount_note": {
+     "value": "시비량 200kg(10포)/10a(300평) 기준",
+     "quote": "※시비량:200kg(10포)/10a(300평)",
+     "anchor": "p1:L3"
+    },
+    "excludes": {
+     "value": [
+      "초지에 재배하는 경우",
+      "보조사업 지원 제재농가",
+      "지방세 체납자"
+     ],
+     "quote": "- 초지에 재배하는 경우      - 보조사업 지원 제재농가, 지방세 체납자",
+     "anchor": "p1:L9"
+    }
+   },
+   "questions": [
+    "신청 주체(applicant): 농협계통 조직을 통해 추진되는데 농업인 개인으로 둘지 농협경유로 둘지, 신청기간은 언제인지 알려 주세요.",
+    "amount_type과 needs_mgmt 칸의 허용값을 모르기 때문에 비워 두었습니다. 원문은 '2,000원/포 정액지원', '농업경영체 등록 필수(사실확인서로 대체 가능)'입니다."
+   ]
+  }
+ ],
+ "skipped": [
+  {
+   "title": "소형 농기계 지원 사업(친서민 농정시책)",
+   "reason": "공고 2쪽에는 일부 발췌(지원기준·한도, 제외대상)만 있어 사업 전체를 판단하기 어렵습니다. 기존 행 DO-SMALL-MACHINE@2026은 따로 검토해야 합니다."
+  }
+ ],
+ "staff_questions": [],
+ "tool_log": [
+  "name='doc_search' args={'query': '칼슘유황비료 지원단가', 'k': 8} ok=True result={'hits': [{'anchor': 'p1:L3', 'passage': \"변경될수있음m 공급기간:'26.3.1.~10.31.m 사 업 량:45,000포m 사 업 비:90,000천원(도비)m 지원단가:분상‧입상 구분없이 2,000원/포(20kg)정액지원 -(참고)2025년 칼슘유황비료 가격:(분상)4,300원/포,(입상)7,080원/포 ※시비량:200kg(10포)/10a(300평)m 지원규모:재배면적 0.1",
+  "name='doc_search' args={'query': '사업명 지원내용 신청기간', 'k': 8} ok=True result={'hits': [{'anchor': 'p2:L7', 'passage': \"3. 사업신청  ○ 신청기간 : '26. 1. 2.(금) ∼ 1. 16.(월)  ○ 신청장소 : 농지(사업장) 소재 읍면 사무소 및 동 주민센터    ※ 단, ‘소형농기계 지원 사업’의 경우 주소지 소재 읍면동 신청\", 'score': 0.625}, {'anchor': 'p1:L3', 'passage': \"변경될수있음m 공급기간:",
+  "name='find_existing_program' args={'name': '농업환경개선 칼슘유황비료 지원사업'} ok=True result={'matches': [{'id': 'DO-CALCIUM-SULFUR@2026', 'program_key': 'DO-CALCIUM-SULFUR', 'name': '칼슘유황비료 지원', 'edition': '2026', 'status': 'prior_year_reference', 'score': 0.9}]} error=None",
+  "name='doc_read' args={'anchor': 'p2:L1', 'n_lines': 20} ok=True result={'anchor': 'p2:L1', 'text': \"- 83 -\\n□ 지원제외 대상  ○ 농업경영체 미등록자  ○ 지방세 체납자  ○ 초지 조성지 내 농작물 무단 재배 행위 적발 농가  ○ ｢농지법｣ 제11조제1항에 따라 농지처분 명령을 받은 농지  ○ 연간 농업 외 소득(본인) 3,700만원 이상인 경우(단, 친환경·GAP 인증농가 제외)   ※사업신청시점에서농업외소득을파악할수있는가장최근연도의소득을기준으로",
+  "name='find_existing_program' args={'name': '소형 농기계 지원 사업'} ok=True result={'matches': [{'id': 'DO-SMALL-MACHINE@2026', 'program_key': 'DO-SMALL-MACHINE', 'name': '[친서민] 소형농기계 지원', 'edition': '2026', 'status': 'prior_year_reference', 'score': 0.9}]} error=None",
+  "name='validate_draft' args={'draft': {'programs': [{'action': 'UPDATE', 'match_id': 'DO-CALCIUM-SULFUR@2026', 'fields': {'edition': {'value': '2026', 'quote': '4.2026년 사업계획m 지원대상 품목:당근,감자', 'anchor': 'p1:L2'}, 'name': {'value': '농업환경개선 칼슘유황비료 지원사업', 'quote': '3 농업환경개선 칼슘유황비료 지원사업 지침', 'anchor': 'p1:",
+  "name='validate_draft' args={'draft': {'programs': [{'action': 'UPDATE', 'match_id': 'DO-CALCIUM-SULFUR@2026', 'fields': {'edition': {'value': '2026', 'quote': '4.2026년 사업계획m 지원대상 품목:당근,감자', 'anchor': 'p1:L2'}, 'name': {'value': '농업환경개선 칼슘유황비료 지원사업', 'quote': '3 농업환경개선 칼슘유황비료 지원사업 지침', 'anchor': 'p1:",
+  "name='finish' args={'decision': 'DRAFT_READY', 'reason': '칼슘유황비료 지원사업 초안(기존 행 DO-CALCIUM-SULFUR@2026 갱신)이 검사에서 빨간 오류 없이 통과했고, 신청 주체·신청기간·허용값 문제는 직원 질문으로 남겼습니다.'} ok=True result={'ok': True, 'decision': 'DRAFT_READY', 'reason': '칼슘유황비료 지원사업 초안(기존 행 DO-CALCIUM-SULFUR@2026 갱신)이 검사에서 빨간 오류 없이 통과했고, 신청 주"
+ ],
+ "tool_sequence": [
+  "doc_search",
+  "doc_search",
+  "find_existing_program",
+  "doc_read",
+  "find_existing_program",
+  "validate_draft",
+  "validate_draft",
+  "finish"
+ ]
+}

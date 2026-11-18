@@ -1,0 +1,247 @@
+{
+  "schema": "golden-spec/2",
+  "case_id": "T1",
+  "phase": 1,
+  "kind": "all_set",
+  "title": "빈 종이 ① 감귤 등록 농가 — 경영체·배우자 등록, 상인 판매, 보험·교육 완료",
+  "source": "설계 v2 §12-A(2)",
+  "as_of": "2026-11-13",
+  "fixture": {
+    "snapshot": "snap_20261112",
+    "tables": "tables_1st_20261113",
+    "network": "blocked",
+    "jasdc": "recorded_20261112",
+    "llm": "none",
+    "price_override": null,
+    "feature_flags": {
+      "offfarm_money": true
+    }
+  },
+  "profile": {
+    "crop_key": "노지온주",
+    "area_m2": 9917,
+    "total_farm_area_m2": 9917,
+    "birth_year": 1968,
+    "birth_year_approx": false,
+    "sex": "M",
+    "region": "서귀포시",
+    "eupmyeon": "남원읍",
+    "visitor": "self",
+    "jeju_residence_years": 58,
+    "farming_years": 30,
+    "mgmt_registered": "Y",
+    "mgmt_years": 25,
+    "mgmt_last_registered_year": 2025,
+    "spouse_status": "registered",
+    "spouse_birth_year": 1970,
+    "coop_member": "N",
+    "coop_shipping": "N",
+    "selfpay_fund_member": "Y",
+    "field_sold_contract": "Y",
+    "crop2_key": null,
+    "crop2_area_m2": null,
+    "crop2_coop_shipping": null,
+    "crop2_selfpay_fund_member": null,
+    "crop2_field_sold_contract": null,
+    "owns_farmland": "Y",
+    "farmland_owned_years": 25,
+    "owned_area_ge_15500m2": "N",
+    "health_insurance": "regional",
+    "offfarm_income_band": "?",
+    "disaster_damage": "N",
+    "direct_payment_education": "Y",
+    "already_receiving": [
+      "JEJU-FARMER-ALLOW",
+      "NAT-DIRECT-AREA",
+      "JEJU-WOMEN-VOUCHER",
+      "NHIS-FARMER-SUPPORT",
+      "NAT-PENSION-SUPPORT"
+    ],
+    "insurance_enrolled": [
+      "disaster",
+      "safety"
+    ],
+    "flags": [],
+    "disaster_end_date": null
+  },
+  "profile_fields_not_in_C_round1": [
+    "birth_year",
+    "birth_year_approx",
+    "eupmyeon",
+    "visitor",
+    "mgmt_last_registered_year",
+    "spouse_status",
+    "spouse_birth_year",
+    "crop2_key",
+    "crop2_area_m2",
+    "crop2_coop_shipping",
+    "crop2_selfpay_fund_member",
+    "crop2_field_sold_contract",
+    "owned_area_ge_15500m2",
+    "health_insurance",
+    "disaster_damage",
+    "direct_payment_education"
+  ],
+  "profile_fields_dropped_from_C_round1": [
+    "age (→ birth_year)",
+    "flags의 입원·질병 값(사원 F)",
+    "flags의 disaster_damage (→ 독립 필드 disaster_damage)"
+  ],
+  "expect": {
+    "paper_mode": "all_set",
+    "header": {
+      "must_include": [
+        "2026-11-13",
+        "기준일"
+      ],
+      "note": "--asof 시연 기준일 표시(§12-A(1))"
+    },
+    "key_lines": [
+      {
+        "id": "T1-K1",
+        "section": "top",
+        "status": "ALL_SET",
+        "must_include": [
+          "다 챙기고 계세요",
+          "지키실 돈"
+        ],
+        "why": "가장자리가 하나도 없으면 설계된 빈 종이. 금액 합계는 이 모드에서만 허용(§12-A가 본문 '합계 없음'보다 우선)",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "3월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "id": "T1-K2",
+        "section": "B",
+        "status": "KEEP",
+        "must_include": [
+          "끊기지 않게",
+          "경영체",
+          "2028년",
+          "직불 교육"
+        ],
+        "why": "경영체 2025 등록 + 3년 = 2028 갱신. 직불 교육은 2027년에도(예년 9월 30일까지, K)",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      }
+    ],
+    "first_actions": [],
+    "insurance": [
+      {
+        "product_id": "crop_disaster",
+        "crop_key": "노지온주",
+        "status": "ENROLLED",
+        "next_window": {
+          "months": [
+            4,
+            5
+          ]
+        },
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "4월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "product_id": "income_stab",
+        "crop_key": "노지온주",
+        "status": "NOT_COVERED"
+      },
+      {
+        "product_id": "nh_safety",
+        "status": "ENROLLED",
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "fixed_lines": [
+      {
+        "id": "FIXED-FARM-HELPER",
+        "must_include": [
+          "60일",
+          "농협"
+        ],
+        "must_not_include": [
+          "까지 신청하세요",
+          "남았"
+        ],
+        "note": "사원 F·설계 v2 §7-1: 입원·질병은 묻지 않는다. 영농도우미는 모든 종이에 같은 문장(\"다치거나 3일 넘게 입원하셨으면 60일 안에 농협\")."
+      },
+      {
+        "id": "FIXED-DISCLAIMER",
+        "must_include": [
+          "이 종이를 뽑아 준 곳",
+          "공문서"
+        ],
+        "note": "G 책임 표기 3줄"
+      }
+    ],
+    "banners": [],
+    "also": [],
+    "must_not_print": [
+      "먼저 하실 일",
+      "농지연금",
+      "은퇴직불",
+      "받으실 수 있는 돈",
+      "▶",
+      "오를",
+      "내릴",
+      "예측된",
+      "파세요"
+    ],
+    "all_set": {
+      "front_top_must_include": [
+        "다 챙기고 계세요",
+        "지키실 돈",
+        "끊기지 않게"
+      ],
+      "kept_money": {
+        "low_won": 2587550,
+        "high_won": 3232155,
+        "display": "연 약 259만~323만 원",
+        "calc": "농민수당 2인 90만 + 면적직불 0.9917ha × 150만~215만(1,487,550~2,132,155) + 행복이용권 20만. 건보료 지원은 보험료를 몰라 합계에서 뺌",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "3월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      "keep_actions_must_include": [
+        "경영체",
+        "2028",
+        "직불 교육"
+      ],
+      "calendar_3": [
+        "1월",
+        "3월",
+        "4월"
+      ],
+      "new_money_lines": 0
+    },
+    "must_not_print_front": [
+      "소농직불"
+    ]
+  },
+  "unverified": [
+    "표에 제도가 늘면 프로필(already_receiving)을 늘려 '다 받고 있는 농가' 페르소나를 유지한다(2026-11-08 결정)"
+  ],
+  "pending_decisions": [],
+  "approval": {
+    "by": [],
+    "at": null,
+    "sha256": null
+  }
+}

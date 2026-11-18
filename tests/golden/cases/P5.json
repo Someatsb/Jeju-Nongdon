@@ -1,0 +1,292 @@
+{
+  "schema": "golden-spec/2",
+  "case_id": "P5",
+  "phase": 1,
+  "kind": "persona",
+  "title": "김 할망 가구 — 한림 브로콜리 0.7ha, 경영주 남편, 본인 미등록, 재해 피해 없음",
+  "source": "round1-M-persona.md §2-2 P5 + 사원 F 변경",
+  "as_of": "2026-11-13",
+  "fixture": {
+    "snapshot": "snap_20261112",
+    "tables": "tables_1st_20261113",
+    "network": "blocked",
+    "jasdc": "recorded_20261112",
+    "llm": "none",
+    "price_override": null,
+    "feature_flags": {
+      "offfarm_money": true
+    }
+  },
+  "profile": {
+    "crop_key": "브로콜리",
+    "area_m2": 7000,
+    "total_farm_area_m2": 7000,
+    "birth_year": 1950,
+    "birth_year_approx": false,
+    "sex": "M",
+    "region": "제주시",
+    "eupmyeon": "한림읍",
+    "visitor": "family",
+    "jeju_residence_years": 76,
+    "farming_years": 45,
+    "mgmt_registered": "Y",
+    "mgmt_years": 20,
+    "mgmt_last_registered_year": 2025,
+    "spouse_status": "unregistered",
+    "spouse_birth_year": 1956,
+    "coop_member": "Y",
+    "coop_shipping": "Y",
+    "selfpay_fund_member": "?",
+    "field_sold_contract": "N",
+    "crop2_key": null,
+    "crop2_area_m2": null,
+    "crop2_coop_shipping": null,
+    "crop2_selfpay_fund_member": null,
+    "crop2_field_sold_contract": null,
+    "owns_farmland": "Y",
+    "farmland_owned_years": 40,
+    "owned_area_ge_15500m2": "N",
+    "health_insurance": "?",
+    "offfarm_income_band": "?",
+    "disaster_damage": "N",
+    "direct_payment_education": "Y",
+    "already_receiving": [
+      "JEJU-FARMER-ALLOW",
+      "NAT-DIRECT-AREA"
+    ],
+    "insurance_enrolled": [],
+    "flags": [],
+    "disaster_end_date": null,
+    "spouse_sex": "여"
+  },
+  "profile_fields_not_in_C_round1": [
+    "birth_year",
+    "birth_year_approx",
+    "eupmyeon",
+    "visitor",
+    "mgmt_last_registered_year",
+    "spouse_status",
+    "spouse_birth_year",
+    "crop2_key",
+    "crop2_area_m2",
+    "crop2_coop_shipping",
+    "crop2_selfpay_fund_member",
+    "crop2_field_sold_contract",
+    "owned_area_ge_15500m2",
+    "health_insurance",
+    "disaster_damage",
+    "direct_payment_education",
+    "spouse_sex"
+  ],
+  "profile_fields_dropped_from_C_round1": [
+    "age (→ birth_year)",
+    "flags의 입원·질병 값(사원 F)",
+    "flags의 disaster_damage (→ 독립 필드 disaster_damage)"
+  ],
+  "expect": {
+    "paper_mode": "normal",
+    "header": {
+      "must_include": [
+        "2026-11-13",
+        "기준일"
+      ],
+      "note": "--asof 시연 기준일 표시(§12-A(1))"
+    },
+    "key_lines": [
+      {
+        "id": "P5-K1",
+        "section": "B",
+        "action": "PREREQ:spouse_registration",
+        "status": "BLOCKED_PREREQ",
+        "must_include": [
+          "배우자",
+          "등록",
+          "20만"
+        ],
+        "unlocks": [
+          {
+            "program_key": "JEJU-WOMEN-VOUCHER",
+            "amount_won": 200000,
+            "row_status": "prior_year_reference",
+            "badge": true,
+            "badge_must_include": [
+              "공고 전",
+              "3월"
+            ],
+            "badge_basis": "2026년 기준, 2027년 공고 전"
+          },
+          {
+            "program_key": "JEJU-FARMER-ALLOW",
+            "amount_won_delta": 400000,
+            "status_after": "CHECK",
+            "row_status": "prior_year_reference",
+            "badge": true,
+            "badge_must_include": [
+              "공고 전",
+              "3월"
+            ],
+            "badge_basis": "2026년 기준, 2027년 공고 전"
+          }
+        ],
+        "why": "프로필은 경영주(남편) 기준, 방문은 가족(본인)",
+        "row_status": "confirmed",
+        "badge": false
+      },
+      {
+        "id": "P5-K2",
+        "section": "C",
+        "program_key": "JEJU-PSTAB",
+        "crop_key": "브로콜리",
+        "rule_id": "PRICE_STAB",
+        "status": "NO_DATA",
+        "must_include": [
+          "브로콜리",
+          "가격",
+          "농협"
+        ],
+        "must_not_include": [
+          "kg당",
+          "열림",
+          "아직"
+        ],
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "2026년 기준",
+          "공고 전"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      }
+    ],
+    "first_actions": [
+      {
+        "section": "B",
+        "kind": "PREREQ",
+        "target": "spouse_registration"
+      },
+      {
+        "section": "B",
+        "kind": "ASK_COOP",
+        "target": "selfpay_fund_member",
+        "must_include": [
+          "자조금"
+        ]
+      }
+    ],
+    "insurance": [
+      {
+        "product_id": "income_stab",
+        "crop_key": "브로콜리",
+        "status": "NOT_COVERED"
+      },
+      {
+        "product_id": "crop_disaster",
+        "crop_key": "브로콜리",
+        "status": "NEXT_WINDOW",
+        "next_window": {
+          "months": [
+            8,
+            10
+          ]
+        },
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "8월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "product_id": "nh_safety",
+        "status": "OPEN_NOW",
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "fixed_lines": [
+      {
+        "id": "FIXED-FARM-HELPER",
+        "must_include": [
+          "60일",
+          "농협"
+        ],
+        "must_not_include": [
+          "까지 신청하세요",
+          "남았"
+        ],
+        "note": "사원 F·설계 v2 §7-1: 입원·질병은 묻지 않는다. 영농도우미는 모든 종이에 같은 문장(\"다치거나 3일 넘게 입원하셨으면 60일 안에 농협\")."
+      },
+      {
+        "id": "FIXED-DISCLAIMER",
+        "must_include": [
+          "이 종이를 뽑아 준 곳",
+          "공문서"
+        ],
+        "note": "G 책임 표기 3줄"
+      }
+    ],
+    "banners": [],
+    "also": [
+      {
+        "section": "D",
+        "program_key": "NAT-DIRECT-SMALL",
+        "status": "CHECK",
+        "already_area": true,
+        "amount": {
+          "kind": "DIFF_IF_SWITCH",
+          "high_won": 250000,
+          "display": "약 25만 원 더"
+        },
+        "condition_text_must_include": [
+          "진흥지역 밖"
+        ],
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "3월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전",
+        "must_include": [
+          "소농직불",
+          "전환하면",
+          "25만"
+        ]
+      },
+      {
+        "section": "D",
+        "program_key": "NHIS-FARMER-SUPPORT",
+        "status": "CHECK",
+        "must_include": [
+          "건강보험료"
+        ],
+        "must_not_include": [
+          "만 원"
+        ],
+        "depends_on_row": "NHIS-FARMER-SUPPORT가 confirmed일 때만. hold면 이 줄 없음",
+        "why": "§12-A(1) 기본값: 사장 답이 없으면 넣는다. 보험료를 입력받지 않으므로 금액 없음(비율·소급만) (사장 결정 2026-11-08 §12-B 2: \"농업 밖 제도\" 표시 폐기)",
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "must_not_print": [
+      "12월 19일",
+      "받으실 수 있는 돈",
+      "▶",
+      "오를",
+      "내릴",
+      "예측된",
+      "파세요"
+    ]
+  },
+  "unverified": [
+    "소농 0.5ha 초과 선택 규정 원문"
+  ],
+  "pending_decisions": [],
+  "approval": {
+    "by": [],
+    "at": null,
+    "sha256": null
+  }
+}

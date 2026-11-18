@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% import "_ui.html" as ui %}
+{% block title %}받고 계신 지원 · {{ cfg.service_name }}{% endblock %}
+
+    lines: 해당될 수 있는 줄(program_key마다 하나) · already: 이미 눌린 key · direct_keys: 교육 질문이 붙는 직불 key · education: 지금 Y/N 값 또는 ""
+    crops: [(번호, 작물 이름)] · answers: 보험 누름 단추의 현재 값("yes"나 "") · has_spouse · proxy -#}
+{% block head %}<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="/static/flow.css">
+<script src="/static/confirm.js" defer></script>{% endblock %}
+{% block body_class %}page-c{% endblock %}
+{% block main_class %}cmain{% endblock %}
+{% block header_actions %}{% if proxy %}<p class="proxy-note">어르신 대신 답하고 있어요</p>{% endif %}
+{{ ui.progress(6, 6, text="마지막 확인이에요") }}
+<a class="btn btn-ghost btn-home-q" href="/" data-home-c>처음으로</a>{% endblock %}
+{% block content %}
+{% set direct_on = already | select("in", direct_keys) | list | length > 0 %}
+<form method="post" action="/counsel/confirm" class="cform" data-once>
+<div class="cbody">
+  <div class="c-head">
+    <h1>받고 계신 것만 눌러 주세요. 없거나 모르시면 아래 '결과 보기'를 눌러 주세요.</h1>
+    {{ ui.speak("받고 계신 것만 눌러 주세요. 없거나 모르시면 아래 결과 보기를 눌러 주세요.") }}
+  </div>
+
+  <section class="c-box" aria-labelledby="cb-already">
+    <h2 class="c-band" id="cb-already">이미 받고 계신 지원</h2>
+  {%- if lines %}
+    <ul class="c-cards">
+    {%- for line in lines %}
+      <li>{{ ui.choice("checkbox", "already", line.key, line.names | join(" · "), checked=(line.key in already), sub=line.cue, mark_first=True,
+                       attrs=('data-direct' if line.key in direct_keys else '')) }}</li>
+    {%- endfor %}
+    </ul>
+  {%- else %}
+    <p class="c-none">받고 계실 만한 지원이 따로 없어요. 아래 단추를 눌러 주세요.</p>
+  {%- endif %}
+  </section>
+
+  {%- if lines | selectattr("key", "in", direct_keys) | list %}
+  <section class="c-box edu{% if direct_on %} is-on{% endif %}" data-edu aria-labelledby="cb-edu">
+    <h2 class="c-band" id="cb-edu">직불 교육</h2>
+    <div class="edu-body" role="group" aria-label="직불 교육">
+      <p class="edu-q">올해 직불 교육을 들으셨어요?</p>
+      <div class="choice-row">
+        {{ ui.choice("radio", "direct_payment_education", "Y", "들었어요", checked=(education == "Y")) }}
+        {{ ui.choice("radio", "direct_payment_education", "N", "아직이에요", checked=(education == "N")) }}
+      </div>
+    </div>
+  </section>
+  {%- endif %}
+
+  <section class="c-box" aria-labelledby="cb-ins">
+    <h2 class="c-band" id="cb-ins">가입한 보험</h2>
+    <ul class="c-cards c-ins">
+    {%- for n, name in crops %}
+      <li>{{ ui.choice("checkbox", "crop%d_ins_disaster" % n, "yes", name ~ " 재해보험", checked=(answers["crop%d_ins_disaster" % n] == "yes"), mark_first=True) }}</li>
+      <li>{{ ui.choice("checkbox", "crop%d_ins_income" % n, "yes", name ~ " 수입안정보험", checked=(answers["crop%d_ins_income" % n] == "yes"), mark_first=True) }}</li>
+    {%- endfor %}
+      <li>{{ ui.choice("checkbox", "safety_owner", "yes", "안전보험 (농사짓는 분)", checked=(answers["safety_owner"] == "yes"), mark_first=True) }}</li>
+      {%- if has_spouse %}
+      <li>{{ ui.choice("checkbox", "safety_spouse", "yes", "안전보험 (배우자)", checked=(answers["safety_spouse"] == "yes"), mark_first=True) }}</li>
+      {%- endif %}
+    </ul>
+  </section>
+</div>
+{% set lab %}<span data-lab-some>결과 보기</span><span data-lab-none hidden>받은 것 없어요, 결과 보기</span>{% endset %}
+{% set note %}<p class="bar-note" data-count aria-live="polite" role="status"></p>{% endset %}
+{{ ui.actionbar(lab, prev_href="/counsel/input?edit=1&step=6", note=note) }}
+</form>
+{% endblock %}

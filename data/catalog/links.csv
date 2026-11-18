@@ -1,0 +1,20 @@
+﻿program_key,url,link_kind,page_title,checked_date,note
+NAT-DIRECT-SMALL,https://www.gov.kr/portal/service/serviceInfo/154300000409,신청 안내(정부24),기본형 공익직접지불금 지원 | 민원 안내 및 신청 | 정부24,2026-11-14,소농직불금과 면적직불금이 같은 정부24 안내를 써요
+NAT-DIRECT-AREA,https://www.gov.kr/portal/service/serviceInfo/154300000409,신청 안내(정부24),기본형 공익직접지불금 지원 | 민원 안내 및 신청 | 정부24,2026-11-14,소농직불금과 면적직불금이 같은 정부24 안내를 써요
+KRC-FARMLAND-PENSION,https://www.fbo.or.kr/contents/Contents.do?menuId=0410101020,사업 안내,농지은행 통합포털 > 농지연금 > 가입요건,2026-11-14,상담 1577-7770
+NAT-RETIRE-DIRECT,https://www.fbo.or.kr/contents/Contents.do?menuId=0410201010,사업 안내,농지이양은퇴직불 소개,2026-11-14,상담 1577-7770. 가입 조건과 지급 방법은 안내 페이지 아래 메뉴에 있어요
+NAT-CROP-INS,https://www.apfs.kr/front/contents/sub.do?contId=55&menuId=5325,사업 안내,농작물재해보험 (농업정책보험금융원),2026-11-14,상품을 소개하는 페이지예요. 올해 지침 공고는 따로 확인하세요
+NAT-INCOME-INS,https://www.apfs.kr/front/contents/sub.do?contId=90&menuId=5325,사업 안내,농업수입안정보험 (농업정책보험금융원),2026-11-14,상품을 소개하는 페이지예요
+NAT-SAFETY-INS,https://www.apfs.kr/front/contents/sub.do?contId=92&menuId=5325,사업 안내,농업인안전보험 (농업정책보험금융원),2026-11-14,상품을 소개하는 페이지예요. 가입 창구는 지역 농·축협에서 확인하세요
+NAT-PENSION-SUPPORT,https://www.nps.or.kr/pnsinfo/ntpsklg/getOHAF0038M0.do?menuId=MN2400,사업 안내,NPS 국민연금공단 - 국민을 든든하게 연금을 튼튼하게.,2026-11-14,
+NHIS-FARMER-SUPPORT,https://www.nhis.or.kr/static/html/wbma/b/wbmab0301.html,사업 안내,지역 건강보험료 경감,2026-11-14,이 페이지에 적힌 깎아 주는 비율은 옛 기준일 수 있어요. 건강보험공단에 물어보세요
+JEJU-FARMER-ALLOW,https://www.jeju.go.kr/farm/notice/notice/notice1.htm?act=view&seq=2009719,공고 원문,2026년 제주특별자치도 농민수당 지원 신청 안내,2026-11-14,"2026년 3월 10일 제주도청 농축산 소식에 난 신청 안내"
+JEJU-WOMEN-VOUCHER,https://www.jeju.go.kr/farm/notice/notice/notice1.htm?act=view&seq=2009720,공고 원문,2026년 제주특별자치도 여성농업인 행복이용권 지원 신청 안내,2026-11-14,"2026년 3월 10일 제주도청 농축산 소식에 난 신청 안내"
+DO-CALCIUM-SULFUR,https://www.bizinfo.go.kr/web/lay1/bbs/S1T122C128/AS/74/view.do?pblancId=PBLN_000000000117082,통합 공고,[제주] 2026년 농업보조사업(통합신청) 지원 계획 공고,2026-11-14,자세한 내용은 공고에 붙은 파일에 있어요
+DO-IRRIGATION,https://www.bizinfo.go.kr/web/lay1/bbs/S1T122C128/AS/74/view.do?pblancId=PBLN_000000000117082,통합 공고,[제주] 2026년 농업보조사업(통합신청) 지원 계획 공고,2026-11-14,자세한 내용은 공고에 붙은 파일에 있어요
+DO-SMALL-MACHINE,https://www.bizinfo.go.kr/web/lay1/bbs/S1T122C128/AS/74/view.do?pblancId=PBLN_000000000117082,통합 공고,[제주] 2026년 농업보조사업(통합신청) 지원 계획 공고,2026-11-14,자세한 내용은 공고에 붙은 파일에 있어요
+JS-BIODEG,https://www.jejusi.go.kr/part/farm/intro/news.do?mode=detail&notice_id=c8b59d4780ae4444b911e79efd76297a&currentPageNo=8,통합 공고,2026년 도 제주시 농업보조사업 통합지침 공고 안내,2026-11-14,자세한 내용은 공고에 붙은 파일에 있어요
+JS-MANDARIN-BAG,https://www.jejusi.go.kr/part/farm/intro/news.do?mode=detail&notice_id=c8b59d4780ae4444b911e79efd76297a&currentPageNo=8,통합 공고,2026년 도 제주시 농업보조사업 통합지침 공고 안내,2026-11-14,자세한 내용은 공고에 붙은 파일에 있어요
+JS-WINDBREAK,https://www.jejusi.go.kr/part/farm/intro/news.do?mode=detail&notice_id=c8b59d4780ae4444b911e79efd76297a&currentPageNo=8,통합 공고,2026년 도 제주시 농업보조사업 통합지침 공고 안내,2026-11-14,자세한 내용은 공고에 붙은 파일에 있어요
+SGP-MANDARIN-BAG,https://www.seogwipo.go.kr/info/news/notice.htm?page=1&act=view&seq=152386105,통합 공고,2026년 서귀포시 농업보조사업 통합공고,2026-11-14,자세한 내용은 공고에 붙은 파일에 있어요
+SGP-WINDBREAK,https://www.seogwipo.go.kr/info/news/notice.htm?page=1&act=view&seq=152386105,통합 공고,2026년 서귀포시 농업보조사업 통합공고,2026-11-14,자세한 내용은 공고에 붙은 파일에 있어요

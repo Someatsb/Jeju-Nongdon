@@ -1,0 +1,132 @@
+{
+  "sample_id": "P1",
+  "recorded_at": "2026-11-08T16:38:00",
+  "source": "recorded",
+  "provider": "anthropic",
+  "model": "claude-opus-5-5",
+  "prompt_ver": "narrate-v1",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "efa88ee3",
+  "calls": [
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "38885717bb0627d96728971acaa16e62ca386ac09d2619dec58258baca4104a5",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:jeju_smallfarm}, {P:jeju_women_voucher}에 해당될 가능성이 있습니다. 지난해 기준 안내라서 다음 신청 시기에 내용을 확인해 보시면 됩니다.\",\"cites\":[\"M:jeju_smallfarm\",\"M:jeju_women_voucher\"]},{\"sid\":2,\"text\":\"{P:nat_direct_small}의 경우 소득 조건을 접수기관에서 확인해 보셔야 하고, 다음 신청 시기를 기다리셔야 합니다.\",\"cites\":[\"M:nat_direct_small\"]},{\"sid\":3,\"text\":\"{P:nhis_farmer_support}에도 해당될 수 있고, 언제든 신청해 보실 수 있습니다.\",\"cites\":[\"M:nhis_farmer_support\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 1836,
+        "tok_out": 672,
+        "latency_ms": 8108,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 2,
+      "request_hash": "41603333d9ad06e86b2a3d4a34436ef3eeaaf98bcb466062209304825881c28b",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nhis_farmer_support}은 늘 신청할 수 있으니 확인해 보시면 됩니다.\",\"cites\":[\"M:nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:jeju_smallfarm}, {P:jeju_women_voucher}는 해당될 수 있고, 다음 접수 때 신청하세요.\",\"cites\":[\"M:jeju_smallfarm\",\"M:jeju_women_voucher\"]},{\"sid\":3,\"text\":\"{P:nat_direct_small}은 소득 조건을 접수기관에 확인해 보셔야 합니다.\",\"cites\":[\"M:nat_direct_small\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 1919,
+        "tok_out": 678,
+        "latency_ms": 8155,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "505debd454901ad2ac83e48583781c14157316409984e254f2150d3e7c35926a",
+      "response": {
+        "text": "{\"verdict\": \"PASS\", \"reason_code\": null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2710,
+        "tok_out": 160,
+        "latency_ms": 2719,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "47139f69ed04cd33e51e69076e06468600c1565ffffccd9ae725b06122f7a8e3",
+      "response": {
+        "text": "{\"section\":\"insurance\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nh_safety_owner}은 지금 가입을 받고 있으니 접수기관에 확인해 보시면 됩니다.\",\"cites\":[\"I:nh_safety_owner\"]},{\"sid\":2,\"text\":\"{P:crop_disaster_a}은 지금은 가입 시기가 아니어서 다음 시기를 기다리셔야 합니다.\",\"cites\":[\"I:crop_disaster_a\"]},{\"sid\":3,\"text\":\"가입 시기가 되면 해당될 수 있는지 미리 물어보시면 좋습니다.\",\"cites\":[\"I:crop_disaster_a\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 1677,
+        "tok_out": 235,
+        "latency_ms": 3250,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "d9ee3730406f2b649608dbf3371babdeccb2825a885e51073d727fbc702459da",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2693,
+        "tok_out": 20,
+        "latency_ms": 1718,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "7fe0b4d79ee1e59bed3c8bef6084a89efc65595031fb661362ad857ac22d697e",
+      "response": {
+        "text": "{\"section\":\"action\",\"sentences\":[{\"sid\":1,\"text\":\"{P:a_nhis_farmer_support}은 늘 신청할 수 있으니 먼저 접수기관에 확인해 보시면 됩니다.\",\"cites\":[\"A:a_nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:a_jeju_smallfarm}, {P:a_nat_direct_small}, {P:a_jeju_women_voucher}은 다음 신청 시기가 열리면 신청해 보시면 됩니다.\",\"cites\":[\"A:a_jeju_smallfarm\",\"A:a_nat_direct_small\",\"A:a_jeju_women_voucher\"]},{\"sid\":3,\"text\":\"{P:a_ins_a}은 다음 가입 시기에 다시 살펴보시면 좋겠습니다.\",\"cites\":[\"A:a_ins_a\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 1902,
+        "tok_out": 587,
+        "latency_ms": 5578,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "5e0b63683e462c7f15599fc665015bc9452033e7ef6cf37fa41bf25c1eb662cc",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2762,
+        "tok_out": 215,
+        "latency_ms": 2828,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    }
+  ]
+}

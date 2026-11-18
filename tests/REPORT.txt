@@ -1,0 +1,4 @@
+2026-11-19 01:45 
+3636 passed, 45 skipped, 1 xfailed in 331.50s (0:05:31)
+golden 12 passed
+(errors는 tests/ui 이벤트 루프 정리 때의 알려진 플레이크일 수 있다: 다시 돌려 확인)

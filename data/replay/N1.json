@@ -1,0 +1,174 @@
+{
+  "sample_id": "N1",
+  "recorded_at": "2026-11-11T10:00:00",
+  "source": "handwritten",
+  "provider": "handwritten",
+  "model": "demo-script",
+  "prompt_ver": "notice-v3",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "8c54353e",
+  "calls": [
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 1,
+      "request_hash": "6c3e42c49f2e275fdcb918a2b804bc83a50017f24017cb3aadb035246f67b7af",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "doc_search",
+            "args": {
+              "query": "신청기간"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 2,
+      "request_hash": "8372bb9205152353a2cc1b3abd4f7c6bfd1e19c356f02713a530008996a6845e",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "find_existing_program",
+            "args": {
+              "name": "물류비 지원사업",
+              "agency": "감귤유통과"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 3,
+      "request_hash": "c3992c836fb82a5c3f51f02ad4a71ae5032aadf5bca3d150cba6fff54fd67118",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "validate_draft",
+            "args": {
+              "draft": {
+                "programs": [
+                  {
+                    "action": "UPDATE",
+                    "match_id": "JEJU-LOGI@2026-27",
+                    "program_key": null,
+                    "fields": {
+                      "apply_start": {
+                        "value": "2026-07-22",
+                        "quote": "신청기간  : 수 화 2026. 7. 22.( ) ~ 8. 4.( )",
+                        "anchor": null
+                      },
+                      "apply_end": {
+                        "value": "2026-08-04",
+                        "quote": "신청기간  : 수 화 2026. 7. 22.( ) ~ 8. 4.( )",
+                        "anchor": null
+                      },
+                      "crop_in": {
+                        "value": [
+                          "월동무",
+                          "양배추",
+                          "당근",
+                          "양파"
+                        ],
+                        "quote": "지원품목 월동무 양배추 당근 조생양파",
+                        "anchor": null
+                      },
+                      "applicant": {
+                        "value": "농협경유",
+                        "quote": "지 역 농 협  및  영 농 조 합 법 인",
+                        "anchor": null
+                      }
+                    },
+                    "questions": [],
+                    "tags": [
+                      {
+                        "label": "농협·조합법인이 신청",
+                        "quote": "지 역 농 협  및  영 농 조 합 법 인",
+                        "anchor": null
+                      },
+                      {
+                        "label": "월동무·양배추·당근·양파",
+                        "quote": "지원품목 월동무 양배추 당근 조생양파",
+                        "anchor": null
+                      },
+                      {
+                        "label": "해상운송비 일부 지원",
+                        "quote": "출하한 생산자에 대해 해상운송비 일부 지원",
+                        "anchor": null
+                      },
+                      {
+                        "label": "자조금 가입 증명 필요",
+                        "quote": "자조금 가입 증명서 농협은 명단 제출",
+                        "anchor": null
+                      }
+                    ]
+                  }
+                ],
+                "skipped": []
+              }
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "notice",
+      "section": null,
+      "attempt": 4,
+      "request_hash": "94f3dd0f61689ce73df6e579907045989862a1e614fa72f732ac66584dbaf9b6",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "h1",
+            "name": "finish",
+            "args": {
+              "decision": "DRAFT_READY",
+              "reason": "물류비 공고의 신청기간·품목·신청 주체를 기존 행에 갱신합니다"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 0,
+        "tok_out": 0,
+        "latency_ms": 0,
+        "provider": "handwritten",
+        "model": "demo-script"
+      },
+      "injected": false
+    }
+  ]
+}

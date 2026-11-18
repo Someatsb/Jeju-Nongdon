@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "_art.html" as art %}
+{% block title %}종이를 뽑지 못했어요 · {{ cfg.service_name }}{% endblock %}
+{#- 인쇄 보류(설계서 3-6). reasons = [(영문 코드, 한글 사유)]. 코드는 접힌 칸("직원에게 전달할 코드")에만 둔다. -#}
+{% block head %}<link rel="stylesheet" href="/static/flow.css">{% endblock %}
+{% block body_class %}page-h{% endblock %}
+{% block main_class %}hmain{% endblock %}
+{% block content %}
+<section class="hold" role="alert">
+  <h1>종이를 뽑지 못했어요</h1>
+  <p class="lead">종이에 확인이 필요한 곳이 있어 뽑지 않았어요. 직원에게 알려 주세요.</p>
+  <ul class="hold-why">
+    {% for code, text in reasons %}<li>{{ text }}</li>
+    {% endfor %}
+  </ul>
+  <div class="hold-acts">
+    <a class="btn btn-ghost" href="/counsel/preview">결과 화면으로</a>
+    <form method="post" action="/counsel/new" data-once><button class="btn btn-primary" type="submit" data-submit>처음부터 다시{{ art.arrow() }}</button></form>
+  </div>
+  <details class="hold-code">
+    <summary>직원에게 전달할 코드</summary>
+    <p>{% for code, text in reasons %}{{ code }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+  </details>
+</section>
+{% endblock %}

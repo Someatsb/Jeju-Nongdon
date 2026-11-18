@@ -1,0 +1,45 @@
+/* 제주 농돈 - 직원용 새 공고 찾아보기(직원 메뉴의 단추 칸 + 진행·보고 화면). 글씨 18px 이상, 단추 56px 이상, 검정 글 + 강조색 하나(--tang-deep). */
+.s-scout { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.s-scout-text { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.s-scout-line { font-size: 20px; font-weight: 600; color: var(--ink); line-height: 1.4; }
+.s-scout-note { font-size: 18px; font-weight: 600; color: var(--ink-soft); }
+.s-scout-note a { color: var(--tang-deep); font-weight: 800; }
+.s-scout form { margin: 0; }
+.s-scout-btn { min-height: 64px; font-size: 26px; padding: 0 36px; white-space: nowrap; }
+
+.scmain { flex: 1; padding: 8px var(--pad-x) 32px; }
+.page-sc .strip { display: none; }
+.page-sc .staff-badge { font-size: 18px; font-weight: 800; color: var(--sea); background: var(--sea-soft); border: 3px solid var(--sea); border-radius: 999px; padding: 2px 20px; margin: 0 16px 0 auto; white-space: nowrap; }
+.page-sc .btn-top { min-height: 56px; font-size: 22px; text-decoration: none; }
+.sc-wrap { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; font-size: 20px; line-height: 1.5; }
+.sc-title { font-size: 38px; font-weight: 800; }
+.sc-card { background: var(--paper); border: 4px solid var(--ink); border-radius: 24px; box-shadow: 6px 6px 0 #EBCB8E; padding: 18px 28px; display: flex; flex-direction: column; gap: 12px; }
+.sc-card h2 { font-size: 28px; font-weight: 800; color: var(--sea); }
+.sc-stage { font-size: 34px; font-weight: 800; color: var(--tang-deep); }
+.sc-counts { display: flex; flex-wrap: wrap; gap: 6px 36px; font-size: 24px; font-weight: 600; }
+.sc-counts b { font-size: 32px; font-weight: 800; color: var(--tang-deep); }
+.sc-small { display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 18px; font-weight: 600; color: var(--ink-soft); }
+.sc-hint, .sc-foot, .sc-none { font-size: 18px; font-weight: 600; color: var(--ink-soft); }
+.sc-summary { font-size: 20px; font-weight: 600; }
+.sc-replay { font-size: 20px; font-weight: 700; padding: 10px 18px; background: var(--sea-soft); border: 3px solid var(--sea); border-radius: 16px; }
+.sc-trouble { font-size: 22px; font-weight: 800; padding: 12px 18px; border: 3px solid var(--tang-deep); border-radius: 16px; background: #FFE8CC; }
+.sc-fatal { font-size: 24px; }
+.sc-list { display: flex; flex-direction: column; }
+.sc-item { padding: 14px 0; border-top: 2px solid var(--line); display: flex; flex-direction: column; gap: 4px; }
+.sc-list > .sc-item:first-child { border-top: 0; }
+.sc-name { font-size: 24px; font-weight: 800; overflow-wrap: anywhere; }
+.sc-name a { color: var(--ink); }
+.sc-meta { font-size: 18px; font-weight: 600; color: var(--ink-soft); }
+.sc-why, .sc-result { font-size: 20px; font-weight: 600; }
+.sc-why span, .sc-result span { font-size: 18px; font-weight: 800; color: var(--sea); margin-right: 8px; }
+.sc-result b { font-weight: 800; }
+.sc-listed b { color: var(--tang-deep); }
+.sc-detail { font-size: 18px; font-weight: 600; color: var(--ink-soft); overflow-wrap: anywhere; }
+.sc-item-s .sc-name { font-size: 20px; }
+.sc-go { margin-top: 6px; }
+.sc-btn { min-height: 56px; font-size: 22px; padding: 0 28px; text-align: center; }
+.sc-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.sc-actions form { margin: 0; }
+.sc-more summary { cursor: pointer; font-size: 20px; font-weight: 800; color: var(--sea); min-height: 56px; display: flex; align-items: center; }
+.sc-more summary:focus-visible, .sc-name a:focus-visible { outline: 5px solid var(--sea); outline-offset: 3px; }
+@media (max-width: 760px) { .scmain { padding: 4px 16px 24px; } .sc-title { font-size: 30px; } .sc-stage { font-size: 28px; } .sc-card { padding: 14px 16px; } }

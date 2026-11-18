@@ -1,0 +1,223 @@
+{
+  "schema": "golden-spec/2",
+  "case_id": "G13",
+  "phase": 1,
+  "kind": "mid_season",
+  "title": "G13 부 삼촌 부부 — 시즌 중간(2026-01-15) 당근, 가격 근처(NEAR), 가격안정관리제 참여 전",
+  "source": "Task 34 (B 제안: 시즌 중간 기준일 골든). P2 프로필 복사 · as_of 2026-01-15 · JEJU-PSTAB는 아직 안 받는 것으로(받고 있으면 이 판정이 앞면 줄이 되지 않는다)",
+  "as_of": "2026-01-15",
+  "fixture": {
+    "snapshot": "snap_20261112",
+    "tables": "tables_1st_20261113",
+    "network": "blocked",
+    "jasdc": "recorded_20261112",
+    "llm": "none",
+    "price_override": null,
+    "feature_flags": {
+      "offfarm_money": true
+    }
+  },
+  "profile": {
+    "crop_key": "당근",
+    "area_m2": 10000,
+    "total_farm_area_m2": 10000,
+    "birth_year": 1958,
+    "birth_year_approx": false,
+    "sex": "M",
+    "region": "제주시",
+    "eupmyeon": "구좌읍",
+    "visitor": "self",
+    "jeju_residence_years": 68,
+    "farming_years": 40,
+    "mgmt_registered": "Y",
+    "mgmt_years": 20,
+    "mgmt_last_registered_year": 2025,
+    "spouse_status": "unregistered",
+    "spouse_birth_year": 1960,
+    "coop_member": "Y",
+    "coop_shipping": "Y",
+    "selfpay_fund_member": "Y",
+    "field_sold_contract": "N",
+    "crop2_key": null,
+    "crop2_area_m2": null,
+    "crop2_coop_shipping": null,
+    "crop2_selfpay_fund_member": null,
+    "crop2_field_sold_contract": null,
+    "owns_farmland": "Y",
+    "farmland_owned_years": 30,
+    "owned_area_ge_15500m2": "N",
+    "health_insurance": "?",
+    "offfarm_income_band": "?",
+    "disaster_damage": "N",
+    "direct_payment_education": "Y",
+    "already_receiving": [
+      "JEJU-FARMER-ALLOW",
+      "NAT-DIRECT-AREA"
+    ],
+    "insurance_enrolled": [],
+    "flags": [],
+    "disaster_end_date": null,
+    "spouse_sex": "여"
+  },
+  "profile_fields_not_in_C_round1": [
+    "birth_year",
+    "birth_year_approx",
+    "eupmyeon",
+    "visitor",
+    "mgmt_last_registered_year",
+    "spouse_status",
+    "spouse_birth_year",
+    "crop2_key",
+    "crop2_area_m2",
+    "crop2_coop_shipping",
+    "crop2_selfpay_fund_member",
+    "crop2_field_sold_contract",
+    "owned_area_ge_15500m2",
+    "health_insurance",
+    "disaster_damage",
+    "direct_payment_education",
+    "spouse_sex"
+  ],
+  "profile_fields_dropped_from_C_round1": [
+    "age (→ birth_year)",
+    "flags의 입원·질병 값(사원 F)",
+    "flags의 disaster_damage (→ 독립 필드 disaster_damage)"
+  ],
+  "expect": {
+    "paper_mode": "normal",
+    "header": {
+      "must_include": [
+        "2026-01-15",
+        "기준일"
+      ],
+      "note": "--asof 시연 기준일 표시(§12-A(1))"
+    },
+    "key_lines": [
+      {
+        "id": "G13-K1",
+        "section": "C",
+        "program_key": "JEJU-PSTAB",
+        "crop_key": "당근",
+        "rule_id": "PRICE_STAB",
+        "status": "CHECK",
+        "trigger": "NEAR",
+        "must_include": [
+          "가격안정관리제",
+          "곧 열릴 수 있음",
+          "kg당 최대",
+          "245원",
+          "하한가",
+          "816원",
+          "작년",
+          "71원",
+          "예측 아님"
+        ],
+        "must_not_include": [
+          "만 원",
+          "열림 "
+        ],
+        "calc": "반월 1~15일 판정 품종(당근(일반)·세척당근) 거래량 가중 평균 1,163.6원(거래 11일) vs 기준가 1,088 × [0.911, 1.143) = [991, 1,244) 안 → NEAR. kg당 최대 = (1,088 − 하한가 816) × 0.9 = 244.8 → 245원",
+        "why": "시즌 중간에는 반월 판정이 실제로 줄을 움직인다. 근처(NEAR)는 '농협 확인' 상태이고 금액은 kg당 사실만(총액 아님)",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "2025년 기준",
+          "2026년 공고 전"
+        ],
+        "badge_basis": "2025년 기준, 2026년 공고 전"
+      },
+      {
+        "id": "G13-K2",
+        "section": "B",
+        "action": "PREREQ:spouse_registration",
+        "status": "BLOCKED_PREREQ",
+        "must_include": [
+          "배우자",
+          "등록",
+          "20만",
+          "45만"
+        ],
+        "why": "P2-K1과 같음(기준일만 다름)",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "3월"
+        ]
+      }
+    ],
+    "insurance": [
+      {
+        "product_id": "crop_disaster",
+        "crop_key": "당근",
+        "status": "NEXT_WINDOW",
+        "next_window": {
+          "months": [
+            7,
+            9
+          ]
+        },
+        "must_include": [
+          "80%"
+        ],
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "7월"
+        ],
+        "where": "back"
+      }
+    ],
+    "fixed_lines": [
+      {
+        "id": "FIXED-FARM-HELPER",
+        "must_include": [
+          "60일",
+          "농협"
+        ],
+        "must_not_include": [
+          "까지 신청하세요",
+          "남았"
+        ],
+        "note": "사원 F·설계 v2 §7-1: 입원·질병은 묻지 않는다. 영농도우미는 모든 종이에 같은 문장(\"다치거나 3일 넘게 입원하셨으면 60일 안에 농협\")."
+      },
+      {
+        "id": "FIXED-DISCLAIMER",
+        "must_include": [
+          "이 종이를 뽑아 준 곳",
+          "공문서"
+        ],
+        "note": "G 책임 표기 3줄"
+      }
+    ],
+    "banners": [],
+    "also": [
+      {
+        "section": "back",
+        "must_include": [
+          "가격안정관리제 · 곧 열릴 수 있음",
+          "이미 받고 계신 것"
+        ],
+        "why": "가격 판정 근거 줄: 규칙 이름 · 상태 · 기준일(한글). 뒷면 창구 확인용"
+      }
+    ],
+    "must_not_print": [
+      "받으실 수 있는 돈",
+      "▶",
+      "오를",
+      "내릴",
+      "예측된",
+      "파세요"
+    ]
+  },
+  "unverified": [
+    "당근 2026-27 기준가"
+  ],
+  "pending_decisions": [],
+  "approval": {
+    "by": [],
+    "at": null,
+    "sha256": null
+  }
+}

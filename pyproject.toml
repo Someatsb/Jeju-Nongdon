@@ -1,0 +1,4 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["live: 실제 Anthropic API를 한 번 부른다(키가 있을 때만 돈다)"]

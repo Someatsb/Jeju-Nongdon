@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}직원 메뉴 · {{ cfg.service_name }}{% endblock %}
+{#- 직원 메뉴(설계서 3-6). status: [(이름, 값)] · ai: AI 문장 한 줄 · notices: [{id, decision, made}] -#}
+{% block head %}<link rel="stylesheet" href="/static/staff.css"><link rel="stylesheet" href="/static/scout.css">{% endblock %}
+{% block body_class %}page-s{% endblock %}
+{% block main_class %}smain{% endblock %}
+{% block foot_note %}{% if replay_note %}<span>{{ replay_note }}</span>{% endif %}{% endblock %}
+{% block header_actions %}<p class="proxy-note staff-badge">직원용</p><a class="btn btn-ghost btn-top" href="/typesheet">마을 안내용 종이 만들기</a><a class="btn btn-ghost btn-top" href="/">처음 화면으로</a>{% endblock %}
+{% block content %}
+<div class="s-wrap" data-fit>
+  <div class="s-top">
+    <h1 class="s-title">직원 메뉴</h1>
+    <p class="s-support"><b>지원 목록</b>: {{ support_line }} <a class="s-link" href="/supports">목록 보기</a></p>
+  </div>
+  <section class="s-card s-scout" aria-label="공고 찾아보기">
+    <div class="s-scout-text">
+      <h2>공고 찾아보기</h2>
+      <p class="s-scout-line">공식 게시판에서 농가 지원 공고를 찾아 읽고, 원문과 맞는 것만 지원 전체 보기에 올려요</p>
+      {%- if scout_state == "run" %}
+      <p class="s-scout-note">지금 찾는 중이에요. <a href="/staff/scout">진행 보기</a></p>
+      {%- elif scout_state != "none" %}
+      <p class="s-scout-note">지난 결과가 있어요. <a href="/staff/scout">결과 보기</a></p>
+      {%- endif %}
+    </div>
+    <form method="post" action="/staff/scout"><button class="btn btn-primary s-scout-btn" type="submit">공고 찾아보기</button></form>
+  </section>
+  <section class="s-card" aria-label="자료 상태">
+    <h2>자료 상태</h2>
+    <dl class="s-status">
+      {%- for name, value, old in status %}
+      <div><dt>{{ name }}</dt><dd>{{ value }}{% if old %} <em class="s-old">{{ old }}</em>{% endif %}</dd></div>
+      {%- endfor %}
+      <div><dt>AI 문장</dt><dd>{{ ai }}</dd></div>
+    </dl>
+    {%- if holds %}
+    <details class="s-holds"><summary>준비 중인 지원제도 {{ holds | length }}건 보기</summary><ul>{% for h in holds %}<li>{{ h }}</li>{% endfor %}</ul></details>
+    {%- endif %}
+  </section>
+  <section class="s-card" aria-label="공고 초안">
+    <h2>공고 초안</h2>
+    {%- if notices %}
+    <ul class="s-notices">
+      {%- for n in notices %}
+      <li><a class="s-notice" href="/staff/notice/{{ n.id }}"><b>{{ n.title or "공고 초안" }}</b><span>{{ n.decision }} · {{ n.made }} · <small>{{ n.id }}</small></span><em class="s-btn">보고서 보기</em></a></li>
+      {%- endfor %}
+    </ul>
+    {%- else %}
+    <p class="s-none">아직 받은 공고 초안이 없어요.</p>
+    {%- endif %}
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{
+  "empty_sheet": false,
+  "items": [
+    {"section": "support", "fact_id": "M:farmland_pension", "program_id": "farmland_pension", "official_name": "농지연금",
+     "status": "LIKELY", "row_status": "confirmed", "missing": [], "window": "always_open", "office_id": "krc_jeju"},
+    {"section": "support", "fact_id": "M:small_farm_direct", "program_id": "small_farm_direct", "official_name": "소농직불금",
+     "status": "CHECK", "row_status": "prior_year_reference", "missing": ["income_test"], "window": "upcoming", "office_id": "emd_office"},
+    {"section": "insurance", "fact_id": "I:crop_ins_citrus", "program_id": "crop_ins_citrus", "official_name": "농작물재해보험(감귤)",
+     "status": "NEXT_WINDOW", "row_status": "prior_year_reference", "missing": [], "window": "upcoming", "office_id": "nh_coop"},
+    {"section": "action", "fact_id": "A:apply_farmland_pension", "program_id": "farmland_pension", "official_name": "농지연금",
+     "status": "APPLY_NOW", "row_status": "confirmed", "missing": [], "window": "always_open", "office_id": "krc_jeju"}
+  ]
+}

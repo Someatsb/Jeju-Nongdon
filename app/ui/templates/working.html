@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% import "_art.html" as art %}
+{% block title %}찾는 중 · {{ cfg.service_name }}{% endblock %}
+{#- 찾는 중 화면(2026-11-16): 설명 글(AI)과 지금 접수 중인 공고 맞춰 보기가 둘 다 끝날 때까지 기다린 뒤 결과 화면으로 간다(결과 화면이 두 번 바뀌지 않게). 스크립트(static/working.js)가 /counsel/ai 를 1초마다 묻고,
+    30초가 지나도 안 끝나면 있는 것만으로 간다(그때는 결과 화면이 뒤늦게 채운다). 바로 끝나면 1.4초 막대만 보이고, 1.2초가 지나도 안 끝났을 때만 아래 세 줄(실제 상태에 따라 체크)을 보인다. 지어낸 퍼센트는 없다. -#}
+{% block head %}<script>document.documentElement.classList.add("js")</script>
+<noscript><meta http-equiv="refresh" content="2;url=/counsel/preview?wait=1"></noscript>
+<link rel="stylesheet" href="/static/flow.css">
+<script src="/static/working.js" defer></script>{% endblock %}
+{% block body_class %}page-w{% endblock %}
+{% block main_class %}wmain{% endblock %}
+{% block content %}
+<section class="work" aria-live="polite" data-fit>
+  <div class="work-art">{{ art.logo("logo work-logo") }}</div>
+  <h1>받을 수 있는 지원을 찾고 있어요</h1>
+  <p class="lead">잠시만 기다려 주세요. 곧 보여 드릴게요.</p>
+  <div class="w-bar" aria-hidden="true"><i data-w-bar></i></div>
+  <div class="w-more" data-w-more hidden>
+    <ul class="w-steps">
+      <li class="w-step is-done" data-w-step="rules"><i class="w-ck" aria-hidden="true"></i><span>지원 조건을 하나씩 맞춰 봤어요</span><span class="w-sr">(끝났어요)</span></li>
+      <li class="w-step" data-w-step="match"><i class="w-ck" aria-hidden="true"></i><span>지금 접수 중인 공고를 AI가 읽고 맞춰 보고 있어요</span><span class="w-sr" data-w-sr>(하는 중)</span></li>
+      <li class="w-step" data-w-step="text"><i class="w-ck" aria-hidden="true"></i><span>쉬운 말로 설명을 쓰고 있어요</span><span class="w-sr" data-w-sr>(하는 중)</span></li>
+    </ul>
+    <p class="lead w-wait">20초쯤 걸려요. 잠시만 기다려 주세요.</p>
+  </div>
+  <div class="w-slow" data-w-slow hidden>
+    <p class="lead">시간이 오래 걸리고 있어요. 옆에 계신 직원에게 말씀해 주세요.</p>
+    <div class="hold-acts"><a class="btn btn-primary" href="/counsel/preview">다시 해 보기</a><a class="btn btn-ghost" href="/">처음으로</a></div>
+  </div>
+  <noscript><p class="lead"><a href="/counsel/preview?wait=1">결과 보기</a></p></noscript>
+</section>
+{% endblock %}

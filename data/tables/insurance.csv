@@ -1,0 +1,14 @@
+﻿product_id,crop_keys,windows,min_age,max_age,needs_mgmt,office_id,subsidy_text,extra_requirement,source_id,source_url,verified_date
+crop_disaster,감귤_노지;감귤_만감,04-27~05-29,,,Y,coop,농가 부담 15~21%(도 추가 지원 포함),,supports:NAT-CROP-INS@2026#감귤,https://www.mafra.go.kr/bbs/home/798/596394/download.do,2026-11-07
+crop_disaster,당근,07-01~09-30,,,Y,coop,농가 부담 15~21%(도 추가 지원 포함),싹이 밭의 80% 이상 나와야 가입(출현율 80%),supports:NAT-CROP-INS@2026#당근,https://www.mafra.go.kr/bbs/home/798/596394/download.do,2026-11-07
+crop_disaster,월동무,08-01~10-31,,,Y,coop,농가 부담 15~21%(도 추가 지원 포함),,supports:NAT-CROP-INS@2026#월동무,https://www.mafra.go.kr/bbs/home/798/596394/download.do,2026-11-07
+crop_disaster,양배추,09-02~10-30,,,Y,coop,농가 부담 15~21%(도 추가 지원 포함),,supports:NAT-CROP-INS@2026#양배추,https://www.mafra.go.kr/bbs/home/798/596394/download.do,2026-11-07
+crop_disaster,마늘,10-12~11-13,,,Y,coop,농가 부담 15~21%(도 추가 지원 포함),,supports:NAT-CROP-INS@2026#마늘,https://www.mafra.go.kr/bbs/home/798/596394/download.do,2026-11-07
+crop_disaster,양파,10-19~11-27,,,Y,coop,농가 부담 15~21%(도 추가 지원 포함),,supports:NAT-CROP-INS@2026#양파,https://www.mafra.go.kr/bbs/home/798/596394/download.do,2026-11-07
+crop_disaster,브로콜리,08-01~10-31,,,Y,coop,농가 부담 15~21%(도 추가 지원 포함),,supports:NAT-CROP-INS@2026#브로콜리,https://www.mafra.go.kr/bbs/home/798/596394/download.do,2026-11-07
+income_stab,월동무,08-01~10-31,,,Y,coop,"순보험료 국고 지원, 농가 최소 15%(도 추가 지원 여부 농협 확인)",,supports:NAT-INCOME-INS@2026#월동무,https://www.mafra.go.kr/bbs/home/798/596395/download.do,2026-11-07
+income_stab,양배추,08-01~09-30,,,Y,coop,"순보험료 국고 지원, 농가 최소 15%(도 추가 지원 여부 농협 확인)",,supports:NAT-INCOME-INS@2026#양배추,https://www.mafra.go.kr/bbs/home/798/596395/download.do,2026-11-07
+income_stab,마늘,10-01~11-30,,,Y,coop,"순보험료 국고 지원, 농가 최소 15%(도 추가 지원 여부 농협 확인)",,supports:NAT-INCOME-INS@2026#마늘,https://www.mafra.go.kr/bbs/home/798/596395/download.do,2026-11-07
+income_stab,양파,10-01~11-30,,,Y,coop,"순보험료 국고 지원, 농가 최소 15%(도 추가 지원 여부 농협 확인)",,supports:NAT-INCOME-INS@2026#양파,https://www.mafra.go.kr/bbs/home/798/596395/download.do,2026-11-07
+income_stab,감귤_만감,04-27~05-29,,,Y,coop,"순보험료 국고 지원, 농가 최소 15%(도 추가 지원 여부 농협 확인)",,supports:NAT-INCOME-INS@2026#만감류,https://www.mafra.go.kr/bbs/home/798/596395/download.do,2026-11-07
+nh_safety,,,15,87,Y,coop_nh_livestock,"국고 50%, 기초수급·차상위 70%",,supports:NAT-SAFETY-INS@2026,https://biz.sbs.co.kr/amp/article/20000303318,2026-11-07

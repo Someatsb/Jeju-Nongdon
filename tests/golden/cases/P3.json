@@ -1,0 +1,294 @@
+{
+  "schema": "golden-spec/2",
+  "case_id": "P3",
+  "phase": 1,
+  "kind": "persona",
+  "title": "강 삼촌 부부 — 대정 마늘 0.6ha + 월동무 0.3ha, 마늘 보험 오늘 마감",
+  "source": "round1-M-persona.md §2-2 P3",
+  "as_of": "2026-11-13",
+  "fixture": {
+    "snapshot": "snap_20261112",
+    "tables": "tables_1st_20261113",
+    "network": "blocked",
+    "jasdc": "recorded_20261112",
+    "llm": "none",
+    "price_override": null,
+    "feature_flags": {
+      "offfarm_money": true
+    }
+  },
+  "profile": {
+    "crop_key": "마늘",
+    "area_m2": 6000,
+    "total_farm_area_m2": 9000,
+    "birth_year": 1955,
+    "birth_year_approx": false,
+    "sex": "M",
+    "region": "서귀포시",
+    "eupmyeon": "대정읍",
+    "visitor": "self",
+    "jeju_residence_years": 71,
+    "farming_years": 45,
+    "mgmt_registered": "Y",
+    "mgmt_years": 30,
+    "mgmt_last_registered_year": 2025,
+    "spouse_status": "unregistered",
+    "spouse_birth_year": 1957,
+    "coop_member": "Y",
+    "coop_shipping": "Y",
+    "selfpay_fund_member": "Y",
+    "field_sold_contract": "N",
+    "crop2_key": "월동무",
+    "crop2_area_m2": 3000,
+    "crop2_coop_shipping": "N",
+    "crop2_selfpay_fund_member": "N",
+    "crop2_field_sold_contract": "Y",
+    "owns_farmland": "Y",
+    "farmland_owned_years": 40,
+    "owned_area_ge_15500m2": "N",
+    "health_insurance": "?",
+    "offfarm_income_band": "?",
+    "disaster_damage": "N",
+    "direct_payment_education": "Y",
+    "already_receiving": [
+      "JEJU-FARMER-ALLOW",
+      "NAT-DIRECT-AREA"
+    ],
+    "insurance_enrolled": [],
+    "flags": [],
+    "disaster_end_date": null,
+    "spouse_sex": "여"
+  },
+  "profile_fields_not_in_C_round1": [
+    "birth_year",
+    "birth_year_approx",
+    "eupmyeon",
+    "visitor",
+    "mgmt_last_registered_year",
+    "spouse_status",
+    "spouse_birth_year",
+    "crop2_key",
+    "crop2_area_m2",
+    "crop2_coop_shipping",
+    "crop2_selfpay_fund_member",
+    "crop2_field_sold_contract",
+    "owned_area_ge_15500m2",
+    "health_insurance",
+    "disaster_damage",
+    "direct_payment_education",
+    "spouse_sex"
+  ],
+  "profile_fields_dropped_from_C_round1": [
+    "age (→ birth_year)",
+    "flags의 입원·질병 값(사원 F)",
+    "flags의 disaster_damage (→ 독립 필드 disaster_damage)"
+  ],
+  "expect": {
+    "paper_mode": "normal",
+    "header": {
+      "must_include": [
+        "2026-11-13",
+        "기준일"
+      ],
+      "note": "--asof 시연 기준일 표시(§12-A(1))"
+    },
+    "key_lines": [
+      {
+        "id": "P3-K1",
+        "section": "A",
+        "product_id": "crop_disaster",
+        "crop_key": "마늘",
+        "status": "OPEN_NOW",
+        "due": "2026-11-13",
+        "days_left": 0,
+        "must_include": [
+          "마늘",
+          "오늘",
+          "11월 13일",
+          "둘 중 하나"
+        ],
+        "manual_check": "제주시 공고 일정. 서귀포시(대정) 일정은 농협 확인",
+        "why": "as_of = 마감일. 30일 안 마감 → '급한 것' 맨 위",
+        "row_status": "confirmed",
+        "badge": false
+      },
+      {
+        "id": "P3-K2",
+        "section": "B",
+        "action": "PREREQ:spouse_registration",
+        "status": "BLOCKED_PREREQ",
+        "must_include": [
+          "배우자",
+          "등록",
+          "20만"
+        ],
+        "unlocks": [
+          {
+            "program_key": "JEJU-WOMEN-VOUCHER",
+            "amount_won": 200000,
+            "row_status": "prior_year_reference",
+            "badge": true,
+            "badge_must_include": [
+              "공고 전",
+              "3월"
+            ],
+            "badge_basis": "2026년 기준, 2027년 공고 전"
+          },
+          {
+            "program_key": "JEJU-FARMER-ALLOW",
+            "amount_won_delta": 400000,
+            "status_after": "CHECK",
+            "row_status": "prior_year_reference",
+            "badge": true,
+            "badge_must_include": [
+              "공고 전",
+              "3월"
+            ],
+            "badge_basis": "2026년 기준, 2027년 공고 전"
+          }
+        ],
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "first_actions": [
+      {
+        "section": "A",
+        "kind": "APPLY_NOW",
+        "target": "crop_disaster|income_stab:마늘",
+        "due": "2026-11-13",
+        "rank": 1,
+        "must_include": [
+          "농협"
+        ]
+      },
+      {
+        "section": "B",
+        "kind": "PREREQ",
+        "target": "spouse_registration"
+      }
+    ],
+    "insurance": [
+      {
+        "product_id": "crop_disaster",
+        "crop_key": "마늘",
+        "status": "OPEN_NOW",
+        "window": [
+          "2026-10-12",
+          "2026-11-13"
+        ],
+        "row_status": "confirmed",
+        "badge": false
+      },
+      {
+        "product_id": "income_stab",
+        "crop_key": "마늘",
+        "status": "OPEN_NOW",
+        "window_months": [
+          10,
+          11
+        ],
+        "reasons": [
+          "exclusive_with:crop_disaster",
+          "needs:selfpay_fund+경작신고"
+        ],
+        "row_status": "confirmed",
+        "badge": false
+      },
+      {
+        "product_id": "income_stab",
+        "crop_key": "월동무",
+        "status": "NEXT_WINDOW",
+        "next_window": {
+          "months": [
+            8,
+            10
+          ]
+        },
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "8~10월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전",
+        "where": "back"
+      },
+      {
+        "product_id": "nh_safety",
+        "status": "OPEN_NOW",
+        "persons": 2,
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "fixed_lines": [
+      {
+        "id": "FIXED-FARM-HELPER",
+        "must_include": [
+          "60일",
+          "농협"
+        ],
+        "must_not_include": [
+          "까지 신청하세요",
+          "남았"
+        ],
+        "note": "사원 F·설계 v2 §7-1: 입원·질병은 묻지 않는다. 영농도우미는 모든 종이에 같은 문장(\"다치거나 3일 넘게 입원하셨으면 60일 안에 농협\")."
+      },
+      {
+        "id": "FIXED-DISCLAIMER",
+        "must_include": [
+          "이 종이를 뽑아 준 곳",
+          "공문서"
+        ],
+        "note": "G 책임 표기 3줄"
+      }
+    ],
+    "banners": [
+      {
+        "dataset": "hub1361:마늘",
+        "level": "red",
+        "must_include": [
+          "2026년 2월 26일",
+          "현재 값 아님"
+        ],
+        "why": "1361 마늘·깐마늘 마지막 거래 2026-02-26 [실측], 260일"
+      }
+    ],
+    "also": [
+      {
+        "section": "D",
+        "program_key": "NHIS-FARMER-SUPPORT",
+        "status": "CHECK",
+        "must_include": [
+          "건강보험료"
+        ],
+        "must_not_include": [
+          "만 원"
+        ],
+        "depends_on_row": "NHIS-FARMER-SUPPORT가 confirmed일 때만. hold면 이 줄 없음",
+        "why": "§12-A(1) 기본값: 사장 답이 없으면 넣는다. 보험료를 입력받지 않으므로 금액 없음(비율·소급만) (사장 결정 2026-11-08 §12-B 2: \"농업 밖 제도\" 표시 폐기)",
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "must_not_print": [
+      "받으실 수 있는 돈",
+      "▶",
+      "오를",
+      "내릴",
+      "예측된",
+      "파세요"
+    ]
+  },
+  "unverified": [
+    "마늘 재해보험 마감 11.13의 서귀포시 적용",
+    "수입안정보험 마늘 일 단위 마감"
+  ],
+  "pending_decisions": [],
+  "approval": {
+    "by": [],
+    "at": null,
+    "sha256": null
+  }
+}

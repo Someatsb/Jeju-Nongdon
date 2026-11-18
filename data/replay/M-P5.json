@@ -1,0 +1,200 @@
+{
+  "sample_id": "M-P5",
+  "recorded_at": "2026-11-15T06:22:00",
+  "source": "recorded",
+  "provider": "anthropic",
+  "model": "claude-opus-5-5",
+  "prompt_ver": "match-v2",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "cab36b26",
+  "calls": [
+    {
+      "purpose": "match",
+      "section": null,
+      "attempt": 1,
+      "request_hash": "dcbbdadfda1bd36e687c184349e8f691ce64086d6e0eacec371464d87f21bd62",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "toolu_01GyRXGdbMsXy34BuiJKyJou",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-2027년_유기질비료_지원사업_추가_신청",
+              "kind": "경영체 등록",
+              "quote": "1. 신청자격: ｢농어업경영체 육성 및 지원에 관한 법률｣ 제2조제3호에 따른 농업경영체(농업인 및 법인)"
+            }
+          },
+          {
+            "call_id": "toolu_01Y8Ti62eVnHFPffZRrT4Ytz",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-2027년_유기질비료_지원사업_추가_신청",
+              "kind": "그 밖",
+              "quote": "2027년 유기질비료 지원사업 추가 신청 신청·접수 계획을 알려드리오니, 상반기에 신청을 못하거나 신청내용 변경을 희망하는 농가께서는 기한 내 신청하시기 바랍니다."
+            }
+          },
+          {
+            "call_id": "toolu_015D9GmuvGgnn16xD7crS1Fe",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-FTA기금_과수_감귤_고품질시설현대화_지원사업",
+              "kind": "작물",
+              "quote": "2027년 FTA기금 과수(감귤) 고품질시설현대화 지원사업 신청·접수계획 알림",
+              "crops": [
+                "과수",
+                "감귤"
+              ]
+            }
+          },
+          {
+            "call_id": "toolu_01Wfx2sG1kvnfymcvTdukNTN",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-농촌융복합산업_자금_융자_지원사업",
+              "kind": "그 밖",
+              "quote": "①「농촌융복합산업 육성 및 지원에 관한 법률」제8조에 따른 농촌융복합산업 인증사업자"
+            }
+          },
+          {
+            "call_id": "toolu_01MhKTnRfVqXCPfgrsjn3JXp",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-농촌융복합산업_자금_융자_지원사업",
+              "kind": "그 밖",
+              "quote": "② 농촌지역의 유·무형 자원을 활용한 농촌융복합산업 창업계획이 있거나 사업을 추진 중인 자, 초기 창업자"
+            }
+          },
+          {
+            "call_id": "toolu_014fjZGLrP7i3UjGU74iLUNN",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-유기농업자재_지원사업",
+              "kind": "그 밖",
+              "quote": "* 2026년 시군농업기술센터에서 발급받은 토양검정 결과를 제출한 농업인 및 법인에 한해 지원(없는 경우 '25년 토양검정결과 제출 가능)"
+            }
+          },
+          {
+            "call_id": "toolu_01NtFgjNKpYdrpnaUEeacgxx",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-출산_농가도우미_지원사업",
+              "kind": "성별",
+              "quote": "3. 지원대상: 도내 출산(예정) 여성농업인",
+              "choice": "여성"
+            }
+          },
+          {
+            "call_id": "toolu_01VPZ8sFJu2E6qqNGMVhQ1m7",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-출산_농가도우미_지원사업",
+              "kind": "그 밖",
+              "quote": "3. 지원대상: 도내 출산(예정) 여성농업인"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 7278,
+        "tok_out": 2007,
+        "latency_ms": 15297,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "match",
+      "section": null,
+      "attempt": 2,
+      "request_hash": "ad7559ac99de2d93c56a630c34fd798862bd4a60f3464aa34b2b324595a08447",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "toolu_016V9Xn6x3RpzHWGCCmn8BFM",
+            "name": "submit_matches",
+            "args": {
+              "items": [
+                {
+                  "notice_key": "new-2027년_유기질비료_지원사업_추가_신청",
+                  "why": "농업경영체로 등록되어 있어서 신청 자격에 맞을 수 있어요.",
+                  "ask": [
+                    "상반기에 신청을 못했거나 바꾸고 싶으신가요?",
+                    "대륜동 주민이 아니어도 신청할 수 있나요?"
+                  ]
+                },
+                {
+                  "notice_key": "new-FTA기금_과수_감귤_고품질시설현대화_지원사업",
+                  "why": "감귤 재배 농가 대상이라 맞지 않아요."
+                },
+                {
+                  "notice_key": "new-농촌융복합산업_자금_융자_지원사업",
+                  "why": "6차산업 인증이나 창업 계획이 있어야 해요.",
+                  "ask": [
+                    "6차산업 인증을 받으셨나요?",
+                    "농촌 자원을 쓰는 창업 계획이 있나요?"
+                  ]
+                },
+                {
+                  "notice_key": "new-유기농업자재_지원사업",
+                  "why": "토양검정 결과를 내야 신청할 수 있어요.",
+                  "ask": [
+                    "토양검정 결과서를 갖고 계신가요?",
+                    "친환경 인증을 받으셨나요?"
+                  ]
+                },
+                {
+                  "notice_key": "new-출산_농가도우미_지원사업",
+                  "why": "출산 여성농업인 대상이라 맞지 않아요."
+                }
+              ]
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 8996,
+        "tok_out": 566,
+        "latency_ms": 5562,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "match",
+      "section": null,
+      "attempt": 3,
+      "request_hash": "21f7712981b88630ad6255698dd9ed551e3c47233713352f0608be7046ee2375",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "toolu_01FosBA9iMaEUP88UAd84Y15",
+            "name": "submit_matches",
+            "args": {
+              "items": [
+                {
+                  "notice_key": "new-농촌융복합산업_자금_융자_지원사업",
+                  "why": "농촌융복합산업 인증이나 창업 계획이 있어야 해요.",
+                  "ask": [
+                    "농촌융복합산업 인증을 받으셨나요?",
+                    "농촌 자원을 쓰는 창업 계획이 있나요?"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 10578,
+        "tok_out": 168,
+        "latency_ms": 1750,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    }
+  ]
+}

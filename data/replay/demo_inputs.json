@@ -1,0 +1,112 @@
+{
+  "P1": {
+    "form": {
+      "farming_10y_plus": "on",
+      "residence_3y": "on",
+      "emd_code": "남원읍",
+      "crop1_crop_code": "감귤_노지",
+      "crop1_area_py": "1500",
+      "crop1_sales_channel": "field_contract_done",
+      "owner_sex": "F",
+      "birth_year": "1952",
+      "mgmt_status": "over_2y",
+      "land_tenure": "own_all",
+      "health_ins": "regional",
+      "direct_payment_education": "NA"
+    },
+    "already": [
+      "JEJU-FARMER-ALLOW"
+    ]
+  },
+  "P2": {
+    "form": {
+      "farming_10y_plus": "on",
+      "residence_3y": "on",
+      "emd_code": "구좌읍",
+      "crop1_crop_code": "당근",
+      "crop1_area_py": "3000",
+      "crop1_sales_channel": "coop",
+      "crop1_selfpay_fund": "paid",
+      "owner_sex": "M",
+      "birth_year": "1958",
+      "mgmt_status": "over_2y",
+      "mgmt_last_reg_year": "2025",
+      "spouse": "cofarming_unregistered",
+      "health_ins": "regional",
+      "direct_payment_education": "Y"
+    },
+    "already": [
+      "JEJU-FARMER-ALLOW",
+      "NAT-DIRECT-AREA",
+      "JEJU-PSTAB",
+      "JEJU-LOGI",
+      "NHIS-FARMER-SUPPORT"
+    ]
+  },
+  "P3": {
+    "form": {
+      "farming_10y_plus": "on",
+      "residence_3y": "on",
+      "emd_code": "대정읍",
+      "crop1_crop_code": "마늘",
+      "crop1_area_py": "1800",
+      "crop1_sales_channel": "coop",
+      "crop1_selfpay_fund": "paid",
+      "crop2_crop_code": "월동무",
+      "crop2_area_py": "900",
+      "crop2_sales_channel": "field_contract_done",
+      "total_area_py": "2700",
+      "owner_sex": "M",
+      "birth_year": "1955",
+      "mgmt_status": "over_2y",
+      "mgmt_last_reg_year": "2023",
+      "land_tenure": "own_part",
+      "spouse": "cofarming_unregistered",
+      "health_ins": "regional",
+      "direct_payment_education": "N"
+    },
+    "already": [
+      "JEJU-FARMER-ALLOW",
+      "NAT-DIRECT-AREA"
+    ]
+  },
+  "P4": {
+    "form": {
+      "farming_10y_plus": "on",
+      "residence_3y": "on",
+      "emd_code": "애월읍",
+      "crop1_crop_code": "양배추",
+      "crop1_area_py": "3630",
+      "crop1_sales_channel": "field_contract_done",
+      "crop1_selfpay_fund": "not_paid",
+      "owner_sex": "M",
+      "birth_year": "1961",
+      "mgmt_status": "none",
+      "farming_years": "5",
+      "direct_payment_education": "NA"
+    },
+    "already": []
+  },
+  "P5": {
+    "form": {
+      "visitor": "family_proxy",
+      "farming_10y_plus": "on",
+      "residence_3y": "on",
+      "emd_code": "한림읍",
+      "crop1_crop_code": "브로콜리",
+      "crop1_area_py": "2100",
+      "crop1_sales_channel": "coop",
+      "owner_sex": "M",
+      "birth_year": "1950",
+      "mgmt_status": "over_2y",
+      "mgmt_last_reg_year": "2024",
+      "land_tenure": "own_all",
+      "spouse": "cofarming_unregistered",
+      "health_ins": "regional",
+      "direct_payment_education": "NA"
+    },
+    "already": [
+      "JEJU-FARMER-ALLOW"
+    ]
+  }
+}

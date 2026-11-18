@@ -1,0 +1,116 @@
+{#- 종이 공용 조각(Task 17). `{% import "_sheet_macros.html" as m with context %}`로 불러 쓴다.
+    -#}
+{% import "_art.html" as art %}
+{% macro head(basis=None, basis_ref=None) -%}
+<div class="titlerow">
+  <div><h1 class="line pt22" data-sec="T">{{ cfg.service_name }} · {{ nums(title_place, source="config") }}</h1><p class="subt line pt14" data-sec="T"{% if cwrap is defined %} data-n="{{ cwrap(cfg.service_subtitle ~ (' · ' ~ basis if basis else ''), 14, 138) }}"{% endif %}>{{ cfg.service_subtitle }}{% if basis %} · {{ stamp(basis, basis_ref, source="sheet", cls="badge prior hd") }}{% endif %}</p></div>
+  <div class="meta">{% if asof_demo %}{{ stamp(asof_demo, source="config", asof=cfg.as_of, cls="asof") }}{% else %}{{ nums(asof_plain, source="config", asof=cfg.as_of) }}{% endif %}</div>
+</div>
+{% for note in stale_notes %}<p class="stale line pt14" data-sec="T"{% if cwrap is defined %} data-n="{{ cwrap(note, 14, 170) + 0.25 }}"{% endif %}>{{ nums(note, source="header", asof=cfg.as_of) }}</p>
+{% endfor %}
+{%- endmacro %}
+
+{% macro narr_slot(slot) -%}
+{% for sentence in narr.get(slot, ()) %}<p class="narr line pt14" data-sec="N">{{ sentence }}</p>
+{% endfor %}
+{%- endmacro %}
+
+{#- 항목 한 줄: [상자][번호] 이름 ······ 금액 / 2줄째(작은 글씨·배지) -#}
+{% macro item(line, sec) -%}
+{% set prov = provisional(line) %}
+{#- 이름 + 오른쪽 글자가 한 줄에 안 들어가면(render.fits_row) 오른쪽 글자만 14pt로 줄여 꺾임을 막는다 -#}
+{% set ampt = line.pt if (line.pt <= 14 or fits_row(line.title, line.text, line.pt)) else 14 %}
+<div class="it line pt{{ line.pt }}" data-sec="{{ sec }}"><span class="bx"></span><span class="no">{{ nums(circled(line), source="sheet") }}</span><div class="main">
+  <div class="r1"><span class="nm">{{ nums(line.title, line) }}</span><span class="ld"></span><span class="am pt{{ ampt }}">{{ nums(line.text, line) }}</span></div>
+  {% if line.sub or line.badge or prov %}<div class="r2 line pt14" data-sec="{{ sec }}x" data-n="{{ r2_rows(line) }}"><span class="tx">{{ nums(line.sub, line) }}</span>
+    {%- if prov %}{{ stamp(prov, line, cls="badge") }}{% endif %}
+    {%- if line.badge %}{{ stamp(line.badge, line, cls="badge prior") }}{% endif %}</div>{% endif %}
+  {{ detail(line, sec) }}
+</div></div>
+{%- endmacro %}
+
+{#- Line.detail(줄 수 제한 없는 원문)은 13pt로 줄 아래에 찍는다. data-n은 넘침 검사용 줄 수 -#}
+{% macro detail(line, sec) -%}
+{% if line.detail %}<p class="dt line pt13" data-sec="{{ sec }}x" data-n="{{ rows(line.detail) }}">{{ nums(line.detail, line) }}</p>{% endif %}
+{%- endmacro %}
+
+{% macro calendar(slots) -%}
+<div class="cal">
+  {#- 머리 "가실 곳 · 다음에 오실 때"가 이미 말하고 이 종이 지참은 고정 줄("이 종이와 신분증")에 있어, 옆 이름표를 없애 세 칸을 넓힌다 -#}
+  {% for slot in slots %}{% set t = slot_text(slot) %}
+  {#- 첫 칸이 세 칸 중 가장 긴 칸의 줄 수(cal_rows)를 대표한다. 나머지는 같은 줄이라 한 번만 센다 -#}
+  <span class="c line pt16"{% if loop.first %} data-n="{{ cal_rows(slots) }}"{% else %} data-par="1"{% endif %}><span class="m">{{ nums(t.head, source="calendar") }}</span><span class="d">{{ nums(t.sub, source="calendar") }}{% if t.badge %} {{ stamp(t.badge, source="calendar", cls="badge") }}{% endif %}</span></span>
+  {% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro fixed_lines(lines) -%}
+{% for line in lines %}<p class="fixed line pt14" data-sec="F"{% if line.sub %} data-n="2"{% endif %}>{{ nums(line.text, line) }}{% if line.sub %}<br>{{ nums(line.sub, line) }}{% endif %}</p>
+{% endfor %}
+{%- endmacro %}
+
+{#- ---- 가실 곳별 카드 배치(2026-11-14 종이 단순화): sheet_front·sheet_front_empty가 쓴다. 카드 모델은 core/sheet_cards.py ---- -#}
+{% macro tail_text(text) -%}{% set parts = label_split(text) %}{% if parts[0] %}<b>{{ parts[0] }}:</b> {% endif %}{{ nums(parts[1], source="sheet") }}{%- endmacro %}
+
+{#- 가실 곳 글: "가실 곳: 이름 전화" -#}
+{% macro place_text(c, ref) -%}{{ nums(c.place, ref) }}{% if c.phone %} {{ tel(nums(c.phone, ref)) }}{% endif %}{%- endmacro %}
+
+{% macro csmall(cl) -%}
+{% if cl.small %}<p class="cs line pt14" data-sec="Ks" data-n="{{ cwrap(cl.small, 14) }}">{{ nums(cl.small, cl.line) }}</p>
+{% endif %}{% if cl.extra %}<p class="cs line pt14" data-sec="Ks" data-n="{{ cwrap(cl.extra, 14) }}">{{ nums(cl.extra, cl.line) }}</p>
+{% endif %}
+{%- endmacro %}
+
+{#- 여러 줄 카드 안의 줄: 이름 ····· 금액 / 작은 줄 -#}
+{% macro crow(cl) -%}
+<div class="cr"><div class="r1 line pt16" data-sec="Kr" data-n="{{ row_n(cl) }}"><span class="nm">{{ nums(cl.title, cl.line) }}</span><span class="ld"></span><span class="am pt{{ am_pt(cl) }}">{{ nums(cl.text, cl.line) }}</span></div>
+{{ csmall(cl) }}</div>
+{%- endmacro %}
+
+{% macro card(c) -%}
+{% set multi = c.lines | length > 1 or c.hidden %}
+<div class="cd line pt16{{ ' em' if c.emphasis }}" data-sec="K" data-n="0"><span class="bx"></span><span class="no">{{ nums(c.no, source="sheet") }}</span><div class="cb">
+{% if not multi %}{% set cl = c.lines[0] %}{% set tpt = text_pt(cl) %}
+  <p class="ct line pt20" data-sec="Kt" data-n="{{ cwrap(cl.title, 20) }}">{{ nums(cl.title, cl.line) }}</p>
+  <p class="cx line pt{{ tpt }}" data-sec="Kx" data-n="{{ cwrap(cl.text, tpt) }}">{{ nums(cl.text, cl.line) }}</p>
+  {{ csmall(cl) }}
+  {% if c.place %}<p class="cp line pt16" data-sec="Kp" data-n="{{ cwrap('가실 곳: ' ~ c.place ~ ' ' ~ (c.phone or ''), 16) }}"><b>가실 곳:</b> {{ place_text(c, cl.line) }}</p>{% endif %}
+{% else %}
+  {% if c.place %}<p class="cp top line pt16" data-sec="Kp" data-n="{{ cwrap('가실 곳: ' ~ c.place ~ ' ' ~ (c.phone or ''), 16) }}"><b>가실 곳:</b> {{ place_text(c, c.lines[0].line) }}</p>{% endif %}
+  {% for cl in c.lines %}{{ crow(cl) }}{% endfor %}
+  {% if c.hidden %}{% set more %}외 {{ nums(c.hidden | length | string, source="sheet") }}가지: {% for cl in c.hidden %}{{ nums(cl.title, cl.line) }}{{ " · " if not loop.last }}{% endfor %}{% endset %}
+  <p class="cm line pt14" data-sec="Km" data-n="{{ cwrap('외 0가지: ' ~ c.hidden | map(attribute='title') | join(' · '), 14) }}">{{ more }}</p>{% endif %}
+{% endif %}
+</div></div>
+{%- endmacro %}
+
+{#- 아래 덧말: 굵은 이름표 + 글. 앞에 세로줄 -#}
+{% macro fx(label, text_html, n) -%}
+<p class="fx line pt14" data-sec="F" data-n="{{ n }}">{% if label %}<b>{{ label }}</b> {% endif %}{{ text_html }}</p>
+{%- endmacro %}
+
+{#- 표 아래 줄들(2026-11-18: '알아 두세요' 상자·제목은 없다): 가실 때 · 끊기지 않게 … 한 줄씩. items: render.paper_know 의 항목(lab·html·n), n: 줄 수 어림. 빈 종이는 caller 로 덧말 줄(fxi)을 더한다 -#}
+{% macro know_lines(items, n) -%}
+{%- set extra = caller() | trim if caller else "" -%}
+{% if items or extra %}<div class="keepl line pt14" data-sec="K" data-n="{{ n }}">{% for it in items %}<p>{% if it.lab %}<b>{{ it.lab }}</b> {% endif %}{{ it.html }}</p>{% endfor %}{{ extra }}</div>
+{% endif %}
+{%- endmacro %}
+
+{#- 표 아래 줄 하나(빈 종이의 덧말: 영농도우미 · 재해 피해) -#}
+{% macro fxi(label, text_html, n) -%}
+<p class="fx line pt14" data-sec="F" data-n="{{ n }}">{% if label %}<b>{{ label }}</b> {% endif %}{{ text_html }}</p>
+{%- endmacro %}
+
+{% macro foot14(lines) -%}
+<div class="foot">
+{% for line in lines %}<span class="line pt14" data-sec="G">{{ nums(foot_say(line.text) if foot_say is defined else line.text, source="sheet") }}</span>{% if not loop.last %}<br>{% endif %}
+{% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro foot_lines(lines) -%}
+<div class="foot">
+{% for line in lines %}<span class="line pt13" data-sec="G">{{ nums(line.text, source="sheet") }}</span>{% if not loop.last %}<br>{% endif %}
+{% endfor %}
+</div>
+{%- endmacro %}

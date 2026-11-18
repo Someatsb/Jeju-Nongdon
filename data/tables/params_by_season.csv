@@ -1,0 +1,75 @@
+﻿season,crop,param,value,unit,status,method,source_title,source_url,verified_date,verified_by
+2025-26,당근,stab_base,1088,원/kg,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,당근,stab_floor,816,원/kg,계산,기준가 × 0.75. 도 2024 업무계획 '차액의 90% 보전(목표관리기준가격의 75% 한도)'. 2025-26 수치가 적힌 원문은 못 찾음(G),제주도 2024 업무계획 p.112,https://clik.nanet.go.kr/clikr-collection/policyinfo/95/624/2024/CLIKC9947921192221669_attach_1.pdf,2026-11-07,B
+2025-26,당근,stab_share,0.9,비율,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,당근,stab_months,11;12;1;2;3,월목록,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,당근,stab_market,가락,시장,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,당근,stab_window,반월,구간,추정,공식 '15일 단위'를 1~15·16~말일로 해석(감귤 보도는 이 구간). 1362 재현 8/10회가 이 해석과 맞음,,,2026-11-07,B
+2025-26,당근,stab_price_basis,1361_averagePrice_반월가중,정의,계산,"11-13판 판정 입력(부서장 결정). 1361 averagePrice는 시장·법인 행 가격의 단순평균(1362 대조로 확인), 반월 안은 1361 거래량 가중. 869 경계 구간이 이 정의로 보정됐으므로 금액/거래량으로 바꾸면 재보정 필요. 1362 가락 재현은 사전 기준 실패(round2-B 재현표)",,,2026-11-07,B
+2025-26,당근,stab_band_lo,0.911,배,계산,869 당근(일반) 2017-01~2021-03 11~3월 반월 가락/1361 비 n=42를 snapshot.py _ratio_bounds와 같은 inclusive 분위수로: p90 1.0977 → 1/p90 = 0.911 (2026-11-11 저장본 재계산). 이 배수 미만이면 '아래',,,2026-11-11,B
+2025-26,당근,stab_band_hi,1.143,배,계산,"같은 비 p10 0.8746 → 1/p10 = 1.143. 이 배수 이상이면 '위', 사이는 '근처 - 농협 확인'. 참고: 1362(2025-26) 가락/전국 가중비 p10~p90 0.960~1.106",,,2026-11-11,B
+2025-26,당근,stab_hits_official,8,회,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,당근,stab_paid_avg,71,원/kg,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,당근,stab_enroll_end,2025-10-31,날짜,보도,,도 보도자료 2025-09-30 seq=1527241 (연구 파일 기록),https://www.jeju.go.kr/news/bodo/list.htm?act=view&seq=1527241,2026-11-05,B
+2025-26,당근,logi_won_per_kg,16,원/kg,공고,,제주특별자치도 공고 제2026-2547호(3차),https://grant-documents.thevc.kr/310015_2026%EB%85%84+%EC%A0%9C%EC%A3%BC%EC%82%B0+%EC%A3%BC%EC%9A%94+%EB%86%8D%EC%82%B0%EB%AC%BC+%EB%AC%BC%EB%A5%98%EB%B9%84+%EC%A7%80%EC%9B%90%EC%82%AC%EC%97%85(3%EC%B0%A8)+%EA%B3%B5%EA%B3%A0%EB%AC%B8.pdf,2026-11-07,B
+2025-26,당근,logi_months,2025-11;2026-01,YYYY-MM목록,보도,,"도 보도자료 2026-04-16 seq=2015219 (1차 대상 달, 연구 파일 기록)",https://www.jeju.go.kr/news/bodo/list.htm?act=view&seq=2015219,2026-11-05,B
+2025-26,당근,breakeven_lo,,원/kg,미확인,"판정 끔(부서장 결정). 가락 당근(일반)+세척 가중 월평균으로는 (1,015, 1,018] 일관이나 폭 3원이라 우연과 구분 안 됨. 1361 당근(일반)은 모순",,,2026-11-07,B
+2025-26,당근,breakeven_hi,,원/kg,미확인,위와 같음,,,2026-11-07,B
+2025-26,당근,area_ha,1850,ha,보도,,한국농어민신문 2026-06-30 (2025년산 면적·생산량),https://www.agrinet.co.kr/news/articleView.html?idxno=405270,2026-11-05,B
+2025-26,당근,area_change_pct,25.4,%,보도,도 발표(2025-11) 실험판 기록,,,2026-11-05,B
+2025-26,당근,yield_kg_10a,3279,kg/10a,계산,"60,670t ÷ 1,850ha",한국농어민신문 2026-06-30 (2025년산 면적·생산량),https://www.agrinet.co.kr/news/articleView.html?idxno=405270,2026-11-05,B
+2026-27,당근,stab_base,,원/kg,미확인,2026-27 기준가 미발표 → 직전 시즌 값 + 배지,,,2026-11-07,B
+2026-27,당근,area_ha,1640,ha,보도,"농업기술원 종자유통량 전망(2026-11-04 보도, 실험판 기록)",,,2026-11-05,B
+2026-27,당근,area_change_pct,-11.4,%,보도,위와 같음,,,2026-11-05,B
+2025-26,양배추,stab_base,723,원/kg,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,양배추,stab_floor,542,원/kg,계산,기준가 × 0.75(당근과 같은 규칙),제주도 2024 업무계획 p.112,https://clik.nanet.go.kr/clikr-collection/policyinfo/95/624/2024/CLIKC9947921192221669_attach_1.pdf,2026-11-07,B
+2025-26,양배추,stab_share,0.9,비율,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,양배추,stab_months,12;1;2;3;4;5,월목록,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,양배추,stab_market,가락,시장,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,양배추,stab_window,반월,구간,추정,당근과 같은 해석,,,2026-11-07,B
+2025-26,양배추,stab_price_basis,1361_averagePrice_반월가중,정의,계산,당근과 같음. 1362 가락 재현은 사전 기준 실패(하회 11/12 vs 공식 9),,,2026-11-07,B
+2025-26,양배추,stab_band_lo,0.911,배,추정,869 양배추는 단위 정합이 안 돼(일별 차 중앙 30%) 당근 구간을 임시 적용. 참고: 1362 가락/전국 가중비 p10~p90 0.956~1.138,,,2026-11-11,B
+2025-26,양배추,stab_band_hi,1.143,배,추정,위와 같음,,,2026-11-11,B
+2025-26,양배추,stab_hits_official,9,회,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,양배추,stab_paid_avg,153,원/kg,보도,,한라일보·제주도민일보 2026-06-24 (도 보도 전재),http://www.ihalla.com/article.php?aid=1782278604787452010,2026-11-07,B
+2025-26,양배추,stab_enroll_end,2025-10-31,날짜,보도,,도 보도자료 2025-09-30 seq=1527241 (연구 파일 기록),https://www.jeju.go.kr/news/bodo/list.htm?act=view&seq=1527241,2026-11-05,B
+2025-26,양배추,logi_won_per_kg,23,원/kg,공고,,제주특별자치도 공고 제2026-2547호(3차),https://grant-documents.thevc.kr/310015_2026%EB%85%84+%EC%A0%9C%EC%A3%BC%EC%82%B0+%EC%A3%BC%EC%9A%94+%EB%86%8D%EC%82%B0%EB%AC%BC+%EB%AC%BC%EB%A5%98%EB%B9%84+%EC%A7%80%EC%9B%90%EC%82%AC%EC%97%85(3%EC%B0%A8)+%EA%B3%B5%EA%B3%A0%EB%AC%B8.pdf,2026-11-07,B
+2025-26,양배추,logi_months,2025-11;2025-12;2026-01;2026-03;2026-05,YYYY-MM목록,공고,1차 11~1월·3월 + 3차 5월,제주특별자치도 공고 제2026-2547호(3차),https://grant-documents.thevc.kr/310015_2026%EB%85%84+%EC%A0%9C%EC%A3%BC%EC%82%B0+%EC%A3%BC%EC%9A%94+%EB%86%8D%EC%82%B0%EB%AC%BC+%EB%AC%BC%EB%A5%98%EB%B9%84+%EC%A7%80%EC%9B%90%EC%82%AC%EC%97%85(3%EC%B0%A8)+%EA%B3%B5%EA%B3%A0%EB%AC%B8.pdf,2026-11-07,B
+2025-26,양배추,breakeven_lo,648,원/kg,역산,"11-13 판정 정의와 같게 1361 averagePrice 거래량 가중 월평균: 대상 달(11·12·1·3월) 최댓값 648(12월). 참고: 1362 가락 가중으로는 (624, 752]",,,2026-11-07,B
+2025-26,양배추,breakeven_hi,795,원/kg,역산,"비대상 달(2월) 795. 참고: 1361 금액/거래량으로는 (591, 717]",,,2026-11-07,B
+2025-26,양배추,area_ha,2040,ha,보도,,한국농어민신문 2026-06-30 (2025년산 면적·생산량),https://www.agrinet.co.kr/news/articleView.html?idxno=405270,2026-11-05,B
+2025-26,양배추,yield_kg_10a,4711,kg/10a,계산,"96,100t ÷ 2,040ha",한국농어민신문 2026-06-30 (2025년산 면적·생산량),https://www.agrinet.co.kr/news/articleView.html?idxno=405270,2026-11-05,B
+2026-27,양배추,stab_base,,원/kg,미확인,2026-27 기준가 미발표,,,2026-11-07,B
+2026-27,양배추,area_ha,1340,ha,보도,"농기원 전망(2026-11-04 보도, 실험판 기록)",,,2026-11-05,B
+2026-27,양배추,area_change_pct,-19.6,%,보도,위와 같음,,,2026-11-05,B
+2025-26,브로콜리,stab_base,2420,원/kg,추정,"연구 파일 간 충돌(supports-market-triggered.md 확인 vs crop-costs.md 미확인), 언론 전재본에 없음 → 판정에 쓰지 않음",research/supports-market-triggered.md §5 (도 보도자료 seq=2022912 기록),https://www.jeju.go.kr/news/bodo/list.htm?act=view&seq=2022912,2026-11-07,B
+2025-26,브로콜리,stab_floor,1815,원/kg,추정,위와 같음,,,2026-11-07,B
+2025-26,브로콜리,area_ha,1009,ha,보도,실험판 기록(도 발표),,,2026-11-05,B
+2026-27,브로콜리,area_change_pct,32.7,%,보도,농기원 전망(2026-11-04 보도),,,2026-11-05,B
+2025-26,브로콜리,yield_kg_10a,1586,kg/10a,계산,crop-costs.md 2025년산 계산값(M 페르소나 인용),,,2026-11-05,B
+2025-26,월동무,logi_won_per_kg,16,원/kg,공고,,제주특별자치도 공고 제2026-2547호(3차),https://grant-documents.thevc.kr/310015_2026%EB%85%84+%EC%A0%9C%EC%A3%BC%EC%82%B0+%EC%A3%BC%EC%9A%94+%EB%86%8D%EC%82%B0%EB%AC%BC+%EB%AC%BC%EB%A5%98%EB%B9%84+%EC%A7%80%EC%9B%90%EC%82%AC%EC%97%85(3%EC%B0%A8)+%EA%B3%B5%EA%B3%A0%EB%AC%B8.pdf,2026-11-07,B
+2025-26,월동무,logi_months,2025-11;2026-03,YYYY-MM목록,보도,,"도 보도자료 2026-04-16 seq=2015219 (1차 대상 달, 연구 파일 기록)",https://www.jeju.go.kr/news/bodo/list.htm?act=view&seq=2015219,2026-11-05,B
+2025-26,월동무,breakeven_lo,529,원/kg,역산,"1361 averagePrice 거래량 가중 월평균, 월동무 품종: 대상 달 3월 529(11월은 거래 1일뿐이라 제외). 참고: 금액/거래량으로는 (519, 594]",,,2026-11-07,B
+2025-26,월동무,breakeven_hi,584,원/kg,역산,비대상 달(12~2월) 최솟값 584(1월),,,2026-11-07,B
+2025-26,월동무,breakeven_reported,578,원/kg,보도,"20kg 11,550원 ÷ 20 (헤드라인제주 2024-01-15, 연합회·도 인용). 산정 근거 미공개 - 맥락 문장만",헤드라인제주 2024-01-15,https://www.headlinejeju.co.kr/news/articleView.html?idxno=601547,2026-11-05,B
+2025-26,월동무,area_ha,5585,ha,보도,,한국농어민신문 2026-06-30 (2025년산 면적·생산량),https://www.agrinet.co.kr/news/articleView.html?idxno=405270,2026-11-05,B
+2025-26,월동무,area_change_pct,20.7,%,보도,,한국농어민신문 2026-06-30 (2025년산 면적·생산량),https://www.agrinet.co.kr/news/articleView.html?idxno=405270,2026-11-05,B
+2025-26,월동무,yield_kg_10a,7105,kg/10a,계산,"396,800t ÷ 5,585ha",한국농어민신문 2026-06-30 (2025년산 면적·생산량),https://www.agrinet.co.kr/news/articleView.html?idxno=405270,2026-11-05,B
+2026-27,월동무,area_ha,5710,ha,보도,농기원 전망(2026-11-04 보도),,,2026-11-05,B
+2026-27,월동무,area_change_pct,2.2,%,보도,위와 같음,,,2026-11-05,B
+2025-26,양파,logi_won_per_kg,14,원/kg,공고,조생양파만,제주특별자치도 공고 제2026-2547호(3차),https://grant-documents.thevc.kr/310015_2026%EB%85%84+%EC%A0%9C%EC%A3%BC%EC%82%B0+%EC%A3%BC%EC%9A%94+%EB%86%8D%EC%82%B0%EB%AC%BC+%EB%AC%BC%EB%A5%98%EB%B9%84+%EC%A7%80%EC%9B%90%EC%82%AC%EC%97%85(3%EC%B0%A8)+%EA%B3%B5%EA%B3%A0%EB%AC%B8.pdf,2026-11-07,B
+2025-26,양파,logi_months,2026-03;2026-05,YYYY-MM목록,공고,1차 3월 + 3차 5월(조생양파),제주특별자치도 공고 제2026-2547호(3차),https://grant-documents.thevc.kr/310015_2026%EB%85%84+%EC%A0%9C%EC%A3%BC%EC%82%B0+%EC%A3%BC%EC%9A%94+%EB%86%8D%EC%82%B0%EB%AC%BC+%EB%AC%BC%EB%A5%98%EB%B9%84+%EC%A7%80%EC%9B%90%EC%82%AC%EC%97%85(3%EC%B0%A8)+%EA%B3%B5%EA%B3%A0%EB%AC%B8.pdf,2026-11-07,B
+2025-26,양파,breakeven_lo,,원/kg,미확인,판정 끔: 대상 달 3월 조생양파 가중 755원 → 손익분기는 755 초과라는 것만 앎. 실험판 485원은 도 판정과 반대(G),,,2026-11-07,B
+2025-26,양파,breakeven_hi,,원/kg,미확인,판정 끔(breakeven_lo와 짝),,,2026-11-07,B
+-,양파,yield_kg_10a,6314,kg/10a,공표,통계청 2024 전국,통계청 2024 보리·마늘·양파 생산량조사,https://kostat.go.kr/board.es?mid=a10301010000&bid=228&act=view&list_no=431845,2026-11-05,B
+-,마늘,yield_kg_10a,1223,kg/10a,공표,통계청 2024 전국,통계청 2024 보리·마늘·양파 생산량조사,https://kostat.go.kr/board.es?mid=a10301010000&bid=228&act=view&list_no=431845,2026-11-05,B
+2026-27,감귤_노지,stab_base,,원/kg,미확인,2026년산 기준가 미발표(11-03 보도: '누계가격만으로 지원 여부 판단 불가'),파이낸셜뉴스 2026-11-03 ; 네이트 전재 2026-07-19,https://www.fnnews.com/news/202611030906581599,2026-11-07,B
+2026-27,감귤_노지,stab_share,0.9,비율,보도,2025년산 기준(차액 90%),제주도민일보 2025-07-28,https://www.jejudomin.co.kr/news/articleView.html?idxno=312898,2026-11-07,B
+2026-27,감귤_노지,stab_months,10;11;12;1,월목록,보도,2025년산 10월~1월 기준,제주도민일보 2025-07-28,https://www.jejudomin.co.kr/news/articleView.html?idxno=312898,2026-11-07,B
+2026-27,감귤_노지,stab_market,9대도매시장,시장,보도,,제주도민일보 2025-07-28,https://www.jejudomin.co.kr/news/articleView.html?idxno=312898,2026-11-07,B
+2026-27,감귤_노지,stab_window,반월,구간,보도,2026년산부터 월 → 15일 단위,파이낸셜뉴스 2026-11-03 ; 네이트 전재 2026-07-19,https://www.fnnews.com/news/202611030906581599,2026-11-07,B
+2026-27,감귤_노지,stab_enroll_end,2026-08-28,날짜,보도,네이트 전재본 글자 깨짐으로 일부 판독(G),네이트 전재 2026-07-19,https://m.news.nate.com/view/20260719n04376,2026-11-07,B
+2026-27,감귤_노지,breakeven_reported,1880,원/kg,보도,"극조생 5kg 9,400원 ÷ 5, 도의원 추정치(산정 근거 미공개) - 맥락 문장만",제주일보 2026-10-21,https://www.jejunews.com/news/articleView.html?idxno=2228394,2026-11-07,B
+2022-23,감귤_노지,stab_base,1191,원/kg,공표,2022년산(참고 이력),제주도 2024 업무계획 p.27,https://clik.nanet.go.kr/clikr-collection/policyinfo/95/624/2024/CLIKC9947921192221669_attach_1.pdf,2026-11-07,B
+2023-24,감귤_노지,stab_base,1387,원/kg,공표,2023년산(참고 이력). 2023년 개선으로 비교 시장을 가락 → 9대 도매시장,제주도 2024 업무계획 p.27,https://clik.nanet.go.kr/clikr-collection/policyinfo/95/624/2024/CLIKC9947921192221669_attach_1.pdf,2026-11-07,B
+2025-26,감귤_노지,yield_kg_10a,2941,kg/10a,계산,"410,965t ÷ 13,972ha(2025년산)",jasdc 생산현황,https://jasdc.or.kr/tangerine/output/output1.htm,2026-11-05,B

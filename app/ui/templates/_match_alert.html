@@ -1,0 +1,4 @@
+{#- 맞을 수 있는 공고가 있을 때 결론 띠 아래 한 줄 알림(누르면 "지금 접수 중인 공고" 상자로 내려간다). m: MatchJob.view() -#}
+{%- if m.state == "done" and m.lines -%}
+<a class="nn-alert" href="#new-notices" data-nn-jump>마감이 가까운 공고 {{ m.lines | length }}개가 맞을 수 있어요 · 아래를 보세요</a>
+{%- endif -%}

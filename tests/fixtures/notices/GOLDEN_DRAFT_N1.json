@@ -1,0 +1,66 @@
+{
+  "programs": [
+    {
+      "action": "UPDATE",
+      "match_id": "JEJU-LOGI@2026-27",
+      "program_key": null,
+      "fields": {
+        "apply_start": {
+          "value": "2026-07-22",
+          "quote": "신청기간  : 수 화 2026. 7. 22.( ) ~ 8. 4.( )",
+          "anchor": null
+        },
+        "apply_end": {
+          "value": "2026-08-04",
+          "quote": "신청기간  : 수 화 2026. 7. 22.( ) ~ 8. 4.( )",
+          "anchor": null
+        },
+        "crop_in": {
+          "value": [
+            "월동무",
+            "양배추",
+            "당근",
+            "양파"
+          ],
+          "quote": "지원품목 월동무 양배추 당근 조생양파",
+          "anchor": null
+        },
+        "applicant": {
+          "value": "농협경유",
+          "quote": "지 역 농 협  및  영 농 조 합 법 인",
+          "anchor": null
+        }
+      },
+      "questions": [],
+      "tags": [
+        {
+          "label": "농협·조합법인이 신청",
+          "quote": "지 역 농 협  및  영 농 조 합 법 인",
+          "anchor": null
+        },
+        {
+          "label": "월동무·양배추·당근·양파",
+          "quote": "지원품목 월동무 양배추 당근 조생양파",
+          "anchor": null
+        },
+        {
+          "label": "해상운송비 일부 지원",
+          "quote": "출하한 생산자에 대해 해상운송비 일부 지원",
+          "anchor": null
+        },
+        {
+          "label": "자조금 가입 증명 필요",
+          "quote": "자조금 가입 증명서 농협은 명단 제출",
+          "anchor": null
+        }
+      ]
+    }
+  ],
+  "skipped": [],
+  "decision": "DRAFT_READY",
+  "reason": "2026 물류비 3차 공고의 신청기간·품목·신청 주체를 기존 행에 갱신합니다",
+  "partial": false,
+  "hint": null,
+  "staff_questions": [],
+  "dropped_tags": []
+}

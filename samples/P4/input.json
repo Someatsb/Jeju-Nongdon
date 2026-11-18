@@ -1,0 +1,43 @@
+{
+  "case_id": "P4",
+  "as_of": "2026-11-13",
+  "profile": {
+    "visitor": "self",
+    "owner_sex": "M",
+    "emd_code": "애월읍",
+    "birth_year": 1961,
+    "birth_year_approx": false,
+    "crops": [
+      {
+        "crop_code": "양배추",
+        "area_m2": 12000,
+        "sales_channel": "field_contract_done",
+        "selfpay_fund": "not_paid",
+        "ins_disaster": null,
+        "ins_income": null
+      }
+    ],
+    "total_area_m2": 12000,
+    "total_area_is_crop_sum": false,
+    "land_tenure": "rent_all",
+    "land_held_2y": null,
+    "owned_over_4700py": null,
+    "mgmt_status": "none",
+    "mgmt_last_reg_year": null,
+    "spouse": "none",
+    "farming_years": 3,
+    "farming_10y_plus": false,
+    "residence_3y": true,
+    "health_ins": "unknown",
+    "flags": {
+      "disaster_damage": false,
+      "direct_payment_education": "NA"
+    },
+    "already_receiving": [],
+    "first_heard": [],
+    "ins_safety": [],
+    "spouse_birth_year": null,
+    "spouse_sex": null,
+    "enrollment_requested": "모름"
+  }
+}

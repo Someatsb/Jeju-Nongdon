@@ -1,0 +1,132 @@
+{
+  "sample_id": "P2",
+  "recorded_at": "2026-11-15T06:02:00",
+  "source": "recorded",
+  "provider": "anthropic",
+  "model": "claude-opus-5-5",
+  "prompt_ver": "narrate-v3",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "7fbd5749",
+  "calls": [
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "0b7ecfd959cc697f8cdd35127450c4377ed143745cec8d70c12a00afbc579d72",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:do_calcium_sulfur}, {P:jeju_soil_eco} 모두 맞을 수 있어요.\",\"cites\":[\"M:do_calcium_sulfur\",\"M:jeju_soil_eco\"]},{\"sid\":2,\"text\":\"{P:do_small_machine}, {P:do_irrigation} 소득이 맞는지 창구에서 확인해 보세요.\",\"cites\":[\"M:do_small_machine\",\"M:do_irrigation\"]},{\"sid\":3,\"text\":\"{P:js_biodeg}도 소득 확인이 필요하고, 모두 다음 신청 때를 기다려요.\",\"cites\":[\"M:",
+        "tool_calls": [],
+        "stop": "length",
+        "tok_in": 2567,
+        "tok_out": 1024,
+        "latency_ms": 9828,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 2,
+      "request_hash": "79747066a21debbf530da837f82fa914b9311513a714195b913db037f227d611",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:do_calcium_sulfur}, {P:jeju_soil_eco}는 맞을 수 있어요.\",\"cites\":[\"M:do_calcium_sulfur\",\"M:jeju_soil_eco\"]},{\"sid\":2,\"text\":\"나머지는 소득 조건이 맞는지 창구에서 확인해 보세요.\",\"cites\":[\"M:do_small_machine\",\"M:do_irrigation\",\"M:js_biodeg\"]},{\"sid\":3,\"text\":\"모두 지난해 안내를 바탕으로 했어요. 다음 신청 때를 기다려 주세요.\",\"cites\":[\"M:do_calcium_sulfur\",\"M:do_small_machine\",\"M:do_irrigation\",\"M:js_biodeg\",\"M:jeju_soil_eco\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2670,
+        "tok_out": 857,
+        "latency_ms": 8968,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "c3d30e05cbcf9b15452b382bca3fd9f8549febc3fd1df2a0a72e472701d54852",
+      "response": {
+        "text": "{\"verdict\": \"PASS\", \"reason_code\": null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 3242,
+        "tok_out": 21,
+        "latency_ms": 1702,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "d3e14d5e75e2653127f77b090ceb24739fc19aefcb7de6c092aae536fa6b8ffc",
+      "response": {
+        "text": "{\"section\":\"insurance\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nh_safety_owner}의 신청이 지금 열려 있어요. 맞는지 창구에서 확인해 보세요.\",\"cites\":[\"I:nh_safety_owner\"]},{\"sid\":2,\"text\":\"{P:nh_safety_spouse}의 조건이 맞는지 창구에서 물어보세요.\",\"cites\":[\"I:nh_safety_spouse\"]},{\"sid\":3,\"text\":\"{P:crop_disaster_a}의 다음 신청 시기를 기다려 주세요.\",\"cites\":[\"I:crop_disaster_a\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2399,
+        "tok_out": 930,
+        "latency_ms": 9250,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "2afcbf24c3ef1f347cdd49f0aaaf7858c71f1ca7481d7f3591ef55049b171850",
+      "response": {
+        "text": "{\"verdict\": \"PASS\", \"reason_code\": null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 3170,
+        "tok_out": 21,
+        "latency_ms": 1641,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "058bdcc5119e9a7d49eafbbbc019162d80d90d60bdc778fc7fbf22a94603c23c",
+      "response": {
+        "text": "{\"section\":\"action\",\"sentences\":[{\"sid\":1,\"text\":\"먼저 농관원에 가서 {P:a_spouse_registration}부터 하세요.\",\"cites\":[\"A:a_spouse_registration\"]},{\"sid\":2,\"text\":\"다른 신청은 다음 시기가 열리면 창구에서 맞는지 확인해 보세요.\",\"cites\":[\"A:a_do_calcium_sulfur\",\"A:a_do_irrigation\",\"A:a_do_small_machine\",\"A:a_js_biodeg\",\"A:a_jeju_soil_eco\"]},{\"sid\":3,\"text\":\"{P:a_ins_a}는 다음 시기에 다시 살펴보세요.\",\"cites\":[\"A:a_ins_a\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2702,
+        "tok_out": 612,
+        "latency_ms": 6342,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "5926f796d3ca0738eb336502dad857f50abbc2d6a0e37827b7b1f1e879fab8df",
+      "response": {
+        "text": "{\"verdict\": \"PASS\", \"reason_code\": null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 3204,
+        "tok_out": 108,
+        "latency_ms": 2078,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    }
+  ]
+}

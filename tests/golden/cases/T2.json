@@ -1,0 +1,266 @@
+{
+  "schema": "golden-spec/2",
+  "case_id": "T2",
+  "phase": 1,
+  "kind": "all_set",
+  "title": "빈 종이 ② 조직 안 당근 부부 — 계통·자조금, 부부 등록, 가격 높음(+122%)",
+  "source": "설계 v2 §12-A(2)",
+  "as_of": "2026-11-13",
+  "fixture": {
+    "snapshot": "snap_20261112",
+    "tables": "tables_1st_20261113",
+    "network": "blocked",
+    "jasdc": "recorded_20261112",
+    "llm": "none",
+    "price_override": null,
+    "feature_flags": {
+      "offfarm_money": true
+    }
+  },
+  "profile": {
+    "crop_key": "당근",
+    "area_m2": 10000,
+    "total_farm_area_m2": 10000,
+    "birth_year": 1964,
+    "birth_year_approx": false,
+    "sex": "M",
+    "region": "제주시",
+    "eupmyeon": "구좌읍",
+    "visitor": "self",
+    "jeju_residence_years": 62,
+    "farming_years": 35,
+    "mgmt_registered": "Y",
+    "mgmt_years": 30,
+    "mgmt_last_registered_year": 2025,
+    "spouse_status": "registered",
+    "spouse_birth_year": 1966,
+    "coop_member": "Y",
+    "coop_shipping": "Y",
+    "selfpay_fund_member": "Y",
+    "field_sold_contract": "N",
+    "crop2_key": null,
+    "crop2_area_m2": null,
+    "crop2_coop_shipping": null,
+    "crop2_selfpay_fund_member": null,
+    "crop2_field_sold_contract": null,
+    "owns_farmland": "N",
+    "farmland_owned_years": null,
+    "owned_area_ge_15500m2": "N",
+    "health_insurance": "regional",
+    "offfarm_income_band": "?",
+    "disaster_damage": "N",
+    "direct_payment_education": "Y",
+    "already_receiving": [
+      "JEJU-FARMER-ALLOW",
+      "NAT-DIRECT-AREA",
+      "JEJU-WOMEN-VOUCHER",
+      "JEJU-PSTAB",
+      "NHIS-FARMER-SUPPORT",
+      "DO-CALCIUM-SULFUR",
+      "JEJU-LOGI",
+      "DO-SMALL-MACHINE",
+      "DO-IRRIGATION",
+      "JS-BIODEG",
+      "JEJU-SOIL-ECO"
+    ],
+    "insurance_enrolled": [
+      "disaster",
+      "safety"
+    ],
+    "flags": [],
+    "disaster_end_date": null
+  },
+  "profile_fields_not_in_C_round1": [
+    "birth_year",
+    "birth_year_approx",
+    "eupmyeon",
+    "visitor",
+    "mgmt_last_registered_year",
+    "spouse_status",
+    "spouse_birth_year",
+    "crop2_key",
+    "crop2_area_m2",
+    "crop2_coop_shipping",
+    "crop2_selfpay_fund_member",
+    "crop2_field_sold_contract",
+    "owned_area_ge_15500m2",
+    "health_insurance",
+    "disaster_damage",
+    "direct_payment_education"
+  ],
+  "profile_fields_dropped_from_C_round1": [
+    "age (→ birth_year)",
+    "flags의 입원·질병 값(사원 F)",
+    "flags의 disaster_damage (→ 독립 필드 disaster_damage)"
+  ],
+  "expect": {
+    "paper_mode": "all_set",
+    "header": {
+      "must_include": [
+        "2026-11-13",
+        "기준일"
+      ],
+      "note": "--asof 시연 기준일 표시(§12-A(1))"
+    },
+    "key_lines": [
+      {
+        "id": "T2-K1",
+        "section": "top",
+        "status": "ALL_SET",
+        "must_include": [
+          "다 챙기고 계세요",
+          "지키실 돈"
+        ],
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "3월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "id": "T2-K2",
+        "section": "C",
+        "rule_id": "PRICE_STAB",
+        "crop_key": "당근",
+        "status": "NOT_MET",
+        "must_include": [
+          "가격안정관리제"
+        ],
+        "must_not_include": [
+          "열림",
+          "만 원"
+        ],
+        "why": "가격이 작년보다 크게 높음(11-05 기준 +122%, 실험판 [실측]) → 이번 반월 '아직'. 가격 자리 문장은 인쇄하지 않음(가격은 판정 전용)",
+        "assumption": "snap_20261112 동결 후 재확인",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "2026년 기준",
+          "공고 전"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전",
+        "where": "back"
+      }
+    ],
+    "first_actions": [],
+    "insurance": [
+      {
+        "product_id": "crop_disaster",
+        "crop_key": "당근",
+        "status": "ENROLLED",
+        "next_window": {
+          "months": [
+            7,
+            9
+          ]
+        },
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "7월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      {
+        "product_id": "income_stab",
+        "crop_key": "당근",
+        "status": "NOT_COVERED"
+      },
+      {
+        "product_id": "nh_safety",
+        "status": "ENROLLED",
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "fixed_lines": [
+      {
+        "id": "FIXED-FARM-HELPER",
+        "must_include": [
+          "60일",
+          "농협"
+        ],
+        "must_not_include": [
+          "까지 신청하세요",
+          "남았"
+        ],
+        "note": "사원 F·설계 v2 §7-1: 입원·질병은 묻지 않는다. 영농도우미는 모든 종이에 같은 문장(\"다치거나 3일 넘게 입원하셨으면 60일 안에 농협\")."
+      },
+      {
+        "id": "FIXED-DISCLAIMER",
+        "must_include": [
+          "이 종이를 뽑아 준 곳",
+          "공문서"
+        ],
+        "note": "G 책임 표기 3줄"
+      }
+    ],
+    "banners": [],
+    "also": [
+      {
+        "section": "C",
+        "rule_id": "LOGISTICS",
+        "crop_key": "당근",
+        "status": "NOT_APPLICABLE",
+        "must_not_include": [
+          "16원"
+        ]
+      }
+    ],
+    "must_not_print": [
+      "먼저 하실 일",
+      "+122%",
+      "작년보다",
+      "농지연금",
+      "받으실 수 있는 돈",
+      "▶",
+      "오를",
+      "내릴",
+      "예측된",
+      "파세요"
+    ],
+    "all_set": {
+      "front_top_must_include": [
+        "다 챙기고 계세요",
+        "지키실 돈",
+        "끊기지 않게"
+      ],
+      "kept_money": {
+        "low_won": 7200000,
+        "high_won": 8050000,
+        "display": "연 약 720만~805만 원",
+        "calc": "농민수당 2인 90만 + 면적직불 1.0ha × 150만~215만 + 행복이용권 20만 + 토양생태환경보전 약 440만~460만. 가격안정관리제는 가격에 달려 합계에서 뺌(Task 34: 표가 커져 토양생태 행이 받는 돈으로 들어옴)",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "3월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      },
+      "keep_actions_must_include": [
+        "경영체",
+        "2028",
+        "직불 교육"
+      ],
+      "calendar_3": [
+        "1월",
+        "3월",
+        "7월"
+      ],
+      "new_money_lines": 0
+    }
+  },
+  "unverified": [
+    "표에 제도가 늘면 프로필(already_receiving)을 늘려 '다 받고 있는 농가' 페르소나를 유지한다(2026-11-08 결정)"
+  ],
+  "pending_decisions": [],
+  "approval": {
+    "by": [],
+    "at": null,
+    "sha256": null
+  }
+}

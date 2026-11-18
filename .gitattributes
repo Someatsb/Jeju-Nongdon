@@ -1,0 +1,2 @@
+data/snapshot/*.csv -text
+data/tables/*.csv -text

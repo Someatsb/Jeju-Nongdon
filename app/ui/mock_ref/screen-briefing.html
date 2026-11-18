@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>첫 화면 브리핑</title>
+<style>
+/*
+  앱 첫 화면(11-13 판): 정적 3줄 카드. 설계 v2 §12-A(1)·(5).
+  ① 30일 안 마감 ② 데이터 기준일 ③ 준비 중(hold) 행 수. 감시·자율 행동은 11-14~19 판.
+  직원용 1920×1080, 본문 22px(3줄만이라 직원 화면 18px보다 크게), 행간 1.5.
+  상태는 색 + 모양(● ▲ ■) + 글자로 함께 표시(색만으로 전달 금지, KRDS·WCAG 1.4.1).
+  "기준일 2026-11-13(시연)" 이름표: --asof 스위치가 켜졌을 때만 보임.
+*/
+:root { --bg: #f3f4f6; --ink: #111; --sub: #4b5563; --line: #c7cbd1; --pri: #1849a9; --ok: #116329; --warn: #8a4b00; --bad: #a11b1b; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 22px/1.5 "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; word-break: keep-all; }
+header { display: flex; align-items: center; gap: 18px; height: 64px; padding: 0 32px; background: #fff; border-bottom: 1px solid var(--line); }
+header h1 { font-size: 22px; margin: 0; }
+.asof { border: 2px solid var(--ink); border-radius: 6px; padding: 1px 10px; font-weight: 700; font-size: 18px; }
+header .sp { flex: 1; }
+.btn { font: inherit; font-size: 18px; font-weight: 700; border: 2px solid var(--ink); background: #fff; color: var(--ink); border-radius: 8px; padding: 6px 16px; cursor: pointer; min-height: 44px; }
+.btn.pri { background: var(--pri); border-color: var(--pri); color: #fff; }
+.btn:focus-visible { outline: 3px solid var(--pri); outline-offset: 2px; }
+main { display: grid; place-items: center; height: calc(100% - 64px); padding: 24px; }
+.card { width: 1180px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 30px 40px 32px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+.card h2 { margin: 0 0 6px; font-size: 26px; }
+.card .when { color: var(--sub); font-size: 18px; margin: 0 0 18px; }
+.row { display: grid; grid-template-columns: 56px 220px 1fr; gap: 0 18px; align-items: start; padding: 18px 0; border-top: 1px solid #e5e7eb; }
+.row .ic { font-size: 30px; line-height: 1.2; text-align: center; }
+.row .k { font-weight: 700; }
+.row .v b { font-weight: 700; }
+.row .s { display: block; font-size: 18px; color: var(--sub); }
+.ok { color: var(--ok); } .warn { color: var(--warn); } .bad { color: var(--bad); }
+.pill { display: inline-block; font-size: 17px; font-weight: 700; border: 2px solid currentColor; border-radius: 999px; padding: 0 10px; margin-left: 6px; vertical-align: 2px; }
+.go { display: flex; gap: 14px; justify-content: flex-end; margin-top: 22px; }
+.go .btn { min-height: 60px; font-size: 22px; padding: 8px 28px; }
+.legend { font-size: 16px; color: var(--sub); margin-top: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>삼춘 돈 챙김표</h1>
+  <span class="asof">기준일 2026-11-13(시연)</span>
+  <div class="sp"></div>
+  <button class="btn" type="button">설정·키</button>
+  <button class="btn" type="button">도움말</button>
+</header>
+<main>
+  <section class="card" aria-labelledby="t">
+    <h2 id="t">오늘 상담 전에 보실 세 가지</h2>
+    <p class="when">앱을 켤 때 한 번 계산합니다. 이 화면은 아무것도 바꾸지 않습니다.</p>
+
+    <div class="row">
+      <span class="ic warn" aria-hidden="true">▲</span>
+      <span class="k">30일 안 마감</span>
+      <span class="v"><b>마늘 재해보험 11월 13일(오늘)</b> · 양파 재해보험 11월 27일(14일 남음)
+        <span class="s">제주시 일정 기준 · 서귀포시 일정은 확인 전 · 해당 작물 농가가 오시면 종이 맨 위 "급한 것"으로 나갑니다.</span></span>
+    </div>
+
+    <div class="row">
+      <span class="ic ok" aria-hidden="true">●</span>
+      <span class="k">데이터 기준일</span>
+      <span class="v">가격 <b>2026-11-12까지</b><span class="pill ok">● 1일 전 · 정상</span> · 지원 표 확인 <b>2026-11-12</b> · 허브 갱신 성공
+        <span class="s">가격 날짜는 시연용 예시입니다. 4~14일 지나면 ▲ 주의, 15일 넘으면 ■ 진행 중 판정을 빼고 인쇄합니다.</span></span>
+    </div>
+
+    <div class="row">
+      <span class="ic warn" aria-hidden="true">▲</span>
+      <span class="k">준비 중인 행</span>
+      <span class="v">지원 표 18행 중 <b>인쇄 15행</b> · <b>준비 중 3건</b>(원문 대조 전, 종이에 안 나감)
+        <span class="s">행 수는 시연용 예시입니다. 작년 공고 행은 "2026년 기준 · 2027년 공고 전" 배지를 단 채로만 인쇄됩니다.</span></span>
+    </div>
+
+    <div class="go">
+      <button class="btn" type="button">준비 중 3건 보기</button>
+      <button class="btn pri" type="button" onclick="location.href='screen-staff-final.html'">새 상담 시작</button>
+    </div>
+    <p class="legend">표시: ● 정상 · ▲ 주의 · ■ 멈춤. 모양과 글자로도 구분됩니다.</p>
+  </section>
+</main>
+</body>
+</html>

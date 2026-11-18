@@ -1,0 +1,132 @@
+{
+  "sample_id": "P3",
+  "recorded_at": "2026-11-08T16:38:00",
+  "source": "recorded",
+  "provider": "anthropic",
+  "model": "claude-opus-5-5",
+  "prompt_ver": "narrate-v1",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "17964ac3",
+  "calls": [
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "4e940b20684ba0f46b065411e618bfea290d089ab797fc783b80afc17e718ef4",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nhis_farmer_support}는 해당될 가능성이 높으니, 언제든 접수기관에 확인해 보시면 됩니다.\",\"cites\":[\"M:nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:do_small_machine}, {P:do_irrigation}, {P:jeju_soil_eco}는 지난해 기준 안내라서 조건을 접수기관에서 확인해 보셔야 하고, 다음 신청 시기를 기다리셔야 합니다.\",\"cites\":[\"M:do_small_machine\",\"M:do_irrigation\",\"M:jeju_soil_eco\"]},{\"sid\":3,\"text\":\"{P:jeju_logi}는 공동 조직 가입과 스스로 낼 자금을 먼저 갖추시면 해당될 수 있습니다.\",\"cites\":[\"M:jeju_logi\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 1946,
+        "tok_out": 788,
+        "latency_ms": 8797,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "support",
+      "attempt": 2,
+      "request_hash": "a8f64b6a2a3480f8df0e360fd66352f6da7a5dca5f07b8117f771cc6564ed5a0",
+      "response": {
+        "text": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nhis_farmer_support}은 해당될 가능성이 높으니 접수기관에 확인해 보세요.\",\"cites\":[\"M:nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:do_small_machine}, {P:do_irrigation}은 소득 확인 뒤 다음 접수를 기다리시면 됩니다.\",\"cites\":[\"M:do_small_machine\",\"M:do_irrigation\"]},{\"sid\":3,\"text\":\"{P:jeju_logi}, {P:jeju_soil_eco}는 조합 가입과 자부담금이 먼저 있어야 합니다.\",\"cites\":[\"M:jeju_logi\",\"M:jeju_soil_eco\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2029,
+        "tok_out": 983,
+        "latency_ms": 9530,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "support",
+      "attempt": 1,
+      "request_hash": "d4312cafff9ab355d28ee90fee11672f8520c65c240741991b6207292c241bf6",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 3651,
+        "tok_out": 224,
+        "latency_ms": 2922,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "0e1e6c60dbb1bd901065fa056b57731ed544450e3e1b21d2dae59bc063ef466a",
+      "response": {
+        "text": "{\"section\":\"insurance\",\"sentences\":[{\"sid\":1,\"text\":\"{P:crop_disaster_a}, {P:income_stab_a}, {P:nh_safety_owner}는 지금 가입을 알아보실 수 있는 때입니다.\",\"cites\":[\"I:crop_disaster_a\",\"I:income_stab_a\",\"I:nh_safety_owner\"]},{\"sid\":2,\"text\":\"{P:crop_disaster_b}와 {P:income_stab_b}는 다음 가입 시기를 기다리셔야 합니다.\",\"cites\":[\"I:crop_disaster_b\",\"I:income_stab_b\"]},{\"sid\":3,\"text\":\"{P:nh_safety_spouse}는 가입하실 수 있는지 접수기관에 확인해 보시면 됩니다.\",\"cites\":[\"I:nh_safety_spouse\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 1950,
+        "tok_out": 543,
+        "latency_ms": 5484,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "judge",
+      "section": "insurance",
+      "attempt": 1,
+      "request_hash": "bc6f6ceb4e2076e923a23d092b9a208d48668451ce7d01ca780531840316bf12",
+      "response": {
+        "text": "{\"verdict\":\"PASS\",\"reason_code\":null}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 3672,
+        "tok_out": 20,
+        "latency_ms": 1562,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "action",
+      "attempt": 1,
+      "request_hash": "f03175a0ed2923f958bbc23b87052a0ca62fb19d54a7408040b7ce64c0b081c7",
+      "response": {
+        "text": "{\"section\":\"action\",\"sentences\":[{\"sid\":1,\"text\":\"{P:a_ins_a} 건은 다음 가입 시기를 놓치지 않게 먼저 챙기시고, {P:a_nhis_farmer_support} 건은 지금 신청을 알아보시면 됩니다.\",\"cites\":[\"A:a_ins_a\",\"A:a_nhis_farmer_support\"]},{\"sid\":2,\"text\":\"{P:a_direct_pay_education} 건과 {P:a_mgmt_renewal} 건은 계속 이어 가시고, {P:a_coop_fund} 건은 접수기관에 물어보시면 됩니다.\",\"cites\":[\"A:a_direct_pay_education\",\"A:a_mgmt_renewal\",\"A:a_coop_fund\"]},{\"sid\":3,\"text\":\"{P:a_do_irrigation}, {P:a_do_small_machine}, {P:a_jeju_soil_eco} 건은 다음 신청 시기에 맞춰 준비해 두시면 좋겠습니다.\",\"cites\":[\"A:a_do_irrigation\",\"A:a_do_small_machine\",\"A:a_jeju_soil_eco\"]}]}",
+        "tool_calls": [],
+        "stop": "end",
+        "tok_in": 2100,
+        "tok_out": 1001,
+        "latency_ms": 10109,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "narrate",
+      "section": "action",
+      "attempt": 2,
+      "request_hash": "037793e7ec43d8f7352a3195ff512aff09508186151dcba7337cb4235818497f",
+      "response": {
+        "text": null,
+        "tool_calls": [],
+        "stop": "length",
+        "tok_in": 2183,
+        "tok_out": 1024,
+        "latency_ms": 11000,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    }
+  ]
+}

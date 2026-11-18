@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "name": "유기질비료 지원사업",
+  "agency": "산업팀",
+  "apply_where": "❍ 신청장소 : 농지 소재지 읍면동사무소",
+  "apply_period": "❍ 신청기간 : 2026. 11. 10.(화) ~ 2026. 12. 4.(금)까지",
+  "target": "",
+  "content": "- 유기질비료(3종) : 보조 1,700원 ~ 2,000원/20㎏",
+  "tags": [
+    {
+      "label": "농업경영체 등록 필수",
+      "quote": "❍ 지원대상 : 농업경영정보를 등록한 농업인 및 농업법인",
+      "anchor": "p1:L8"
+    },
+    {
+      "label": "농업인·농업법인 대상",
+      "quote": "❍ 지원대상 : 농업경영정보를 등록한 농업인 및 농업법인",
+      "anchor": "p1:L8"
+    },
+    {
+      "label": "경영체에 등록된 농지만",
+      "quote": "❍ 지원한도 - 사업대상자가 본인의 농업경영정보에 등록된 농지를 대상으로 신청한 물량에 대하여 사업예산 범위",
+      "anchor": "p1:L13"
+    },
+    {
+      "label": "제주시·서귀포시 농지",
+      "quote": "- 농지소재지가 제주시, 서귀포시에 있는 경우 각 행정시 농지소재지 읍면동에 신청",
+      "anchor": "p1:L10"
+    }
+  ],
+  "url": "https://www.jejusi.go.kr/information/intro/news.do?mode=detail&notice_id=d80a053bf7ee45a4813fee74f0d7be19",
+  "read_date": "2026-11-15",
+  "decision": "DRAFT_READY",
+  "table_key": null
+}

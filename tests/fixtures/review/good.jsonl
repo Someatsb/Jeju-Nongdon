@@ -1,0 +1,46 @@
+{"id":"G01","section":"support","context":"ctx_P4","text":"경영체 등록을 먼저 하시면 {P:jeju_farmer_allowance}을 신청해 볼 조건이 갖춰집니다.","cites":["M:jeju_farmer_allowance","A:prereq_mgmt"],"expect":[],"why":""}
+{"id":"G02","section":"support","context":"ctx_P1","text":"{P:small_farm_direct}은 매년 다시 신청하셔야 하니 작년처럼 읍면사무소에 가시면 됩니다.","cites":["M:small_farm_direct"],"expect":[],"why":"함정: 작년·사"}
+{"id":"G03","section":"support","context":"ctx_P2","text":"{P:price_stab_carrot}은 농협에 내신 물량에만 붙으니 참여 명단을 농협에 확인해 보세요.","cites":["M:price_stab_carrot"],"expect":[],"why":""}
+{"id":"G04","section":"support","context":"ctx_P4","text":"상인에게 밭떼기로 넘기신 물량은 {P:logistics}에서 빠질 수 있으니 농협에 물어보세요.","cites":["M:logistics"],"expect":[],"why":"함정: 상인·농협이 같이 나오지만 비교 아님"}
+{"id":"G05","section":"support","context":"ctx_P2","text":"{P:soil_eco}은 밭을 쉬게 하는 조건이라 쉬실 밭이 있는지 먼저 생각해 보시면 됩니다.","cites":["M:soil_eco"],"expect":[],"why":""}
+{"id":"G06","section":"support","context":"ctx_P1","text":"{P:farmland_pension}은 땅값에 따라 금액이 달라져 농어촌공사에서 알아보셔야 합니다.","cites":["M:farmland_pension"],"expect":[],"why":""}
+{"id":"G07","section":"support","context":"ctx_P4","text":"건강보험료 고지서를 집으로 받으시면 {P:nhis_farmer_support}에 해당될 수 있습니다.","cites":["M:nhis_farmer_support"],"expect":[],"why":"함정: 보험료"}
+{"id":"G08","section":"support","context":"ctx_P1","text":"이 종이는 해당될 수 있는 제도를 정리한 것이고 최종 판단은 접수기관이 합니다.","cites":["M:farmland_pension"],"expect":[],"why":""}
+{"id":"G09","section":"support","context":"ctx_P2","text":"배우자분도 경영체에 함께 올리시면 두 분 몫으로 바뀔 수 있습니다.","cites":["M:jeju_farmer_allowance","A:spouse_register"],"expect":[],"why":"함정: 두 분"}
+{"id":"G10","section":"support","context":"ctx_P3","text":"{P:integrated_subsidy}은 신청 기간이 짧으니 달력에 표시해 두시면 좋습니다.","cites":["M:integrated_subsidy"],"expect":[],"why":""}
+{"id":"G11","section":"support","context":"ctx_P3","text":"읍면사무소에 한 번 들르실 때 등록확인서를 떼 두시면 다른 신청에도 쓰입니다.","cites":["M:integrated_subsidy"],"expect":[],"why":"함정: 한 번"}
+{"id":"G12","section":"support","context":"ctx_P1","text":"확인이 필요한 줄은 창구에서 이 종이 뒷면을 보여 주시면 됩니다.","cites":["M:small_farm_direct"],"expect":[],"why":""}
+{"id":"G13","section":"support","context":"ctx_P4","text":"땅을 빌려 지으시면 지주분의 계약서가 있어야 등록이 수월합니다.","cites":["M:jeju_farmer_allowance","A:prereq_mgmt"],"expect":[],"why":""}
+{"id":"G14","section":"support","context":"ctx_P2","text":"이미 받고 계신 돈은 이 종이에서 뺐습니다.","cites":["M:jeju_farmer_allowance"],"expect":[],"why":""}
+{"id":"G15","section":"support","context":"ctx_P4","text":"{P:price_stab_cabbage}은 값이 기준 아래로 내려간 기간이 있었는지로 정해집니다.","cites":["M:price_stab_cabbage"],"expect":[],"why":"함정: 과거형"}
+{"id":"G16","section":"support","context":"ctx_P1","text":"소득 조건이 있는 제도는 읍면사무소에서 확인해 보셔야 정해집니다.","cites":["M:small_farm_direct"],"expect":[],"why":""}
+{"id":"G17","section":"insurance","context":"ctx_P3","text":"재해보험과 수입안정보험은 같은 밭에 하나만 드실 수 있습니다.","cites":["I:crop_ins_garlic","I:income_ins_garlic"],"expect":[],"why":"함정: 보험 범주어"}
+{"id":"G18","section":"insurance","context":"ctx_P4","text":"보험은 가입 기간이 정해져 있어 지금은 안 되고 다음 기간에 농협에 문의하시면 됩니다.","cites":["I:crop_ins_cabbage"],"expect":[],"why":""}
+{"id":"G19","section":"insurance","context":"ctx_P5","text":"{P:nh_safety_ins}은 농사일 중 다치셨을 때를 위한 것이라 농협 창구에서 알아보시면 됩니다.","cites":["I:nh_safety_ins"],"expect":[],"why":""}
+{"id":"G20","section":"insurance","context":"ctx_P1","text":"이미 드신 보험이 있으면 갱신 시기만 놓치지 않으시면 됩니다.","cites":["I:crop_ins_citrus"],"expect":[],"why":""}
+{"id":"G21","section":"insurance","context":"ctx_P3","text":"{P:crop_ins_garlic}은 가입 마감이 가까우니 이번 주에 농협에 가 보시는 게 좋습니다.","cites":["I:crop_ins_garlic"],"expect":[],"why":"함정: 이번 주"}
+{"id":"G22","section":"insurance","context":"ctx_P5","text":"보험은 상품을 권하는 것이 아니라 이런 제도가 있다는 안내입니다.","cites":["I:nh_safety_ins"],"expect":[],"why":""}
+{"id":"G23","section":"insurance","context":"ctx_P1","text":"노지 감귤은 {P:crop_ins_citrus}만 해당되니 그쪽만 알아보시면 됩니다.","cites":["I:crop_ins_citrus"],"expect":[],"why":""}
+{"id":"G24","section":"insurance","context":"ctx_P3","text":"보험료 일부를 나라에서 내 주는 제도라 본인 부담이 줄어듭니다.","cites":["I:crop_ins_garlic"],"expect":[],"why":"함정: 일부"}
+{"id":"G25","section":"action","context":"ctx_P4","text":"먼저 농관원에 가셔서 경영체 등록부터 하시면 아래 줄들이 열립니다.","cites":["A:prereq_mgmt"],"expect":[],"why":""}
+{"id":"G26","section":"action","context":"ctx_P3","text":"농협에 가실 때는 신분증을 챙겨 가세요.","cites":["A:urgent_crop_ins_garlic"],"expect":[],"why":""}
+{"id":"G27","section":"action","context":"ctx_P1","text":"사무소 창구에서 이 종이를 보여 주시면 다시 설명하지 않으셔도 됩니다.","cites":["A:apply_farmland_pension"],"expect":[],"why":"함정: 사무소"}
+{"id":"G28","section":"action","context":"ctx_P2","text":"태풍이나 폭우 피해가 나면 바로 읍면에 신고하세요.","cites":["A:disaster_report"],"expect":[],"why":""}
+{"id":"G29","section":"action","context":"ctx_P5","text":"다음에 오실 때 이 종이를 가져오시면 바뀐 것만 다시 봐 드립니다.","cites":["A:apply_retire_direct"],"expect":[],"why":""}
+{"id":"G30","section":"action","context":"ctx_P5","text":"자녀분이 사진을 찍어 두시면 집에서도 다시 보실 수 있습니다.","cites":["A:apply_retire_direct"],"expect":[],"why":""}
+{"id":"G31","section":"action","context":"ctx_P2","text":"작목 연합회 회비를 내셨는지 농협에서 먼저 확인해 보세요.","cites":["A:ask_coop_price_stab"],"expect":[],"why":""}
+{"id":"G32","section":"action","context":"ctx_P5","text":"오래 농사지으신 분은 {P:retire_direct}도 알아보실 만합니다.","cites":["A:apply_retire_direct","M:retire_direct"],"expect":[],"why":"함정: 오래"}
+{"id":"G33","section":"action","context":"ctx_P4","text":"서류가 모자라면 창구에서 무엇이 더 필요한지 물어보시면 됩니다.","cites":["A:prereq_mgmt"],"expect":[],"why":""}
+{"id":"G34","section":"empty","context":"ctx_T2","text":"다 챙기고 계시니 끊기지 않게 경영체 정보만 갱신해 두시면 됩니다.","cites":["A:keep_mgmt_update"],"expect":[],"why":""}
+{"id":"G35","section":"action","context":"ctx_P3","text":"일정이 바뀔 수 있으니 가시기 전에 전화로 한 번 더 확인하세요.","cites":["A:urgent_crop_ins_garlic"],"expect":[],"why":"함정: 일정·한 번 더"}
+{"id":"G36","section":"support","context":"ctx_P3","text":"{P:integrated_subsidy}은 작년 공고 기준이라 올해 공고가 나오면 다시 확인해야 합니다.","cites":["M:integrated_subsidy"],"expect":[],"why":"prior 행"}
+{"id":"G37","section":"support","context":"ctx_P2","text":"이번 시즌 값 판정은 시즌이 시작돼야 정해집니다.","cites":["M:price_stab_carrot"],"expect":[],"why":"함정: 이번"}
+{"id":"G38","section":"support","context":"ctx_P5","text":"{P:logistics}는 농협이 신청하고 나중에 정산하는 방식입니다.","cites":["M:logistics"],"expect":[],"why":""}
+{"id":"G39","section":"action","context":"ctx_P5","text":"어르신이 직접 오시기 어려우면 가족분이 이 종이를 들고 가셔도 됩니다.","cites":["A:apply_retire_direct"],"expect":[],"why":""}
+{"id":"G40","section":"empty","context":"ctx_T1","text":"올해 직불 교육을 들으셔야 받고 계신 돈이 줄지 않습니다.","cites":["A:keep_dp_edu"],"expect":[],"why":""}
+{"id":"G41","section":"support","context":"ctx_P3","text":"올해 공고가 확정 전이라 작년 기준으로 적었습니다.","cites":["M:integrated_subsidy"],"expect":[],"why":"검토 1차 추가: prior 행 단서(확정 전)"}
+{"id":"G42","section":"support","context":"ctx_P3","text":"미확정 줄은 창구에서 다시 확인해 보세요.","cites":["M:integrated_subsidy"],"expect":[],"why":"검토 1차 추가: 단서(미확정)"}
+{"id":"G43","section":"support","context":"ctx_P1","text":"불확실한 줄은 창구에서 물어보세요.","cites":["M:small_farm_direct"],"expect":[],"why":"검토 1차 추가: 단서(불확실)"}
+{"id":"G44","section":"action","context":"ctx_P2","text":"비가 내릴 때는 피해 사진을 찍어 두세요.","cites":["A:disaster_report"],"expect":[],"why":"검토 1차 추가: 함정(내릴, 가격 전망 아님)"}
+{"id":"G45","section":"action","context":"ctx_P4","text":"천천히 서류를 챙기셔도 됩니다.","cites":["A:prereq_mgmt"],"expect":[],"why":"검토 1차 추가: 함정(천천, 수사 아님)"}
+{"id":"G46","section":"action","context":"ctx_P3","text":"이번 달 중에 농협에 가 보세요.","cites":["A:urgent_crop_ins_garlic"],"expect":[],"why":"검토 1차 추가: 함정(이번 달 중)"}

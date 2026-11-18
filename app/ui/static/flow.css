@@ -1,0 +1,130 @@
+/* 제주 농돈 - 확인 화면(confirm.html) · 찾는 중 화면(working.html) · 인쇄 보류 화면(print_hold.html). 공용 부품(app.css "공용 부품" 절) 위에 얹는다. */
+
+.proxy-note {
+  font-size: clamp(20px, 3vh, 28px); font-weight: 800; color: var(--ink); background: #fff;
+  border: 3px solid var(--ink); border-radius: 999px; padding: 2px clamp(14px, 1.6vw, 24px); white-space: nowrap;
+}
+
+/* ---------- 확인 화면: 제목 띠가 붙은 흰 상자 셋(받고 계신 지원 · 직불 교육 · 가입한 보험), 세로로 스크롤, 아래 띠는 붙박이 ---------- */
+.cmain { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.cform { flex: 1; display: flex; flex-direction: column; }
+.cbody { flex: 1; padding: 8px var(--pad-x) 36px; display: flex; flex-direction: column; }
+.c-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-bottom: 22px; }
+.c-head h1 { flex: 1 1 520px; font-size: clamp(28px, 4vh, 36px); line-height: 1.3; font-weight: 800; letter-spacing: -0.02em; }
+.c-head .btn-speak { margin-left: auto; }
+.c-box { background: var(--paper); border: 3px solid var(--ink); border-radius: 22px; box-shadow: 0 4px 0 var(--line); overflow: hidden; }
+.c-box + .c-box { margin-top: 40px; }
+.c-band { background: var(--sea-soft); color: var(--ink); border-bottom: 3px solid var(--sea); font-size: clamp(24px, 3.4vh, 30px); font-weight: 800; line-height: 1.25; padding: 10px 24px; }
+.c-none { font-size: var(--fs-lead); font-weight: 600; padding: 18px 24px; }
+.c-cards { list-style: none; margin: 0; padding: 20px 22px 22px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; }
+.c-cards .choice { display: block; height: 100%; }
+.c-cards .choice-face { height: 100%; min-height: 80px; }
+.c-cards .choice-label { font-size: clamp(24px, 3.2vh, 28px); font-weight: 800; line-height: 1.25; }
+.c-cards .choice-sub { font-size: clamp(20px, 2.8vh, 22px); font-weight: 600; line-height: 1.3; color: var(--ink-soft); }
+.c-cards .choice-text { gap: 4px; }
+.edu-body { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding: 20px 22px 22px; }
+.js .edu:not(.is-on) { display: none; }
+.edu-q { font-size: clamp(24px, 3.4vh, 28px); font-weight: 800; }
+.edu .choice-row { flex: 1 1 420px; max-width: 720px; }
+.edu .choice { flex: 1 1 0; }
+.edu .choice-face { min-height: 76px; }
+.edu .choice-label { font-size: clamp(24px, 3.2vh, 28px); font-weight: 800; }
+
+/* 고르는 칸: 이름 앞(왼쪽)의 큰 네모. 고르면 칸이 검게 차며 굵은 체크가 보이고 카드 테두리가 굵은 검정이 된다(색에 기대지 않는다) */
+.page-c .choice-face { padding: 10px 18px; gap: 16px; border-width: 3px; border-radius: 18px; box-shadow: none; }
+.page-c .choice:hover .choice-face { border-color: var(--tang-deep); }
+.page-c .choice-mark { position: static; order: -1; flex: none; width: 44px; height: 44px; margin: 0; border-radius: 10px; border: 4px solid var(--ink); background: #fff; display: grid; place-items: center; }
+.page-c .choice input[type="radio"] + .choice-face .choice-mark { border-radius: 50%; }
+.page-c .choice-mark svg { width: 30px; height: 30px; opacity: 0; }
+.page-c .choice input:checked + .choice-face { background: #FFE6BF; border: 6px solid var(--tang-deep); box-shadow: 0 4px 0 var(--tang-deep); padding: 7px 15px; }
+.page-c .choice input:checked + .choice-face .choice-mark { background: var(--tang-deep); border-color: var(--tang-deep); }
+.page-c .choice input:checked + .choice-face .choice-mark svg { opacity: 1; }
+.page-c .choice input:checked:active + .choice-face { box-shadow: 0 1px 0 var(--tang-deep); }
+.cform .actionbar { margin-top: auto; }
+
+
+/* ---------- 찾는 중 / 인쇄 보류: 한 화면(100dvh) ---------- */
+.page-w, .page-h {
+  height: 100vh; height: 100dvh; min-height: 0; overflow: hidden;
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto;
+}
+.page-w .topbar, .page-h .topbar { height: clamp(52px, 9.5vh, 96px); min-height: 0; padding: 0 var(--pad-x); flex-wrap: nowrap; }
+.page-w .logo, .page-h .logo { width: clamp(38px, 6.4vh, 64px); height: clamp(38px, 6.4vh, 64px); }
+.page-w .brand-name, .page-h .brand-name { font-size: clamp(28px, 4.4vh, 44px); }
+.page-w .brand-sub, .page-h .brand-sub { font-size: clamp(18px, 2.4vh, 22px); padding: 2px clamp(10px, 1.6vh, 16px); }
+.page-w .strip, .page-h .strip { margin: 0; height: clamp(18px, 6.4vh, 76px); overflow: hidden; }
+.page-w .strip-art, .page-h .strip-art { height: 100%; }
+.page-w .site-foot, .page-h .site-foot { padding: 2px var(--pad-x); font-size: clamp(18px, 2.4vh, 22px); }
+.wmain, .hmain { min-height: 0; display: grid; place-items: center; padding: 0 var(--pad-x); }
+.work, .hold {
+  width: min(960px, 100%); max-height: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: clamp(8px, 1.8vh, 18px); background: var(--paper); border: 4px solid var(--ink); border-radius: 36px;
+  box-shadow: 10px 10px 0 #EBCB8E; padding: clamp(14px, 3vh, 36px) clamp(20px, 3vw, 56px);
+}
+.work h1, .hold h1 { font-size: clamp(32px, 6vh, 56px); line-height: 1.15; font-weight: 800; letter-spacing: -0.03em; }
+.work .lead, .hold .lead { font-size: clamp(22px, 3vh, 30px); color: var(--ink); }
+.work-art .work-logo { width: clamp(56px, 11vh, 110px); height: clamp(56px, 11vh, 110px); animation: bob 1.6s ease-in-out infinite; }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@media (prefers-reduced-motion: reduce) { .work-art .work-logo { animation: none; } }
+
+.hold-why { display: flex; flex-direction: column; gap: 8px; font-size: clamp(20px, 3vh, 28px); font-weight: 600; align-self: stretch; text-align: left; background: #FFE9C9; border-left: 10px solid var(--tang-deep); border-radius: 16px; padding: clamp(8px, 1.6vh, 16px) 24px; }
+.hold-acts { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px; }
+.hold-acts .btn { min-height: clamp(56px, 9vh, 84px); font-size: clamp(22px, 3.6vh, 32px); }
+.hold-code { align-self: stretch; text-align: left; font-size: var(--fs-small); color: var(--ink-soft); }
+.hold-code summary { cursor: pointer; min-height: 40px; display: flex; align-items: center; }
+.hold-code summary:focus-visible { outline: 5px solid var(--sea); outline-offset: 3px; }
+.hold-code p { word-break: break-all; }
+
+/* ---------- 라운드1 검수 반영 ---------- */
+.w-bar { align-self: stretch; height: clamp(14px, 2.4vh, 22px); background: var(--cream-2); border: 3px solid var(--ink); border-radius: 999px; overflow: hidden; }
+.w-bar i { display: block; height: 100%; width: 4%; background: var(--tang-deep); border-radius: 999px; }
+.w-more { align-self: stretch; display: flex; flex-direction: column; align-items: center; gap: clamp(8px, 1.6vh, 14px); }
+.w-more[hidden] { display: none; }
+.w-steps { list-style: none; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.w-step { display: flex; align-items: center; gap: 12px; font-size: clamp(22px, 2.8vh, 28px); line-height: 1.3; font-weight: 700; color: var(--ink-soft); }
+.w-step.is-done { color: var(--ink); }
+.w-ck { flex: none; width: 32px; height: 32px; box-sizing: border-box; border: 3px solid var(--ink-soft); border-radius: 50%; background: #fff; }
+.w-step.is-done .w-ck { border-color: var(--ink); background: #fff no-repeat center / 20px 20px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 10.5l4 4 8-9' fill='none' stroke='%232B2724' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.w-sr { position: absolute; left: -9999px; }
+.w-slow { align-self: stretch; display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.proxy-note { text-decoration: none; }
+.btn-home-q { min-height: clamp(44px, 6.4vh, 60px); padding: 0 clamp(14px, 1.4vw, 24px); font-size: clamp(22px, 2.8vh, 26px); margin-left: 4px; }
+.page-c .strip { display: none; }
+
+/* =====================================================================================================
+   창 크기에 맞추기(확인·찾는 중·인쇄 보류·오류 화면)
+   ===================================================================================================== */
+@media (max-width: 999px) {
+  .btn-home-q { min-height: 52px; font-size: 20px; padding: 0 18px; }
+  .page-w, .page-h { height: auto; min-height: 100vh; min-height: 100dvh; overflow: visible; display: flex; flex-direction: column; }
+  .page-w .strip, .page-h .strip { display: none; }
+  .wmain, .hmain { flex: 1; padding: 12px var(--pad-x) 16px; }
+  .work, .hold { padding: 20px 22px; }
+  .work h1, .hold h1 { font-size: clamp(28px, 6vw, 44px); }
+  .work .lead, .hold .lead { font-size: 20px; }
+  .hold-why { font-size: 20px; }
+  .hold-acts .btn { min-height: 60px; font-size: 24px; }
+  .page-w .site-foot, .page-h .site-foot { font-size: 18px; padding: 4px var(--pad-x); }
+}
+@media (max-width: 699px) {
+  .work, .hold { border-radius: 24px; box-shadow: 6px 6px 0 #EBCB8E; padding: 16px 14px; }
+  .hold-acts { flex-direction: column; align-items: stretch; align-self: stretch; }
+  .hold-acts form, .hold-acts .btn { width: 100%; }
+}
+
+/* 응답 2: 확인 화면의 "처음으로" 단추는 낮은 창에서도 52px 아래로 내려가지 않는다 */
+.page-c .btn-home-q { min-height: 52px; }
+/* 칸을 화면으로 끌어 올 때(Tab·scrollIntoView) 아래 붙박이 띠 밑에 가려지지 않게, 칸 아래에 띠만큼 여유를 둔다 */
+.page-c .choice, .page-c .choice input { scroll-margin-bottom: 190px; }
+/* 확인 화면: 좁은 창은 카드 한 칸, 아래 띠의 개수 글은 단추 위 한 줄 */
+@media (max-width: 899px) {
+  .c-cards { grid-template-columns: minmax(0, 1fr); padding: 16px 14px 18px; }
+  .c-head h1 { font-size: 26px; flex-basis: 100%; }
+  .c-band { padding: 10px 16px; }
+}
+/* 좁은 휴대폰 창: 확인 화면의 큰 단추 글이 두 줄로 들어가게 화살표를 빼고 글을 조금 줄인다 */
+@media (max-width: 499px) {
+  .page-c .actionbar .btn-main { padding: 6px 12px; font-size: 22px; justify-content: center; text-align: center; }
+  .page-c .actionbar .btn-main svg { display: none; }
+  .page-c .actionbar .btn-prev { padding: 6px 14px; }
+}

@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% import "_ui.html" as ui %}
+{% import "_art.html" as art %}
+{% import "_result_boxes.html" as bx %}
+{% block title %}받을 수 있는 지원 · {{ cfg.service_name }}{% endblock %}
+{#- 결과 화면(2026-11-14 결과·종이 단순화 설계 2절). 모든 글·숫자는 서버 값(v: result_view.build_view)이다. 카드는 종이와 같은 묶음(app/core/sheet_cards)이다.
+    v: conclusion·conclusion_parts(결론 한 줄) · sub(AI가 쓴 한 문장) · who(답 요약) · cards(가실 곳마다 상자 하나, 한도 없이 전부: 안에 받는 것이 한 줄에 하나씩, 조각은 _result_boxes.html) · detail(자세히 보기 덮개) · place_name · speak
+    상자 순서(result_view.order_boxes): 먼저 하실 일 → 지금 신청할 수 있는 줄이 든 상자 → 다음 신청 달이 가까운 순. 번호는 그 순서대로.
+    ai_pending: AI 글을 아직 쓰는 중(자리 표시를 두고 static/result.js 가 /counsel/ai 로 채운다. 자리는 data-ai-slot 이름: sub·detail_ai·staff·new_notices·match_alert, 소리로 듣기 글은 speak)
+    ai_steps: "AI가 한 일" 세 줄 · printed: 이미 종이가 나갔는가 · review_rows·fingerprint·replay_msg: 직원이 볼 내용 · reminder_line: 문자 안내 저장 결과 한 줄
+    덩어리는 위 띠(가실 곳 수 + AI 한 문장, 오른쪽에 알림 한 줄) · 표 하나(#rtab: 대분류 칸 "지금 하실 일"·"앞으로 신청할 것" | 소분류 칸(가실 곳·지금 접수 중인 공고의 접수처 / 때) | 지원 이름 칸 | 설명 칸, 머리 줄 없음, m: 맞춰 보기 결과는 _new_notices.html) · 알아 두세요 상자(v.know) · 아래 띠 · 자세히 보기(덮개, 공고 원문은 v.detail.links) 다섯. 스크립트가 꺼져 있으면 덮개 내용이 화면 맨 아래에 그대로 펼쳐진다. -#}
+{% block head %}<script>document.documentElement.classList.add("js")</script><link rel="stylesheet" href="/static/result.css"><link rel="stylesheet" href="/static/copylink.css"><script src="/static/result.js" defer></script><script src="/static/copylink.js" defer></script>{% endblock %}
+{% block body_class %}page-r{% if printed %} printed{% endif %}{% endblock %}
+{% block main_class %}result{% endblock %}
+{% block header_actions %}{{ ui.speak(v.speak) }}{% endblock %}
+{% block content %}
+{% set d = v.detail %}
+{%- set nn_n = (m.lines | length) if m.state == "done" and m.lines else 0 %}
+{%- set zn_n = (v.now_cards | length) + nn_n %}
+{%- set rm_done = reminder_saved %}
+<section class="after" id="after-print" role="status"{% if not printed %} hidden{% endif %}>
+  <p class="after-txt"><b>종이를 뽑고 있어요. 나왔는지 봐 주세요.</b> 종이에는 <strong>가실 곳</strong>이 줄마다 적혀 있어요{% if v.place_name %}(먼저 가실 곳: <strong>{{ v.place_name }}</strong>){% endif %}. 안 나왔으면 직원에게 말씀하세요.</p>
+  <button type="button" class="btn btn-ghost rm-open" data-rm-open><span class="rm-lab">{{ "문자 알림 신청했어요" if rm_done else "문자 알림 받기" }}</span></button>
+  <form method="post" action="/counsel/new?to=home" data-once><button class="btn btn-primary btn-main" type="submit" data-submit>처음으로{{ art.arrow() }}</button></form>
+</section>
+
+<div id="ai-state" data-ai="{{ 'run' if ai_pending else 'done' }}" data-match="{{ m.state }}" hidden></div>
+<div class="sr" id="nn-live" role="status" aria-live="polite"></div>
+<section class="rband" id="summary" data-fit>
+  <div class="rb-main">
+    <h1 class="rb-h">{% for txt, hi in v.conclusion_parts %}{% if hi %}<span class="rb-hi">{{ txt }}</span>{% else %}{{ txt }}{% endif %}{% endfor %}</h1>
+    <p class="rb-sub">
+      {%- if not v.empty %}<span class="rb-n{% if not zn_n %} is-none{% endif %}">{% if zn_n %}지금 가실 곳은 {{ zn_n }}곳이에요{% else %}지금 바로 하실 일은 없어요{% endif %}</span>{% endif -%}
+      {%- if v.sub %}<span class="rb-ai" data-ai-slot="sub">{{ v.sub }}</span>
+      {%- elif ai_pending %}<span class="rb-ai rb-pending" data-ai-slot="sub" aria-live="polite"><i class="ai-spin" aria-hidden="true"></i>설명을 쓰고 있어요…</span>{% endif -%}
+    </p>
+  </div>
+  <p class="rb-who"><span class="rb-ans">{{ v.who }}</span><span class="rb-acts"><span class="nn-alert-slot" data-ai-slot="match_alert">{% include "_match_alert.html" %}</span><a class="rb-edit" href="/counsel/input?edit=1">답 고치기</a></span></p>
+</section>
+
+<div class="rtab" id="rtab">
+<section class="zn zn-now" id="now" aria-labelledby="zn-t">
+  <div class="zn-lab"><h2 class="zn-h" id="zn-t">지금 하실 일{% if zn_n %}<span class="zn-n"> {{ zn_n }}곳</span>{% endif %}</h2></div>
+  <div class="zn-body">
+  {%- call bx.boxes(v.now_cards, aria="지금 하실 일: 가실 곳별") %}<div class="rnew" data-ai-slot="new_notices"{% if not nn_show %} hidden{% endif %}>{% include "_new_notices.html" %}</div>{% endcall %}
+  {%- if not zn_n and (not v.empty or v.later_groups) %}
+  <p class="zn-none">지금 바로 하실 일은 없어요. 아래 달에 신청하시면 돼요.</p>
+  {%- elif not zn_n and v.later_far %}
+  <p class="zn-none">지금 바로 하실 일은 없어요.</p>
+  {%- endif %}
+  </div>
+</section>
+{%- if v.later_groups or v.later_far %}
+<section class="zn lt" id="later" aria-labelledby="lt-t">
+  <div class="zn-lab"><h2 class="zn-h lt-h" id="lt-t">앞으로 신청할 것{% if v.later_rows %}<span class="zn-n lt-n"> {{ v.later_rows | length }}가지</span>{% endif %}</h2></div>
+  <div class="zn-body">
+  <div class="lt-list">
+    {%- for g in v.later_groups %}
+    <div class="lt-g{% if not g.known %} is-none{% endif %}">
+      <h3 class="lt-when">{{ g.when }}</h3>
+      <ul class="lt-rows">
+        {%- for r in g.rows %}
+        <li class="lt-r"{% if r.counted %} data-n="1"{% endif %}>
+          <b class="lt-t">{{ r.title }}</b>
+          {%- set own = r.notes | reject("in", g.shared_notes) | list %}
+          <div class="lt-d">
+            {%- if r.amt %}<span class="lt-m">{% if r.pre %}<span class="lt-pre">{{ r.pre }}</span> {% endif %}<span class="lt-amt">{{ r.amt }}</span></span>{% endif %}
+            {%- if r.place or r.phone or r.tel_note %}<span class="lt-where">{% if r.place %}{{ r.place | replace("읍·면·동", '<span class="nb">읍·면·동</span>' | safe) }}{% endif %}{% if r.phone %} <b class="nb">{{ r.phone }}</b>{% endif %}{% if r.tel_note %} <small>{{ r.tel_note }}</small>{% endif %}</span>{% endif %}
+            {%- if r.text or own or (not g.known and r.when) %}
+            <span class="lt-sub">{% if not g.known and r.when %}<span>{{ r.when }}</span>{% endif %}{% if r.text %}<span>{{ r.text }}</span>{% endif %}{% for n in own %}<span>{{ n }}</span>{% endfor %}</span>
+            {%- endif %}
+          </div>
+        </li>
+        {%- endfor %}
+        {%- if g.shared_notes %}
+        <li class="lt-gp">{% for n in g.shared_notes %}<span class="lt-gp-n">{{ n }}</span>{% endfor %}</li>
+        {%- endif %}
+      </ul>
+    </div>
+    {%- endfor %}
+  </div>
+  {%- if v.later_far %}
+  <p class="lt-more" data-far="{{ v.later_far.n }}" data-counted="{{ v.later_far.counted }}">그 뒤에도 <b>{{ v.later_far.n }}가지</b>가 더 있어요{% if v.later_far["from"] %} · {{ v.later_far["from"] }}부터 신청해요{% endif %}</p>
+  {%- endif %}
+  <p class="lt-remind"><span data-rm-msg data-rm-was="신청하는 달에 문자로 알려 드려요">{{ reminder_line if rm_done else "신청하는 달에 문자로 알려 드려요" }}</span><button type="button" class="btn btn-ghost btn-sm lt-btn rm-open" data-rm-open>{{ art.ic_chat("ic ic-b") }}<span class="rm-lab">{{ "문자 알림 신청했어요" if rm_done else "문자 알림 받기" }}</span></button></p>
+  </div>
+</section>
+{%- endif %}
+</div>
+{%- if v.know or v.prior_note %}
+<section class="know" aria-label="알아 두세요">
+  <h2 class="know-t">{{ art.ic_note("ic ic-s") }}알아 두세요</h2>
+  <ul class="know-list">
+    {%- for k in v.know %}
+    {%- if k.kind == "keep" %}<li class="rn-keep"><b>끊기지 않게</b> {{ k.title }}: {{ k.text | tel }}</li>
+    {%- elif k.kind == "more" %}<li><span class="rn-more">{{ k.text }}</span></li>
+    {%- else %}<li>{{ k.text | tel }}</li>{% endif %}
+    {%- endfor %}
+    {%- if v.prior_note %}<li class="rn-note">금액은 올해 기준이에요. 내년 공고가 나오면 달라질 수 있어요.</li>{% endif %}
+  </ul>
+</section>
+{%- endif %}
+<p class="staff-open"><a id="dt-open" href="#detail" data-dt-open>직원용 · 자세한 내용 보기</a></p>
+<p id="reminder-line" class="reminder-line" role="status"{% if not reminder_line %} hidden{% endif %}>{{ reminder_line }}</p>
+
+<nav class="rbar" aria-label="다음에 할 일">
+  <form method="post" action="/counsel/new?to=home" class="again" data-once data-confirm="다음 분을 위해 지금 답을 지우고 처음으로 갈까요?"><button class="btn btn-ghost btn-home" type="submit" data-submit>{{ art.ic_home("ic ic-b") }}처음으로</button></form>
+  <button type="button" class="btn btn-ghost btn-sm rm-open" data-rm-open>{{ art.ic_chat("ic ic-b") }}<span class="rm-lab">{{ "문자 알림 신청했어요" if rm_done else "문자 알림 받기" }}</span></button>
+  <a class="btn btn-primary btn-print" id="print-btn" href="/counsel/print?auto=1" target="_blank" rel="noopener">{{ art.ic_printer("ic ic-b") }}<span class="lab-first">종이로 뽑기</span><span class="lab-again">한 번 더 뽑기</span></a>
+</nav>
+
+<div class="dt" id="detail" role="dialog" aria-modal="true" aria-labelledby="dt-title">
+  <div class="dt-top"><h2 id="dt-title">자세히 보기</h2></div>
+  <div class="dt-body">
+    <section class="lk-box" aria-label="공고문"{% if not (d.links or match_links) %} hidden{% endif %}>
+      <h3>{{ art.ic_list("ic ic-h") }}<span>공고문 <small>가족에게 보내려면 "링크 복사하기"를 눌러 주세요</small></span></h3>
+      {%- if d.links %}
+      <ul class="lk-list">
+        {%- for x in d.links %}
+        <li class="lk" data-key="{{ x.key }}" data-keys="{{ x['keys'] | join(' ') }}">
+          <b class="lk-name">{{ x.title }}</b>
+          <span class="lk-btns">
+            <a class="btn btn-ghost lk-open" href="{{ x.url }}" target="_blank" rel="noopener">{{ art.ic_list("ic ic-s") }}공고문 보기</a>
+            <button type="button" class="btn btn-ghost lk-copy" data-copy-url="{{ x.url }}">{{ art.ic_copy("ic ic-s") }}링크 복사하기</button>
+          </span>
+          <p class="lk-done" role="status" aria-live="polite" data-msg="복사했어요. 카카오톡이나 문자에 붙여 넣으세요"></p>
+          <input class="lk-fallback" type="text" readonly hidden value="{{ x.url }}" aria-label="이 주소를 길게 눌러 복사하세요">
+        </li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+      <ul class="lk-list lk-list-new" data-ai-slot="match_links">{% with links = match_links %}{% include "_match_links.html" %}{% endwith %}</ul>
+    </section>
+    <div class="dt-cols">
+      {%- if d.later or d.others %}
+      <section class="dt-col dt-later">
+        {%- if d.later %}
+        <h3>{{ art.ic_hourglass("ic ic-h") }}<span>올해는 어려워요 · 내년에 하려면 먼저 이것부터 <span class="dt-n">{{ d.later | length }}가지</span></span></h3>
+        <ul>{% for it in d.later %}<li><b>{{ it.title }}</b><span>먼저 필요한 것: {{ it.need | tel }}</span>{% if it.sub %}<small>{{ it.sub | tel }}</small>{% endif %}</li>{% endfor %}</ul>
+        {%- if d.later_note %}<p class="dt-note">{{ d.later_note }}</p>{% endif %}
+        {%- endif %}
+        {%- if d.others %}<h3 class="dt-h2">{{ art.ic_list("ic ic-h") }}<span>그 밖에 종이에 있는 것</span></h3><ul>{% for place, names in d.others %}<li><b>{{ names | join(" · ") }}</b>{% if place %}<small>{{ place }}</small>{% endif %}</li>{% endfor %}</ul>{% endif %}
+      </section>
+      {%- endif %}
+      <section class="dt-col dt-check">
+        <h3>{{ art.ic_magnify("ic ic-h") }}<span>같이 확인해요 <small>직원과 함께</small></span></h3>
+        {%- if d.asks %}<ul class="dt-asks">{% for it in d.asks %}<li><b>{{ it.title }}</b>{% for a in it.asks %}<span class="dt-ask"><i class="dt-cb" aria-hidden="true"></i><span>{{ a }}</span></span>{% endfor %}</li>{% endfor %}</ul>
+        <p class="dt-note">다 맞으면 신청하세요. 하나라도 아니면 창구에 물어보세요.</p>
+        {%- else %}<p class="dt-none">직원과 같이 확인할 조건은 없어요.</p>{% endif %}
+        {%- if d.checks %}<h3 class="dt-h2">{{ art.ic_note("ic ic-h") }}<span>창구에서 확인할 것</span></h3><ul>{% for it in d.checks %}<li><b>{{ it.title }}</b><span>{{ it.text | tel }}</span></li>{% endfor %}</ul>{% endif %}
+        {%- if d.keeps %}<h3 class="dt-h2">{{ art.ic_cycle("ic ic-h") }}<span>끊기지 않게</span></h3><ul>{% for t, x in d.keeps %}<li><b>{{ t }}</b><span>{{ x | tel }}</span></li>{% endfor %}</ul>{% endif %}
+        {%- if d.notes or d.bring %}<h3 class="dt-h2">{{ art.ic_note("ic ic-h") }}<span>알아 두세요</span></h3><ul>{% if d.bring %}<li><span>{{ d.bring | tel }}</span></li>{% endif %}{% for x in d.notes %}<li><span>{{ x | tel }}</span></li>{% endfor %}</ul>{% endif %}
+        {%- if d.docs %}<p class="dt-docs">{{ d.docs | tel }}</p>{% endif %}
+      </section>
+      <section class="dt-col dt-words">
+        <h3>{{ art.ic_book("ic ic-h") }}<span>어려운 말 풀이</span></h3>
+        <div data-ai-slot="detail_ai">{% include "_ai_detail.html" %}</div>
+        {%- if d.gloss %}<p class="dt-gloss">{{ d.gloss | join(". ") }}.</p>{% endif %}
+        <p class="trust">이 종이는 공문서가 아니에요. 신청은 창구에서 하세요.</p>
+        <div class="dt-btns">
+          <button type="button" class="btn btn-ghost" data-pv-open="front">종이 크게 보기<small>글씨가 작으면 눌러 보세요</small></button>
+        </div>
+      </section>
+    </div>
+    <details class="staff">
+      <summary>{{ art.ic_staff("ic ic-s") }}직원이 볼 내용</summary>
+      <p class="staff-sid" data-reminder-sid{% if not reminder_sid %} hidden{% endif %}>문자 알림 상담번호 <b>{{ reminder_sid }}</b></p>
+      {%- if d.far %}
+      <h3 class="staff-h">그 뒤에 신청할 것 (표에는 줄였어요)</h3>
+      <ul class="staff-far">{% for it in d.far %}<li><span class="sf-when">{{ it.when or "때는 창구에 물어보세요" }}</span> · <b>{{ it.title }}</b>{% if it.place %} · <span class="sf-place">{{ it.place }}</span>{% endif %}</li>{% endfor %}</ul>
+      {%- endif %}
+      {%- if d.staff_conds %}<h3 class="staff-h">확인 조건 원문(표 그대로)</h3><ul class="staff-conds">{% for it in d.staff_conds %}<li><b>{{ it.title }}</b> {{ it.text }}</li>{% endfor %}</ul>{% endif %}
+      <div data-ai-slot="staff">{% include "_ai_staff.html" %}</div>
+      <div data-match-staff>{% include "_match_staff.html" %}</div>
+      <p class="staff-basis">{{ d.data_basis }}</p>
+    </details>
+  </div>
+  <div class="dt-foot"><button type="button" class="btn btn-sea dt-close" data-dt-close>닫고 돌아가기</button></div>
+</div>
+
+<div class="rm-modal" id="rm-modal" role="dialog" aria-modal="true" aria-labelledby="rm-title" hidden>
+  <div class="rm-card">
+    <h2 id="rm-title">마감 전에 문자로 알려 드릴까요?</h2>
+    <p class="rm-lead">원하실 때만 번호를 눌러 주세요. 안 하셔도 종이와 상담에는 불이익이 없어요.</p>
+    <form id="rm-form" class="rm-form" novalidate>
+      <div class="rm-phone">
+        <span class="area-q small">휴대폰 번호</span>
+        {{ ui.numfield("reminder_phone", "", maxlen=11, unit="", label="휴대폰 번호(010으로 시작하는 숫자 11자리)", placeholder="여기를 눌러 주세요") }}
+        <output class="rm-fmt" data-rm-fmt aria-live="polite"></output>
+      </div>
+      <p class="rm-err" id="rm-err-phone" role="alert" hidden></p>
+      <p class="consent" id="rm-consent-text">{% for line in consent_lines %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+      {{ ui.choice("checkbox", "reminder_consent", "on", "문자 알림 받는 데 동의해요", cls="choice-sm rm-agree") }}
+      <p class="rm-err" id="rm-err-consent" role="alert" hidden></p>
+      <p class="rm-err" id="rm-err-line" role="alert" hidden></p>
+      <div class="rm-btns">
+        <button type="button" class="btn btn-ghost" data-rm-close>닫기</button>
+        <button type="submit" class="btn btn-primary" id="rm-send">알려 주세요</button>
+      </div>
+    </form>
+  </div>
+</div>
+{{ ui.numpad() }}
+<div class="ai-wait" id="ai-wait" role="alertdialog" aria-modal="true" aria-labelledby="ai-wait-t" hidden>
+  <div class="ai-wait-card">
+    <i class="ai-spin ai-spin-lg" aria-hidden="true"></i>
+    <h2 id="ai-wait-t">종이를 준비하고 있어요</h2>
+    <p>잠깐만 기다려 주세요. 다 되면 바로 종이로 넘어가요.</p>
+    <button type="button" class="btn btn-ghost" data-ai-wait-close>그만두기</button>
+  </div>
+</div>
+<div class="pv-modal" id="pv-modal" role="dialog" aria-modal="true" aria-label="종이 크게 보기" hidden>
+  <div class="pv-modal-bar"><button type="button" class="btn btn-primary" data-pv-close>닫고 돌아가기</button></div>
+  <iframe class="pv-modal-frame" id="pv-modal-frame" title="종이 크게 보기" data-src="/counsel/preview?view=screen"></iframe>
+</div>
+{% endblock %}

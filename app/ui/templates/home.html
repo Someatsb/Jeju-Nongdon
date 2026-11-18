@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% import "_art.html" as art %}
+{% block title %}{{ cfg.service_name }} - 우리 집 농사 지원금 찾기{% endblock %}
+{% block body_class %}page-home{% endblock %}
+{% block main_class %}home{% endblock %}
+{% block head %}{% if demo_links %}<link rel="stylesheet" href="/static/demo.css">{% endif %}{% endblock %}
+{% block header_actions %}<p class="topbar-note">어려우시면 옆에 계신 직원에게 말씀하세요</p>{% endblock %}
+{% block content %}
+  <section class="hero">
+    <div class="hero-text" data-fit>
+      <h1>우리 집이 받을 수 있는<br><em>농사 지원금</em>,<br>종이 한 장으로 찾아 드려요</h1>
+      <a class="btn btn-primary btn-xl" href="/counsel">지원금 찾아보기 {{ art.arrow() }}</a>
+      {%- if demo_links %}
+      <div class="demo-pick" aria-label="시연 농가로 해 보기">
+        <p class="demo-title">시연 농가로 해 보기</p>
+        <ul class="demo-list">{% for d in demo_links %}<li><a class="demo-chip" href="/demo/{{ d.id }}">{{ d.label }}</a></li>{% endfor %}</ul>
+        <p class="demo-note">{{ demo_intro }}</p>
+      </div>
+      {%- endif %}
+    </div>
+    <div class="hero-frame">{{ art.hero() }}</div>
+  </section>
+
+  <section class="lower{% if not due_cards %} no-due{% endif %}">
+    <div class="steps">
+      <h2 class="sec-title">이렇게 하세요</h2>
+      <ol class="step-list">
+        <li class="step"><span class="num">1</span><span class="step-icon">{{ art.step_icon(1) }}</span><span class="step-body"><b>몇 가지만 답해요</b><small>큰 단추를 눌러 주세요</small></span></li>
+        <li class="step"><span class="num">2</span><span class="step-icon">{{ art.step_icon(2) }}</span><span class="step-body"><b>받을 수 있는 지원을 봐요</b><small>한눈에 보여 드려요</small></span></li>
+        <li class="step"><span class="num">3</span><span class="step-icon">{{ art.step_icon(3) }}</span><span class="step-body"><b>종이 들고 가요</b><small>종이에 적힌 곳에서 신청해요</small></span></li>
+      </ol>
+    </div>
+    <div class="deadlines">
+      {% if due_cards %}
+      <div class="sec-head">
+        <h2 class="sec-title">곧 마감되는 지원<span class="due-base">오늘은 {{ as_of_md }}이에요</span></h2>
+        <a class="btn btn-ghost btn-all" href="/supports">지원 전체 보기 {{ art.arrow() }}</a>
+      </div>
+      <ul class="dl-list">
+        {% for c in due_cards %}
+        <li>{% if c.href %}<a class="dl dl-link{% if c.urgent %} urgent{% endif %}" href="{{ c.href }}">{% else %}<div class="dl{% if c.urgent %} urgent{% endif %}">{% endif %}<span class="dl-flag left-pill{% if c.urgent %} is-urgent{% elif not c.closing %} is-future{% endif %}">{{ c.flag }}</span><span class="dl-name{% if c.name|length > 22 %} long{% endif %}">{% for w in c.name.split() %}{% set i = w.find("(") %}{% if i >= 6 %}<span class="w">{{ w[:i] }}</span><wbr><span class="w">{{ w[i:] }}</span>{% else %}<span class="w">{{ w }}</span>{% endif %}{% if not loop.last %} {% endif %}{% endfor %}</span><span class="dl-meta"><span class="dl-date">{{ c.date_text }}</span></span>{% if c.href %}<span class="dl-go" aria-hidden="true">{{ art.arrow() }}</span></a>{% else %}</div>{% endif %}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <div class="all-row"><a class="btn btn-ghost btn-all" href="/supports">지원 전체 보기 {{ art.arrow() }}</a></div>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

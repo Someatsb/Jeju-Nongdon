@@ -1,0 +1,26 @@
+{#- 빈 종이(앞면): 새로 해당되는 돈이 없을 때. 결과 화면과 같은 틀(머리 · 결론 띠 · 좌우 줄 · 바닥글). '지키실 돈' 합계만 이 종이에서 허용(설계 v2 §12-A(2)). -#}
+{% import "_sheet_macros.html" as m with context %}
+{% import "_paper_boxes.html" as pb %}
+<section class="sheet front empty cardsheet v2" data-page="front">
+  <div class="body">
+    {{ m.head(cs.basis, cs.basis_line) }}
+    <div class="sh rband line pt16" data-sec="S" data-n="0">
+      <p class="s1 rb-h line pt22" data-sec="S1" data-n="{{ conclusion_n }}">{{ front.title }}{% if front.money_text %} <span class="rb-hi nb">{{ nums(front.money_text) }}</span>{% endif %}</p>
+      <p class="note14 line pt14" data-sec="B0">새로 해당되는 돈은 찾지 못했어요. 아래 일을 놓치면 받던 돈이 끊겨요.</p>
+      {% for sentence in cs.lead %}<p class="narr line pt14" data-sec="N">{{ sentence }}</p>
+      {% endfor %}
+    </div>
+    {% if vcards %}<div class="rrows">
+      {#- 빈 종이도 두 구역 제목: 끊기지 않게 할 일 = 지금 하실 일, 다시 가입할 보험(내년 가입) = 앞으로 신청할 것 #}
+      {% set zs = namespace(now=false, later=false) %}
+      {% for c in vcards %}{% if c.icon_name == "cycle" and not zs.now %}{% set zs.now = true %}<div class="zt line pt16" data-sec="Z" data-n="{{ zt_n }}"><span class="zt-h">지금 하실 일</span><span class="zt-d">{{ now_date }}</span><span class="chk-tip">다녀오면 □에 ✓</span></div>
+      {% elif c.icon_name != "cycle" and not zs.later %}{% set zs.later = true %}<div class="zt line pt16" data-sec="Z" data-n="{{ zt_n }}"><span class="zt-h">앞으로 신청할 것</span>{% if not zs.now %}<span class="chk-tip">다녀오면 □에 ✓</span>{% endif %}</div>
+      {% endif %}<div class="rrw line pt16" data-sec="Rr" data-n="{{ row_ns[loop.index0] }}"><span class="bx"></span>{{ pb.box(c, "가실 곳은 창구에 물어보세요") }}</div>
+      {% endfor %}
+    </div>{% endif %}
+    {% call m.know_lines(know, know_n) %}
+      {%- for line in cs.notes %}{{ m.fxi("", nums(line.text, line), cwrap(line.text, 14, know_mm)) }}{% endfor %}
+    {% endcall %}
+  </div>
+  {{ m.foot14(cs.footer) }}
+</section>

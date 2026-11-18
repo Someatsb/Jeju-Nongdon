@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="format-detection" content="telephone=no">
+
+<meta name="_csrf" content="64d580ef-5488-4d0d-852e-35654164b210"/>
+<meta name="_csrf_header" content="X-CSRF-TOKEN"/><meta name="author" content="nextez">
+<meta name="description" content="제주시 소식, 시민참여, 민원안내, 관광정보 등 수록">
+<meta name="keywords" content="제주시, 시민참여, 민원, 정보공개, 제주시소식, 제주시소개, 분야별정보">
+<meta name="robots" content="noindex, nofollow"> <meta property="og:url"           content="/information/intro/news.do" />
+<meta property="og:type"          content="website" />
+<meta property="og:title"         content="제주시청" />
+<meta property="og:description"   content="제주시 소식, 시민참여, 민원안내, 관광정보 등 수록" />
+<meta property="og:image"         content="https://www.jejusi.go.kr/images/jejusi/header_v2026/jejusi_meta_on_image.png" />
+
+
+<title>글상세 - 공지사항 - 제주시소식 - 정보공개 - 제주시</title>
+
+<!--제주시 파비콘-->
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="shortcut icon" href="/favicon.ico?v=2"> 
+<link rel="icon" sizes="16x16 32x32" href="/favicon.ico?v=2">
+
+<!--공통 css-->
+<link rel="stylesheet" href="/css/comm/jquery-ui.css">
+<link rel="stylesheet" href="/css/jejusi/comm.css?ver=20260823">
+
+<!-- 2026년 메인개편 변경 css -->
+<link rel="stylesheet" href="/css/jejusi/frame_v2026.css?ver=20260825">
+
+<!-- 추가css -->
+<link rel="stylesheet" href="/css/jejusi/portal/contents.css?ver=20260907">
+<!--ie9 미만 (자동실행)-->
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="/css/web/ie8.css">
+<script src="/js/html5shiv.js"></script>
+<![endif]-->
+
+<script src="/js/jquery-1.11.1.js"></script>
+<script src="/js/jquery-ui-1.11.4.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+<!-- 2026년 메인개편 변경 html_comm_v2026.js -->
+<script src="/js/jejusi/html_comm_v2026.js?ver=20260710"></script>
+<script src="/js/bxslider/jquery.bxslider-4.2.js"></script>
+<script src="/js/jquery.form.min.js"></script>
+<script src="/js/csli_tran_call.js"></script>
+
+<script src="/js/common.js" ></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<!-- <script type="text/javascript" src="https://jsgetip.appspot.com"></script> -->
+<script type="text/javascript">
+	
+function ip() {
+	
+	return "121.136.132.253";
+}
+	
+	
+if ("false" == "true" && document.location.protocol == 'http:') {
+	
+    if (ip().substr(0,3) != '113' && ip().substr(0,3) != '211' && ip() != '127.0.0.1') {
+    	
+        document.location.href = document.location.href.replace('http:', 'https:');
+    }
+} 
+// 주석 처리 (2021-01-29 By JDongS)
+/* else if ("false" == "false" && document.location.protocol == 'https:') {
+	
+    document.location.href = document.location.href.replace('https:', 'http:');
+}  */
+else if (document.location.hostname == "jejusi.go.kr") {
+	
+    document.location.href = document.location.href.replace('jejusi.go.kr', 'www.jejusi.go.kr');
+}
+</script><script src="/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+
+
+//document.location.href="/htmls/work/work2018.htm";
+
+
+    if ($.cookie('penta_sso') == "Y" && $.cookie('penta_isSession') == "Y" && "" == ""){
+        // 로그인처리
+        if ("" != null && "" != ""){
+            //document.location.href="/penta/sso/business1.jsp?returnURL=" + "";
+
+            // 신규 SSO 로그인 (2025-06-25, By JDongS)
+            document.location.href = "/sso/login.jsp?returnURL=";
+        } else if ($(location).attr('pathname') + $(location).attr('search') == "/"){
+            //document.location.href="/penta/sso/business1.jsp";
+
+            // 신규 SSO 로그인 (2025-06-25, By JDongS)
+            document.location.href = "/sso/login.jsp";
+        } else {
+            //document.location.href="/penta/sso/business1.jsp?returnURL=" + encodeURIComponent($(location).attr('pathname') + $(location).attr('search'));
+
+            // 신규 SSO 로그인 (2025-06-25, By JDongS)
+            document.location.href = "/sso/login.jsp?returnURL=" + encodeURIComponent($(location).attr('pathname') + $(location).attr('search'));
+        }
+    }
+	
+    /*
+    //2019.05.22 dev@example.com
+    //세션만 유지되고 있으면 로그아웃 시키지 않아도 된다.
+    //쿠키 기능이 정상적이지 않은 경우에도 로그인은 되야 하기 때문이다
+    if (($.cookie('penta_sso') != "Y" || $.cookie('penta_isSession') != "Y") && "" != ""){
+        if ("" == "0"){
+
+        } else {
+            // 로그아웃처리
+            document.location.href="/penta/sso/logout1.jsp";
+        }
+    }
+    */
+</script><script type="text/javascript">
+
+
+
+
+
+$(document).ready(function() {
+	
+    
+
+    // 팝업
+    
+
+    //$(".loginLink").attr("href", "/penta/sso/business1.jsp?returnURL=" + encodeURIComponent($(location).attr('pathname') + $(location).attr('search')));
+
+	// 신규 SSO 링크 (2026-06-25, By JDongS)
+    $(".loginLink").attr("href", "/sso/login.jsp?returnURL=" + encodeURIComponent($(location).attr('pathname') + $(location).attr('search')));
+
+    $("#va_returnURL").val(encodeURIComponent($(location).attr('pathname') + $(location).attr('search')));
+
+    if ("false" == "true") {
+    	
+    	//2018-10-23 dev@example.com
+    	$(".page_util").hide();
+    	    	
+        setTimeout(function() {
+        	
+            window.print();
+        }, 1000);
+    }
+});
+
+var nonMemberLoginCode = "1";
+var sciUserId = "";
+var sciUserName = "";
+var sciCellNo = "";
+
+//비회원로그인 팝업
+function fn_nonMembersLogin() {
+	
+    var nonLoginPopup = window.open("/nonMembersLogin.ac", "비회원로그인", "resizable=yes,scrollbars=yes,width=820,height=700");
+
+    var timer = setInterval(function() {
+    	
+    	// 종료
+        if (nonLoginPopup.closed) { 
+        	
+            clearInterval(timer);
+
+            //코드
+            if (nonMemberLoginCode == "sci") {
+            	
+                $.ajax({
+                    type: 'GET',
+                    data: { "userId":sciUserId, "userName":sciUserName, "phone":sciCellNo },
+                    url: "/sciLoginProc.ajax",
+					beforeSend : function(xhr){
+						var token = $("meta[name='_csrf']").attr("content");
+						var header = $("meta[name='_csrf_header']").attr("content");
+						xhr.setRequestHeader(header, token);
+					},
+                    success: function() {
+                    	
+                        window.location.reload();
+                    }
+                });
+            } 
+            else {
+                $.ajax({
+                    type: 'GET',
+                    url: "/gpinLoginProc.ajax",
+					beforeSend : function(xhr){
+						var token = $("meta[name='_csrf']").attr("content");
+						var header = $("meta[name='_csrf_header']").attr("content");
+						xhr.setRequestHeader(header, token);
+					},
+                    success: function() {
+                    	
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+    }, 500);
+}
+
+// 만족도평가
+function fn_valuation() {
+	
+    if ($("#valuation input:radio[name='point']:checked").val() == undefined) {
+    	
+        alert("만족도를 선택해주세요.");
+        $("#valuation input:radio[name='point']:first").focus();
+        
+        return false;
+    }
+
+    if (!confirm("등록하시겠습니까?")) {
+    	
+    	return false;
+    }
+
+    $("#valuation").ajaxSubmit({
+        beforeSend : function(xhr){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            xhr.setRequestHeader(header, token);
+        },
+        success: function(data) {
+        	
+            if (data.result != "success") {
+            	
+                alert("실패했습니다. 관리자에게 문의하세요.");
+                return;
+            }
+            
+            alert("만족도 평가에 응해주셔서 감사합니다.");
+
+            $("#valuation input:radio[name='point']").prop("checked", false);
+            $("#valuation input:radio[name='point']").attr("disabled", "disabled");
+            $("#valuation textarea[name='text']").val("");
+            $("#valuation textarea[name='text']").attr("disabled", "disabled");
+            $("#valuation_btn").attr("disabled", "disabled");
+        },
+        error: fn_AjaxError
+    });
+}
+
+// 스크랩하기
+function fn_scrab() {
+	
+    var noticeId = "";
+    var menuId = "jejusi_3_1_1";
+    var division;
+
+    if ("true" == "true") {
+    	
+        // 게시물스크랩
+        noticeId = "889db4f45941441eabfacd8ac973ab13";
+        division = "2";
+        if (!confirm("해당 게시글을 스크랩 하시겠습니까?")) {
+        	
+        	return false;
+        }
+    } 
+    else {
+    	
+        // 메뉴스크랩
+        menuId = "jejusi_3_1_1";
+        division = "1";
+        if (!confirm("해당 메뉴를 스크랩 하시겠습니까?")) return false;
+    }
+
+    $.ajax({
+        type: 'GET',
+        data: { "notice_id":noticeId, "menu_id":menuId, "division":division },
+        url: "/mypage/scrab/insertBookmark.ajax",
+		beforeSend : function(xhr){
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			xhr.setRequestHeader(header, token);
+		},
+        success: function(data) {
+            if (data.result != "success"){
+                alert("실패했습니다. 관리자에게 문의하세요.");
+            } else {
+                alert("정상적으로 처리되었습니다. 마이페이지에서 확인하세요.");
+            }
+        }
+    });
+}
+
+// 게시물 만족도평가
+function fn_noticeSatis() {
+	
+    if ($("#notice_satis input:radio[name='point']:checked").val() == undefined) {
+    	
+        alert("만족도를 선택해주세요.");
+        $("#notice_satis input:radio[name='point']:first").focus();
+        
+        return false;
+    }
+
+    if (!confirm("등록하시겠습니까?")) {
+    	
+    	return false;
+    }
+
+    $("#notice_satis").ajaxSubmit({
+        beforeSend : function(xhr){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            xhr.setRequestHeader(header, token);
+        },
+        success: function(data) {
+        	
+            if (data.result != "success") {
+            	
+                alert("실패했습니다. 관리자에게 문의하세요.");
+                return;
+            }
+            
+            alert("만족도 평가에 응해주셔서 감사합니다.");
+
+            $("#notice_satis input:radio[name='point']").prop("checked", false);
+            $("#notice_satis input:radio[name='point']").attr("disabled", "disabled");
+            $("#notice_satis textarea[name='text']").val("");
+            $("#notice_satis textarea[name='text']").attr("disabled", "disabled");
+            $("#satis_btn").attr("disabled", "disabled");
+        },
+        error: fn_AjaxError
+    });
+}
+
+function fn_searchWise() {
+	
+    var gsWin = window.open("about:blank", "search");
+    var frm = document.getElementById("search_form_wise");
+    frm.action = "https://www.jeju.go.kr/search/";
+    frm.target = "search";
+    frm.method = "get";
+    frm.submit();
+}
+
+function fn_confirmLogin() {
+	
+    if (!confirm("글쓰기는 로그인한 회원에게만 제공됩니다. 로그인하시겠습니까?")) {
+    
+    	return;
+    }
+    
+    //location.href = "/penta/sso/business1.jsp?returnURL=" + encodeURIComponent($(location).attr('pathname') + $(location).attr('search'));
+
+	// 신규 SSO 로그인 (2026-06-25, By JDongS)
+    location.href = "/sso/login.jsp?returnURL=" + encodeURIComponent($(location).attr('pathname') + $(location).attr('search'));
+}
+
+function fn_csli_etgi_trans(lang) {
+	
+    //CSLI_ETGI_TRANS('http://www.jejusi.go.kr/information/intro/news.do' + $(location).attr('search'), lang, 'web_0');
+    
+	//lang (kte : 영어, ktc : 중국어, ktj : 일본어)
+	
+	//번역할 URL
+	var url = window.location.href;
+	
+	//url 인코딩
+	url = encodeURIComponent(url);
+	
+	//웹번역 호출 URL
+	var transUrl = "";
+
+	//영어
+	if(lang == "kte") {
+		
+		transUrl = "http://webtrans.llsollu.io:7000/etgi/gov/jejusi/english.html?url=" + url;
+	}
+	//중국어
+	else if(lang == "ktc") {
+
+		transUrl = "http://webtrans.llsollu.io:7000/etgi/gov/jejusi/chinese.html?url=" + url;
+	}
+	//일본어
+	else if(lang == "ktj") {
+
+		transUrl = "http://webtrans.llsollu.io:7000/etgi/gov/jejusi/japanese.html?url=" + url;
+	}
+	
+	window.open(transUrl,"transPop");
+}
+
+// 신규 SSO 로그아웃 (2026-06-25, By JDongS)
+function fn_actLogout(returnURL) {
+	$.ajax({
+		type: 'GET',
+		url: "/logoutProc.ajax",
+		beforeSend : function(xhr){
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			xhr.setRequestHeader(header, token);
+		},
+		success: function() {
+            let moveUrl = "/sso/logout.jsp";
+            if (returnURL !== undefined && returnURL !== null && returnURL !== "") {
+                moveUrl += "?returnURL=" + encodeURIComponent(returnURL);
+            }
+			location.href = moveUrl;
+		}
+	});
+}
+</script><script type="text/javascript">
+$(document).ready(function(){
+    
+});
+
+// 댓글 작성 전 validation
+function fn_validationNoticeCommentInsert(){
+    if(document.insertComment.comment_contents.value.length==0){
+        alert("내용을 입력 하세요.");
+        document.insertComment.comment_contents.focus();
+        return false;
+    }
+
+    if (!confirm("등록하시겠습니까?")) return false;
+
+    return true;
+}
+
+// 댓글 수정 전 validation
+function fn_validationNoticeCommentUpdate(commentId){
+    if($("#txtCommentContents_" + commentId).val() == ""){
+        alert("내용을 입력 하세요.");
+        return false;
+    }
+
+    if (!confirm("수정하시겠습니까?")) return false;
+
+    return true;
+}
+
+// 댓글 수정폼 토글
+function fn_commentUpdateToggle(commentId){
+    $("#updateCommentDiv_" + commentId).toggle();
+
+    if ($("#commentUpdateToggleBtn_" + commentId).text() == "취소"){
+        $("#commentUpdateToggleBtn_" + commentId).text("수정");
+    } else {
+        $("#commentUpdateToggleBtn_" + commentId).text("취소");
+    }
+}
+</script>
+</head>
+
+<body>
+<div id="wrap">
+    <script type="text/javascript">
+    //자동완성
+    function fn_autoLayer(event) {
+
+        if (event.keyCode == 13) {
+
+            fn_searchWise();
+            return;
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: "/search/autoComplete.ajax",
+            data: {
+                "keyword": $("#search_query").val()
+            },
+            beforeSend : function(xhr){
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                xhr.setRequestHeader(header, token);
+            },
+            success: function (data) {
+
+                $("#autoCompleteUL").empty();
+
+                if (data.list.length == 0) {
+
+                    $(".suggest_lay").hide();
+                } else {
+
+                    $(".suggest_lay").show();
+                }
+
+                for (var i = 0; i < data.list.length; i++) {
+
+                    var liTag = $("<li>").append(data.list[i]);
+
+                    liTag.attr("onclick", "javascript:fn_clickAutoComplete('" + data.list[i] + "')");
+
+                    $("#autoCompleteUL").append(liTag);
+                }
+            }
+        });
+    }
+
+    function fn_clickAutoComplete(keyword) {
+
+        $("#search_query").val(keyword);
+        fn_searchWise();
+    }
+
+    </script>
+
+    <header id="header_wrap">
+        <!--skip navigation-->
+        <div id="skip_navi" class="skip-navi">
+            <div class="skip-wrap"><a href="#skip_content">본문 내용 바로가기</a> <a href="#main_menu">주 메뉴 바로가기</a></div>
+        </div>
+        <!--//skip navigation-->
+
+        <div class="gov_top">
+            <div class="container">
+                <p class="txt">이 누리집은 대한민국 공식 전자정부 누리집입니다.</p>
+            </div>
+        </div>
+
+        <div class="header_area">
+            <h1><a href="/index.ac"><img src="/images/jejusi/comm/logo.png" alt="제주시"></a></h1>
+
+            <div id="menu_area">
+                <div class="gnb_menu_area">
+                    <div class="container">
+                        <div class="left_area">
+                            <!-- 주요 사이트 -->
+                            <div class="etc_site">
+                                <ul>
+                                    <li><a href="https://www.jeju.go.kr" target="_blank" title="새창">제주특별자치도<img src="/images/jejusi/icon/open_new_window2.svg" alt="새창" class="window"></a></li>
+                                    <li><a href="https://www.seogwipo.go.kr" target="_blank" title="새창">서귀포시<img src="/images/jejusi/icon/open_new_window2.svg" alt="새창" class="window"></a></li>
+                                    <li><a href="https://www.council.jeju.kr" target="_blank" title="새창">제주특별자치도의회<img src="/images/jejusi/icon/open_new_window2.svg" alt="새창" class="window"></a></li>
+                                </ul>
+                            </div>
+                            <!-- 주요 사이트 -->
+                        </div> <!-- //left_area -->
+
+                        <div class="right_area">
+                            <ul class="gnb_menu">
+                                <li><a href="/guide/sitemap.do" class="sitemap">사이트맵</a></li>
+                              <li><a href="/nonMembersLogin.ac" class="nonmember" onclick="fn_nonMembersLogin();return false;" title="새창">비회원 로그인</a></li>
+                                <li><a href="#" class="login loginLink">로그인</a></li>
+                              </ul>
+
+                            <div class="language" id="language">
+                                <a href="javascript:void(0);" aria-haspopup="listbox" aria-expanded="false" title="언어선택 목록보기">LANGUAGE</a>
+                                <div class="language_menu" role="listbox">
+                                    <ul>
+                                        <li><a onclick="fn_csli_etgi_trans('kte');" href="#english" title="새창">ENGLISH</a></li>
+                                        <li><a onclick="fn_csli_etgi_trans('ktc');" href="#chinese" title="새창">中文</a></li>
+                                        <li><a onclick="fn_csli_etgi_trans('ktj');" href="#japanese" title="새창">日本語</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> <!-- //right_area -->
+                    </div>
+                </div>
+
+                <!--주메뉴-->
+                <div class="menu_group">
+                    <nav id="lnb_menu">
+                        <h2 class="hidden" id="main_menu">주메뉴</h2>
+                        <ul>
+                          <li class="jejusi_8">
+                              <a href="/mainNews.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210" title="축소됨">시정소식</a>
+                              <div class="menu_depth">
+                                    <div class="menu_depth_detail">
+                                      <div class="menu_title">
+                                            <strong>시정소식</strong>
+                                            </div>
+                                      <ul>
+                                          <li class="depth">
+                                               <span>
+                                                  <a href="/mainNews/news.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">시정뉴스</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/mainNews/news/article.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">보도자료</a></li>
+                                                            <li><a href="/mainNews/news/cardNews.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">카드뉴스</a></li>
+                                                            <li><a href="/mainNews/news/weekwork.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">주간업무</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/mainNews/scene365.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">현장365일</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/mainNews/scene365/movieStory.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">영상이야기</a></li>
+                                                            <li><a href="/mainNews/scene365/photoStory.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">사진이야기</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/mainNews/publication.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">온라인 간행물</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/mainNews/publication/openJejusi.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">열린제주시</a></li>
+                                                            <li><a href="/mainNews/publication/applyEbook.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">열린제주시 구독신청</a></li>
+                                                            <li><a href="/mainNews/publication/readerSubmission.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">독자투고</a></li>
+                                                            <li><a href="/mainNews/publication/jejusiEbookList.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">기타간행물</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/mainNews/wowJejusi.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">누리소통망 모음</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="https://www.facebook.com/wowjejusi" target="_blank" title="새창">페이스북<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://story.kakao.com/ch/jejusi" target="_blank" title="새창">카카오스토리<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://blog.naver.com/NBlogTop.naver?isHttpsRedirect=true&blogId=wowjejusi" target="_blank" title="새창">블로그<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.youtube.com/wowjejusi" target="_blank" title="새창">유튜브<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.instagram.com/wowjejusi/" target="_blank" title="새창">인스타그램<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li >
+                                               <span>
+                                                  <a href="/mainNews/photoDb.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주시 사진DB</a>
+                                                  </span>
+                                             </li>
+                                            </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="jejusi_1">
+                              <a href="/participation.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210" title="축소됨">시민참여</a>
+                              <div class="menu_depth">
+                                    <div class="menu_depth_detail">
+                                      <div class="menu_title">
+                                            <strong>시민참여</strong>
+                                            </div>
+                                      <ul>
+                                          <li >
+                                               <span>
+                                                  <a href="/complaints/complane.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">시장에게 바란다</a>
+                                                  </span>
+                                             </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/participation/siminboard.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">시민게시판</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/participation/compliment.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">칭찬합시다</a></li>
+                                                            <li><a href="/participation/free.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">자유게시판</a></li>
+                                                            <li><a href="/participation/neighbor.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">사이버반상회</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/participation/proposal.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제안 및 참여</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/participation/citizenCnte.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">공모전</a></li>
+                                                            <li><a href="/participation/survey.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">설문조사</a></li>
+                                                            <li><a href="/participation/proposal/citizenPropsePotal.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">열린마루</a></li>
+                                                            <li><a href="https://www.epeople.go.kr/nep/crtf/userLogn.npaid?returnUrl=%2Fnep%2Fprpl%2FselectGnrlPrpslRqstPage.paid" target="_blank" title="새창">국민신문고(제안)<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li >
+                                               <span>
+                                                  <a href="/participation/infoeducation.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">정보화교육</a>
+                                                  </span>
+                                             </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/participation/cleanjejusi.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">청렴한 제주시</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/participation/clean.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">청렴 소통방</a></li>
+                                                            <li><a href="https://1398.acrc.go.kr/case/ISGAcase" target="_blank" title="새창">청탁금지법 통합검색<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://audit.jeju.go.kr/news/activity/result.htm" target="_blank" title="새창">감사결과 공개<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/participation/positive.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">적극행정</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li >
+                                               <span>
+                                                  <a href="https://www.jeju.go.kr/tool/smartminwon/jejusi/left.jsp?" target="_blank" title="새창">주민건의사항공개<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a>
+                                                  </span>
+                                             </li>
+                                            </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="jejusi_2">
+                              <a href="/complaints.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210" title="축소됨">민원안내</a>
+                              <div class="menu_depth">
+                                    <div class="menu_depth_detail">
+                                      <div class="menu_title">
+                                            <strong>민원안내</strong>
+                                            </div>
+                                      <ul>
+                                          <li class="depth">
+                                               <span>
+                                                  <a href="/complaints/intro.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">민원종합안내</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/complaints/intro/intro.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">민원종합안내</a></li>
+                                                            <li><a href="http://www.jeju.go.kr/open/minwon/form.htm" target="_blank" title="새창">민원서식안내<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/complaints/intro/visit.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">민원1회방문처리제</a></li>
+                                                            <li><a href="/complaints/intro/judge.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">사전심사청구제도</a></li>
+                                                            <li><a href="/complaints/intro/fees.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">민원수수료안내</a></li>
+                                                            <li><a href="/complaints/intro/dictation.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">구술/전화신청대상민원안내</a></li>
+                                                            <li><a href="/complaints/intro/process.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">민원처리현황</a></li>
+                                                            <li><a href="/complaints/intro/convenience.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">민원편의시책</a></li>
+                                                            <li><a href="/complaints/intro/happiness.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">시민행복 민생시책</a></li>
+                                                            <li><a href="/complaints/intro/share.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">행정정보 공동이용</a></li>
+                                                            <li><a href="/complaints/intro/office.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">민원사무편람</a></li>
+                                                            <li><a href="https://www.gov.kr/portal/orgSite?Mcode=11181" target="_blank" title="새창">정부·지자체 누리집<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/complaints/center.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">민원신고센터</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/complaints/center/nation.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">국민신문고(민원상담)</a></li>
+                                                            <li><a href="/complaints/staynoti.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">불법숙박업소신고센터</a></li>
+                                                            <li><a href="/complaints/gnotice.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">생활폐기물 불법투기 신고방</a></li>
+                                                            <li><a href="/complaints/center/lamp.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">가로등고장신고</a></li>
+                                                            <li><a href="http://www.jeju.go.kr/online/environment.htm" target="_blank" title="새창">환경신문고<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.sinmungo.go.kr/sz2.prpsl.main" target="_blank" title="새창">규제신문고<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jeju.go.kr/online/office-holder/corruption/guide.htm" target="_blank" title="새창">공직자비리신고<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.foodsafetykorea.go.kr/minwon/complain/complainIntro.do?menu_no=618&menu_grp=MENU_GRP24" target="_blank" title="새창">식품안전소비자신고센터<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jeju.go.kr/online/budget.htm" target="_blank" title="새창">예산낭비신고센터<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.clean.go.kr/menu.es?mid=a10204000000" target="_blank" title="새창">복지·보조금부정신고센터<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jeju.go.kr/online/construction.htm" target="_blank" title="새창">건설공사하도급부조리해소센터<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.epeople.go.kr/nep/pttn/negativePttn/NegativePttnCotents.npaid" target="_blank" title="새창">소극행정신고안내<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.osmb.go.kr/proposal/proposal_form.jsp" target="_blank" title="새창">지방기업 규제 애로 신고센터<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="https://www.wetax.go.kr/main.do?" target="_blank" title="새창">편리한 지방세, 세외수입<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="https://www.wetax.go.kr/main.do" target="_blank" title="새창">지방세조회납부<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.wetax.go.kr/tcp/loi/J030801M01.do" target="_blank" title="새창">지방세미리계산해보기<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.wetax.go.kr/tcp/loi/J030401M01.do" target="_blank" title="새창">시가표준액 조회<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.realtyprice.kr:447/notice/town/searchPastYear.htm" target="_blank" title="새창">개별(공동)주택가격 조회<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://kras.jeju.go.kr/land_info/info/baseInfo/baseInfo.do#t05-tab" target="_blank" title="새창">개별공시지가 조회<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.wetax.go.kr" target="_blank" title="새창">세외수입 조회 납부<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://chatbot.wetax.go.kr" target="_blank" title="새창">지방세 상담 챗봇<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/complaints/roadshow.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">종합민원실창구안내</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/complaints/intro/general.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">종합민원실창구안내</a></li>
+                                                            <li><a href="/complaints/intro/nonperson.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">무인민원발급창구안내</a></li>
+                                                            <li><a href="/complaints/waitingCount.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">순번대기현황</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/complaints/internet.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">인터넷 민원</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="https://www.jeju.go.kr/jeju24/info/online.htm" target="_blank" title="새창">제주 간편e민원<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.gov.kr/portal/main" target="_blank" title="새창">인터넷 민원발급(정부24)<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li >
+                                               <span>
+                                                  <a href="http://eminwon.jejusi.go.kr/emwp/gov/mogaha/ntis/web/caf/mwwd/action/CafMwWdOpenAction.do?method=selectListMwOpn&menu_id=CAFOPNWebMwOpenL&jndinm=CafMwWdOpenEJB&methodnm=selectListMwOpn&context=NTIS?" target="_blank" title="새창">인터넷 민원처리공개<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a>
+                                                  </span>
+                                             </li>
+                                            <li >
+                                               <span>
+                                                  <a href="http://www.juso.go.kr/openIndexPage.do?" target="_blank" title="새창">도로명주소 안내서비스<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a>
+                                                  </span>
+                                             </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/complaints/jejuwater.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">상하수도요금조회</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="https://www.jeju.go.kr/jejuwater/square/rates/price-inquiry/inquiry01.htm" target="_blank" title="새창">상하수도요금조회<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jeju.go.kr/jejuwater/square/onlineminwon/check.htm?act=add&category=4" target="_blank" title="새창">상하수도요금 스마트 고지 신청/해지<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="jejusi_3 active">
+                              <a href="/information.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210" title="축소됨">정보공개</a>
+                              <div class="menu_depth">
+                                    <div class="menu_depth_detail">
+                                      <div class="menu_title">
+                                            <strong>정보공개</strong>
+                                            </div>
+                                      <ul>
+                                          <li class="depth">
+                                               <span>
+                                                  <a href="/information/intro.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주시소식</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/information/intro/news.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">공지사항</a></li>
+                                                            <li><a href="/information/intro/notice.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">입찰·고시·공고</a></li>
+                                                            <li><a href="/information/intro/recruit.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">채용공고</a></li>
+                                                            <li><a href="/information/intro/exnotice.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">타기관 고시·공고</a></li>
+                                                            <li><a href="/information/intro/explane.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">해명자료</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/information/statistics.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">통계정보</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/information/statistics/years.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">통계연보</a></li>
+                                                            <li><a href="/information/statistics/business.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">사업체조사</a></li>
+                                                            <li><a href="/information/statistics/mine.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">광업ㆍ제조업 조사</a></li>
+                                                            <li><a href="/information/statistics/population.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">주민등록인구통계</a></li>
+                                                            <li><a href="/information/status/cars.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">자동차등록현황</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/information/open.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">행정정보공개</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/information/open/data.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">사전정보공개</a></li>
+                                                            <li><a href="/information/open/institution.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제도안내</a></li>
+                                                            <li><a href="/information/open/judge.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">법령에의한정보제공</a></li>
+                                                            <li><a href="/information/open/hold.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">정보보유목록</a></li>
+                                                            <li><a href="https://www.open.go.kr/com/main/mainView.do" target="_blank" title="새창">정보공개시스템<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/information/open/board.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">사전정보공개 게시판</a></li>
+                                                            <li><a href="http://www.jejusi.go.kr/field/welfare/status.do" target="_blank" title="새창">사회복지시설 운영상황 공개<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/information/open/jejusiPlan.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">시정운영계획</a></li>
+                                                            <li><a href="/information/open/sercret.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">비공개대상세부기준</a></li>
+                                                            <li><a href="/information/open/business.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">업무제휴·협약</a></li>
+                                                            <li><a href="/information/open/important.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">중요재산 현황</a></li>
+                                                            <li><a href="/information/open/additional.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">겸직허가 현황·겸직실태 조사</a></li>
+                                                            <li><a href="/information/open/fieldcs.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">현업공무원 현황</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li >
+                                               <span>
+                                                  <a href="http://www.jeju.go.kr/finance/budget/2015.htm?" target="_blank" title="새창">예산정보<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a>
+                                                  </span>
+                                             </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/information/status.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">예산집행현황 공개</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/information/status/expenditures.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">세출예산 집행현황</a></li>
+                                                            <li><a href="/information/status/business.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">1억원 이상 사업 추진 현황</a></li>
+                                                            <li><a href="/information/status/giftcard.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">상품권 구매·사용내역</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/information/jejusiinformationopen.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">업무추진비 공개</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/information/status/sijang.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주시장 업무추진비 공개</a></li>
+                                                            <li><a href="/information/status/part.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">부서별 업무추진비 공개</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li >
+                                               <span>
+                                                  <a href="http://www.jeju.go.kr/finance/contract/order/work.htm?" target="_blank" title="새창">계약정보공개<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a>
+                                                  </span>
+                                             </li>
+                                            <li >
+                                               <span>
+                                                  <a href="/information/opendata.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">공공데이터개방</a>
+                                                  </span>
+                                             </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/information/judge.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">법무정보</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="http://www.jeju.go.kr/open/law/current/current.htm" target="_blank" title="새창">자치법규<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jeju.go.kr/open/law/judgment.htm" target="_blank" title="새창">행정심판<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/information/partdata.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">부서자료실</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/information/partdata/partdata.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">부서자료실</a></li>
+                                                            </ul>
+                                              </li>
+                                            </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="jejusi_5">
+                              <a href="/intro.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210" title="축소됨">제주시소개</a>
+                              <div class="menu_depth">
+                                    <div class="menu_depth_detail">
+                                      <div class="menu_title">
+                                            <strong>제주시소개</strong>
+                                            </div>
+                                      <ul>
+                                          <li class="depth">
+                                               <span>
+                                                  <a href="/sijang/main.do?" target="_blank" title="새창">열린시장실<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/sijang/promise.do" target="_blank" title="새창">시민과의 약속<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/sijang/echo/complane.do" target="_blank" title="새창">시장에게 바란다<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/sijang/spot/photo.do" target="_blank" title="새창">현장 365일<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/sijang/sijangHistory.do" target="_blank" title="새창">역대시장<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li >
+                                               <span>
+                                                  <a href="/intro/current.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주시현황</a>
+                                                  </span>
+                                             </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/intro/org.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">조직도</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/intro/org/org.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">조직도</a></li>
+                                                            <li><a href="/intro/org/jejusiPersonnel.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">인사운영 통계</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/intro/neighbor.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">교류도시</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/intro/neighbor/intersister.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">국제친선결연도시</a></li>
+                                                            <li><a href="/intro/neighbor/interfavor.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">국제상호교류협정도시</a></li>
+                                                            <li><a href="/intro/neighbor/domestic.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">국내친선결연도시</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/intro/building.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">청사안내</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="http://building.jejusi.go.kr/jejusiBuilding/main.ez" target="_blank" title="새창">3D청사안내도<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/intro/building/parking.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">주차장</a></li>
+                                                            <li><a href="/intro/building/within.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">어울림마당</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/intro/historya.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">역사속 제주</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/intro/history/jejusi.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">역사속 제주시</a></li>
+                                                            <li><a href="/intro/history/bukjeju.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">역사속 북제주군</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/intro/pattern.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주어문양디자인</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/intro/pattern/introduction.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">문양디자인 소개</a></li>
+                                                            <li><a href="/intro/pattern/use.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">문양디자인 사용하기</a></li>
+                                                            <li><a href="/intro/pattern/instance.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">문양디자인 활용사례</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li >
+                                               <span>
+                                                  <a href="/intro/location.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">찾아오시는 길</a>
+                                                  </span>
+                                             </li>
+                                            </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="jejusi_6">
+                              <a href="/field.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210" title="축소됨">분야별정보</a>
+                              <div class="menu_depth">
+                                    <div class="menu_depth_detail">
+                                      <ul>
+                                          <li class="depth">
+                                               <span>
+                                                  <a href="/field/welfare.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">복지</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/field/welfare/tomb.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">분묘개장공고</a></li>
+                                                            <li><a href="/field/welfare/status.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">사회복지시설 운영상황 공개</a></li>
+                                                            <li><a href="/field/welfare/fixinfo.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주정착 주민자료실</a></li>
+                                                            <li><a href="http://www.bokjiro.go.kr" target="_blank" title="새창">복지포탈<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.childcare.go.kr/" target="_blank" title="새창">임신육아종합포털 아이사랑<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jeju.go.kr/wel/child1/childcare/childcare03.htm" target="_blank" title="새창">제주시 드림스타트<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jejuswc.kr/index.php" target="_blank" title="새창">제주시지역사회보장협의체<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.socialservice.or.kr/" target="_blank" title="새창">보건복지부 사회서비스 전자바우처<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.clean.go.kr/index.do" target="_blank" title="새창">복지·보조금부정신고센터<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.kotsa.or.kr/tvsis/" target="_blank" title="새창">TS한국교통안전공단 자동차사고 피해가족 지원제도<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.hira.or.kr/rd/hosp/plcMedInfm.do?pgmid=HIRAA050303000001&sidoCd=390000&sg" target="_blank" title="새창">지역의료정보 건강의료보험 심사평가원<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/field/safety.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">재난/안전</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/field/safety/specialWeather.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">기상특보 예정에 따른 안내</a></li>
+                                                            <li><a href="/field/safety/check.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">내가정, 내직장 안전진단</a></li>
+                                                            <li><a href="https://www.e-gen.or.kr/" target="_blank" title="새창">응급의료정보<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/bangjae/main.do" target="_blank" title="새창">제주시 재난안전대책본부<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://bangjae.jeju119.go.kr/" target="_blank" title="새창">제주시 재난안전대책본부 재난문자 수신동의서<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.safetyreport.go.kr/#main" target="_blank" title="새창">안전신문고<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.safekorea.go.kr" target="_blank" title="새창">국민안전24<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.foodsafetykorea.go.kr/portal/fooddanger/suspension.do?menu_no=2713&menu_grp=MENU_NEW02" target="_blank" title="새창">위해식품안전나라 회수/판매 중지<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.safekorea.go.kr/idsiSFK/neo/main/main.html" target="_blank" title="새창">민방위 비상시설<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/field/property.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">부동산/건축</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/field/property/building.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">건축물분양정보</a></li>
+                                                            <li><a href="/field/property/landsearch.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">미등기토지조회서비스</a></li>
+                                                            <li><a href="/field/property/landfees.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">부동산중개보수</a></li>
+                                                            <li><a href="/field/property/ancestor.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">조상 땅 찾기 안내</a></li>
+                                                            <li><a href="/field/property/houseprice.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">주택가격제도 안내</a></li>
+                                                            <li><a href="/field/property/sale.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">분양정보 게시판</a></li>
+                                                            <li><a href="/field/property/landContract_guide.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">토지거래계약허가제도</a></li>
+                                                            <li><a href="http://kras.jeju.go.kr/land_info/info/baseInfo/baseInfo.do" target="_blank" title="새창">부동산정보통합열람<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://kras.jeju.go.kr" target="_blank" title="새창">부동산 통합민원<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.realtyprice.kr/notice/" target="_blank" title="새창">부동산 공시가격 알리미<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://rtms.jejusi.go.kr:9643/rtmsweb/home.do" target="_blank" title="새창">부동산 거래 관리 시스템<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.vworld.kr/dtld/broker/dtld_list_s001.do" target="_blank" title="새창">부동산중개업 조회<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.eais.go.kr/" target="_blank" title="새창">건축행정시스템 (세움터)<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/field/property/indPblyAmt.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">개별공시지가 「365 열린 창구」</a></li>
+                                                            <li><a href="/field/property/selfcheck.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">부동산중개업 자율점검</a></li>
+                                                            <li><a href="/field/property/telecommaintain.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">정보통신설비 유지보수·관리제도</a></li>
+                                                            <li><a href="/field/property/certificateFile.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">정보통신공사 사용전검사 제도</a></li>
+                                                            <li><a href="/field/property/bdstDscsn.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">건축상담안내서비스</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/field/education.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">교육</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/field/education/lecture.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">교육 및 강좌</a></li>
+                                                            <li><a href="http://damoa.jeju.kr" target="_blank" title="새창">제주 평생교육정보 다모아<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/qolup/main.do" target="_blank" title="새창">제주시 평생학습관<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.xn--2z1bw8k1pjz5ccumkb.kr/main.do" target="_blank" title="새창">제주시 디지털 배움터<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jejusi.go.kr/htmls/edu/login-intro.html" target="_blank" title="새창">제주시 온라인 학습센터<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://lib.jeju.go.kr/" target="_blank" title="새창">제주특별자치도 공공도서관<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jeju.go.kr/jejuedu/index.htm" target="_blank" title="새창">제주특별자치도 공공정책연수원<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jeju.go.kr/works/tInfo/rsite.htm" target="_blank" title="새창">제주도청 교육ㆍ훈련정보<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://woodang.jejusi.go.kr:8080/librarian.htm" target="_blank" title="새창">사서추천도서<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jejusi.go.kr/say/main.do" target="_blank" title="새창">제주시 청소년성문화센터<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://damoa.jeju.kr/lecture/lecture.htm?mode=all&act=index&organ=_JEJU00000000282" target="_blank" title="새창">시민정보화교육<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/field/traffic.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">교통</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/field/traffic/parking.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">공영주차장</a></li>
+                                                            <li><a href="/field/traffic/registcar.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">자동차등록안내</a></li>
+                                                            <li><a href="/field/traffic/carcheck.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">자동차 정기검사 안내</a></li>
+                                                            <li><a href="/part/safety/service/safetyTraffic.do" target="_blank" title="새창">교통유발부담금<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jejusi.go.kr/information/open/data/map.do?table_num=143" target="_blank" title="새창">주정차 단속 CCTV현황<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/field/traffic/illegalParking.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">불법주정차 단속 안내</a></li>
+                                                            <li><a href="http://bus.jeju.go.kr/" target="_blank" title="새창">버스정보시스템<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://jejuits.go.kr/main/main.do" target="_blank" title="새창">제주교통정보시스템<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jejusi.go.kr/parkingsms/member/index.php" target="_blank" title="새창">주정차 단속 문자알림서비스<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jeju.go.kr/traffic/garage/gcertificate.htm" target="_blank" title="새창">차고지 증명제<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://parking.jeju.go.kr/chago/parkingmap.cs" target="_blank" title="새창">차고지 증명제 임대 가능한 차고지 조회<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://parkingfee.jeju.go.kr" target="_blank" title="새창">주차요금 즉시감면 서비스 연계 시스템<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://safeparking.jeju.go.kr/" target="_blank" title="새창">제주 주차 안심번호 서비스<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://jejusi.go.kr/part/safety/data.do?mode=detail&notice_id=a74ca968fb41479e9ffdea0a5177f180" target="_blank" title="새창">불법 주정차 단속 유예 신청서<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/field/traffic/stadiumparking.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주종합경기장 부설주차장</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/field/culture.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">문화/체육</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/field/culture/festival.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">문화행사 안내</a></li>
+                                                            <li><a href="/field/culture/artstreet.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">삼도2동 문화예술의거리</a></li>
+                                                            <li><a href="http://www.jeju.go.kr/mokkwana/index.htm" target="_blank" title="새창">제주목 관아<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jejusi.go.kr/star/main.do" target="_blank" title="새창">제주 별빛누리공원<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jejusi.go.kr/acenter/index.do" target="_blank" title="새창">제주 아트센터<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jejusi.go.kr/artjeju/main.do" target="_blank" title="새창">제주 도립예술단<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/sports/main.do" target="_blank" title="새창">제주시 체육시설<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://jejusi.go.kr/book" target="_blank" title="새창">종합자료센터(북카페)<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/field/life.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">생활/환경</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/field/life/help.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">생활도우미</a></li>
+                                                            <li><a href="/information/open/data/map.do?id=71" target="_blank" title="새창">제주시 행복지도서비스<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/field/life/dbservice.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주시 한 눈에 보기</a></li>
+                                                            <li><a href="/field/eco/weekwaste.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">재활용품 요일별 배출안내</a></li>
+                                                            <li><a href="/field/bag.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">종량제 봉투</a></li>
+                                                            <li><a href="/complaints/gnotice.do" target="_blank" title="새창">생활쓰레기 불법투기 신고<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://jeju.work.go.kr/jeju/main.do" target="_blank" title="새창">일자리 종합정보<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://pharm114.or.kr" target="_blank" title="새창">연중무휴 심야약국<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.wetax.go.kr/main/" target="_blank" title="새창">지방세정보<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://center.kinfa.or.kr/main.do" target="_blank" title="새창">서민금융통합지원센터<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jejusi.go.kr/waste/main.do" target="_blank" title="새창">대형폐기물 배출신청<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.foresttrip.go.kr/indvz/main.do?hmpgId=ID02030053" target="_blank" title="새창">제주 절물휴양림<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jejusi.go.kr/roedeer/main.do" target="_blank" title="새창">노루 생태관찰원<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jejusi.go.kr/ecochon/main.do" target="_blank" title="새창">제주 에코촌 유스호스텔<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jeju.go.kr/online/environment.htm" target="_blank" title="새창">환경신문고<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://air.jeju.go.kr/" target="_blank" title="새창">실시간 대기환경 정보<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/field/hygiene.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">위생</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/field/hygiene/publicHygiene.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">공중위생업 안내</a></li>
+                                                            <li><a href="/field/hygiene/foodService.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">식품접객업 안내</a></li>
+                                                            <li><a href="/field/hygiene/foodMake.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">식품제조가공업 안내</a></li>
+                                                            <li><a href="/field/hygiene/instantSale.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">즉석판매·제조가공업 안내</a></li>
+                                                            <li><a href="/field/hygiene/publicHygiene_edu.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">공중위생교육</a></li>
+                                                            <li><a href="/field/hygiene/foodHygiene_edu.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">식품위생교육</a></li>
+                                                            <li><a href="/field/hygiene/excellent.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">우수·모범음식점</a></li>
+                                                            <li><a href="/field/hygiene/foodPromotion.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">식품진흥기금 융자지원</a></li>
+                                                            <li><a href="/field/hygiene/hygieneService.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">공중위생서비스 수준평가</a></li>
+                                                            <li><a href="/boardFileDocViewer.ac?file_id=0fc787592216438ea94f7a79d754a87e" target="_blank" title="새창">위생업무처리 매뉴얼<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/boardFileDown.ac?file_id=b71d9488f8e345319a4e73c30ebbfc51" target="_blank" title="새창">식품 품목 제조 보고<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/field/hygiene/badfood.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">유해식품정보</a></li>
+                                                            <li><a href="/field/hygiene/minwon.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">공중,유통식품 위생민원상담</a></li>
+                                                            <li><a href="/field/hygiene/foodHygiene.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">식품위생민원상담</a></li>
+                                                            <li><a href="/field/hygiene/alarm.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">축산물위생관련공표</a></li>
+                                                            </ul>
+                                              </li>
+                                            <li >
+                                               <span>
+                                                  <a href="/field/reserve.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">예약</a>
+                                                  </span>
+                                             </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/field/economy.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">경제/일자리</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="/field/economy/wellprice.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주시 착한가격업소</a></li>
+                                                            <li><a href="/field/economy/agroComplex-status.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주시 농공단지 입주기업체 현황</a></li>
+                                                            <li><a href="/field/economy/alleytType.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주시 골목형 상점가</a></li>
+                                                            <li><a href="/field/economy/dongmunNightmarket.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">제주동문재래시장 야시장</a></li>
+                                                            <li><a href="/field/economy/simbaek.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">눈에 보이는 소비 심백(心百) 활동 갤러리</a></li>
+                                                            <li><a href="https://www.zeropay.or.kr/UI_MP_003_01_01.act" target="_blank" title="새창">소상공인 제로페이 가맹점 신청<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://jeju-jejusi.kfme.or.kr" target="_blank" title="새창">제주특별자치도 제주시 소상공인연합회<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jcgf.or.kr" target="_blank" title="새창">제주신용보증재단<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jeju.go.kr/industry/businesssupport/venture/support2021.htm" target="_blank" title="새창">제주특별자치도 경제/투자<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.bizinfo.go.kr/web/lay1/bbs/S1T122C128/AS/74/list.do?hashCode=&rowsSel=6&rows=15&cpage=1&cat=&article_seq=&pblancId=&schJrsdCodeTy=&schWntyAt=&schAreaDetailCodes=6500000&schEndAt=N&orderGb=&sort=&condition=searchPblancNm&condition1=AND&preKeywords=&keyword=" target="_blank" title="새창">중소기업 성공길잡이 기업마당<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://jejusi.go.kr/part/economy/service/flife/data.do" target="_blank" title="새창">귀농귀촌<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/field/economy/youngfarmer.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">청년농업인 정책 알리미</a></li>
+                                                            <li><a href="https://www.automart.co.kr" target="_blank" title="새창">압류자동차 인터넷경매<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            <li class="depth">
+                                               <span>
+                                                  <a href="/field/tour.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">관광정보</a>
+                                                  </span>
+                                             <ul class="menu_3depth">
+                                                 <li><a href="https://www.visitjeju.net/kr" target="_blank" title="새창">관광정보<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.visitjeju.net/u/3Wj" target="_blank" title="새창">제주관광지도신청<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.visitjeju.net/u/3XP" target="_blank" title="새창">제주관광안내책자<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.visitjeju.net/u/3Wh" target="_blank" title="새창">축제행사<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.tamnao.com" target="_blank" title="새창">탐나오<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://access.visitkorea.or.kr" target="_blank" title="새창">열린관광지(무장애여행지)<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://wifi.jeju.go.kr/main" target="_blank" title="새창">공공와이파이존 이용 안내<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="/field/tour/pension.do?_csrf=64d580ef-5488-4d0d-852e-35654164b210">휴양펜션업</a></li>
+                                                            <li><a href="http://www.gis-heritage.go.kr/" target="_blank" title="새창">문화재공간정보서비스<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="http://www.jejusi.go.kr/buriburi/main.do" target="_blank" title="새창">제주들불축제<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     <li><a href="https://www.jejusi.go.kr/part/culture/service/beach/intro.do" target="_blank" title="새창">제주해변공연장<img src="/images/jejusi/icon/open_new_window.svg" alt="새창" class="window"></a></li>
+                                                     </ul>
+                                              </li>
+                                            </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            </ul>
+                    </nav>
+                    <span class="menu_close"><a href="javascript:;"><img src="/images/jejusi/btn/close_btn09.svg" alt="주메뉴 닫기"></a></span>
+                    <!--//주메뉴-->
+                </div>
+            </div>
+
+            <!--통합검색-->
+            <div class="search_area">
+                <h2 class="hidden">통합 검색</h2>
+                <div class="search_box">
+                    <div class="input">
+                        <form name="search_form_wise" id="search_form_wise" method="post" action="/search/" onsubmit="return false;">
+                            <input type="hidden" name="_csrf" value="64d580ef-5488-4d0d-852e-35654164b210"/> <input type="hidden" name="access" value="JEJUSI" />
+                            <label class="hidden" for="search_query">검색입력</label>
+                            <input type="text" id="search_query" name="query" value="" onkeyup="fn_autoLayer(event);" autocomplete="off" placeholder="검색어를 입력하세요">
+                            <button type="button" id="jejuSearchBtn" onclick="fn_searchWise();" title="새창">검색</button>
+                        </form>
+                    </div>
+
+                    <!--자동완성 레이어-->
+                    <div class="suggest_lay" style="display: none;">
+                        <ul id="autoCompleteUL">
+                        </ul>
+                    </div>
+                    <!--//자동완성 레이어-->
+                </div>
+            </div>
+            <!--//통합검색-->
+
+			<div class="mw_side">
+				<span id="mainmenu"><button type="button">전체메뉴</button></span>
+			</div>
+        </div>
+    </header>
+
+    <!-- 레이어 팝업 -->
+    <div class="popup-wrap">
+        </div>
+    <!-- //레이어 팝업 --><!--Contents 영역-->
+    <main id="main">
+        <section id="container_wrap">
+            <h2 class="sec-caption">Contents</h2>
+
+            <div class="content-box">
+                <div class="container">
+                    <aside id="side_menu">
+                        <h2 class="title_1depth">정보공개</h2>
+                        <ul>
+                            <li class="depth active">
+                                    <a href="javascript:;">제주시소식</a>
+                                    <ul class="menu_depth">
+                                        <li class="active"><a href="/information/intro/news.do">공지사항</a></li>
+                                           		<li ><a href="/information/intro/notice.do">입찰·고시·공고</a></li>
+                                           		<li ><a href="/information/intro/recruit.do">채용공고</a></li>
+                                           		<li ><a href="/information/intro/exnotice.do">타기관 고시·공고</a></li>
+                                           		<li ><a href="/information/intro/explane.do">해명자료</a></li>
+                                           		</ul>
+                                    </li>
+                            <li class="depth">
+                                    <a href="javascript:;">통계정보</a>
+                                    <ul class="menu_depth">
+                                        <li ><a href="/information/statistics/years.do">통계연보</a></li>
+                                           		<li ><a href="/information/statistics/business.do">사업체조사</a></li>
+                                           		<li ><a href="/information/statistics/mine.do">광업ㆍ제조업 조사</a></li>
+                                           		<li ><a href="/information/statistics/population.do">주민등록인구통계</a></li>
+                                           		<li ><a href="/information/status/cars.do">자동차등록현황</a></li>
+                                           		</ul>
+                                    </li>
+                            <li class="depth">
+                                    <a href="javascript:;">행정정보공개</a>
+                                    <ul class="menu_depth">
+                                        <li ><a href="/information/open/data.do">사전정보공개</a></li>
+                                           		<li ><a href="/information/open/institution.do">제도안내</a></li>
+                                           		<li ><a href="/information/open/judge.do">법령에의한정보제공</a></li>
+                                           		<li ><a href="/information/open/hold.do">정보보유목록</a></li>
+                                           		<li ><a href="https://www.open.go.kr/com/main/mainView.do" target="_blank" title="새창">정보공개시스템<img src="/images/jejusi/icon/window_icon01.gif" alt="새창"></a></li>
+                                           <li ><a href="/information/open/board.do">사전정보공개 게시판</a></li>
+                                           		<li ><a href="http://www.jejusi.go.kr/field/welfare/status.do" target="_blank" title="새창">사회복지시설 운영상황 공개<img src="/images/jejusi/icon/window_icon01.gif" alt="새창"></a></li>
+                                           <li ><a href="/information/open/jejusiPlan.do">시정운영계획</a></li>
+                                           		<li ><a href="/information/open/sercret.do">비공개대상세부기준</a></li>
+                                           		<li ><a href="/information/open/business.do">업무제휴·협약</a></li>
+                                           		<li ><a href="/information/open/important.do">중요재산 현황</a></li>
+                                           		<li ><a href="/information/open/additional.do">겸직허가 현황·겸직실태 조사</a></li>
+                                           		<li ><a href="/information/open/fieldcs.do">현업공무원 현황</a></li>
+                                           		</ul>
+                                    </li>
+                            <li class="">
+                                    <a href="http://www.jeju.go.kr/finance/budget/2015.htm" target="_blank" title="새창">예산정보<img src="/images/jejusi/icon/window_icon01.gif" alt="새창"></a>
+                                    </li>
+                            <li class="depth">
+                                    <a href="javascript:;">예산집행현황 공개</a>
+                                    <ul class="menu_depth">
+                                        <li ><a href="/information/status/expenditures.do">세출예산 집행현황</a></li>
+                                           		<li ><a href="/information/status/business.do">1억원 이상 사업 추진 현황</a></li>
+                                           		<li ><a href="/information/status/giftcard.do">상품권 구매·사용내역</a></li>
+                                           		</ul>
+                                    </li>
+                            <li class="depth">
+                                    <a href="javascript:;">업무추진비 공개</a>
+                                    <ul class="menu_depth">
+                                        <li ><a href="/information/status/sijang.do">제주시장 업무추진비 공개</a></li>
+                                           		<li ><a href="/information/status/part.do">부서별 업무추진비 공개</a></li>
+                                           		</ul>
+                                    </li>
+                            <li class="">
+                                    <a href="http://www.jeju.go.kr/finance/contract/order/work.htm" target="_blank" title="새창">계약정보공개<img src="/images/jejusi/icon/window_icon01.gif" alt="새창"></a>
+                                    </li>
+                            <li class="">
+                                    <a href="/information/opendata.do">공공데이터개방</a>
+                                    </li>
+                            <li class="depth">
+                                    <a href="javascript:;">법무정보</a>
+                                    <ul class="menu_depth">
+                                        <li ><a href="http://www.jeju.go.kr/open/law/current/current.htm" target="_blank" title="새창">자치법규<img src="/images/jejusi/icon/window_icon01.gif" alt="새창"></a></li>
+                                           <li ><a href="http://www.jeju.go.kr/open/law/judgment.htm" target="_blank" title="새창">행정심판<img src="/images/jejusi/icon/window_icon01.gif" alt="새창"></a></li>
+                                           </ul>
+                                    </li>
+                            <li class="depth">
+                                    <a href="javascript:;">부서자료실</a>
+                                    <ul class="menu_depth">
+                                        <li ><a href="/information/partdata/partdata.do">부서자료실</a></li>
+                                           		</ul>
+                                    </li>
+                            </ul>
+                    </aside>
+<script type="text/javascript">
+$(document).ready(function(){
+    if ("false" == "true"){
+        window.print();
+    }
+
+    //날씨 정보를 가져온다.
+    //weather_info_get();
+
+    //미세먼지 정보를 가져온다.
+    //dust_info_get();
+});
+
+function fn_printPop(){
+    var returnURL = document.location.href;
+    var sTagFlag = false;
+
+    // 정보공개의 경우 추가 파라미터 셋팅
+    for (var i=0; i<$(".opendata_param").size(); i++){
+        if (i == 0 && returnURL.indexOf("&" + $(".opendata_param").eq(i).attr("name")) != -1) {
+            returnURL = returnURL.substring(0, returnURL.indexOf("&" + $(".opendata_param").eq(i).attr("name")));
+        }
+
+        if ($(".opendata_param").eq(i).attr("name") == "select_tab") {
+            sTagFlag = true;
+            continue;
+        }
+
+        returnURL += "&" + $(".opendata_param").eq(i).attr("name") + "=" + $(".opendata_param").eq(i).val();
+    }
+
+    if (sTagFlag){
+        for (var j=0; j<$("a[name=select_tab]").size(); j++){
+            console.log($("a[name=select_tab]").eq(j).attr("value"));
+            if ($("a[name=select_tab]").eq(j).parent().attr("class") == "active"){
+                returnURL += "&select_tab=" + $("a[name=select_tab]").eq(j).attr("value");
+            }
+        }
+    }
+
+    var param = "";
+    if (returnURL.indexOf("?") == -1){
+        param = "?frame=jejusi_print";
+    } else {
+        param = "&frame=jejusi_print";
+    }
+
+    //$("#printLink").attr("href", returnURL + param);
+
+    window.open(returnURL + param, 'print','resizable=yes,scrollbars=yes,width=960,height=800');
+    return false;
+}
+</script>
+
+                <div class="cont_top_area">
+                    <div class="cont_top">
+                        <div class="location">
+                            <span class="home">
+                                <a title="메인으로 이동" href="/"><img src="/images/jejusi/icon/home_icon01.png" alt="홈"></a>
+                            </span>
+                            <img src="/images/jejusi/icon/location_icon01.png" alt="다음">
+                            <span>정보공개</span>
+                            <img src="/images/jejusi/icon/location_icon01.png" alt="다음">
+                            <span>제주시소식</span>
+                            <img src="/images/jejusi/icon/location_icon01.png" alt="다음">
+                                <span>공지사항</span>
+                            </div>
+                        <ul class="sub_util">
+                            <li class="share">
+                                <span class="share_btn" id="share_btn"><a href="javascript:;" title="공유 창열림"><img src="/images/jejusi/icon/share_icon01.png" alt="공유"></a></span>
+                                <div class="share_link">
+                                    <ul>
+                                        <li><a href="javascript:;" onclick="javascript:fn_urlCopy();" title="페이지 주소 복사"><img src="/images/jejusi/icon/share_url01.png" alt="URL">주소복사</a></li>
+                                        <li><a href="javascript:;" onclick="javascript:fn_share();" title="페이스북 공유(새창)"><img src="/images/jejusi/icon/share_facebook01.png" alt="페이스북">페이스북</a></li>
+                                        <li><a href="javascript:;" onclick="javascript:fn_shareTwitter('제주시');" title="트위터 공유(새창)"><img src="/images/jejusi/icon/share_twitter01.png" alt="트위터">트위터</a></li>
+                                        <li><a href="javascript:;" onclick="javascript:fn_shareGoogle('제주시');" title="구글플러스 공유(새창)"><img src="/images/jejusi/icon/share_google01.png" alt="구글플러스">구글플러스</a></li>
+                                        <li><a href="javascript:;" onclick="javascript:fn_shareKakaostory('제주시');" title="카카오스토리 공유(새창)"><img src="/images/jejusi/icon/share_kakaostory01.png" alt="카카오스토리">카카오스토리</a></li>
+                                        <li><a href="javascript:;" onclick="javascript:fn_shareNaver('제주시');" title="네이버 공유(새창)"><img src="/images/jejusi/icon/share_naver01.png" alt="네이버 블로그">네이버 블로그</a></li>
+                                    </ul>
+                                    <span class="active"><a href="#" onclick="$('.share_link').hide();return false;" title="창닫기"><img src="/images/jejusi/icon/share_icon03.png" alt="공유 창닫기"></a></span>
+                                </div>
+                            </li>
+
+                            <li class="print_btn"><a id="printLink" href="javascript:;" onclick="javascript:fn_printPop();" title="인쇄(새창)"><img src="/images/jejusi/icon/print_icon01.png" alt="인쇄"></a></li>
+                            <li class="expand_btn">
+                                <span class="text">화면</span>
+                                <a href="javascript:;" onclick="javascript:zoomIn(); return false;" title="화면확대"><img src="/images/jejusi/icon/plus_icon01.png" alt="확대"></a>
+                                <a href="javascript:;" onclick="javascript:zoomOut(); return false;" title="화면축소"><img src="/images/jejusi/icon/minus_icon01.png" alt="축소"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div><div id="contents_area">
+                        <h3 class="cont_title" id="skip_content">
+                            공지사항</h3>
+                        
+                        
+
+                        <div id="contents">
+                            <!--실제 컨텐츠-->
+                            <div class="board">
+                                <div class="inform_box">
+<img src="/images/jejusi/icon/etc_icon02.png" alt="">
+<div class="text">
+<p>시민들을 대상으로 부서에서 알리고자 하는 정보를 게시한 공지사항 게시판입니다.</p>
+<p>※ '사업안내·모집',  '행사정보', '채용계획', '지침안내','휴장안내' 등</p>
+</div>
+</div><div class="board-view-default">
+                                    <div class="view-wrap">
+                                        <div class="view-header">
+                                            <div class="title"><strong>2027년 FTA기금 고품질과수(감귤) 생산시설 현대화사업 신청·접수 알림</strong></div>
+                                            <div class="info">
+                                                <dl>
+                                                    <dt>작성자</dt>
+                                                    <dd>유지언</dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>작성일</dt>
+                                                    <dd>2026-11-09 14:41:23</dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>조회수</dt>
+                                                    <dd>56</dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>부서</dt>
+                                                    <dd>산업팀</dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>연락처</dt>
+                                                    <dd>0647288313</dd>
+                                                </dl>
+                                                <!-- 
+                                                <dl>
+                                                    <dt>유튜브</dt>
+                                                    <dd></dd>
+                                                </dl>
+                                                -->
+                                                </div>
+
+                                            <div class="file">
+                                                <dl>
+                                                    <dt>첨부파일</dt>
+                                                    <dd>
+                                                        <ul>
+                                                            <li>
+                                                                <img src="/images/jejusi/board/link_file.jpg" alt="">
+                                                                <a href="/boardFileDown.ac?file_id=61670315d68a447288ecb5948cd771fb" title="파일 다운로드" download>★2027년 FTA기금 과수(감귤)고품질시설 현대화사업 신청접수 계획.hwpx</a>
+                                                                <a href="/boardFileDocViewer.ac?file_id=61670315d68a447288ecb5948cd771fb" target="_blank" class="download" title="★2027년 FTA기금 과수(감귤)고품질시설 현대화사업 신청접수 계획.hwpx (새창)">바로보기</a>
+                                                            </li>
+                                                            </ul>
+                                                    </dd>
+                                                </dl>
+                                            </div> <!--//view-file-->
+                                            </div> <!--//view-header-->
+
+                                        <div class="view-content">
+                                            <div class="memo">
+                                                2027년 FTA기금 과수(감귤) 고품질시설현대화 지원사업 신청·접수 계획을 붙임과 같이 알려드리오니, 사업을 희망하는 농가께서는 기한 내 신청하시기 바랍니다.<br/><br/> <br/> □ 신청개요<br/><br/>   가. 신청기간: 2026. 11. 9.(월) ~ 11. 23.(월) (15일간)<br/><br/>   나. 접수처: 지역 농·감협<br/><br/>   다. 신청사업: 16개사업<br/><br/>    ① 비가림하우스 ② 빗물이용시설 ③ 원지정비(품종갱신, 성목이식)<br/>    ④ 비상발전기  ⑤ 자동개폐기 ⑥ 관수관비시설 <br/>    ⑦ 방풍망시설 ⑧ 농산물 운반시설 ⑨ 무인방제시설    <br/>    ⑩ 환풍기시설  ⑪ 송풍팬시설 ⑫ 재해예방용 농업용 난방기 <br/>    ⑬ 보온커튼(동·냉해방지용) ⑭ 노후하우스 개보수<br/>    ⑮ 재해예방용 차광막 등 해가림시설 ⑯ 보급형 스마트팜<br/><br/>   라. 세부내용: 붙임 파일 참고<br/><br/> <br/>(신청을 위한 구비서류 중, 실적확인서는 농지소재지 읍면동 주민센터에서 발급가능합니다)<!--  2019.02.11 승범 변경, 부서소식 게시판에 유투브영상 추가건 -->
+                                                
+                                                </div>
+                                        </div> <!--//view-content-->
+
+                                        <!--게시글 만족도-->
+                                        <form id="notice_satis" name="notice_satis" method="post" action="/board/noticeSatis.ajax" >
+                                        <input type="hidden" name="_csrf" value="64d580ef-5488-4d0d-852e-35654164b210"/> <input type="hidden" name="notice_id" value="889db4f45941441eabfacd8ac973ab13">
+                                        <dl class="board_survey_info">
+                                            <dt>현재 게시글의 내용에 만족하시나요?</dt>
+                                            <dd class="va_point">
+                                                <span><label for="satis_point1">매우만족</label>
+                                                <input name="point" id="satis_point1" type="radio" value="2"></span>
+                                                <span><label for="satis_point2">만족</label>
+                                                <input name="point" id="satis_point2" type="radio" value="1"></span>
+                                                <span><label for="satis_point3">보통</label>
+                                                <input name="point" id="satis_point3" type="radio" value="0"></span>
+                                                <span><label for="satis_point4">불만족</label>
+                                                <input name="point" id="satis_point4" type="radio" value="-1"></span>
+                                                <span><label for="satis_point5">매우불만족</label>
+                                                <input name="point" id="satis_point5" type="radio" value="-2"></span>
+                                                <span class="btn"><button type="button" id="satis_btn" onclick="javascript:fn_noticeSatis();">등록</button></span>
+                                            </dd>
+                                        </dl>
+                                    </form>
+<!--//게시글 만족도-->
+
+                                        <div class="board-btn">
+                                            </div>
+
+                                        <div class="list-btn">
+                                            <div class="align">
+                                                <a href="javascript:;" class="prev" onclick="javascript:alert('이전글이 없습니다.')">이전</a><a href="/information/intro/news.do" class="list">
+                                                    목록
+                                                </a>
+                                                <a href="javascript:;" class="next" onclick="javascript:alert('다음글이 없습니다.')">다음</a></div>
+                                        </div>
+
+
+                                        </div>
+                                </div>
+                            </div> <!--//board-->
+                            <!--//실제 컨텐츠-->
+                        </div>
+
+                        <!--콘텐츠 관리 및 평가-->
+                        <div class="page_util">
+                            <form id="valuation" name="valuation" method="post" action="/valuation.ajax" >
+								<input type="hidden" name="_csrf" value="64d580ef-5488-4d0d-852e-35654164b210"/> <input type="hidden" name="returnURL" id="va_returnURL" value="/information/intro/news.do">
+                                <input type="hidden" name="menu_id" value="jejusi_3_1_1">
+
+	                            <dl class="survey_info">
+	                                <dt>현재 페이지의 내용이나 사용편의성에 만족하시나요?</dt>
+	                                <dd class="va_point">
+	                                    <span><label for="va_point1">매우만족 <img src="/images/jejusi/icon/valuation_point01.png" alt=""></label>
+	                                    <input name="point" id="va_point1" type="radio" value="2" required></span>
+	                                    <span><label for="va_point2">만족 <img src="/images/jejusi/icon/valuation_point02.png" alt=""></label>
+	                                    <input name="point" id="va_point2" type="radio" value="1" required></span>
+	                                    <span><label for="va_point3">보통 <img src="/images/jejusi/icon/valuation_point03.png" alt=""></label>
+	                                    <input name="point" id="va_point3" type="radio" value="0" required></span>
+	                                    <span><label for="va_point4">불만족 <img src="/images/jejusi/icon/valuation_point04.png" alt=""></label>
+	                                    <input name="point" id="va_point4" type="radio" value="-1" required></span>
+	                                    <span><label for="va_point5">매우불만족 <img src="/images/jejusi/icon/valuation_point05.png" alt=""></label>
+	                                    <input name="point" id="va_point5" type="radio" value="-2" required></span>
+	                                </dd>
+	                                <dd class="va_text">
+	                                    <label class="hidden" for="va_text">한줄의견</label>
+	                                    <textarea name="text" id="va_text" cols="30" rows="2" placeholder="100자 이내로 입력해주세요." title="100자 이내로 입력해주세요." maxlength="250"></textarea>
+	                                    <span class="btn"><button type="button" id="valuation_btn" onclick="fn_valuation();">등록</button></span>
+	                                </dd>
+	                            </dl>
+                            </form>
+                        </div><!--//콘텐츠 관리 및 평가-->
+                    </div>
+                </div>
+
+                </div>
+
+            <!--Top 버튼-->
+            <div class="container">
+                <aside class="right-zone">
+                    <div class="go-top">
+                        <a href="javascript:void(0)" onclick="go_topBtn()"><img src="/images/jejusi/btn/top_btn.png" alt="상단으로 가기"></a>
+                    </div>
+                </aside>
+            </div>
+            <!--//Top 버튼-->
+        </section>
+    </main>
+    <!--//Contents 영역-->
+
+    <!--Footer 영역-->
+    <footer id="footer_wrap">
+
+        <!--유관기관 바로가기-->
+        <div class="site_link_area">
+            <div class="site_link">
+                <h3 class="hidden">유관기관 바로가기</h3>
+                <dl>
+					<dt><button type="button" aria-haspopup="listbox" aria-expanded="false"><span class="text">실국 누리집</span><span class="btn">바로가기 보기</span></button></dt>
+                    <dd id="link_part" role="listbox">
+                    	<strong class="title">실국 누리집 바로가기 선택</strong>
+						<div class="link_area">
+	                        <a href="/sijang/main.do">
+	                            열린시장실</a>
+	                        <a href="/part/deputymayor.do">
+	                            부시장실</a>
+	                        <a href="/part/report.do">
+	                            공보실</a>
+	                        <a href="/part/minwon.do">
+	                            종합민원실</a>
+	                        <a href="/part/communication.do" target="_blank" title="새창">
+	                            소통청렴 지원실</a>
+	                        <a href="/part/gov.do">
+	                            자치행정국</a>
+	                        <a href="/part/safety.do">
+	                            안전교통위생국</a>
+	                        <a href="/part/society.do">
+	                            복지가족국</a>
+	                        <a href="/part/economy.do">
+	                            경제일자리국</a>
+	                        <a href="/part/culture.do">
+	                            문화관광체육국</a>
+	                        <a href="/part/environment.do">
+	                            청정환경국</a>
+	                        <a href="/part/farm.do">
+	                            농수축산국</a>
+	                        <a href="/part/town.do">
+	                            도시건설국</a>
+	                        <a href="/chc/intro/jeju.do" target="_blank" title="새창">
+	                            제주보건소</a>
+	                        <a href="/chc/intro/wjeju.do" target="_blank" title="새창">
+	                            서부보건소</a>
+	                        <a href="/chc/intro/ejeju.do" target="_blank" title="새창">
+	                            동부보건소</a>
+	                        </div>
+                    </dd>
+                </dl>
+                <dl>
+					<dt><button type="button" aria-haspopup="listbox" aria-expanded="false"><span class="text">읍·면·동</span><span class="btn">바로가기 보기</span></button></dt>
+                    <dd id="link_area" role="listbox">
+                    	<strong class="title">읍·면·동 바로가기 선택</strong>
+						<div class="link_area">
+	                        <a href="/town/hanlim.do">
+	                            한림읍</a>
+	                        <a href="/town/aewol.do">
+	                            애월읍</a>
+	                        <a href="/town/gujwa.do">
+	                            구좌읍</a>
+	                        <a href="/town/jocheon.do">
+	                            조천읍</a>
+	                        <a href="/town/hankyung.do">
+	                            한경면</a>
+	                        <a href="/town/chuja.do">
+	                            추자면</a>
+	                        <a href="/town/udo.do">
+	                            우도면</a>
+	                        <a href="/vill/ildo1.do">
+	                            일도1동</a>
+	                        <a href="/vill/ildo2.do">
+	                            일도2동</a>
+	                        <a href="/vill/ido1.do">
+	                            이도1동</a>
+	                        <a href="/vill/ido2.do">
+	                            이도2동</a>
+	                        <a href="/vill/samdo1.do">
+	                            삼도1동</a>
+	                        <a href="/vill/samdo2.do">
+	                            삼도2동</a>
+	                        <a href="/vill/yongdam1.do">
+	                            용담1동</a>
+	                        <a href="/vill/yongdam2.do">
+	                            용담2동</a>
+	                        <a href="/vill/geonip.do">
+	                            건입동</a>
+	                        <a href="/vill/hwabuk.do">
+	                            화북동</a>
+	                        <a href="/vill/samyang.do">
+	                            삼양동</a>
+	                        <a href="/vill/bongae.do">
+	                            봉개동</a>
+	                        <a href="/vill/ara.do">
+	                            아라동</a>
+	                        <a href="/vill/ora.do">
+	                            오라동</a>
+	                        <a href="/vill/yeon.do">
+	                            연동</a>
+	                        <a href="/vill/nohyeong.do">
+	                            노형동</a>
+	                        <a href="/vill/oedo.do">
+	                            외도동</a>
+	                        <a href="/vill/iho.do">
+	                            이호동</a>
+	                        <a href="/vill/dodu.do">
+	                            도두동</a>
+	                        </div>
+                    </dd>
+                </dl>
+                <dl>
+					<dt><button type="button" aria-haspopup="listbox" aria-expanded="false"><span class="text">제주의마을</span><span class="btn">바로가기 보기</span></button></dt>
+                    <dd id="link_vill" role="listbox">
+                        <strong class="title">제주의마을</strong>
+						<div class="link_area">
+	                        <a href="javascript:;">
+	                            == 한림읍 ==</a>
+	                        <a href="http://www.jeju.go.kr/vill/gwideok1/index.htm" target="_blank" title="새창">
+	                            귀덕1리</a>
+	                        <a href="http://www.jeju.go.kr/vill/gwideok2/index.htm" target="_blank" title="새창">
+	                            귀덕2리</a>
+	                        <a href="http://www.jeju.go.kr/vill/gwideok3/index.htm" target="_blank" title="새창">
+	                            귀덕3리</a>
+	                        <a href="http://www.jeju.go.kr/vill/suwon/index.htm" target="_blank" title="새창">
+	                            수원리</a>
+	                        <a href="http://www.jeju.go.kr/vill/hansu/index.htm" target="_blank" title="새창">
+	                            한수리</a>
+	                        <a href="http://www.jeju.go.kr/vill/daerim/index.htm" target="_blank" title="새창">
+	                            대림리</a>
+	                        <a href="http://www.jeju.go.kr/vill/hanrim1/index.htm" target="_blank" title="새창">
+	                            한림1리</a>
+	                        <a href="http://www.jeju.go.kr/vill/hanrim2/index.htm" target="_blank" title="새창">
+	                            한림2리</a>
+	                        <a href="http://www.jeju.go.kr/vill/hanrim3/index.htm" target="_blank" title="새창">
+	                            한림3리</a>
+	                        <a href="http://www.jeju.go.kr/vill/ganggu/index.htm" target="_blank" title="새창">
+	                            강구리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sangdae/index.htm" target="_blank" title="새창">
+	                            상대리</a>
+	                        <a href="http://www.jeju.go.kr/vill/dongmyeong/index.htm" target="_blank" title="새창">
+	                            동명리</a>
+	                        <a href="http://www.jeju.go.kr/vill/myeongwol/index.htm" target="_blank" title="새창">
+	                            명월리</a>
+	                        <a href="https://www.jeju.go.kr/vill/sangmyung/index.htm" target="_blank" title="새창">
+	                            상명리</a>
+	                        <a href="http://www.jeju.go.kr/vill/wolrim/index.htm" target="_blank" title="새창">
+	                            월림리</a>
+	                        <a href="http://www.jeju.go.kr/vill/geumak/index.htm" target="_blank" title="새창">
+	                            금악리</a>
+	                        <a href="http://www.jeju.go.kr/vill/ongpo/index.htm" target="_blank" title="새창">
+	                            옹포리</a>
+	                        <a href="http://www.jeju.go.kr/vill/hyeopjae/index.htm" target="_blank" title="새창">
+	                            협재리</a>
+	                        <a href="http://www.jeju.go.kr/vill/geumneung/index.htm" target="_blank" title="새창">
+	                            금능리</a>
+	                        <a href="http://www.jeju.go.kr/vill/wolryeong/index.htm" target="_blank" title="새창">
+	                            월령리</a>
+	                        <a href="http://www.jeju.go.kr/vill/biyang/index.htm" target="_blank" title="새창">
+	                            비양리</a>
+	                        <a href="javascript:;">
+	                            == 애월읍 ==</a>
+	                        <a href="http://www.jeju.go.kr/vill/aewol/index.htm" target="_blank" title="새창">
+	                            애월리</a>
+	                        <a href="http://www.jeju.go.kr/vill/gwakji/index.htm" target="_blank" title="새창">
+	                            곽지리</a>
+	                        <a href="http://www.jeju.go.kr/vill/geumsung/index.htm" target="_blank" title="새창">
+	                            금성리</a>
+	                        <a href="http://www.jeju.go.kr/vill/bongseong/index.htm" target="_blank" title="새창">
+	                            봉성리</a>
+	                        <a href="http://www.jeju.go.kr/vill/eoeum1/index.htm" target="_blank" title="새창">
+	                            어음1리</a>
+	                        <a href="http://www.jeju.go.kr/vill/eoeum2/index.htm" target="_blank" title="새창">
+	                            어음2리</a>
+	                        <a href="http://www.jeju.go.kr/vill/napeup/index.htm" target="_blank" title="새창">
+	                            납읍리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sangga/index.htm" target="_blank" title="새창">
+	                            상가리</a>
+	                        <a href="http://www.jeju.go.kr/vill/haga/index.htm" target="_blank" title="새창">
+	                            하가리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sogil/index.htm" target="_blank" title="새창">
+	                            소길리</a>
+	                        <a href="http://www.jeju.go.kr/vill/jangjeon/index.htm" target="_blank" title="새창">
+	                            장전리</a>
+	                        <a href="http://www.jeju.go.kr/vill/yusuam/index.htm" target="_blank" title="새창">
+	                            유수암리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sineom/index.htm" target="_blank" title="새창">
+	                            신엄리</a>
+	                        <a href="http://www.jeju.go.kr/vill/jungeom/index.htm" target="_blank" title="새창">
+	                            중엄리</a>
+	                        <a href="http://www.jeju.go.kr/vill/gueom/index.htm" target="_blank" title="새창">
+	                            구엄리</a>
+	                        <a href="http://www.jeju.go.kr/vill/yongheungri/index.htm" target="_blank" title="새창">
+	                            용흥리</a>
+	                        <a href="http://www.jeju.go.kr/vill/gonae/index.htm" target="_blank" title="새창">
+	                            고내리</a>
+	                        <a href="http://www.jeju.go.kr/vill/hagwi1/index.htm" target="_blank" title="새창">
+	                            하귀1리</a>
+	                        <a href="http://www.jeju.go.kr/vill/hagwi2/index.htm" target="_blank" title="새창">
+	                            하귀2리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sanggwi/index.htm" target="_blank" title="새창">
+	                            상귀리</a>
+	                        <a href="http://www.jeju.go.kr/vill/susan/index.htm" target="_blank" title="새창">
+	                            수산리</a>
+	                        <a href="http://www.jeju.go.kr/vill/goseong1/index.htm" target="_blank" title="새창">
+	                            고성1리</a>
+	                        <a href="http://www.jeju.go.kr/vill/goseong2/index.htm" target="_blank" title="새창">
+	                            고성2리</a>
+	                        <a href="http://www.jeju.go.kr/vill/gwngryeong1/index.htm" target="_blank" title="새창">
+	                            광령1리</a>
+	                        <a href="http://www.jeju.go.kr/vill/gwngryeong2/index.htm" target="_blank" title="새창">
+	                            광령2리</a>
+	                        <a href="http://www.jeju.go.kr/vill/gwngryeong3/index.htm" target="_blank" title="새창">
+	                            광령3리</a>
+	                        <a href="javascript:;">
+	                            == 구좌읍 ==</a>
+	                        <a href="http://www.jeju.go.kr/vill/dongbok/index.htm" target="_blank" title="새창">
+	                            동복리</a>
+	                        <a href="https://www.jeju.go.kr/vill/gimnyeong/index.htm" target="_blank" title="새창">
+	                            김녕리</a>
+	                        <a href="http://www.jeju.go.kr/vill/deokcheon/index.htm" target="_blank" title="새창">
+	                            덕천리</a>
+	                        <a href="http://www.jeju.go.kr/vill/woljeong/index.htm" target="_blank" title="새창">
+	                            월정리</a>
+	                        <a href="http://www.jeju.go.kr/vill/haengwon/index.htm" target="_blank" title="새창">
+	                            행원리</a>
+	                        <a href="http://www.jeju.go.kr/vill/handong/index.htm" target="_blank" title="새창">
+	                            한동리</a>
+	                        <a href="http://www.jeju.go.kr/vill/pyeongdae/index.htm" target="_blank" title="새창">
+	                            평대리</a>
+	                        <a href="http://www.jeju.go.kr/vill/songdang/index.htm" target="_blank" title="새창">
+	                            송당리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sehwa/index.htm" target="_blank" title="새창">
+	                            세화리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sangdo/index.htm" target="_blank" title="새창">
+	                            상도리</a>
+	                        <a href="http://www.jeju.go.kr/vill/hado/index.htm" target="_blank" title="새창">
+	                            하도리</a>
+	                        <a href="http://www.jeju.go.kr/vill/jongdal/index.htm" target="_blank" title="새창">
+	                            종달리</a>
+	                        <a href="javascript:;">
+	                            == 조천읍 ==</a>
+	                        <a href="http://www.jeju.go.kr/vill/sinchon/index.htm" target="_blank" title="새창">
+	                            신촌리</a>
+	                        <a href="http://www.jeju.go.kr/vill/jocheon/index.htm" target="_blank" title="새창">
+	                            조천리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sinheung/index.htm" target="_blank" title="새창">
+	                            신흥리</a>
+	                        <a href="http://www.jeju.go.kr/vill/hamdeok/index.htm" target="_blank" title="새창">
+	                            함덕리</a>
+	                        <a href="http://www.jeju.go.kr/vill/bukchon/index.htm" target="_blank" title="새창">
+	                            북촌리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sunheul1/index.htm" target="_blank" title="새창">
+	                            선흘1리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sunheul2/index.htm" target="_blank" title="새창">
+	                            선흘2리</a>
+	                        <a href="http://www.jeju.go.kr/vill/wasan/index.htm" target="_blank" title="새창">
+	                            와산리</a>
+	                        <a href="http://www.jeju.go.kr/vill/daeheul1/index.htm" target="_blank" title="새창">
+	                            대흘1리</a>
+	                        <a href="http://www.jeju.go.kr/vill/daeheul2/index.htm" target="_blank" title="새창">
+	                            대흘2리</a>
+	                        <a href="https://www.jeju.go.kr/vill/waheul/index.htm" target="_blank" title="새창">
+	                            와흘리</a>
+	                        <a href="https://www.jeju.go.kr/vill/kyorai/index.htm" target="_blank" title="새창">
+	                            교래리</a>
+	                        <a href="javascript:;">
+	                            == 한경면 ==</a>
+	                        <a href="http://www.jeju.go.kr/vill/panpo/index.htm" target="_blank" title="새창">
+	                            판포리</a>
+	                        <a href="https://www.jeju.go.kr/vill/geumdeung/index.htm" target="_blank" title="새창">
+	                            금등리</a>
+	                        <a href="http://www.jeju.go.kr/vill/hanwon/index.htm" target="_blank" title="새창">
+	                            한원리</a>
+	                        <a href="http://www.jeju.go.kr/vill/domo/index.htm" target="_blank" title="새창">
+	                            두모리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sinchang/index.htm" target="_blank" title="새창">
+	                            신창리</a>
+	                        <a href="http://www.jeju.go.kr/vill/yongdang/index.htm" target="_blank" title="새창">
+	                            용당리</a>
+	                        <a href="http://www.jeju.go.kr/vill/youngsu/index.htm" target="_blank" title="새창">
+	                            용수리</a>
+	                        <a href="http://www.jeju.go.kr/vill/gosan1/index.htm" target="_blank" title="새창">
+	                            고산1리</a>
+	                        <a href="http://www.jeju.go.kr/vill/gosan2/index.htm" target="_blank" title="새창">
+	                            고산2리</a>
+	                        <a href="http://www.jeju.go.kr/vill/josu1/index.htm" target="_blank" title="새창">
+	                            조수1리</a>
+	                        <a href="http://www.jeju.go.kr/vill/josu2/index.htm" target="_blank" title="새창">
+	                            조수2리</a>
+	                        <a href="http://ninegood.org/" target="_blank" title="새창">
+	                            낙천리</a>
+	                        <a href="https://www.jeju.go.kr/vill/jeoji/index.htm" target="_blank" title="새창">
+	                            저지리</a>
+	                        <a href="http://www.jeju.go.kr/vill/cheongsu/index.htm" target="_blank" title="새창">
+	                            청수리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sanyang/index.htm" target="_blank" title="새창">
+	                            산양리</a>
+	                        <a href="javascript:;">
+	                            == 추자면 ==</a>
+	                        <a href="https://www.jeju.go.kr/vill/daeseo/index.htm" target="_blank" title="새창">
+	                            대서리</a>
+	                        <a href="http://www.jeju.go.kr/vill/yeongheung/index.htm" target="_blank" title="새창">
+	                            영흥리</a>
+	                        <a href="http://www.jeju.go.kr/vill/muk/index.htm" target="_blank" title="새창">
+	                            묵리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sinyang1/index.htm" target="_blank" title="새창">
+	                            신양1리</a>
+	                        <a href="http://www.jeju.go.kr/vill/sinyang2/index.htm" target="_blank" title="새창">
+	                            신양2리</a>
+	                        <a href="http://www.jeju.go.kr/vill/yecho/index.htm" target="_blank" title="새창">
+	                            예초리</a>
+	                        <a href="javascript:;">
+	                            == 우도면 ==</a>
+	                        <a href="http://www.jeju.go.kr/vill/seogwang/index.htm" target="_blank" title="새창">
+	                            서광리</a>
+	                        <a href="https://www.jeju.go.kr/vill/cheonjin/index.htm" target="_blank" title="새창">
+	                            천진리</a>
+	                        <a href="http://www.jeju.go.kr/vill/joil/index.htm" target="_blank" title="새창">
+	                            조일리</a>
+	                        <a href="http://www.jeju.go.kr/vill/obong/index.htm" target="_blank" title="새창">
+	                            오봉리</a>
+	                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><button type="button" aria-haspopup="listbox" aria-expanded="false"><span class="text">주민자치센터</span><span class="btn">바로가기 보기</span></button></dt>
+                    <dd id="link_jumin" role="listbox">
+                    	<strong class="title">주민자치센터</strong>
+						<div class="link_area">
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju01/greet.htm" target="_blank" title="새창">
+	                            일도1</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju02/greet.htm" target="_blank" title="새창">
+	                            일도2</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju03/greet.htm" target="_blank" title="새창">
+	                            이도1</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju04/greet.htm" target="_blank" title="새창">
+	                            이도2</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju05/greet.htm" target="_blank" title="새창">
+	                            삼도1</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju06/greet.htm" target="_blank" title="새창">
+	                            삼도2</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju07/greet.htm" target="_blank" title="새창">
+	                            용담1</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju08/greet.htm" target="_blank" title="새창">
+	                            용담2</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju09/greet.htm" target="_blank" title="새창">
+	                            건입동</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju10/greet.htm" target="_blank" title="새창">
+	                            화북동</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju11/greet.htm" target="_blank" title="새창">
+	                            삼양동</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju12/greet.htm" target="_blank" title="새창">
+	                            봉개동</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju13/greet.htm" target="_blank" title="새창">
+	                            아라동</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju14/greet.htm" target="_blank" title="새창">
+	                            오라동</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju15/greet.htm" target="_blank" title="새창">
+	                            연동</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju16/greet.htm" target="_blank" title="새창">
+	                            노형동</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju17/greet.htm" target="_blank" title="새창">
+	                            외도동</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju18/greet.htm" target="_blank" title="새창">
+	                            이호동</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju19/greet.htm" target="_blank" title="새창">
+	                            도두동</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju20/greet.htm" target="_blank" title="새창">
+	                            한림읍</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju21/greet.htm" target="_blank" title="새창">
+	                            애월읍</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju22/greet.htm" target="_blank" title="새창">
+	                            구좌읍</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju23/greet.htm" target="_blank" title="새창">
+	                            조천읍</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju24/greet.htm" target="_blank" title="새창">
+	                            한경면</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju25/greet.htm" target="_blank" title="새창">
+	                            추자면</a>
+	                        <a href="https://www.jeju.go.kr/jumin/present/jejusi/jeju26/greet.htm" target="_blank" title="새창">
+	                            우도면</a>
+	                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><button type="button" aria-haspopup="listbox" aria-expanded="false"><span class="text">주요사이트</span><span class="btn">바로가기 보기</span></button></dt>
+                    <dd id="link_major" role="listbox">
+                        <strong class="title">주요사이트</strong>
+						<div class="link_area">
+	                        <a href="http://epost.jeju.go.kr" target="_blank" title="새창">
+	                            e-체송함</a>
+	                        <a href="/field/traffic/parkingmap.do" target="_blank" title="새창">
+	                            주차장 정보</a>
+	                        <a href="/roedeer/main.do" target="_blank" title="새창">
+	                            노루생태관찰원</a>
+	                        <a href="/waste/main.do" target="_blank" title="새창">
+	                            대형폐기물신청</a>
+	                        <a href="/buriburi/main.do" target="_blank" title="새창">
+	                            제주들불축제</a>
+	                        <a href="/star/main.do" target="_blank" title="새창">
+	                            별빛누리공원</a>
+	                        <a href="/acenter/index.do" target="_blank" title="새창">
+	                            제주아트센터</a>
+	                        <a href="https://www.foresttrip.go.kr/indvz/main.do?hmpgId=ID02030053" target="_blank" title="새창">
+	                            제주절물휴양림</a>
+	                        <a href="/chc/main.do" target="_blank" title="새창">
+	                            제주보건소</a>
+	                        <a href="https://www.jejusi.go.kr/photo/main.do" target="_blank" title="새창">
+	                            제주사진DB</a>
+	                        <a href="/news/main.do" target="_blank" title="새창">
+	                            제주시정뉴스</a>
+	                        <a href="/qolup/main.do" target="_blank" title="새창">
+	                            제주시평생학습관</a>
+	                        <a href="/bangjae/main.do" target="_blank" title="새창">
+	                            제주시재난안전대책본부</a>
+	                        <a href="http://lib.jeju.go.kr" target="_blank" title="새창">
+	                            제주특별자치도 공공도서관</a>
+	                        <a href="http://www.jeju.go.kr/traffic/garage/gcertificate.htm" target="_blank" title="새창">
+	                            차고지증명제</a>
+	                        <a href="/say/main.do" target="_blank" title="새창">
+	                            청소년성문화센터</a>
+	                        <a href="/youth/main.do" target="_blank" title="새창">
+	                            청소년수련관</a>
+	                        <a href="/sports/main.do" target="_blank" title="새창">
+	                            제주시체육시설</a>
+	                        <a href="/ecochon/main.do" target="_blank" title="새창">
+	                            제주시 에코촌 유스호스텔</a>
+	                        <a href="/artjeju/main.do" target="_blank" title="새창">
+	                            제주예술단(교향악단, 합창단)</a>
+	                        <a href="/cltur/main.do" target="_blank" title="새창">
+	                            제주시 다목적 생활문화센터 공유플랫폼</a>
+	                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <!--//유관기관 바로가기-->
+
+		<!-- Footer 내용 -->
+        <div class="footer">
+			<div class="container">
+				<div class="f_cnt">
+					<div class="f_info">
+						<div class="f_logo">
+							<img src="/images/jejusi/comm/logo_white.png" alt="제주시 제주시청">
+						</div>
+						<div>
+							<address>
+								<p id="kor_addr">(63208) 제주특별자치도 제주시 광양9길 10</p>
+								<p>10, Gwangyang 9-gil, Jeju-si, Jeju-do, 63208, Republic of Korea</p>
+							</address>
+						</div>
+					</div>
+
+					<div class="callcenter_group">
+						<div class="link_sns">
+							<a href="https://www.facebook.com/wowjejusi" target="_blank" title="제주시청 페이스북(새창)"><img src="/images/jejusi/comm/sns_facebook_white.png" alt="페이스북"></a>
+							<a href="https://story.kakao.com/ch/jejusi" target="_blank" title="제주시청 카카오스토리(새창)"><img src="/images/jejusi/comm/sns_kakaostory_white.png" alt="카카오스토리"></a>
+							<a href="https://blog.naver.com/wowjejusi" target="_blank" title="제주시청 네이버블로그(새창)"><img src="/images/jejusi/comm/sns_naverblog_white.png" alt="네이버블로그"></a>
+							<a href="https://www.youtube.com/wowjejusi" target="_blank" title="제주시청 유튜브(새창)"><img src="/images/jejusi/comm/sns_youtube_white.png" alt="유튜브"></a>
+							<a href="https://www.instagram.com/wowjejusi" target="_blank" title="제주시청 인스타그램(새창)"><img src="/images/jejusi/comm/sns_insta_white.png" alt="인스타그램"></a>
+						</div>
+
+						<div class="f_callcenter">
+							<dl>
+								<dt>제주120 만덕콜센터</dt>
+								<dd><strong>(064) 120</strong></dd>
+							</dl>
+							<ul class="info_text">
+								<li>유료：07시~22시</li>
+								<li>야간/공휴일 당직실 전환</li>
+								<li>연중무휴</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="jejusiQR">
+						<button type="button" onClick="$('#jejusiQR_view').show();" title="제주시 모바일 바로가기 QR코드 크게보기">
+							<span class="mark"><img src="/images/jejusi/comm/jejusiQR.png" alt="QR코드 크게보기"></span>
+						</button>
+						<div class="jejusiQR_on" id="jejusiQR_view">
+							<img src="/images/jejusi/comm/jejusiQR_on.png" alt="제주시 모바일 바로가기 QR코드">
+							<button type="button" onClick="$('#jejusiQR_view').hide();" title="닫기">제주시 모바일 QR코드 크게보기 닫기</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="f_btm">
+					<div class="f_btm_text">
+						<ul class="f_menu">
+							<li><a href="/guide/privacy/privacy.do"><strong>개인정보 처리방침</strong></a></li>
+							<li><a href="/guide/privacy/video.do"><strong>고정형 영상정보처리기기 운영ㆍ관리 방침</strong></a></li>
+							<li><a href="/guide/copyrights.do">저작권보호정책</a></li>
+							<li><a href="/guide/privacy/terms.do">이용안내</a></li>
+							<li><a href="/guide/feedback.do">누리집 개선의견</a></li>
+							<li><a href="/guide/sitemap.do">사이트맵</a></li>
+						</ul>
+						<p class="f_copy">© 1999 JEJU-SI. All rights reserved.</p>
+					</div>
+
+					<div class="f_link">
+						<div class="link_etc">
+							<a href="https://www.mois.go.kr/frt/sub/popup/p_taegugki_banner/screen.do" target="_blank" class="taegeukgi">
+								<span class="mark"><img src="/images/jejusi/comm/taegeukgi.png" alt="국가상징 알아보기(새창)"></span>
+								<em>국가상징 알아보기</em>
+							</a>
+							<a href="/guide/webaccessibility.do" class="mark_wa">
+								<span class="mark"><img src="/images/jejusi/comm/mark_wa_v2026.png" alt="(사)한국장애인단체총연합회 한국정보접근성인증평가원 웹접근성 우수사이트 인증마크(WA인증마크)"></span>
+								<em>웹 접근성 인증마크</em>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //Footer 내용 -->
+    </footer>
+    <!--//Footer 영역--></div>
+</body>
+</html>

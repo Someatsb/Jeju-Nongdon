@@ -1,0 +1,170 @@
+{
+  "schema": "golden-spec/2",
+  "case_id": "B11",
+  "phase": 2,
+  "kind": "boundary",
+  "title": "당근 1,000평, 귀농 2년(거주·영농 2년, 경영체 1년), 임차",
+  "source": "round1 S18",
+  "as_of": "2026-11-13",
+  "fixture": {
+    "snapshot": "snap_20261112",
+    "tables": "tables_1st_20261113",
+    "network": "blocked",
+    "jasdc": "recorded_20261112",
+    "llm": "none",
+    "price_override": null,
+    "feature_flags": {
+      "offfarm_money": true
+    }
+  },
+  "profile": {
+    "crop_key": "당근",
+    "area_m2": 3306,
+    "total_farm_area_m2": 3306,
+    "birth_year": 1964,
+    "birth_year_approx": false,
+    "sex": "M",
+    "region": "제주시",
+    "eupmyeon": null,
+    "visitor": "self",
+    "jeju_residence_years": 2,
+    "farming_years": 2,
+    "mgmt_registered": "Y",
+    "mgmt_years": 1,
+    "mgmt_last_registered_year": 2025,
+    "spouse_status": "none",
+    "spouse_birth_year": null,
+    "coop_member": "Y",
+    "coop_shipping": "Y",
+    "selfpay_fund_member": "Y",
+    "field_sold_contract": "N",
+    "crop2_key": null,
+    "crop2_area_m2": null,
+    "crop2_coop_shipping": null,
+    "crop2_selfpay_fund_member": null,
+    "crop2_field_sold_contract": null,
+    "owns_farmland": "N",
+    "farmland_owned_years": null,
+    "owned_area_ge_15500m2": "N",
+    "health_insurance": "?",
+    "offfarm_income_band": "?",
+    "disaster_damage": "N",
+    "direct_payment_education": "NA",
+    "already_receiving": [],
+    "insurance_enrolled": [],
+    "flags": [],
+    "disaster_end_date": null
+  },
+  "profile_fields_not_in_C_round1": [
+    "birth_year",
+    "birth_year_approx",
+    "eupmyeon",
+    "visitor",
+    "mgmt_last_registered_year",
+    "spouse_status",
+    "spouse_birth_year",
+    "crop2_key",
+    "crop2_area_m2",
+    "crop2_coop_shipping",
+    "crop2_selfpay_fund_member",
+    "crop2_field_sold_contract",
+    "owned_area_ge_15500m2",
+    "health_insurance",
+    "disaster_damage",
+    "direct_payment_education"
+  ],
+  "profile_fields_dropped_from_C_round1": [
+    "age (→ birth_year)",
+    "flags의 입원·질병 값(사원 F)",
+    "flags의 disaster_damage (→ 독립 필드 disaster_damage)"
+  ],
+  "expect": {
+    "paper_mode": "normal",
+    "header": {
+      "must_include": [
+        "2026-11-13",
+        "기준일"
+      ],
+      "note": "--asof 시연 기준일 표시(§12-A(1))"
+    },
+    "key_lines": [
+      {
+        "id": "B11-K1",
+        "section": "back",
+        "program_key": "JEJU-FARMER-ALLOW",
+        "status": "NOT_ELIGIBLE",
+        "must_include": [
+          "거주",
+          "3년"
+        ]
+      },
+      {
+        "id": "B11-K2",
+        "section": "D",
+        "program_key": "JEJU-SMALLFARM",
+        "status": "CHECK",
+        "amount_won": 150000,
+        "must_include": [
+          "15만"
+        ],
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "2월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전"
+      }
+    ],
+    "first_actions": [],
+    "insurance": [
+      {
+        "product_id": "nh_safety",
+        "status": "OPEN_NOW",
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "fixed_lines": [
+      {
+        "id": "FIXED-FARM-HELPER",
+        "must_include": [
+          "60일",
+          "농협"
+        ],
+        "must_not_include": [
+          "까지 신청하세요",
+          "남았"
+        ],
+        "note": "사원 F·설계 v2 §7-1: 입원·질병은 묻지 않는다. 영농도우미는 모든 종이에 같은 문장(\"다치거나 3일 넘게 입원하셨으면 60일 안에 농협\")."
+      },
+      {
+        "id": "FIXED-DISCLAIMER",
+        "must_include": [
+          "이 종이를 뽑아 준 곳",
+          "공문서"
+        ],
+        "note": "G 책임 표기 3줄"
+      }
+    ],
+    "banners": [],
+    "also": [],
+    "must_not_print": [
+      "농민수당 50만",
+      "소농직불금 130만",
+      "받으실 수 있는 돈",
+      "▶",
+      "오를",
+      "내릴",
+      "예측된",
+      "파세요"
+    ]
+  },
+  "unverified": [],
+  "pending_decisions": [],
+  "approval": {
+    "by": [],
+    "at": null,
+    "sha256": null
+  }
+}

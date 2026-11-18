@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "name": "제주산 농산물 물류비 지원",
+  "agency": "제주특별자치도 감귤유통과",
+  "apply_period": "신청기간  : 수 화 2026. 7. 22.( ) ~ 8. 4.( )",
+  "target": "지 역 농 협  및  영 농 조 합 법 인",
+  "content": "",
+  "tags": [
+    {
+      "label": "농협·조합법인이 신청",
+      "quote": "지 역 농 협  및  영 농 조 합 법 인",
+      "anchor": null
+    },
+    {
+      "label": "해상운송비 일부 지원",
+      "quote": "출하한 생산자에 대해 해상운송비 일부 지원",
+      "anchor": null
+    }
+  ],
+  "url": null,
+  "read_date": "2026-11-12",
+  "decision": "DRAFT_READY",
+  "table_key": "JEJU-LOGI"
+}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}공고 찾아보기 · {{ cfg.service_name }}{% endblock %}
+{#- 직원용 "공고 찾아보기" 진행·보고 화면. job: 상태 한 줄(snapshot) · d: 보고서(끝난 뒤). 표 없이 줄 목록. -#}
+{% block head %}<link rel="stylesheet" href="/static/scout.css">{% if job.state == "run" %}<noscript><meta http-equiv="refresh" content="3"></noscript>{% endif %}{% endblock %}
+{% block body_class %}page-sc{% endblock %}
+{% block main_class %}scmain{% endblock %}
+{% block foot_note %}{% if replay_note %}<span>{{ replay_note }}</span>{% endif %}{% endblock %}
+{% block header_actions %}<p class="proxy-note staff-badge">직원용</p><a class="btn btn-ghost btn-top" href="/staff">직원 메뉴로</a>{% endblock %}
+{% block content %}
+<div class="sc-wrap">
+{%- if job.state == "run" %}
+  <h1 class="sc-title">공고를 찾는 중이에요</h1>
+  {%- if job.replay %}<p class="sc-replay">{{ replay_text }}</p>{% endif %}
+  <section class="sc-card" aria-live="polite" data-status-url="/staff/scout/status">
+    <p class="sc-stage" id="sc-stage">{{ job.stage }}</p>
+    <ul class="sc-counts">
+      <li>지금까지 본 글 <b id="sc-seen">{{ job.seen }}</b>건</li>
+      <li>고른 글 <b id="sc-picked">{{ job.picked }}</b>건</li>
+      <li>흐른 시간 <b id="sc-time">{{ job.elapsed_s }}</b>초</li>
+    </ul>
+    <p class="sc-hint">이 화면을 닫지 않아도 돼요. 끝나면 저절로 결과가 나와요. {% if job.replay %}저장해 둔 기록을 다시 보여 드려요.{% else %}공식 게시판에 부담을 주지 않으려고 천천히 읽어서 1~2분쯤 걸려요.{% endif %}</p>
+  </section>
+  <script src="/static/scout.js" defer></script>
+{%- else %}
+  <h1 class="sc-title">공고 찾기 결과</h1>
+  {%- if job.replay %}<p class="sc-replay">{{ replay_text }}</p>{% endif %}
+  {%- for t in d.trouble %}
+  <p class="sc-trouble{% if d.fatal %} sc-fatal{% endif %}">{{ t }}</p>
+  {%- endfor %}
+  <section class="sc-card" aria-label="요약">
+    <ul class="sc-counts">
+      <li>본 글 <b>{{ d.seen_total }}</b>건</li>
+      <li>고른 글 <b>{{ d.picks | length }}</b>건</li>
+      <li>건너뛴 글 <b>{{ d.skips | length }}</b>건</li>
+    </ul>
+    <ul class="sc-small">
+      <li>걸린 시간 {{ d.elapsed_text }}</li>
+      <li>게시판 요청 {{ d.requests or 0 }}번</li>
+      <li>도구 호출 {{ d.tool_calls or 0 }}번</li>
+      {%- if d.as_of %}<li>기준일 {{ d.as_of }} · 최근 {{ d.days }}일 글</li>{% endif %}
+    </ul>
+    {%- if d.summary %}<p class="sc-summary">AI가 정리한 말: {{ d.summary }}</p>{% endif %}
+  </section>
+
+  <section class="sc-card" aria-label="고른 글">
+    <h2>고른 글 {{ d.picks | length }}건</h2>
+    {%- if d.picks %}
+    <ul class="sc-list">
+      {%- for p in d.picks %}
+      <li class="sc-item">
+        <p class="sc-name">{% if p.href %}<a href="{{ p.href }}" target="_blank" rel="noopener">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</p>
+        <p class="sc-meta">{{ p.board }}{% if p.posted %} · {{ p.posted }}{% endif %}{% if p.dept %} · {{ p.dept }}{% endif %}</p>
+        <p class="sc-why"><span>왜 골랐나요</span> {{ p.reason }}</p>
+        <p class="sc-result sc-{{ p.outcome }}"><span>읽은 결과</span> <b>{{ p.outcome_label }}</b></p>
+        {%- for line in p.details %}<p class="sc-detail">{{ line }}</p>{% endfor %}
+        {%- for l in p.links %}<p class="sc-go"><a class="btn btn-ghost sc-btn" href="/supports/{{ l.key }}">{{ l.name }} · 지원 안내 보기</a></p>{% endfor %}
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}
+    <p class="sc-none">고른 글이 없어요.</p>
+    {%- endif %}
+  </section>
+
+  <section class="sc-card" aria-label="건너뛴 글">
+    <h2>건너뛴 글 {{ d.skips | length }}건</h2>
+    {%- if d.skips %}
+    <ul class="sc-list sc-skips">
+      {%- for s in d.skips[:6] %}
+      <li class="sc-item sc-item-s"><p class="sc-name">{% if s.href %}<a href="{{ s.href }}" target="_blank" rel="noopener">{{ s.title }}</a>{% else %}{{ s.title }}{% endif %}</p><p class="sc-detail">{{ s.reason }}</p></li>
+      {%- endfor %}
+    </ul>
+    {%- if d.skips | length > 6 %}
+    <details class="sc-more"><summary>나머지 {{ d.skips | length - 6 }}건 보기</summary>
+      <ul class="sc-list sc-skips">
+        {%- for s in d.skips[6:] %}
+        <li class="sc-item sc-item-s"><p class="sc-name">{% if s.href %}<a href="{{ s.href }}" target="_blank" rel="noopener">{{ s.title }}</a>{% else %}{{ s.title }}{% endif %}</p><p class="sc-detail">{{ s.reason }}</p></li>
+        {%- endfor %}
+      </ul>
+    </details>
+    {%- endif %}
+    {%- else %}
+    <p class="sc-none">건너뛴 글이 없어요.</p>
+    {%- endif %}
+  </section>
+
+  <div class="sc-actions">
+    <a class="btn btn-primary sc-btn" href="/supports">지원 전체 보기에서 보기</a>
+    <form method="post" action="/staff/scout"><button class="btn btn-ghost sc-btn" type="submit">다시 찾아보기</button></form>
+    {%- if d.inbox_id %}<a class="btn btn-ghost sc-btn" href="/staff/notice/{{ d.inbox_id }}">자세한 보고서(표) 보기</a>{% endif %}
+  </div>
+  <p class="sc-foot">AI는 고르기만 해요. 목록에 올라간 내용은 공고 원문 문장으로 확인된 것만이고, 최종 확인은 직원이 해요.</p>
+{%- endif %}
+</div>
+{% endblock %}

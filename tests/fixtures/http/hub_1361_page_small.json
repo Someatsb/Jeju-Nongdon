@@ -1,0 +1,4 @@
+{"totCnt": 2, "hasMore": false, "data": [
+ {"baseDate": "20261101", "cultivar": "당근(일반)", "averagePrice": 2100.5, "transactionVolume": 10.2, "transactionAmount": 21.43},
+ {"baseDate": "20261102", "cultivar": "당근(일반)", "averagePrice": 2110.0, "transactionVolume": 11.0, "transactionAmount": 23.21}
+]}

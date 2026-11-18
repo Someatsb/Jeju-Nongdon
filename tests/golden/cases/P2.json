@@ -1,0 +1,282 @@
+{
+  "schema": "golden-spec/2",
+  "case_id": "P2",
+  "phase": 1,
+  "kind": "persona",
+  "title": "부 삼촌 부부 — 구좌 당근 1.0ha, 계통·자조금, 아내 미등록",
+  "source": "round1-M-persona.md §2-2 P2",
+  "as_of": "2026-11-13",
+  "fixture": {
+    "snapshot": "snap_20261112",
+    "tables": "tables_1st_20261113",
+    "network": "blocked",
+    "jasdc": "recorded_20261112",
+    "llm": "none",
+    "price_override": null,
+    "feature_flags": {
+      "offfarm_money": true
+    }
+  },
+  "profile": {
+    "crop_key": "당근",
+    "area_m2": 10000,
+    "total_farm_area_m2": 10000,
+    "birth_year": 1958,
+    "birth_year_approx": false,
+    "sex": "M",
+    "region": "제주시",
+    "eupmyeon": "구좌읍",
+    "visitor": "self",
+    "jeju_residence_years": 68,
+    "farming_years": 40,
+    "mgmt_registered": "Y",
+    "mgmt_years": 20,
+    "mgmt_last_registered_year": 2025,
+    "spouse_status": "unregistered",
+    "spouse_birth_year": 1960,
+    "coop_member": "Y",
+    "coop_shipping": "Y",
+    "selfpay_fund_member": "Y",
+    "field_sold_contract": "N",
+    "crop2_key": null,
+    "crop2_area_m2": null,
+    "crop2_coop_shipping": null,
+    "crop2_selfpay_fund_member": null,
+    "crop2_field_sold_contract": null,
+    "owns_farmland": "Y",
+    "farmland_owned_years": 30,
+    "owned_area_ge_15500m2": "N",
+    "health_insurance": "?",
+    "offfarm_income_band": "?",
+    "disaster_damage": "N",
+    "direct_payment_education": "Y",
+    "already_receiving": [
+      "JEJU-FARMER-ALLOW",
+      "NAT-DIRECT-AREA",
+      "JEJU-PSTAB"
+    ],
+    "insurance_enrolled": [],
+    "flags": [],
+    "disaster_end_date": null,
+    "spouse_sex": "여"
+  },
+  "profile_fields_not_in_C_round1": [
+    "birth_year",
+    "birth_year_approx",
+    "eupmyeon",
+    "visitor",
+    "mgmt_last_registered_year",
+    "spouse_status",
+    "spouse_birth_year",
+    "crop2_key",
+    "crop2_area_m2",
+    "crop2_coop_shipping",
+    "crop2_selfpay_fund_member",
+    "crop2_field_sold_contract",
+    "owned_area_ge_15500m2",
+    "health_insurance",
+    "disaster_damage",
+    "direct_payment_education",
+    "spouse_sex"
+  ],
+  "profile_fields_dropped_from_C_round1": [
+    "age (→ birth_year)",
+    "flags의 입원·질병 값(사원 F)",
+    "flags의 disaster_damage (→ 독립 필드 disaster_damage)"
+  ],
+  "expect": {
+    "paper_mode": "normal",
+    "header": {
+      "must_include": [
+        "2026-11-13",
+        "기준일"
+      ],
+      "note": "--asof 시연 기준일 표시(§12-A(1))"
+    },
+    "key_lines": [
+      {
+        "id": "P2-K1",
+        "section": "B",
+        "action": "PREREQ:spouse_registration",
+        "status": "BLOCKED_PREREQ",
+        "must_include": [
+          "배우자",
+          "등록",
+          "20만",
+          "45만"
+        ],
+        "unlocks": [
+          {
+            "program_key": "JEJU-WOMEN-VOUCHER",
+            "amount_won": 200000,
+            "status_after": "CHECK",
+            "row_status": "prior_year_reference",
+            "badge": true,
+            "badge_must_include": [
+              "공고 전",
+              "3월"
+            ],
+            "badge_basis": "2026년 기준, 2027년 공고 전"
+          },
+          {
+            "program_key": "JEJU-FARMER-ALLOW",
+            "amount_won_delta": 400000,
+            "status_after": "CHECK",
+            "row_status": "prior_year_reference",
+            "badge": true,
+            "badge_must_include": [
+              "공고 전",
+              "3월"
+            ],
+            "badge_basis": "2026년 기준, 2027년 공고 전",
+            "note": "1인 50만 → 2인 1인당 45만. 2년 계속 등록이 사람 단위인지 미확인"
+          }
+        ],
+        "why": "등록 행동 자체는 상시(배지 없음), 열리는 돈 줄에만 배지",
+        "row_status": "confirmed",
+        "badge": false
+      },
+      {
+        "id": "P2-K2",
+        "section": "C",
+        "rule_id": "PRICE_STAB",
+        "crop_key": "당근",
+        "status": "NOT_MET",
+        "must_include": [
+          "가격안정관리제",
+          "1,088원",
+          "71원"
+        ],
+        "why": "반월 11.1~11.15, 기준가 위 → '아직'. 기준가가 2025-26 값 → 배지. 작년 실적 71원 사실 한 줄",
+        "assumption": "snap_20261112 동결 후 재확인: 11-06~11-12 당근 가격이 1,088원 위(11-05까지 2,000원대 [실측])",
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "2026년 기준",
+          "공고 전"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전",
+        "where": "back"
+      }
+    ],
+    "first_actions": [
+      {
+        "section": "B",
+        "kind": "PREREQ",
+        "target": "spouse_registration",
+        "must_include": [
+          "농관원"
+        ]
+      }
+    ],
+    "insurance": [
+      {
+        "product_id": "income_stab",
+        "crop_key": "당근",
+        "status": "NOT_COVERED"
+      },
+      {
+        "product_id": "crop_disaster",
+        "crop_key": "당근",
+        "status": "NEXT_WINDOW",
+        "next_window": {
+          "months": [
+            7,
+            9
+          ]
+        },
+        "must_include": [
+          "80%"
+        ],
+        "row_status": "prior_year_reference",
+        "badge": true,
+        "badge_must_include": [
+          "공고 전",
+          "7월"
+        ],
+        "badge_basis": "2026년 기준, 2027년 공고 전",
+        "where": "back"
+      },
+      {
+        "product_id": "nh_safety",
+        "status": "OPEN_NOW",
+        "persons": 2,
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "fixed_lines": [
+      {
+        "id": "FIXED-FARM-HELPER",
+        "must_include": [
+          "60일",
+          "농협"
+        ],
+        "must_not_include": [
+          "까지 신청하세요",
+          "남았"
+        ],
+        "note": "사원 F·설계 v2 §7-1: 입원·질병은 묻지 않는다. 영농도우미는 모든 종이에 같은 문장(\"다치거나 3일 넘게 입원하셨으면 60일 안에 농협\")."
+      },
+      {
+        "id": "FIXED-DISCLAIMER",
+        "must_include": [
+          "이 종이를 뽑아 준 곳",
+          "공문서"
+        ],
+        "note": "G 책임 표기 3줄"
+      }
+    ],
+    "banners": [],
+    "also": [
+      {
+        "section": "back",
+        "must_include": [
+          "이미 받고 계신 것",
+          "농민수당",
+          "면적직불"
+        ]
+      },
+      {
+        "section": "F",
+        "calendar_must_include": [
+          "1월"
+        ],
+        "why": "칼슘유황비료 등 통합공고는 '1월 통합공고' 달력 칸(§2-3 해석)"
+      },
+      {
+        "section": "D",
+        "program_key": "NHIS-FARMER-SUPPORT",
+        "status": "CHECK",
+        "must_include": [
+          "건강보험료"
+        ],
+        "must_not_include": [
+          "만 원"
+        ],
+        "depends_on_row": "NHIS-FARMER-SUPPORT가 confirmed일 때만. hold면 이 줄 없음",
+        "why": "§12-A(1) 기본값: 사장 답이 없으면 넣는다. 보험료를 입력받지 않으므로 금액 없음(비율·소급만) (사장 결정 2026-11-08 §12-B 2: \"농업 밖 제도\" 표시 폐기)",
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "must_not_print": [
+      "받으실 수 있는 돈",
+      "▶",
+      "오를",
+      "내릴",
+      "예측된",
+      "파세요"
+    ]
+  },
+  "unverified": [
+    "농민수당 2년 요건 단위",
+    "당근 2026-27 기준가"
+  ],
+  "pending_decisions": [],
+  "approval": {
+    "by": [],
+    "at": null,
+    "sha256": null
+  }
+}

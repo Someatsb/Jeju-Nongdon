@@ -1,0 +1,1471 @@
+{
+ "version": "2026-11-08 round2 + U03",
+ "list_sep": ";",
+ "manual_sep": " / ",
+ "unit_rules": {
+  "pyeong_m2": 3.3058,
+  "ha_m2": 10000
+ },
+ "tables": {
+  "supports": {
+   "file": "supports.csv",
+   "key": "id",
+   "columns": [
+    {
+     "key": "id",
+     "label": "행 ID",
+     "group": "A 식별",
+     "type": "str",
+     "required": true,
+     "help": "program_key@edition[#작물·지역]. 표 안에서 유일",
+     "example": "NAT-DIRECT-SMALL@2026",
+     "pattern": "^[A-Z0-9-]+@[0-9]{4}(-[0-9]{2})?(#[^,;]+)?$"
+    },
+    {
+     "key": "program_key",
+     "label": "제도 키",
+     "group": "A 식별",
+     "type": "str",
+     "required": true,
+     "help": "해가 바뀌어도 같음. excludes와 '이미 받는 제도'가 이 키를 가리킴",
+     "example": "NAT-DIRECT-SMALL",
+     "pattern": "^[A-Z0-9-]+$"
+    },
+    {
+     "key": "edition",
+     "label": "사업연도·시즌",
+     "group": "A 식별",
+     "type": "str",
+     "required": true,
+     "help": "",
+     "example": "2026 또는 2026-27",
+     "pattern": "^[0-9]{4}(-[0-9]{2})?$"
+    },
+    {
+     "key": "status",
+     "label": "상태",
+     "group": "A 식별",
+     "type": "enum",
+     "required": true,
+     "help": "confirmed = 현재 회차 근거 확인 / prior_year_reference = 끝난 회차 공고를 다음 회차 참고로 씀(인쇄 시 '작년 기준' 배지, 날짜는 '○월쯤') / hold = 인쇄 안 함(출처 없음·연도 불일치)",
+     "example": "",
+     "enum": [
+      "confirmed",
+      "prior_year_reference",
+      "hold"
+     ]
+    },
+    {
+     "key": "applicant",
+     "label": "신청 주체",
+     "group": "A 식별",
+     "type": "enum",
+     "required": true,
+     "help": "농협경유 = 혜택은 농가, 신청은 농협·법인. 법인·단체 행은 매칭하지 않음",
+     "example": "",
+     "enum": [
+      "개인",
+      "농협경유",
+      "법인·단체"
+     ]
+    },
+    {
+     "key": "name",
+     "label": "제도명",
+     "group": "A 식별",
+     "type": "str",
+     "required": true,
+     "help": "인쇄용, 30자 이하",
+     "example": "",
+     "max": 30
+    },
+    {
+     "key": "agency",
+     "label": "운영기관",
+     "group": "A 식별",
+     "type": "str",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "agency_level",
+     "label": "기관 구분",
+     "group": "A 식별",
+     "type": "enum",
+     "required": true,
+     "help": "",
+     "example": "",
+     "enum": [
+      "국가",
+      "도",
+      "제주시",
+      "서귀포시",
+      "농협",
+      "공사",
+      "공단"
+     ]
+    },
+    {
+     "key": "kind",
+     "label": "지원 형태",
+     "group": "A 식별",
+     "type": "enum",
+     "required": true,
+     "help": "",
+     "example": "",
+     "enum": [
+      "현금",
+      "현물·자재",
+      "사업비보조",
+      "보험료지원",
+      "연금",
+      "서비스",
+      "감면"
+     ]
+    },
+    {
+     "key": "trigger",
+     "label": "발동 규칙",
+     "group": "A 식별",
+     "type": "enum",
+     "required": true,
+     "help": "none이 아니면 판정 코드가 처리",
+     "example": "",
+     "enum": [
+      "none",
+      "price_stab",
+      "logistics",
+      "buyout",
+      "disaster"
+     ]
+    },
+    {
+     "key": "valid_from",
+     "label": "적용 시작일",
+     "group": "B 기간",
+     "type": "date",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "valid_to",
+     "label": "적용 종료일",
+     "group": "B 기간",
+     "type": "date",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "apply_start",
+     "label": "신청 시작일",
+     "group": "B 기간",
+     "type": "date",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "apply_end",
+     "label": "신청 마감일",
+     "group": "B 기간",
+     "type": "date",
+     "required": false,
+     "help": "apply_cycle=연1회이면 필수",
+     "example": ""
+    },
+    {
+     "key": "apply_cycle",
+     "label": "신청 방식",
+     "group": "B 기간",
+     "type": "enum",
+     "required": true,
+     "help": "",
+     "example": "",
+     "enum": [
+      "연1회",
+      "상시",
+      "사후신청",
+      "자동"
+     ]
+    },
+    {
+     "key": "apply_within_days",
+     "label": "사후 신청 기한(일)",
+     "group": "B 기간",
+     "type": "int",
+     "required": false,
+     "help": "확인된 기한만. 모르면 빈칸 + manual_check",
+     "example": "",
+     "min": 1,
+     "max": 365
+    },
+    {
+     "key": "next_month",
+     "label": "다음 신청 예상 월",
+     "group": "B 기간",
+     "type": "int",
+     "required": false,
+     "help": "인쇄 문구는 '작년 기준 ○월쯤' 고정",
+     "example": "",
+     "min": 1,
+     "max": 12
+    },
+    {
+     "key": "expected_notice_month",
+     "label": "다음 공고 확인 월",
+     "group": "B 기간",
+     "type": "int",
+     "required": false,
+     "help": "prior_year_reference면 필수(R18). 인쇄 배지 '○년 공고 전 · ○월 확인'. 보통 next_month와 같음",
+     "example": "3",
+     "min": 1,
+     "max": 12
+    },
+    {
+     "key": "payout_timing",
+     "label": "지급 시기",
+     "group": "B 기간",
+     "type": "text",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "min_age",
+     "label": "최소 나이",
+     "group": "C 조건",
+     "type": "int",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 120
+    },
+    {
+     "key": "max_age",
+     "label": "최대 나이",
+     "group": "C 조건",
+     "type": "int",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 120
+    },
+    {
+     "key": "age_basis",
+     "label": "나이 기준일",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "나이 조건이 있으면 필수",
+     "example": "",
+     "enum": [
+      "신청일",
+      "연말",
+      "1월1일"
+     ]
+    },
+    {
+     "key": "sex",
+     "label": "성별",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "",
+     "example": "",
+     "enum": [
+      "여"
+     ]
+    },
+    {
+     "key": "min_residence_years",
+     "label": "제주 거주 연수",
+     "group": "C 조건",
+     "type": "int",
+     "required": false,
+     "help": "제주 거주만. 농촌 거주는 manual_check",
+     "example": "",
+     "min": 0,
+     "max": 100
+    },
+    {
+     "key": "min_farming_years",
+     "label": "영농 경력 연수",
+     "group": "C 조건",
+     "type": "int",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 100
+    },
+    {
+     "key": "needs_mgmt",
+     "label": "농업경영체 등록",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "",
+     "example": "",
+     "enum": [
+      "Y"
+     ],
+     "fixable": true
+    },
+    {
+     "key": "min_mgmt_years",
+     "label": "경영체 유지 연수",
+     "group": "C 조건",
+     "type": "int",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 50
+    },
+    {
+     "key": "min_ha",
+     "label": "최소 면적(ha)",
+     "group": "C 조건",
+     "type": "float",
+     "required": false,
+     "help": "1평 = 3.3058㎡, 1ha = 10,000㎡",
+     "example": "",
+     "min": 0,
+     "max": 100
+    },
+    {
+     "key": "max_ha",
+     "label": "최대 면적(ha)",
+     "group": "C 조건",
+     "type": "float",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 100
+    },
+    {
+     "key": "area_basis",
+     "label": "면적 기준",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "면적 조건이 있으면 필수",
+     "example": "",
+     "enum": [
+      "경작",
+      "해당작물",
+      "소유",
+      "인증"
+     ]
+    },
+    {
+     "key": "max_owned_ha",
+     "label": "소유 면적 상한(ha)",
+     "group": "C 조건",
+     "type": "float",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 100
+    },
+    {
+     "key": "owns_land",
+     "label": "농지 소유",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "",
+     "example": "",
+     "enum": [
+      "Y"
+     ]
+    },
+    {
+     "key": "land_hold_years",
+     "label": "농지 보유 연수",
+     "group": "C 조건",
+     "type": "int",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 50
+    },
+    {
+     "key": "needs_coop",
+     "label": "계통출하·계약재배",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "E = 자조금과 둘 중 하나(needs_selfpay_fund도 E)",
+     "example": "",
+     "enum": [
+      "Y",
+      "E"
+     ],
+     "fixable": true
+    },
+    {
+     "key": "needs_selfpay_fund",
+     "label": "자조금 가입·납부",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "",
+     "example": "",
+     "enum": [
+      "Y",
+      "E"
+     ],
+     "fixable": true
+    },
+    {
+     "key": "needs_enrollment",
+     "label": "사전 참여 신청",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "",
+     "example": "",
+     "enum": [
+      "Y"
+     ],
+     "fixable": true
+    },
+    {
+     "key": "needs_cert",
+     "label": "인증",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "",
+     "example": "",
+     "enum": [
+      "친환경",
+      "GAP",
+      "친환경또는GAP"
+     ]
+    },
+    {
+     "key": "income_test",
+     "label": "소득 기준",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "심사이면 '가능성 있음, 확인' 고정 문구",
+     "example": "",
+     "enum": [
+      "없음",
+      "상한",
+      "심사"
+     ]
+    },
+    {
+     "key": "income_max_manwon",
+     "label": "농외소득 상한(만원)",
+     "group": "C 조건",
+     "type": "int",
+     "required": false,
+     "help": "income_test=상한이면 필수",
+     "example": "",
+     "min": 0,
+     "max": 100000
+    },
+    {
+     "key": "crop_in",
+     "label": "대상 작물",
+     "group": "C 조건",
+     "type": "list_crop",
+     "required": false,
+     "help": "crops.csv 코드 또는 그룹, ; 구분. 빈칸 = 전 작물",
+     "example": ""
+    },
+    {
+     "key": "crop_not_in",
+     "label": "제외 작물",
+     "group": "C 조건",
+     "type": "list_crop",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "facility",
+     "label": "재배 형태",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "",
+     "example": "",
+     "enum": [
+      "노지",
+      "시설"
+     ]
+    },
+    {
+     "key": "region_in",
+     "label": "행정시",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "",
+     "example": "",
+     "enum": [
+      "제주시",
+      "서귀포시"
+     ]
+    },
+    {
+     "key": "region_basis",
+     "label": "지역 기준",
+     "group": "C 조건",
+     "type": "enum",
+     "required": false,
+     "help": "region_in이 있으면 필수",
+     "example": "",
+     "enum": [
+      "주소지",
+      "농지소재지"
+     ]
+    },
+    {
+     "key": "excludes",
+     "label": "같이 못 받는 제도",
+     "group": "C 조건",
+     "type": "list_program",
+     "required": false,
+     "help": "program_key 목록. 보험처럼 작물별 행이면 같은 작물끼리만 적용",
+     "example": ""
+    },
+    {
+     "key": "manual_check",
+     "label": "직원 확인 항목",
+     "group": "C 조건",
+     "type": "text",
+     "required": false,
+     "help": "' / '로 구분, 항목당 60자 이하. 인쇄 '□ 확인할 것'",
+     "example": ""
+    },
+    {
+     "key": "amount_type",
+     "label": "금액 방식",
+     "group": "D 금액",
+     "type": "enum",
+     "required": true,
+     "help": "",
+     "example": "",
+     "enum": [
+      "정액",
+      "면적비례",
+      "kg당",
+      "단위당",
+      "보조율",
+      "규칙",
+      "없음"
+     ]
+    },
+    {
+     "key": "amount_value",
+     "label": "금액(원)",
+     "group": "D 금액",
+     "type": "int",
+     "required": false,
+     "help": "정액·kg당·단위당·면적비례(단일 단가)",
+     "example": "",
+     "min": 0,
+     "max": 1000000000
+    },
+    {
+     "key": "amount_min",
+     "label": "금액 하한(원)",
+     "group": "D 금액",
+     "type": "int",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 1000000000
+    },
+    {
+     "key": "amount_max",
+     "label": "금액 상한(원)",
+     "group": "D 금액",
+     "type": "int",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 1000000000
+    },
+    {
+     "key": "period",
+     "label": "지급 주기",
+     "group": "D 금액",
+     "type": "enum",
+     "required": false,
+     "help": "",
+     "example": "",
+     "enum": [
+      "1회",
+      "연",
+      "월",
+      "일"
+     ]
+    },
+    {
+     "key": "calc_basis",
+     "label": "곱하는 값",
+     "group": "D 금액",
+     "type": "enum",
+     "required": false,
+     "help": "면적비례·kg당이면 필수",
+     "example": "",
+     "enum": [
+      "경작면적",
+      "해당작물면적",
+      "소유면적",
+      "출하량"
+     ]
+    },
+    {
+     "key": "units_per_ha",
+     "label": "ha당 수량",
+     "group": "D 금액",
+     "type": "float",
+     "required": false,
+     "help": "단위당이면 필수",
+     "example": "",
+     "min": 0,
+     "max": 100000
+    },
+    {
+     "key": "unit_name",
+     "label": "단위 이름",
+     "group": "D 금액",
+     "type": "str",
+     "required": false,
+     "help": "",
+     "example": "",
+     "max": 12
+    },
+    {
+     "key": "cap_units",
+     "label": "수량 상한",
+     "group": "D 금액",
+     "type": "int",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 1000000
+    },
+    {
+     "key": "rate_pct_min",
+     "label": "보조율 하한(%)",
+     "group": "D 금액",
+     "type": "float",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 100
+    },
+    {
+     "key": "rate_pct_max",
+     "label": "보조율 상한(%)",
+     "group": "D 금액",
+     "type": "float",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 100
+    },
+    {
+     "key": "cap_won",
+     "label": "상한(원)",
+     "group": "D 금액",
+     "type": "int",
+     "required": false,
+     "help": "",
+     "example": "",
+     "min": 0,
+     "max": 10000000000
+    },
+    {
+     "key": "rule_ref",
+     "label": "규칙 참조",
+     "group": "D 금액",
+     "type": "enum",
+     "required": false,
+     "help": "amount_type=규칙이면 필수, params에 그 작물 값이 있어야 함",
+     "example": "",
+     "enum": [
+      "price_stab",
+      "logistics"
+     ]
+    },
+    {
+     "key": "amount_note",
+     "label": "금액 꼬리표",
+     "group": "D 금액",
+     "type": "text",
+     "required": false,
+     "help": "빠진 비용·조건을 적음",
+     "example": "",
+     "max": 60
+    },
+    {
+     "key": "office",
+     "label": "접수처",
+     "group": "E 창구",
+     "type": "str",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "phone",
+     "label": "문의 전화",
+     "group": "E 창구",
+     "type": "str",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "documents",
+     "label": "서류",
+     "group": "E 창구",
+     "type": "text",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "source_title",
+     "label": "근거 문서",
+     "group": "F 근거",
+     "type": "str",
+     "required": false,
+     "help": "confirmed면 필수",
+     "example": ""
+    },
+    {
+     "key": "source_url",
+     "label": "근거 주소",
+     "group": "F 근거",
+     "type": "str",
+     "required": false,
+     "help": "confirmed면 필수. 여러 개면 ' ; '",
+     "example": "",
+     "pattern": "^https?://"
+    },
+    {
+     "key": "source_page",
+     "label": "쪽",
+     "group": "F 근거",
+     "type": "str",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "source_grade",
+     "label": "근거 등급",
+     "group": "F 근거",
+     "type": "enum",
+     "required": true,
+     "help": "언론이면 인쇄에 '(보도 기준)'",
+     "example": "",
+     "enum": [
+      "원문",
+      "보도자료",
+      "언론"
+     ]
+    },
+    {
+     "key": "evidence",
+     "label": "핵심 근거 문장",
+     "group": "F 근거",
+     "type": "text",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "verified_date",
+     "label": "확인일",
+     "group": "F 근거",
+     "type": "date",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "verified_by",
+     "label": "확인자",
+     "group": "F 근거",
+     "type": "str",
+     "required": true,
+     "help": "이니셜",
+     "example": "",
+     "max": 20
+    },
+    {
+     "key": "notes",
+     "label": "메모(인쇄 안 함)",
+     "group": "F 근거",
+     "type": "text",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "renew_type",
+     "label": "갱신 방식",
+     "group": "G 서비스",
+     "type": "enum",
+     "required": true,
+     "help": "받고 있음 + 매년신청 → '작년처럼 다시 신청' 줄로 이동",
+     "example": "",
+     "enum": [
+      "매년신청",
+      "자동갱신",
+      "상시",
+      "사건별"
+     ]
+    },
+    {
+     "key": "recognition_cue",
+     "label": "알아보기 단서",
+     "group": "G 서비스",
+     "type": "text",
+     "required": false,
+     "help": "어르신이 돈이 들어온 모양으로 기억하게",
+     "example": "",
+     "max": 60
+    },
+    {
+     "key": "born_before",
+     "label": "이 날짜 전 출생",
+     "group": "G 서비스",
+     "type": "date",
+     "required": false,
+     "help": "공고가 출생일로 끊을 때(포함 안 함, 미만)",
+     "example": ""
+    },
+    {
+     "key": "event_type",
+     "label": "최근 일 조건",
+     "group": "G 서비스",
+     "type": "enum",
+     "required": false,
+     "help": "값이 있으면 그 일이 있을 때만 해당",
+     "example": "",
+     "enum": [
+      "재해",
+      "사고"
+     ]
+    },
+    {
+     "key": "born_after",
+     "label": "이 날짜 이후 출생",
+     "group": "H 추가",
+     "type": "date",
+     "required": false,
+     "help": "이상(포함). 행복이용권 1946~2005년생",
+     "example": ""
+    },
+    {
+     "key": "area_type_in",
+     "label": "읍면·동",
+     "group": "H 추가",
+     "type": "enum",
+     "required": false,
+     "help": "행복택시(읍면 65세·동 70세), 건보료 농어촌 경감",
+     "example": "",
+     "enum": [
+      "읍면",
+      "동"
+     ]
+    },
+    {
+     "key": "health_ins_in",
+     "label": "건강보험 자격",
+     "group": "H 추가",
+     "type": "list_enum",
+     "required": false,
+     "help": "입력 9번(A). 직장가입자 제외 제도는 '지역;피부양자'",
+     "example": "",
+     "enum": [
+      "지역",
+      "직장",
+      "피부양자"
+     ]
+    },
+    {
+     "key": "amount_2plus_each",
+     "label": "2인 이상 경영체 1인당(원)",
+     "group": "H 추가",
+     "type": "int",
+     "required": false,
+     "help": "농민수당 배우자 줄 계산용",
+     "example": "",
+     "min": 0,
+     "max": 100000000
+    }
+   ]
+  },
+  "params_by_season": {
+   "file": "params_by_season.csv",
+   "key": [
+    "season",
+    "crop",
+    "param"
+   ],
+   "columns": [
+    {
+     "key": "season",
+     "label": "시즌",
+     "group": "P",
+     "type": "str",
+     "required": true,
+     "help": "2025-26, 2026, 또는 시즌 무관 '-'",
+     "example": "",
+     "pattern": "^([0-9]{4}(-[0-9]{2})?|-)$"
+    },
+    {
+     "key": "crop",
+     "label": "작물",
+     "group": "P",
+     "type": "crop",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "param",
+     "label": "항목",
+     "group": "P",
+     "type": "param",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "value",
+     "label": "값",
+     "group": "P",
+     "type": "str",
+     "required": false,
+     "help": "status=미확인이면 빈칸",
+     "example": ""
+    },
+    {
+     "key": "unit",
+     "label": "단위",
+     "group": "P",
+     "type": "str",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "status",
+     "label": "등급",
+     "group": "P",
+     "type": "enum",
+     "required": true,
+     "help": "",
+     "example": "",
+     "enum": [
+      "공표",
+      "공고",
+      "보도",
+      "역산",
+      "계산",
+      "추정",
+      "미확인"
+     ]
+    },
+    {
+     "key": "method",
+     "label": "계산·판단 방법",
+     "group": "P",
+     "type": "text",
+     "required": false,
+     "help": "역산·계산·추정·미확인이면 필수",
+     "example": ""
+    },
+    {
+     "key": "source_title",
+     "label": "근거",
+     "group": "P",
+     "type": "str",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "source_url",
+     "label": "근거 주소",
+     "group": "P",
+     "type": "str",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "verified_date",
+     "label": "확인일",
+     "group": "P",
+     "type": "date",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "verified_by",
+     "label": "확인자",
+     "group": "P",
+     "type": "str",
+     "required": true,
+     "help": "",
+     "example": ""
+    }
+   ],
+   "param_dict": {
+    "stab_base": {
+     "unit": "원/kg",
+     "use": "가격안정관리제 기준가",
+     "judge_ok": [
+      "공표",
+      "공고",
+      "보도"
+     ]
+    },
+    "stab_floor": {
+     "unit": "원/kg",
+     "use": "가격안정관리제 하한가 = 기준가×0.75(지급 상한 계산)",
+     "judge_ok": [
+      "공표",
+      "공고",
+      "보도",
+      "계산"
+     ]
+    },
+    "stab_share": {
+     "unit": "비율",
+     "use": "차액 지급 비율",
+     "judge_ok": [
+      "공표",
+      "보도"
+     ]
+    },
+    "stab_months": {
+     "unit": "월목록",
+     "use": "판정 대상 월",
+     "judge_ok": [
+      "공표",
+      "보도"
+     ]
+    },
+    "stab_market": {
+     "unit": "시장",
+     "use": "비교 시장(가락 / 9대도매시장)",
+     "judge_ok": [
+      "공표",
+      "보도"
+     ]
+    },
+    "stab_window": {
+     "unit": "구간",
+     "use": "반월(1~15·16~말) / 월",
+     "judge_ok": [
+      "공표",
+      "보도"
+     ]
+    },
+    "stab_price_basis": {
+     "unit": "정의",
+     "use": "반월 평균의 계산 정의(가락_일평균단순 등)",
+     "judge_ok": [
+      "계산"
+     ]
+    },
+    "stab_band_lo": {
+     "unit": "배",
+     "use": "가락 자료가 없을 때 전국 가중평균 '근처' 구간 하한(기준가 배수)",
+     "judge_ok": [
+      "계산"
+     ]
+    },
+    "stab_band_hi": {
+     "unit": "배",
+     "use": "같은 구간 상한",
+     "judge_ok": [
+      "계산"
+     ]
+    },
+    "stab_hits_official": {
+     "unit": "회",
+     "use": "지난 시즌 공식 하회 횟수(회귀 테스트)",
+     "judge_ok": [
+      "공표",
+      "보도"
+     ]
+    },
+    "stab_paid_avg": {
+     "unit": "원/kg",
+     "use": "지난 시즌 공식 평균 지급(인쇄 '작년 실적')",
+     "judge_ok": [
+      "공표",
+      "보도"
+     ]
+    },
+    "stab_enroll_end": {
+     "unit": "날짜",
+     "use": "참여 신청 마감",
+     "judge_ok": [
+      "공표",
+      "보도"
+     ]
+    },
+    "logi_won_per_kg": {
+     "unit": "원/kg",
+     "use": "물류비 단가",
+     "judge_ok": [
+      "공고"
+     ]
+    },
+    "logi_months": {
+     "unit": "YYYY-MM목록",
+     "use": "공식 대상 달",
+     "judge_ok": [
+      "공고",
+      "보도"
+     ]
+    },
+    "breakeven_lo": {
+     "unit": "원/kg",
+     "use": "물류비 손익분기 역산 하한(초과)",
+     "judge_ok": [
+      "역산"
+     ]
+    },
+    "breakeven_hi": {
+     "unit": "원/kg",
+     "use": "물류비 손익분기 역산 상한(이하)",
+     "judge_ok": [
+      "역산"
+     ]
+    },
+    "breakeven_reported": {
+     "unit": "원/kg",
+     "use": "보도된 손익분기(맥락 문장만)",
+     "judge_ok": []
+    },
+    "area_ha": {
+     "unit": "ha",
+     "use": "제주 재배면적",
+     "judge_ok": [
+      "공표",
+      "보도"
+     ]
+    },
+    "area_change_pct": {
+     "unit": "%",
+     "use": "전년 대비 면적 변화",
+     "judge_ok": [
+      "공표",
+      "보도"
+     ]
+    },
+    "yield_kg_10a": {
+     "unit": "kg/10a",
+     "use": "예상 수확량 계산",
+     "judge_ok": [
+      "공표",
+      "계산"
+     ]
+    }
+   }
+  },
+  "crops": {
+   "file": "crops.csv",
+   "key": "crop_code",
+   "columns": [
+    {
+     "key": "crop_code",
+     "label": "작물 코드",
+     "group": "K",
+     "type": "str",
+     "required": true,
+     "help": "",
+     "example": "",
+     "pattern": "^[가-힣A-Za-z_]+$"
+    },
+    {
+     "key": "label",
+     "label": "표시 이름",
+     "group": "K",
+     "type": "str",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "aliases",
+     "label": "농가 표현",
+     "group": "K",
+     "type": "list_str",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "groups",
+     "label": "그룹",
+     "group": "K",
+     "type": "list_str",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "judge_source",
+     "label": "판정 가격 출처",
+     "group": "K",
+     "type": "enum",
+     "required": true,
+     "help": "",
+     "example": "",
+     "enum": [
+      "hub1362_garak",
+      "hub1361_amount",
+      "jasdc_kind1",
+      "없음"
+     ]
+    },
+    {
+     "key": "judge_cultivars",
+     "label": "판정용 품종",
+     "group": "K",
+     "type": "list_str",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "dist_cultivars",
+     "label": "참고용 품종",
+     "group": "K",
+     "type": "list_str",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "season_months",
+     "label": "시즌 월",
+     "group": "K",
+     "type": "list_int",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "notes",
+     "label": "메모",
+     "group": "K",
+     "type": "text",
+     "required": false,
+     "help": "",
+     "example": ""
+    }
+   ]
+  },
+  "interventions": {
+   "file": "interventions.csv",
+   "key": [
+    "season",
+    "crop",
+    "type",
+    "scale"
+   ],
+   "columns": [
+    {
+     "key": "season",
+     "label": "시즌",
+     "group": "I",
+     "type": "str",
+     "required": true,
+     "help": "",
+     "example": "",
+     "pattern": "^[0-9]{4}-[0-9]{2}$"
+    },
+    {
+     "key": "crop",
+     "label": "작물",
+     "group": "I",
+     "type": "crop",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "type",
+     "label": "조치",
+     "group": "I",
+     "type": "enum",
+     "required": true,
+     "help": "",
+     "example": "",
+     "enum": [
+      "시장격리",
+      "수매",
+      "산지폐기",
+      "자율감축",
+      "정부비축",
+      "출하정지",
+      "없음"
+     ]
+    },
+    {
+     "key": "scale",
+     "label": "규모",
+     "group": "I",
+     "type": "str",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "confirmed",
+     "label": "확인 정도",
+     "group": "I",
+     "type": "enum",
+     "required": true,
+     "help": "",
+     "example": "",
+     "enum": [
+      "확인",
+      "보도1건",
+      "추정",
+      "미확인"
+     ]
+    },
+    {
+     "key": "source_title",
+     "label": "근거",
+     "group": "I",
+     "type": "str",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "source_url",
+     "label": "근거 주소",
+     "group": "I",
+     "type": "str",
+     "required": false,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "verified_date",
+     "label": "확인일",
+     "group": "I",
+     "type": "date",
+     "required": true,
+     "help": "",
+     "example": ""
+    },
+    {
+     "key": "notes",
+     "label": "메모",
+     "group": "I",
+     "type": "text",
+     "required": false,
+     "help": "",
+     "example": ""
+    }
+   ]
+  },
+  "offices": {
+   "file": "offices.csv",
+   "key": "office_id",
+   "columns": [
+    {
+     "key": "office_id",
+     "label": "창구 ID",
+     "group": "O",
+     "type": "str",
+     "required": true,
+     "help": "영문 소문자·숫자·_. 행동 목록의 office_id",
+     "example": "coop",
+     "pattern": "^[a-z0-9_]+$"
+    },
+    {
+     "key": "name",
+     "label": "창구 이름",
+     "group": "O",
+     "type": "str",
+     "required": true,
+     "help": "supports.csv 접수처(office) 칸과 글자까지 같게. 표 안에서 유일",
+     "example": "지역농협"
+    },
+    {
+     "key": "phone",
+     "label": "대표 전화",
+     "group": "O",
+     "type": "str",
+     "required": false,
+     "help": "창구 전체의 대표 번호만. 제도별 문의 전화는 supports.csv phone",
+     "example": "1577-1000"
+    },
+    {
+     "key": "address_hint",
+     "label": "찾아가는 곳",
+     "group": "O",
+     "type": "text",
+     "required": false,
+     "help": "",
+     "example": ""
+    }
+   ]
+  }
+ },
+ "cross_rules": [
+  "R01 confirmed 행은 source_title·source_url 필수",
+  "R02 valid_from ≤ valid_to, apply_start ≤ apply_end",
+  "R03 apply_cycle=연1회 → apply_end 필수 / 사후신청 → event_type 필수",
+  "R04 min_age·max_age가 있으면 age_basis 필수, min ≤ max",
+  "R05 min_ha·max_ha가 있으면 area_basis 필수, min ≤ max",
+  "R06 needs_coop=E ↔ needs_selfpay_fund=E (짝)",
+  "R07 income_test=상한 → income_max_manwon 필수",
+  "R08 region_in → region_basis 필수",
+  "R09 amount_type별 필수 칸: 정액(amount_value) 면적비례(amount_value 또는 amount_min~max, calc_basis) kg당(amount_value, calc_basis) 단위당(amount_value, units_per_ha, unit_name) 보조율(rate_pct_min 또는 rate_pct_max) 규칙(rule_ref)",
+  "R10 crop_in·crop_not_in 값은 crops.csv 코드 또는 그룹",
+  "R11 excludes 값은 supports.csv의 program_key",
+  "R12 rule_ref가 있으면 crop_in 작물마다 params_by_season에 기준 값이 있거나 '미확인' 행이 있어야 함(경고)",
+  "R13 같은 id 중복 금지, 같은 program_key는 같은 name·agency",
+  "R14 params: param은 사전에 있어야 하고 unit이 사전과 같아야 함, 역산·계산·추정·미확인은 method 필수",
+  "R16 prior_year_reference이고 apply_cycle=연1회 → next_month 필수 / confirmed인데 연1회·apply_end가 오늘 이전이면 경고(prior_year_reference 후보)",
+  "R15 경고: verified_date가 180일 넘음 / valid_to 지남 / min_ha·max_owned_ha가 30 초과(평 오입력 의심). 오류: 정액 1,000원 미만(만원 단위 오입력 의심)",
+  "R17 경고: Excel에서 cp949 CSV로 저장하면 깨지는 글자(– — 등)가 있음. 오류(E05): 이미 깨진 글자 '�'가 있음",
+  "R18 prior_year_reference 행은 expected_notice_month·source_url 필수(source_url 빈칸은 R01로 알림)",
+  "R19 hold가 아닌 행은 verified_date·verified_by 필수. hold 행은 식별 4칸(id·program_key·edition·status)만 필수이고, 값이 있으면 형식(E10~E16)과 id 규칙(R13)만 검사하며 칸 사이 규칙(R01~R12·R15·R16·R18·R20)은 건너뜀",
+  "R20 manual_check 항목 하나(' / '로 나눈 한 칸)가 60자 초과면 오류(인쇄 '□ 확인할 것' 줄 넘침)",
+  "S01 행 상태(로더): 같은 program_key·같은 '#작물·지역'(confirmed 행에 #가 없으면 모든 갈래)마다, 첫 해(edition 앞 네 자리)가 기준일 연도 이하인 confirmed 행 중 가장 늦은 첫 해를 현재 회차로 잡고, 첫 해가 그보다 이른 행(prior_year_reference·옛 confirmed)은 status=hold, hold_reason=superseded로 바꿈"
+ ]
+}

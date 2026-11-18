@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "name": "유기농업자재 지원사업",
+  "agency": "",
+  "apply_period": "가. 신청기한: 2026. 11. 2(월)~ 2026. 12. 31.(목)까지",
+  "target": "",
+  "content": "○ 유기농업자재(자재원료): (유기) 200만원/ha, (무농약) 150만원/ha, (일반) 100만원/ha",
+  "tags": [
+    {
+      "label": "토양검정 결과 내야 지원",
+      "quote": "* 2026년 토양검정 결과를 제출한 농업인 및 법인에 한해 지원"
+    },
+    {
+      "label": "내 돈 50% 부담",
+      "quote": "다. 지원내용 (자부담 50%)"
+    },
+    {
+      "label": "농지 있는 읍면동에 신청",
+      "quote": "나. 신청장소: 농지 소재지 읍면동사무소"
+    }
+  ],
+  "url": "https://www.seogwipo.go.kr/info/news/notice.htm?act=view&seq=3",
+  "read_date": "2026-11-14",
+  "decision": "DRAFT_READY",
+  "table_key": null
+}

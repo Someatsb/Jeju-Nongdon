@@ -1,0 +1,5 @@
+python -X utf8 -m pytest -q tests  (.env 숨김, 키 없음, 2026-11-11)
+SKIPPED tests/agents/test_anthropic_adapter.py:257: ANTHROPIC_API_KEY 없음(keyring·환경변수·.env 어디에도)
+SKIPPED tests/data/test_docs_in.py:21: 환경변수 JC_NOTICE_N1_PDF(원본 N1 PDF 4.3MB 경로)가 없다
+SKIPPED tests/data/test_dpapi.py:17: 비Windows 전용
+1663 passed, 3 skipped, 1 xfailed in 88.99s (0:01:28)

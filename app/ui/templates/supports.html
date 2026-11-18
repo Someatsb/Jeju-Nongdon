@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% import "_ui.html" as ui %}
+{% import "_art.html" as art %}
+{% block title %}지원 전체 보기 · {{ cfg.service_name }}{% endblock %}
+{#- 지원 전체 보기(설계서 2026-11-14-supports-readability-spec). catalog: 자료 · filters: 걸러 보기 단추 · current: 지금 고른 단추 id
+    groups: 묶음(제목·줄) · has_new: 새 공고가 보이는가 · as_of_md: "11월 14일"
+    걸러 보기는 주소(?f=)로 동작하므로 스크립트가 꺼져 있어도 된다. 표 한 장(지원 | 어디서 신청해요 | 언제 신청해요). 줄 하나가 하나의 링크다(이름 칸의 링크가 줄 전체로 펼쳐진다). 글자는 검정, 굵은 글은 이름·가실 곳·기간. -#}
+{% block head %}<link rel="stylesheet" href="/static/supports.css">{% endblock %}
+{% block body_class %}page-sp{% endblock %}
+{% block main_class %}spmain{% endblock %}
+{% block content %}
+<div class="sp-body">
+  <div class="sp-head">
+    <h1>지원 전체 보기</h1>
+    <p class="sp-count">오늘은 {{ as_of_md }}이에요 · 모두 <b>{{ catalog.count }}가지</b></p>
+    {% if current != "all" %}<p class="sp-shown">{% for fl in filters if fl.id == current %}{{ fl.label }} {{ entries | length }}가지만 보고 있어요{% endfor %}</p>{% endif %}
+  </div>
+  <nav class="sp-filters" aria-label="걸러 보기">
+    {%- for fl in filters %}
+    <a class="sp-chip{% if fl.id == current %} is-on{% endif %}" href="{{ '/supports' if fl.id == 'all' else '/supports?f=' ~ fl.id }}"{% if fl.id == current %} aria-current="page"{% endif %}><span class="sp-chip-mark">{{ art.check() }}</span>{{ fl.label }}<small>{{ fl.count }}</small></a>
+    {%- endfor %}
+  </nav>
+  {% if has_new %}<p class="sp-newnote">'AI가 읽은 공고'는 AI가 도·시 공고를 읽어 올린 것이에요. 조건은 창구에서 확인하세요.</p>{% endif %}
+  <div class="sp-boxes">
+    {%- for g in groups %}
+    <section class="sp-bx" aria-labelledby="g-{{ g.id }}">
+    <h2 id="g-{{ g.id }}" class="sp-gh">{{ g.title }} <small>{{ g.count }}가지</small></h2>
+    <table class="sp-tab">
+    <caption class="sp-vh">{{ g.title }} {{ g.count }}가지: 지원 이름, 어디서 신청하는지, 언제 신청하는지. 줄을 누르면 안내가 열려요</caption>
+    <colgroup><col class="sp-col-name"><col class="sp-col-where"><col class="sp-col-when"></colgroup>
+    <thead><tr><th scope="col">지원</th><th scope="col">어디서 신청해요</th><th scope="col">언제 신청해요</th></tr></thead>
+    <tbody class="sp-group">
+      {%- for r in g.rows %}{% set e = r.entry %}
+      <tr class="sp-row{% if r.low %} is-low{% endif %}{% if e.kind == 'notice' %} is-new{% endif %}">
+        <th scope="row" class="sp-c-name"><a class="sp-card" href="{{ e.href }}{{ qs }}"><span class="sp-name">{{ e.title }}</span>{% if e.kind == 'notice' %}<span class="sp-new">AI가 읽은 공고</span>{% endif %}</a></th>
+        <td class="sp-c-where">{% for ws in r.where_parts %}<span class="sp-where">{% for t, ph in ws %}{% if ph %}<span class="sp-tel">{{ t }}</span>{% else %}{{ t }}{% endif %}{% endfor %}</span>{% if r.where_phones[loop.index0] %}<span class="sp-phone">{{ art.ic_phone("sp-phone-ic") }}<b>{{ r.where_phones[loop.index0] }}</b></span>{% endif %}{% if r.where_asks[loop.index0] %}<span class="sp-phone sp-ask">{{ art.ic_phone("sp-phone-ic") }}<span class="sp-ask-lab">문의</span><b>{{ r.where_asks[loop.index0] }}</b></span>{% endif %}{% else %}<span class="sp-where sp-nowhere">안내에서 확인하세요</span>{% endfor %}</td>
+        <td class="sp-c-when{% if r.left %} has-flag{% endif %}">{% if r.left %}<span class="left-pill sp-flag{% if r.urgent %} is-urgent{% endif %}">{{ r.left }}</span>{% endif %}<span class="sp-when">{{ r.show_main }}</span>
+          {%- set parts = (r.show_sub.split(' · ') if r.show_sub else []) + ([r.note] if r.note else []) %}
+          {%- if parts %}<span class="sp-left">{% for x in parts %}<span class="sp-part">{{ x }}</span>{% if not loop.last %}<span class="sp-dot"> · </span>{% endif %}{% endfor %}</span>{% endif %}
+          <span class="sp-go" aria-hidden="true">{{ art.arrow() }}</span></td>
+      </tr>
+      {%- endfor %}
+    </tbody>
+    </table>
+    </section>
+    {%- endfor %}
+  </div>
+</div>
+{{ ui.actionbar("내가 받을 수 있는지 찾기", prev="처음으로", prev_href="/", primary_href="/counsel") }}
+{% endblock %}

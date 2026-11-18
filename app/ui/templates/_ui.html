@@ -1,0 +1,75 @@
+{#- 어르신용 공용 부품 매크로. 스타일은 app.css("공용 부품" 절), 동작은 static/app.js(base.html이 불러옴, 외부 라이브러리 없음).
+    가져오기:  {% import "_ui.html" as ui %}   (그림이 필요하면 {% import "_art.html" as art %} 도)
+
+    1) 선택 단추 (라디오·체크박스를 감싼 큰 단추)
+         {{ ui.choice("radio", "owner_sex", "F", "여자") }}
+         {{ ui.choice("checkbox", "spouse", "registered", "배우자도 등록했어요", checked=True, sub="작은 설명 한 줄") }}
+       고르면 굵은 테두리 + 바탕색 + 체크 표시가 함께 바뀌고, 누르는 순간 눌린 모양이 된다. 높이는 --choice-h(창 높이에 따라 56~84px, 1920x940에서 75px).
+       그림 단추가 필요하면 icon=art.crop_icon("감귤_노지") 처럼 그림 HTML을 넘긴다. 여러 개는 <div class="choice-row"> 또는 <div class="choice-grid"> 안에 둔다.
+       같은 name의 라디오는 한 묶음이다. 칸 이름(name)·값(value)은 서버가 기대하는 그대로 쓴다.
+    2) 화면 숫자판
+         {{ ui.numfield("crop1_area_py", value, maxlen=6, unit="평", label="몇 평이세요?") }}   <- 숫자 칸. 누르면 숫자판이 아래에서 뜬다. 자판 입력도 된다.
+         {{ ui.numpad() }}                                                                   <- 화면(폼 밖)에 딱 한 번
+       숫자판: 0~9, 지우기, 확인. 칸의 data-maxlen까지만 들어간다. 값이 바뀌면 칸에 input 이벤트를 보낸다(올해 나이 계산 같은 것은 이 이벤트를 듣는다).
+       숫자판이 떠 있는 동안 body에 numpad-open 클래스가 붙는다(아래 고정 띠가 숫자판 위로 올라온다).
+    3) 아래 고정 단추 띠 (왼쪽 "이전", 오른쪽 주 단추 하나)
+         {{ ui.actionbar("다음") }}                       <- 이전 단추는 type=button, id=prev-btn, data-prev. 스크립트가 단계 넘김에 쓴다. 주 단추는 submit, id=next-btn.
+         {{ ui.actionbar("결과 보기", prev_href="/counsel/input") }}   <- 이전이 다른 쪽으로 가는 링크일 때
+         {{ ui.actionbar("처음으로", prev=None, primary_href="/") }}  <- 이전 없음, 주 단추가 링크일 때
+       note= 로 이전·주 단추 사이에 작은 알림 글(<p class="bar-note" aria-live="polite">)을 넣을 수 있다(고른 개수, 못 누르는 까닭).
+       이 띠는 <form> 안에 두어야 주 단추가 제출이 된다. 화면 맨 아래에 붙는다(sticky bottom).
+    4) 진행 표시
+         {{ ui.progress(2, 6) }}     -> "6개 중 2번째" + 막대 6칸. 단계가 바뀌면 NongdonUI.setProgress(el, n) 로 바꾼다.
+         {{ ui.progress(6, 6, text="마지막 확인이에요") }}   <- 글만 바꾸고 싶을 때
+    5) 소리로 듣기
+         {{ ui.speak("어디 사세요? 사는 읍이나 동을 눌러 주세요.") }}
+         {{ ui.speak(from_sel="#summary") }}   <- 읽을 글을 그 요소의 글에서 가져올 때
+       한국어 음성이 있는 브라우저에서만 보인다(없으면 숨은 채). 외부 서비스 없음. 읽는 중에 다시 누르면 멈춘다.
+    6) 제출 단추 두 번 누름 방지
+         <form method="post" data-once> ... </form>
+       한 번 제출되면 그 폼의 data-submit 단추가 눌림 막힘 상태가 되고 두 번째 제출은 무시된다. 브라우저 뒤로 가기로 돌아오면 풀린다.
+    7) 오류 말풍선(칸 바로 옆 쉬운 말 한 줄):  {{ ui.hint("사는 곳을 하나 눌러 주세요", id="err-emd") }}   (처음엔 숨김, NongdonUI.showHint(id) / hideHint(id))
+-#}
+{%- import "_art.html" as art -%}
+
+{% macro choice(type, name, value, label, checked=False, sub=None, icon=None, cls="", attrs="", mark_first=False) -%}
+<label class="choice {{ cls }}"><input type="{{ type }}" name="{{ name }}" value="{{ value }}"{% if checked %} checked{% endif %} {{ attrs|safe }}>
+<span class="choice-face">{% if mark_first %}<span class="choice-mark">{{ art.check() }}</span>{% endif %}{% if icon %}<span class="choice-icon">{{ icon|safe }}</span>{% endif %}<span class="choice-text"><span class="choice-label">{{ label }}</span>{% if sub %}<span class="choice-sub">{{ sub }}</span>{% endif %}</span>{% if not mark_first %}<span class="choice-mark">{{ art.check() }}</span>{% endif %}</span></label>
+{%- endmacro %}
+
+{% macro numfield(name, value="", maxlen=6, unit="", label="", id=None, cls="", placeholder="") -%}
+<span class="numfield-wrap {{ cls }}"><input class="numfield" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" name="{{ name }}"{% if id %} id="{{ id }}"{% endif %} value="{{ value if value is not none else '' }}" maxlength="{{ maxlen }}" data-numpad data-maxlen="{{ maxlen }}" data-numpad-label="{{ label }}"{% if placeholder %} placeholder="{{ placeholder }}"{% endif %}{% if label %} aria-label="{{ label }}"{% endif %}>{% if unit %}<b class="numfield-unit">{{ unit }}</b>{% endif %}</span>
+{%- endmacro %}
+
+{% macro numpad() -%}
+<div class="numpad" id="numpad" role="dialog" aria-label="숫자판" hidden>
+<div class="numpad-top"><span class="numpad-label" data-numpad-title></span></div>
+<div class="numpad-keys">
+{%- for k in "123456789" %}<button type="button" class="numkey" data-key="{{ k }}">{{ k }}</button>{% endfor %}
+<button type="button" class="numkey numkey-fn" data-key="back">지우기</button><button type="button" class="numkey" data-key="0">0</button><button type="button" class="numkey numkey-ok" data-key="ok">확인</button>
+</div>
+</div>
+{%- endmacro %}
+
+{% macro actionbar(primary, prev="이전", prev_href=None, primary_href=None, primary_attrs="", note=None) -%}
+<div class="actionbar">
+{%- if prev %}{% if prev_href %}<a class="btn btn-ghost btn-prev" href="{{ prev_href }}">{{ art.arrow("left") }}{{ prev }}</a>{% else %}<button type="button" class="btn btn-ghost btn-prev" id="prev-btn" data-prev>{{ art.arrow("left") }}{{ prev }}</button>{% endif %}{% else %}<span></span>{% endif %}
+{%- if note %}{{ note }}{% endif %}
+{%- if primary_href %}<a class="btn btn-primary btn-main" href="{{ primary_href }}">{{ primary }}{{ art.arrow() }}</a>{% else %}<button type="submit" class="btn btn-primary btn-main" id="next-btn" data-submit {{ primary_attrs|safe }}>{{ primary }}{{ art.arrow() }}</button>{% endif %}
+</div>
+{%- endmacro %}
+
+{% macro progress(n, total, text=None) -%}
+<div class="progress" data-progress data-total="{{ total }}" role="img" aria-label="{{ text or (total ~ '개 중 ' ~ n ~ '번째') }}">
+<span class="progress-label" data-progress-label>{% if text %}{{ text }}{% else %}{{ total }}개 중 <b>{{ n }}번째</b>{% endif %}</span>
+<span class="segs">{% for i in range(1, total + 1) %}<span class="seg{% if i < n or text %} on{% endif %}{% if i == n and not text %} now{% endif %}"></span>{% endfor %}</span>
+</div>
+{%- endmacro %}
+
+{% macro speak(text=None, from_sel=None, label="소리로 듣기") -%}
+<button type="button" class="btn btn-ghost btn-speak" data-speak{% if text %}="{{ text }}"{% endif %}{% if from_sel %} data-speak-from="{{ from_sel }}"{% endif %} hidden><svg class="speak-icon" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 15 h7 l9 -8 v26 l-9 -8 h-7z" fill="currentColor"/><path d="M28 13 c4 4 4 10 0 14 M33 8 c7 7 7 17 0 24" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg><span>{{ label }}</span></button>
+{%- endmacro %}
+
+{% macro hint(text, id) -%}
+<p class="hint" id="{{ id }}" role="alert" hidden>{{ text }}</p>
+{%- endmacro %}

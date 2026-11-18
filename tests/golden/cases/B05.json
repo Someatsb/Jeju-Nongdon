@@ -1,0 +1,210 @@
+{
+  "schema": "golden-spec/2",
+  "case_id": "B05",
+  "phase": 1,
+  "kind": "boundary",
+  "title": "당근 2,000평, 최근 재해 피해(11-09 끝남) + 재해보험 가입 — 재해 줄·hold 행 비인쇄",
+  "source": "설계 v2 §7-1 항목 12, §13 '재해 숫자 확인 전 비인쇄', B §2-5 #13",
+  "as_of": "2026-11-13",
+  "fixture": {
+    "snapshot": "snap_20261112",
+    "tables": "tables_1st_20261113",
+    "network": "blocked",
+    "jasdc": "recorded_20261112",
+    "llm": "none",
+    "price_override": null,
+    "feature_flags": {
+      "offfarm_money": true
+    }
+  },
+  "profile": {
+    "crop_key": "당근",
+    "area_m2": 6612,
+    "total_farm_area_m2": 6612,
+    "birth_year": 1956,
+    "birth_year_approx": false,
+    "sex": "M",
+    "region": "제주시",
+    "eupmyeon": null,
+    "visitor": "self",
+    "jeju_residence_years": 50,
+    "farming_years": 30,
+    "mgmt_registered": "Y",
+    "mgmt_years": 20,
+    "mgmt_last_registered_year": 2025,
+    "spouse_status": "none",
+    "spouse_birth_year": null,
+    "coop_member": "Y",
+    "coop_shipping": "Y",
+    "selfpay_fund_member": "Y",
+    "field_sold_contract": "N",
+    "crop2_key": null,
+    "crop2_area_m2": null,
+    "crop2_coop_shipping": null,
+    "crop2_selfpay_fund_member": null,
+    "crop2_field_sold_contract": null,
+    "owns_farmland": "Y",
+    "farmland_owned_years": 20,
+    "owned_area_ge_15500m2": "N",
+    "health_insurance": "?",
+    "offfarm_income_band": "?",
+    "disaster_damage": "Y",
+    "direct_payment_education": "NA",
+    "already_receiving": [],
+    "insurance_enrolled": [
+      "disaster"
+    ],
+    "flags": [],
+    "disaster_end_date": "2026-11-09"
+  },
+  "profile_fields_not_in_C_round1": [
+    "birth_year",
+    "birth_year_approx",
+    "eupmyeon",
+    "visitor",
+    "mgmt_last_registered_year",
+    "spouse_status",
+    "spouse_birth_year",
+    "crop2_key",
+    "crop2_area_m2",
+    "crop2_coop_shipping",
+    "crop2_selfpay_fund_member",
+    "crop2_field_sold_contract",
+    "owned_area_ge_15500m2",
+    "health_insurance",
+    "disaster_damage",
+    "direct_payment_education"
+  ],
+  "profile_fields_dropped_from_C_round1": [
+    "age (→ birth_year)",
+    "flags의 입원·질병 값(사원 F)",
+    "flags의 disaster_damage (→ 독립 필드 disaster_damage)"
+  ],
+  "expect": {
+    "paper_mode": "normal",
+    "header": {
+      "must_include": [
+        "2026-11-13",
+        "기준일"
+      ],
+      "note": "--asof 시연 기준일 표시(§12-A(1))"
+    },
+    "key_lines": [
+      {
+        "id": "B05-K1",
+        "section": "A",
+        "action": "DISASTER_REPORT",
+        "status": "OPEN_NOW",
+        "must_include": [
+          "피해",
+          "신고",
+          "읍"
+        ],
+        "why": "재해 직후 할 일은 '급한 것'. 재해복구비 행(NAT-DISASTER-RECOVERY)은 이제 confirmed이고 10일·70%·20% 기준이 표에서 확인돼 manual_check 원문을 줄 detail로 찍는다(Task 34 CHANGELOG). 금액·\"현장조사 뒤 결정\"은 must_not_print",
+        "row_status": "confirmed",
+        "badge": false
+      },
+      {
+        "id": "B05-K2",
+        "section": "A",
+        "action": "INSURANCE_CLAIM",
+        "product_id": "crop_disaster",
+        "status": "ENROLLED",
+        "must_include": [
+          "재해보험",
+          "농협",
+          "사고"
+        ],
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "first_actions": [
+      {
+        "section": "A",
+        "kind": "DISASTER_REPORT",
+        "rank": 1,
+        "must_include": [
+          "읍"
+        ]
+      },
+      {
+        "section": "A",
+        "kind": "ASK_COOP",
+        "target": "insurance_claim",
+        "must_include": [
+          "농협"
+        ]
+      }
+    ],
+    "insurance": [
+      {
+        "product_id": "crop_disaster",
+        "crop_key": "당근",
+        "status": "ENROLLED",
+        "row_status": "confirmed",
+        "badge": false
+      },
+      {
+        "product_id": "income_stab",
+        "crop_key": "당근",
+        "status": "NOT_COVERED"
+      },
+      {
+        "product_id": "nh_safety",
+        "status": "OPEN_NOW",
+        "row_status": "confirmed",
+        "badge": false
+      }
+    ],
+    "fixed_lines": [
+      {
+        "id": "FIXED-FARM-HELPER",
+        "must_include": [
+          "60일",
+          "농협"
+        ],
+        "must_not_include": [
+          "까지 신청하세요",
+          "남았"
+        ],
+        "note": "사원 F·설계 v2 §7-1: 입원·질병은 묻지 않는다. 영농도우미는 모든 종이에 같은 문장(\"다치거나 3일 넘게 입원하셨으면 60일 안에 농협\")."
+      },
+      {
+        "id": "FIXED-DISCLAIMER",
+        "must_include": [
+          "이 종이를 뽑아 준 곳",
+          "공문서"
+        ],
+        "note": "G 책임 표기 3줄"
+      }
+    ],
+    "banners": [],
+    "also": [
+      {
+        "section": "back",
+        "must_include": [
+          "준비 중"
+        ],
+        "why": "hold 행 수는 뒷면·첫 화면에 '준비 중 n건'으로만"
+      }
+    ],
+    "must_not_print": [
+      "재해 복구비 금액",
+      "현장조사 뒤 결정",
+      "받으실 수 있는 돈",
+      "▶",
+      "오를",
+      "내릴",
+      "예측된",
+      "파세요"
+    ]
+  },
+  "unverified": [],
+  "pending_decisions": [],
+  "approval": {
+    "by": [],
+    "at": null,
+    "sha256": null
+  }
+}

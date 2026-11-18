@@ -1,0 +1,224 @@
+{
+  "sample_id": "M-P1",
+  "recorded_at": "2026-11-15T06:22:00",
+  "source": "recorded",
+  "provider": "anthropic",
+  "model": "claude-opus-5-5",
+  "prompt_ver": "match-v2",
+  "rules_ver": "rules-v1.0#afa7e540",
+  "as_of": "2026-11-13",
+  "input_hash": "004aa1ca",
+  "calls": [
+    {
+      "purpose": "match",
+      "section": null,
+      "attempt": 1,
+      "request_hash": "dcbbdadfda1bd36e687c184349e8f691ce64086d6e0eacec371464d87f21bd62",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "toolu_012y8Cpu9wM8VWwJEKpXbLPn",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-2027년_유기질비료_지원사업_추가_신청",
+              "kind": "경영체 등록",
+              "quote": "1. 신청자격: ｢농어업경영체 육성 및 지원에 관한 법률｣ 제2조제3호에 따른 농업경영체(농업인 및 법인)"
+            }
+          },
+          {
+            "call_id": "toolu_01WmKhrJD85NLVdeSvveDthe",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-FTA기금_과수_감귤_고품질시설현대화_지원사업",
+              "kind": "작물",
+              "quote": "2027년 FTA기금 과수(감귤) 고품질시설현대화 지원사업 신청·접수계획 알림",
+              "crops": [
+                "과수",
+                "감귤"
+              ]
+            }
+          },
+          {
+            "call_id": "toolu_01AsGoCVe8YRkbpRYTVP8twk",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-농촌융복합산업_자금_융자_지원사업",
+              "kind": "그 밖",
+              "quote": "①「농촌융복합산업 육성 및 지원에 관한 법률」제8조에 따른 농촌융복합산업 인증사업자"
+            }
+          },
+          {
+            "call_id": "toolu_01VeU9eQMpid85mzAEQ1h5fN",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-농촌융복합산업_자금_융자_지원사업",
+              "kind": "그 밖",
+              "quote": "② 농촌지역의 유·무형 자원을 활용한 농촌융복합산업 창업계획이 있거나 사업을 추진 중인 자, 초기 창업자"
+            }
+          },
+          {
+            "call_id": "toolu_01KnuqveeCqwyEMHWhPXqtKh",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-유기농업자재_지원사업",
+              "kind": "그 밖",
+              "quote": "* 2026년 시군농업기술센터에서 발급받은 토양검정 결과를 제출한 농업인 및 법인에 한해 지원(없는 경우 '25년 토양검정결과 제출 가능)"
+            }
+          },
+          {
+            "call_id": "toolu_019uj9sE3vRXjSqa5qTKkDDD",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-출산_농가도우미_지원사업",
+              "kind": "성별",
+              "quote": "3. 지원대상: 도내 출산(예정) 여성농업인",
+              "choice": "여성"
+            }
+          },
+          {
+            "call_id": "toolu_01DLKoqeHeqxWexH4vGU2f11",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-출산_농가도우미_지원사업",
+              "kind": "그 밖",
+              "quote": "3. 지원대상: 도내 출산(예정) 여성농업인"
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 7278,
+        "tok_out": 1705,
+        "latency_ms": 12625,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "match",
+      "section": null,
+      "attempt": 2,
+      "request_hash": "f6e4779ba6aff1053bd4ce8192fdc8b16d787ec00f0240741b45b7186d11a4de",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "toolu_01MUvjqFBiu8STY6BujaKfyi",
+            "name": "check_farmer",
+            "args": {
+              "notice_key": "new-2027년_유기질비료_지원사업_추가_신청",
+              "kind": "그 밖",
+              "quote": "2027년 유기질비료 지원사업 추가 신청 신청·접수 계획을 알려드리오니, 상반기에 신청을 못하거나 신청내용 변경을 희망하는 농가께서는 기한 내 신청하시기 바랍니다."
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 8746,
+        "tok_out": 304,
+        "latency_ms": 3187,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "match",
+      "section": null,
+      "attempt": 3,
+      "request_hash": "75328b4c38b1231763b7cd6de10a4719fbe7a51b1d6a9016ede84a49731aa0c4",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "toolu_01KppPaQZSTvoyNXdD3iFi1W",
+            "name": "submit_matches",
+            "args": {
+              "items": [
+                {
+                  "notice_key": "new-2027년_유기질비료_지원사업_추가_신청",
+                  "why": "농업경영체로 등록하셔서 조건이 어울려요. 맞을 수 있어요.",
+                  "ask": [
+                    "상반기에 신청을 못 하셨는지요?",
+                    "신청한 내용을 바꾸고 싶으신지요?"
+                  ]
+                },
+                {
+                  "notice_key": "new-FTA기금_과수_감귤_고품질시설현대화_지원사업",
+                  "why": "감귤 농사를 지으셔서 이 사업과 맞을 수 있어요.",
+                  "ask": [
+                    "바꾸고 싶은 시설이 있으신지요?"
+                  ]
+                },
+                {
+                  "notice_key": "new-농촌융복합산업_자금_융자_지원사업",
+                  "why": "창업 계획이나 인증 여부를 알아봐야 해요.",
+                  "ask": [
+                    "6차산업 인증을 받으셨는지요?",
+                    "농촌자원으로 창업할 계획이 있으신지요?"
+                  ]
+                },
+                {
+                  "notice_key": "new-유기농업자재_지원사업",
+                  "why": "토양검정 결과가 있는지 알아봐야 해요.",
+                  "ask": [
+                    "토양검정 결과서가 있으신지요?",
+                    "친환경 인증을 받으셨는지요?"
+                  ]
+                },
+                {
+                  "notice_key": "new-출산_농가도우미_지원사업",
+                  "why": "여성농업인이셔서 맞을 수 있지만 출산 여부를 알아봐야 해요.",
+                  "ask": [
+                    "출산하셨거나 출산 예정이신지요?"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 8973,
+        "tok_out": 576,
+        "latency_ms": 5608,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    },
+    {
+      "purpose": "match",
+      "section": null,
+      "attempt": 4,
+      "request_hash": "b755e7e43516e04a9ca7da112c9d36bf0c9df4d8fd72af3b296cc83e9a885be3",
+      "response": {
+        "text": null,
+        "tool_calls": [
+          {
+            "call_id": "toolu_01QyHEfrzfeKXciunFskJSL6",
+            "name": "submit_matches",
+            "args": {
+              "items": [
+                {
+                  "notice_key": "new-농촌융복합산업_자금_융자_지원사업",
+                  "why": "창업 계획이나 인증 여부를 알아봐야 해요.",
+                  "ask": [
+                    "농촌융복합산업 인증을 받으셨는지요?",
+                    "농촌자원으로 창업할 계획이 있으신지요?"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "stop": "tool",
+        "tok_in": 10737,
+        "tok_out": 163,
+        "latency_ms": 2625,
+        "provider": "anthropic",
+        "model": "claude-opus-5-5"
+      },
+      "injected": false
+    }
+  ]
+}

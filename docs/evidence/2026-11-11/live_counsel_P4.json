@@ -1,0 +1,118 @@
+{
+ "sample": "P4",
+ "measured_at": "2026-11-11T22:22:13",
+ "elapsed_s": 30.81,
+ "n_calls": 6,
+ "tok_in_total": 16575,
+ "tok_out_total": 2564,
+ "error": null,
+ "calls": [
+  {
+   "purpose": "narrate",
+   "section": "support",
+   "attempt": 1,
+   "tok_in": 2568,
+   "tok_out": 695,
+   "n_tool_calls": 0,
+   "text_head": "{\"section\":\"support\",\"sentences\":[{\"sid\":1,\"text\":\"{P:nhis_farmer_support}는 가입 방식에 따라 해당될 수 있으니 확인해 보세요.\",\"cites\":[\"M:nhis_farmer_support\"]},{\"sid\":2,\"text\":\"농업경영체 등록과 소득 조건을 먼저 갖추시면 다음 신청 때 해당될 수 있습니"
+  },
+  {
+   "purpose": "judge",
+   "section": "support",
+   "attempt": 1,
+   "tok_in": 3363,
+   "tok_out": 433,
+   "n_tool_calls": 0,
+   "text_head": "{\"verdict\": \"PASS\", \"reason_code\": null}"
+  },
+  {
+   "purpose": "narrate",
+   "section": "insurance",
+   "attempt": 1,
+   "tok_in": 1995,
+   "tok_out": 592,
+   "n_tool_calls": 0,
+   "text_head": "{\"section\":\"insurance\",\"sentences\":[{\"sid\":1,\"text\":\"{P:crop_disaster_a} 가입은 다음 신청 시기를 기다리셔야 합니다.\",\"cites\":[\"I:crop_disaster_a\"]},{\"sid\":2,\"text\":\"{P:income_stab_a} 가입도 다음 신청 시기에 알아보시면 됩니다.\",\"cites\":["
+  },
+  {
+   "purpose": "judge",
+   "section": "insurance",
+   "attempt": 1,
+   "tok_in": 3282,
+   "tok_out": 21,
+   "n_tool_calls": 0,
+   "text_head": "{\"verdict\": \"PASS\", \"reason_code\": null}"
+  },
+  {
+   "purpose": "narrate",
+   "section": "action",
+   "attempt": 1,
+   "tok_in": 2065,
+   "tok_out": 620,
+   "n_tool_calls": 0,
+   "text_head": "{\"section\":\"action\",\"sentences\":[{\"sid\":1,\"text\":\"다음 접수 때 {P:a_mgmt_registration}부터 챙겨 두시면 좋습니다.\",\"cites\":[\"A:a_mgmt_registration\"]},{\"sid\":2,\"text\":\"{P:a_nhis_farmer_support}는 지금 접수처에 물어보시면 됩니다.\",\"ci"
+  },
+  {
+   "purpose": "judge",
+   "section": "action",
+   "attempt": 1,
+   "tok_in": 3302,
+   "tok_out": 203,
+   "n_tool_calls": 0,
+   "text_head": "{\"verdict\":\"PASS\",\"reason_code\":null}"
+  }
+ ],
+ "review_entries": [
+  {
+   "section": "support",
+   "attempt": 1,
+   "rules_ver": "rules-v1.0#afa7e540",
+   "sentences": 3,
+   "checks": [],
+   "judge": {
+    "prompt_ver": "judge-v1",
+    "provider": "anthropic",
+    "model": "claude-opus-5-5",
+    "skipped": false,
+    "verdict": "PASS"
+   },
+   "verdict": "PASS",
+   "feedback": []
+  },
+  {
+   "section": "insurance",
+   "attempt": 1,
+   "rules_ver": "rules-v1.0#afa7e540",
+   "sentences": 3,
+   "checks": [],
+   "judge": {
+    "prompt_ver": "judge-v1",
+    "provider": "anthropic",
+    "model": "claude-opus-5-5",
+    "skipped": false,
+    "verdict": "PASS"
+   },
+   "verdict": "PASS",
+   "feedback": []
+  },
+  {
+   "section": "action",
+   "attempt": 1,
+   "rules_ver": "rules-v1.0#afa7e540",
+   "sentences": 3,
+   "checks": [],
+   "judge": {
+    "prompt_ver": "judge-v1",
+    "provider": "anthropic",
+    "model": "claude-opus-5-5",
+    "skipped": false,
+    "verdict": "PASS"
+   },
+   "verdict": "PASS",
+   "feedback": []
+  }
+ ],
+ "fingerprint": "9cd623f4",
+ "title": null,
+ "tuned_sample": true
+}

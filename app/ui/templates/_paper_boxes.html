@@ -1,0 +1,87 @@
+{#- 종이 앞면의 가실 곳 상자(2026-11-15, 결과 화면 4차와 같은 모양): 가실 곳 하나 = 상자 하나, 그 안에 받는 것이 한 줄에 하나씩 세로로만 쌓인다.
+    화면(_result_boxes.html)과 같은 값(result_view 카드, paper_cards 가 숫자를 출처 칸으로 감싼 것)과 같은 그림을 쓰고 모양만 종이 크기로 정한다(print.css .pbox).
+    흑백으로 뽑아도 읽히게(2026-11-17 종이도 컬러): 제목 띠는 옅은 청록 바탕에 먹색 글자, 번호 동그라미는 없다, 딱지는 흰 바탕 테두리 글자(색에 기대지 않는다).
+    쓰는 법:  {% import "_paper_boxes.html" as pb %}   {{ pb.box(c, "가실 곳은 창구에 물어보세요") }}
+    줄 높이 어림은 render.paper_row_lines 가 이 칸 크기와 같은 값으로 센다. 바꾸면 어림도 같이 맞출 것. -#}
+{% import "_art.html" as art %}
+{% macro _when(pieces) -%}
+{%- if pieces %}<span class="pr-when">{{ art.ic_calendar("ic ic-s") }}<span>{{ pieces | join(" · ") }}</span></span>{% endif -%}
+{%- endmacro %}
+{% macro _rest(it, text_shown=False) -%}
+{%- if it.urgent %}<span class="pr-pill">{{ it.urgent }}</span>{% endif -%}
+{%- if it.text and it.text_when and not it.amt and not text_shown %}{{ _when([it.text] + it.whens) }}{% else %}{{ _when(it.whens) }}{% endif -%}
+{%- for n in it.notes %}<span class="pr-note">{{ n }}</span>{% endfor -%}
+{%- for n in it.place_notes %}<span class="pr-note">{{ n }}</span>{% endfor -%}
+{%- if it.unlock_text %}<span class="pr-unlock">{{ it.unlock_text }}</span>{% endif -%}
+{%- endmacro %}
+{#- 하실 일 한 줄(연필·체크 + 이름 + 안내 글) -#}
+{% macro do_row(it) -%}
+<li class="pr pr-do"><div class="pr-top"><span class="pr-ic">{{ art.ic("confirm" if it.role == "confirm" else "pencil", "ic ic-l") }}</span><b class="pr-t">{{ it.title }}</b></div>
+  {%- if it.text %}<span class="pr-text{% if it.text_when %} is-when{% endif %}">{{ it.text }}</span>{% endif -%}
+  {{ _rest(it, True) }}</li>
+{%- endmacro %}
+{#- 받을 것 한 줄: 이름 ··· 금액(주황 굵게 + 검정 밑줄). 금액이 없으면 그 자리에 쓰던 글 -#}
+{% macro get_row(it, unlock_more="", table=False) -%}
+<li class="pr pr-get"><div class="pr-top"><b class="pr-t">{{ it.title }}</b>
+    {%- if (it.amt and not it.pre) or (not it.amt and it.text and not it.text_when and not table) %}<span class="pr-ld" aria-hidden="true"></span>{% endif %}
+    {%- if it.amt %}<span class="pr-m{{ ' has-pre' if it.pre }}">{% if it.pre %}<span class="pr-pre">{{ it.pre }}</span> {% endif %}<span class="pr-amt{{ ' nb' if '원' in it.amt }}">{{ it.amt }}</span></span>
+    {%- elif it.text and not it.text_when %}<span class="pr-m is-text">{{ it.text }}</span>{% endif -%}
+  </div>
+  {{ _rest(it) }}
+  {%- if it.unlocks_n %}<span class="pr-unlock">이것을 하시면 알아볼 수 있는 지원 {{ it.unlocks_n }}가지{{ unlock_more }}</span>{% endif %}</li>
+{%- endmacro %}
+{% macro box(c, nohead="가실 곳은 창구에 물어보세요", unlock_more="") -%}
+<article class="pbox{% if c.pill %} is-first{% endif %}">
+  <header class="pb-band">
+    <span class="pb-pic">{% if c.icon_name %}{{ art.ic(c.icon_name, "ic ic-p") }}{% else %}{{ art.place_icon(c.icon, "ic ic-p") }}{% endif %}</span>
+    <div class="pb-name">
+      <h3 class="pb-t">{{ (c.head or nohead) | replace("읍·면·동", '<span class="nb">읍·면·동</span>' | safe) }}</h3>
+      {%- if c.where %}<p class="pb-where">{{ c.where }}</p>{% endif %}
+    </div>
+    {%- if c.phone or c.tel_note or c.pill or c.now %}
+    <div class="pb-side">
+    {%- if c.phone or c.tel_note %}
+    <p class="pb-tel">{{ art.ic_phone("ic ic-t") }}{% if c.phone %}<b>{{ c.phone }}</b>{% if c.tel_note %}<small>{{ c.tel_note }}</small>{% endif %}{% else %}<small>{{ c.tel_note }}</small>{% endif %}</p>
+    {%- endif %}
+      {%- if c.pill or c.now %}<span class="pb-tags">{% if c.pill %}<span class="pb-tag">{{ c.pill }}</span>{% endif %}{% if c.now %}<span class="pb-tag">{{ c.now }}</span>{% endif %}</span>{% endif %}
+    </div>
+    {%- endif %}
+  </header>
+  <ul class="pb-rows">
+    {%- for it in c.rows %}
+    {%- if it.kind == "do" %}
+    {{ do_row(it) }}
+    {%- else %}
+    {{ get_row(it, unlock_more) }}
+    {%- endif %}
+    {%- endfor %}
+  </ul>
+  {%- if c.hidden_n %}<p class="pb-more">외 {{ c.hidden_n }}가지{% if c.hidden_names %}: {{ c.hidden_names | join(" · ") }}{% endif %}</p>{% endif %}
+</article>
+{%- endmacro %}
+{#- 표의 한 묶음(2026-11-17 사장 지시): 대분류 | 소분류(가실 곳) | 지원 칸. 가실 곳 하나 = 소분류 칸 하나(체크 칸 · 번호 · 그림 / 이름 / 어디서 / 전화 / 딱지)
+    + 그 곳에서 받는 지원 줄들(한 줄에 하나씩, 사이에 가는 줄). 줄 값은 위 상자(box)와 같은 것(do_row·get_row)이고 모양만 print.css .pg 가 정한다. n = render.paper_group_lines 의 높이 어림. -#}
+{% macro group(c, n, nohead="가실 곳은 창구에 물어보세요", unlock_more="") -%}
+<article class="pg rrw line pt16{% if c.pill %} is-first{% endif %}" data-sec="Rr" data-n="{{ n }}">
+  <header class="pc{{ ' is-wide' if c.wide }}">
+    <div class="pc-top"><span class="pc-pic">{% if c.icon_name %}{{ art.ic(c.icon_name, "ic ic-p") }}{% else %}{{ art.place_icon(c.icon, "ic ic-p") }}{% endif %}</span><span class="bx"></span></div>
+    <h3 class="pb-t">{{ (c.head or nohead) | replace("읍·면·동", '<span class="nb">읍·면·동</span>' | safe) | replace("(", '<wbr>(' | safe) }}</h3>
+    {%- if c.where %}<p class="pb-where">{{ c.where }}</p>{% endif %}
+    {%- if c.phone or c.tel_note %}
+    <p class="pb-tel">{% if c.phone %}{{ art.ic_phone("ic ic-t") }}<b>{{ c.phone }}</b>{% if c.tel_note %}<small>{{ c.tel_note }}</small>{% endif %}{% else %}<small>{{ c.tel_note }}</small>{% endif %}</p>
+    {%- endif %}
+    {%- if c.pill or c.now %}<span class="pb-tags">{% if c.pill %}<span class="pb-tag">{{ c.pill }}</span>{% endif %}{% if c.now %}<span class="pb-tag">{{ c.now }}</span>{% endif %}</span>{% endif %}
+  </header>
+  <div class="pc-r">
+    <ul class="pb-rows">
+      {%- for it in c.rows %}
+      {%- if it.kind == "do" %}
+      {{ do_row(it) }}
+      {%- else %}
+      {{ get_row(it, unlock_more, True) }}
+      {%- endif %}
+      {%- endfor %}
+    </ul>
+  </div>
+</article>
+{%- endmacro %}

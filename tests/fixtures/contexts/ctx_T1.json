@@ -1,0 +1,7 @@
+{
+  "empty_sheet": true,
+  "items": [
+    {"section": "empty", "fact_id": "A:keep_dp_edu", "program_id": "dp_education", "official_name": "직불 교육 이수",
+     "status": "KEEP", "row_status": null, "missing": [], "window": "upcoming", "office_id": "emd_office"}
+  ]
+}

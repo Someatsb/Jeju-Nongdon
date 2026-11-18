@@ -1,0 +1,46 @@
+{
+  "case_id": "P1",
+  "as_of": "2026-11-13",
+  "profile": {
+    "visitor": "self",
+    "owner_sex": "F",
+    "emd_code": "남원읍",
+    "birth_year": 1952,
+    "birth_year_approx": false,
+    "crops": [
+      {
+        "crop_code": "감귤_노지",
+        "area_m2": 4959,
+        "sales_channel": "field_contract_done",
+        "selfpay_fund": "unknown",
+        "ins_disaster": null,
+        "ins_income": null
+      }
+    ],
+    "total_area_m2": 4959,
+    "total_area_is_crop_sum": false,
+    "land_tenure": "own_all",
+    "land_held_2y": true,
+    "owned_over_4700py": false,
+    "mgmt_status": "over_2y",
+    "mgmt_last_reg_year": 2024,
+    "spouse": "none",
+    "farming_years": 45,
+    "farming_10y_plus": true,
+    "residence_3y": true,
+    "health_ins": "unknown",
+    "flags": {
+      "disaster_damage": false,
+      "direct_payment_education": "N"
+    },
+    "already_receiving": [
+      "JEJU-FARMER-ALLOW",
+      "NAT-DIRECT-ANY"
+    ],
+    "first_heard": [],
+    "ins_safety": [],
+    "spouse_birth_year": null,
+    "spouse_sex": null,
+    "enrollment_requested": "모름"
+  }
+}

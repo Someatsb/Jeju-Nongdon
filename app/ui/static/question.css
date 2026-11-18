@@ -1,0 +1,482 @@
+/* 제주 농돈 - 질문 화면(input.html). 공용 부품(app.css "공용 부품" 절) 위에 얹는다.
+   한 화면 규칙: 스크립트가 켜져 있으면(html.js) 화면 틀이 100dvh 세로 격자이고, 단계 하나만 보인다.
+   남는 높이는 그림 띠·단추·간격이 clamp()/vh 로 나눠 가진다. 스크립트가 꺼져 있으면 모든 단계가 차례로 보인다. */
+
+/* ---------- 공통: 머리 ---------- */
+.page-q .topbar { gap: 16px; flex-wrap: nowrap; }
+.js .page-q .topbar { height: clamp(52px, 9.5vh, 96px); min-height: 0; padding-top: 0; padding-bottom: 0; }
+.page-q .logo { width: clamp(38px, 6.4vh, 64px); height: clamp(38px, 6.4vh, 64px); }
+.page-q .brand { gap: clamp(8px, 1.6vh, 16px); }
+.page-q .brand-name { font-size: clamp(28px, 4.4vh, 44px); }
+.page-q .brand-sub { font-size: clamp(18px, 2.4vh, 22px); padding: 2px clamp(10px, 1.6vh, 16px); }
+.page-q .progress { gap: clamp(10px, 1.6vw, 24px); }
+.page-q .progress-label { font-size: clamp(20px, 3vh, 28px); white-space: nowrap; }
+.page-q .progress-label b { font-size: clamp(24px, 4vh, 36px); }
+.page-q .segs { gap: clamp(5px, .8vw, 10px); }
+.page-q .segs .seg { width: clamp(28px, 3.4vw, 64px); height: clamp(10px, 1.8vh, 18px); }
+.proxy-note {
+  font-size: clamp(22px, 3vh, 28px); font-weight: 800; color: var(--ink); background: #fff;
+  border: 3px solid var(--ink); border-radius: 999px; padding: 2px clamp(14px, 1.6vw, 24px); margin-left: auto; white-space: nowrap; text-decoration: none;
+}
+.proxy-note:hover, .proxy-note:focus-visible { background: var(--cream-2); outline: 4px solid var(--ink); }
+.notice { margin: 0 var(--pad-x) 8px; font-size: var(--fs-small); font-weight: 600; background: #FFE9C9; border-radius: 12px; padding: 6px 16px; }
+
+/* ---------- 틀: 스크립트가 켜져 있을 때만 100dvh ---------- */
+.js body.page-q {
+  height: 100vh; height: 100dvh; min-height: 0; overflow: hidden;
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto;
+}
+.js body.page-q.numpad-open { height: calc(100vh - var(--numpad-h, 0px)); height: calc(100dvh - var(--numpad-h, 0px)); }
+.js body.page-q.numpad-open .strip, .js body.page-q.numpad-open .site-foot { display: none; }
+.qmain { min-height: 0; display: flex; flex-direction: column; }
+.intake { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.steps { flex: 1; min-height: 0; padding: 0 var(--pad-x); }
+.qstep { display: flex; flex-direction: column; gap: clamp(8px, 1.8vh, 20px); min-height: 0; padding: 4px 0 8px; }
+.qstep + .qstep { margin-top: 36px; }
+.js .qstep { display: none; height: 100%; margin: 0; }
+.js .qstep.is-current { display: flex; }
+.js [data-cond]:not(.is-on) { display: none; }
+.js .page-q .actionbar, .js.page-q .actionbar { position: static; }
+.js .page-q .actionbar { flex: none; }
+.page-q .actionbar { position: static; }
+.js .page-q .strip { margin: 0; height: clamp(18px, 6.4vh, 76px); overflow: hidden; }
+.js .page-q .strip-art { height: 100%; }
+.js .page-q .site-foot { padding: 2px var(--pad-x); font-size: clamp(18px, 2.4vh, 22px); }
+.lab-next { display: none; }
+.js .lab-next { display: inline; }
+.js .is-last .lab-next { display: none; }
+.js .lab-go { display: none; }
+.js .is-last .lab-go { display: inline; }
+
+/* ---------- 질문 머리 ---------- */
+.q-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px clamp(14px, 2vw, 32px); margin: clamp(0px, .6vh, 6px) 0 0; }
+.q-head h1 { font-size: clamp(30px, 6vh, 58px); line-height: 1.15; font-weight: 800; letter-spacing: -0.03em; }
+.q-head .lead { font-size: clamp(22px, 3.2vh, 30px); font-weight: 600; color: var(--ink); flex: 1 1 320px; }
+.q-head .btn-speak { margin-left: auto; }
+.page-q .hint { align-self: stretch; margin-top: 6px; }
+.page-q .sr, .sr { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+
+/* ---------- 작은 선택 단추 ---------- */
+.choice-sm .choice-face { min-height: clamp(44px, 7.8vh, 72px); padding: 6px 46px 6px 14px; border-radius: 18px; }
+.choice-sm .choice-label { font-size: clamp(20px, 3vh, 28px); line-height: 1.2; }
+.choice-sm .choice-mark { right: 10px; width: 30px; height: 30px; margin-top: -15px; border-width: 2.5px; }
+.choice-sm .choice-mark svg { width: 18px; height: 18px; }
+.choice-sm input:checked + .choice-face { padding: 4px 44px 4px 12px; }
+.choice-face, .choice-label { word-break: keep-all; }
+
+/* ---------- 1. 읍면동 ---------- */
+.tabs { display: none; gap: clamp(10px, 1.6vh, 16px); }
+.js .tabs { display: flex; }
+.tab {
+  flex: 1 1 0; max-width: 520px; min-height: clamp(54px, 10vh, 100px); font: 800 clamp(26px, 4.4vh, 40px) "Pretendard", "Malgun Gothic", sans-serif;
+  color: var(--ink); background: var(--paper); border: 3px solid var(--line); border-radius: 999px; box-shadow: 0 4px 0 var(--line); cursor: pointer;
+}
+.tab.on { background: #FFE6BF; color: var(--ink); border: 5px solid var(--tang-deep); box-shadow: 0 4px 0 var(--tang-deep); }
+.tab.on::before { content: "✓"; margin-right: 12px; }
+.tab:focus-visible { outline: 5px solid var(--sea); outline-offset: 4px; }
+.panel-title { font-size: var(--fs-h3); font-weight: 800; margin-top: 8px; }
+.js .panel-title { display: none; }
+.emd-panel { display: flex; flex-direction: column; gap: clamp(8px, 1.6vh, 16px); }
+.js .emd-panel:not(.on) { display: none; }
+.emd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(clamp(130px, 10.4vw, 190px), 1fr)); gap: clamp(8px, 1.4vh, 14px); }
+.emd-big .choice-face { min-height: var(--choice-h); }
+.emd-big .choice-label { font-size: clamp(20px, 3.2vh, 30px); }
+
+/* ---------- 2. 작물 ---------- */
+.tiles { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: clamp(8px, 1.6vh, 18px); }
+.js .tiles { min-height: clamp(120px, 24vh, 200px); }
+.choice-tile { height: 100%; min-width: 0; }
+.choice-tile .choice-face {
+  height: 100%; min-height: 0; flex-direction: column; justify-content: center; align-items: center; gap: 2px; padding: 6px 6px 6px; text-align: center;
+  border-radius: clamp(16px, 2.8vh, 26px);
+}
+.choice-tile input:checked + .choice-face { padding: 4px 4px 4px; }
+.choice-tile .choice-icon { position: relative; flex: 1; min-height: 0; width: 100%; }
+.choice-tile .choice-icon svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.choice-tile .choice-text { flex: none; }
+.choice-tile .choice-label { font-size: clamp(20px, 3vh, 28px); text-align: center; }
+.choice-tile .choice-mark { right: 8px; top: 8px; margin-top: 0; width: 30px; height: 30px; }
+.js .tiles { margin-top: 2px; }
+.area-line { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(6px, 1.2vh, 12px) clamp(10px, 1vw, 16px); }
+.area-q { font-size: clamp(22px, 3.4vh, 32px); font-weight: 800; color: var(--ink); }
+.area-q.small { font-size: clamp(22px, 3vh, 26px); }
+.area-note { font-size: clamp(22px, 3vh, 28px); color: var(--ink); font-weight: 700; }
+.step-btn, .quick-btn, .more-btn { min-height: clamp(44px, 7vh, 72px); padding: 0 clamp(14px, 1.4vw, 26px); font-size: clamp(22px, 3vh, 28px); }
+.step-btn { min-width: clamp(48px, 7vh, 72px); padding: 0; font-size: clamp(28px, 4.6vh, 44px); }
+.quick { display: inline-flex; gap: clamp(6px, 1vw, 12px); }
+.more-btn { margin-left: auto; flex-direction: column; gap: 0; line-height: 1.1; }
+.more-btn small { font-size: var(--fs-small); font-weight: 600; }
+.more-btn.is-gone { display: none; }
+.numfield { height: clamp(48px, 7.6vh, 80px); font-size: clamp(26px, 4.2vh, 40px); }
+.extra { display: block; }
+.js .extra:not(.is-on) { display: none; }
+.extra-row { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(6px, 1.2vh, 12px) clamp(10px, 1vw, 16px); }
+.extra-q { font-size: clamp(22px, 2.8vh, 26px); font-weight: 700; }
+.extra select, .page-q select {
+  min-height: clamp(48px, 7.6vh, 72px); font: 700 clamp(20px, 3vh, 28px) "Pretendard", "Malgun Gothic", sans-serif; color: var(--ink);
+  background: #fff; border: 3px solid var(--ink); border-radius: 16px; padding: 0 14px; min-width: 220px;
+}
+
+/* ---------- 3. 농사짓는 분 ---------- */
+.choice-row.two { max-width: 920px; }
+.choice-row.two .choice { flex: 1 1 0; }
+.birth-line { display: flex; align-items: center; flex-wrap: wrap; gap: 10px clamp(14px, 1.6vw, 24px); }
+.age { font-size: clamp(26px, 4.4vh, 44px); font-weight: 800; color: var(--ink); }
+
+/* ---------- 4. 경영체 ---------- */
+.mgmt { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1100px; }
+.year-line { display: flex; align-items: center; flex-wrap: wrap; gap: 8px clamp(14px, 1.6vw, 24px); }
+.year-line .area-q { flex: 0 1 auto; }
+
+/* ---------- 5. 파는 곳 ---------- */
+.sell { display: flex; flex-direction: column; gap: clamp(8px, 1.8vh, 20px); }
+.sell-crop { display: flex; flex-direction: column; gap: clamp(4px, 1vh, 10px); }
+.sell-name { font-size: clamp(22px, 3.4vh, 32px); font-weight: 800; color: var(--ink); }
+.sell-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.fund { display: flex; align-items: center; flex-wrap: wrap; gap: 6px clamp(10px, 1.4vw, 20px); }
+.fund-q { font-size: clamp(22px, 3vh, 28px); font-weight: 800; }
+.fund-why { flex: 1 1 100%; order: 3; font-size: clamp(22px, 3vh, 26px); font-weight: 700; color: var(--ink); line-height: 1.25; }
+.fund .choice-row { flex: 1 1 520px; max-width: 760px; }
+.fund .choice { flex: 1 1 0; }
+
+/* ---------- 마지막: 눌러야 하는 것만 ---------- */
+.press { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(6px, 1.4vh, 14px) clamp(12px, 1.4vw, 22px); align-content: start; }
+.press-group { display: grid; grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr)); gap: clamp(6px, 1.2vh, 12px); align-content: start; min-width: 0; }
+.press-group.wide { grid-column: span 2; --cols: 3; }
+.press-group.s3 { grid-column: span 3; }
+.press-group.s4 { grid-column: span 4; }
+.own-only { display: contents; }
+.js .own-only:not(.is-on) { display: none; }
+.press-q { grid-column: 1 / -1; font-size: clamp(22px, 3.2vh, 30px); font-weight: 800; color: var(--ink); line-height: 1.2; }
+.press-q small { font-size: var(--fs-small); font-weight: 700; color: var(--ink-soft); margin-left: 8px; }
+.press-group .choice { flex: none; min-width: 0; }
+
+/* ---------- 숫자판이 떠 있을 때: 글 높이가 모자란 창에서는 덜 중요한 것을 잠시 접는다 ---------- */
+@media (max-height: 1000px) {
+  .js .numpad-open .tiles { display: none; }
+  .js .numpad-open .q-head .lead, .js .numpad-open .q-head .btn-speak { display: none; }
+  .js .numpad-open .year-line .area-q { flex-basis: auto; }
+}
+
+/* ---------- 작은 창 ---------- */
+@media (max-width: 1500px) {
+  .page-q .brand-sub { display: none; }
+  .page-q { --pad-x: 40px; }
+}
+@media (max-width: 1100px) {
+  .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: none; }
+}
+@media (max-width: 999px) {
+  .press { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sell-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mgmt { grid-template-columns: 1fr; }
+}
+
+/* ---------- 라운드1 검수 반영 ---------- */
+.js .page-q .topbar { gap: 12px; }
+.btn-home-q { min-height: clamp(44px, 6.4vh, 60px); padding: 0 clamp(14px, 1.4vw, 24px); font-size: clamp(22px, 2.8vh, 26px); margin-left: 4px; }
+.proxy-note { margin-left: 0; }
+.need-box { border-radius: 22px; }
+.need-box.is-need { outline: 6px solid var(--tang-deep); outline-offset: 6px; }
+.page-q .hint {
+  font-size: clamp(24px, 3.4vh, 32px); font-weight: 800; color: var(--ink); background: #fff; border: 3px solid var(--ink); border-left: 12px solid var(--tang-deep);
+  border-radius: 16px; padding: clamp(6px, 1.2vh, 12px) 20px;
+}
+.press-group.is-need { outline: 6px solid var(--tang-deep); outline-offset: 6px; border-radius: 16px; }
+.must-tag { color: var(--ink); font-weight: 800; border: 2px solid var(--ink); border-radius: 999px; padding: 0 10px; background: #fff; }
+.press6 .press-q .must-tag { display: block; width: fit-content; margin-top: 2px; font-size: 18px; line-height: 1.3; }
+.pick-city { font-size: clamp(24px, 3.4vh, 32px); font-weight: 800; color: var(--ink); }
+.js .page-q .tabs { margin-top: 2px; }
+.crop-chip { font-size: clamp(22px, 3vh, 28px); font-weight: 800; color: var(--ink); background: #fff; border: 3px solid var(--ink); padding: 0 18px; border-radius: 999px; }
+.actionbar .btn-main.is-wait { background: #EFE6D2; color: var(--ink-soft); border-color: var(--ink-soft); box-shadow: 0 6px 0 var(--line); }
+.numfield::placeholder { color: #6B5E52; font-weight: 700; font-size: clamp(22px, 3vh, 28px); }
+.page-q .numfield-wrap:has(input[name="birth_year"]) .numfield { width: 9ch; }
+.press .choice-sm .choice-face { min-height: clamp(44px, 6.4vh, 64px); }
+.press { gap: clamp(2px, .8vh, 8px) clamp(12px, 1.4vw, 22px); }
+.press-q { margin-top: clamp(0px, .4vh, 4px); }
+.press .choice-sm .choice-face { min-height: clamp(44px, 5.9vh, 60px); padding-top: 2px; padding-bottom: 2px; }
+.press .choice-sm .choice-label { font-size: clamp(20px, 2.8vh, 26px); }
+.press-group { gap: clamp(2px, .6vh, 6px) clamp(10px, 1.2vw, 18px); }
+.page-q .q-head h1 { font-size: clamp(30px, 5.4vh, 54px); }
+@media (max-height: 800px) {
+  .js .page-q .strip { display: none; }
+  .press-q small:not(.must-tag) { display: none; }
+}
+.js .page-q .tabs { margin-bottom: 10px; }
+@media (max-height: 700px) {
+  .qstep[data-step="6"] .q-head .lead { display: none; }
+  .press-group[data-when="own4700"] .press-q { display: none; }
+  .press .choice-sm .choice-face { min-height: 42px; }
+}
+
+/* ---------- 라운드3: 마지막 화면 ---------- */
+.page-q:has(.is-last) .strip { display: none; }
+.qstep[data-step="6"]:has(#hint-must:not([hidden])) .q-head { display: none; }
+@media (max-height: 800px) { .qstep[data-step="6"] .q-head .lead { display: none; } }
+@media (min-height: 801px) { .press-group[data-must="residence"] .press-q small { display: block; margin-left: 0; } }
+
+/* =====================================================================================================
+   창 크기에 맞추기: 폭이 줄면 글·단추·간격이 함께 줄고, 폭 1000px 아래에서는 한 줄 배치(위아래로 쌓임)가 되며
+   질문 부분만 스크롤하고 아래 띠(이전/다음)는 늘 창 아래에 붙어 보인다.
+   ===================================================================================================== */
+.q-head .lead { flex: 1 1 260px; }
+.page-q .progress-label { font-size: clamp(20px, min(3vh, 1.7vw), 28px); }
+.proxy-note { white-space: normal; text-align: center; line-height: 1.2; }
+.page-q .topbar { min-width: 0; }
+.press-group, .press-group > *, .sell-crop, .qstep > * { min-width: 0; }
+
+@media (max-width: 1280px) {
+  .page-q .q-head h1 { font-size: clamp(28px, min(5.4vh, 3.8vw), 54px); }
+  .page-q .proxy-note { font-size: clamp(18px, 1.7vw, 24px); }
+}
+
+@media (max-width: 999px) {
+  body[class] { --pad-x: 24px; }
+  /* 머리: 두 줄(이름·처음으로 / 진행 표시) */
+  .js .page-q .topbar, .page-q .topbar { height: auto; min-height: 0; flex-wrap: wrap; gap: 4px 12px; padding: 8px var(--pad-x) 6px; }
+  .page-q .logo { width: 44px; height: 44px; }
+  .page-q .brand-name { font-size: 30px; }
+  .page-q .brand { order: 1; }
+  .page-q .btn-home-q { order: 2; margin-left: auto; min-height: 52px; font-size: 20px; padding: 0 18px; }
+  .page-q .proxy-note { order: 3; flex: 1 1 100%; margin: 0; font-size: 18px; padding: 4px 12px; }
+  .page-q .progress { order: 4; flex: 1 1 100%; flex-wrap: wrap; gap: 4px 12px; }
+  .page-q .progress-label { white-space: normal; font-size: 20px; }
+  .page-q .progress-label b { font-size: 24px; }
+  .page-q .segs { flex: none; }
+  .page-q .segs .seg { width: 34px; height: 12px; }
+  /* 틀: 질문 부분만 스크롤, 아래 띠는 창 아래에 붙는다 */
+  .js body.page-q, .js body.page-q.numpad-open { grid-template-rows: auto minmax(0, 1fr); }
+  .js .page-q .strip, .js .page-q .site-foot, .page-q .strip { display: none; }
+  .steps { overflow-y: auto; overflow-x: hidden; padding-top: 4px; }
+  .js .qstep { height: auto; min-height: 100%; padding-bottom: 12px; }
+  .q-head h1 { font-size: clamp(26px, 5.2vw, 40px); }
+  .page-q .q-head h1 { font-size: clamp(26px, 5.2vw, 40px); }
+  .q-head .lead, .js .page-q .q-head .lead { font-size: 20px; }
+  .q-head .btn-speak { min-height: 52px; font-size: 20px; }
+  .js .tiles { min-height: 0; }
+  .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: 132px; }
+  .choice-tile .choice-label { font-size: 20px; }
+  .choice-sm .choice-face { min-height: 56px; padding: 6px 42px 6px 12px; }
+  .choice-sm input:checked + .choice-face { padding: 4px 40px 4px 10px; }
+  .choice-sm .choice-label, .press .choice-sm .choice-label, .choice-label { font-size: 20px; }
+  .choice-sm .choice-mark { right: 8px; width: 28px; height: 28px; margin-top: -14px; }
+  .press .choice-sm .choice-face { min-height: 56px; padding-top: 6px; padding-bottom: 6px; }
+  .tab { min-height: 58px; font-size: 26px; }
+  .emd-big .choice-face { min-height: 56px; }
+  .emd-big .choice-label { font-size: 20px; }
+  .area-q, .area-q.small { font-size: 22px; }
+  .area-note, .extra-q, .fund-q, .sell-name { font-size: 20px; }
+  .step-btn, .quick-btn, .more-btn { min-height: 56px; font-size: 20px; }
+  .step-btn { min-width: 56px; font-size: 30px; }
+  .numfield { height: 60px; font-size: 30px; }
+  .numfield-unit { font-size: 24px; }
+  .extra select, .page-q select { min-height: 56px; font-size: 20px; }
+  .age { font-size: 28px; }
+  .choice-row.two { max-width: none; }
+  .fund .choice-row { flex: 1 1 100%; max-width: none; }
+  .fund-why { font-size: 18px; }
+  .press-q { font-size: 22px; }
+  .press-q small { display: inline; font-size: 18px; }
+  .press-q small:not(.must-tag) { display: inline; }
+  .must-tag { display: inline; }
+  .hint, .page-q .hint { font-size: 20px; }
+  .crop-chip, .pick-city { font-size: 20px; }
+  /* 아래 띠 */
+  .actionbar { padding: 8px var(--pad-x); gap: 12px; }
+  .actionbar .btn { min-height: 60px; font-size: 24px; padding: 6px 16px; line-height: 1.1; }
+  .actionbar .btn-prev { min-width: 0; font-size: 22px; flex: none; padding: 6px 18px; }
+  .actionbar .btn-main { min-width: 0; flex: 1; }
+  .actionbar .btn svg { width: 28px; height: 28px; }
+  .numkey { height: 52px; font-size: 28px; }
+  .numkey-fn, .numkey-ok { font-size: 22px; }
+  .numpad-label { font-size: 20px; }
+  .js .page-q .tabs, .tabs { margin-bottom: 6px; }
+  /* 글 높이가 모자란 창에서 접던 것은 스크롤이 있어 다시 보인다 */
+  .js .numpad-open .tiles { display: none; }
+  .js .page-q .qstep[data-step="6"] .q-head .lead { display: block; }
+  .press-group.wide, .press-group.s3, .press-group.s4 { grid-column: 1 / -1; }
+  .press-group { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 699px) {
+  body[class] { --pad-x: 16px; }
+  .page-q .brand-name { font-size: 26px; }
+  .page-q .logo { width: 38px; height: 38px; }
+  .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 124px; }
+  .sell-grid { grid-template-columns: minmax(0, 1fr); }
+  .press { grid-template-columns: minmax(0, 1fr); }
+  .press-group, .press-group.wide { --cols: 1 !important; grid-template-columns: minmax(0, 1fr) !important; grid-column: 1 / -1; }
+  .press-group.s3, .press-group.s4 { grid-column: 1 / -1; }
+  .emd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .q-head .btn-speak { margin-left: 0; }
+  .actionbar .btn-prev { padding: 6px 14px; }
+}
+
+.js body.page-q { grid-template-columns: minmax(0, 1fr); }
+.choice-text { min-width: 0; }
+.choice-label { overflow-wrap: break-word; }
+.quick { flex-wrap: wrap; }
+
+/* 폭이 줄고 높이도 낮은 넓은 창(1000~1300 x ~800 이하): 질문 칸이 한 화면에 들도록 바닥 작은 글씨와 소리 단추를 접는다(첫 화면에는 그대로 있다) */
+@media (min-width: 1000px) and (max-width: 1300px) and (max-height: 800px) {
+  .js .page-q .site-foot { display: none; }
+  .js .page-q .q-head .btn-speak { display: none; }
+  .press .choice-sm .choice-label { font-size: clamp(18px, 1.8vw, 21px); }
+  .press .choice-sm .choice-face { padding-left: 12px; padding-right: 44px; }
+}
+@media (min-width: 1000px) and (max-height: 620px) {
+  .js .page-q .topbar { height: 42px; }
+  .page-q .logo { width: 34px; height: 34px; }
+  .actionbar { padding-top: 4px; padding-bottom: 9px; }
+  .actionbar .btn { min-height: 52px; }
+}
+
+/* 숫자 칸 안내 글("여기를 누르세요")이 잘리지 않게: 창이 작아지면 칸을 조금 넓히고 안내 글을 조금 줄인다 */
+@media (max-width: 1500px) {
+  .numfield[placeholder] { width: 12ch; }
+  .numfield::placeholder { font-size: clamp(18px, 2.6vh, 24px); }
+}
+
+/* 네 칸 줄에서 가장 좁은 칸("제주에 사신 햇수")은 단추 둘을 위아래로 쌓아 글이 한 글자씩 꺾이지 않게 한다 */
+@media (min-width: 1000px) and (max-width: 1180px) {
+  .press-group[data-must="residence"] { grid-template-columns: minmax(0, 1fr) !important; }
+}
+@media (max-width: 999px) { .press-group.is-need { outline-width: 4px; outline-offset: 3px; } .need-box.is-need { outline-width: 4px; outline-offset: 3px; } }
+
+/* ---------- 응답 2: 좁고 낮은 창에서 숫자판이 뜨면 "− 칸 평 +" 한 줄만 남겨 단추가 잘리지 않게 ---------- */
+@media (max-width: 999px) and (max-height: 760px) {
+  .js .numpad-open .area-line { flex-wrap: nowrap; justify-content: center; gap: 8px; }
+  .js .numpad-open .area-line .area-q, .js .numpad-open .area-line .quick, .js .numpad-open .area-line .area-note,
+  .js .numpad-open .area-line .more-btn, .js .numpad-open .area-line .crop-chip { display: none; }
+  .js .numpad-open .area-line .step-btn { flex: none; }
+  .js .numpad-open .area-line .numfield-wrap { flex: 1 1 auto; min-width: 0; }
+  .js .numpad-open .area-line .numfield[placeholder] { width: 100%; min-width: 0; }
+  .js .numpad-open .hint { display: none; }
+}
+
+/* 가장 낮은 넓은 창(높이 600 이하): 마지막 화면의 단추 글을 한 단계 줄여 한 화면에 넣는다 */
+@media (min-width: 1000px) and (max-height: 600px) {
+  .press .choice-sm .choice-face { min-height: 34px; padding-top: 2px; padding-bottom: 2px; }
+  .press .choice-sm .choice-label { font-size: 18px; line-height: 1.12; }
+  .press-q { font-size: 20px; }
+  .press-group { gap: 0 clamp(8px, 1vw, 14px); }
+  .page-q .q-head h1 { font-size: 26px; }
+}
+
+/* 큰 창에서도 숫자 칸 안내 글("여기를 누르세요")이 잘리지 않게 칸을 넓힌다 */
+.numfield[placeholder] { width: 12ch; }
+
+
+/* =====================================================================================================
+   사장 지시(2026-11-14 오후): 둘째 작물도 그림 단추 · 작물 예시 · 진행 6칸 · 마지막 화면 배치
+   ===================================================================================================== */
+/* 2번 질문 안의 두 화면(첫째 작물 / 둘째 작물): 스크립트가 켜져 있으면 하나만 보인다. 꺼져 있으면 차례로 다 보이고 둘째 작물 단추는 숨긴다 */
+.sub { display: flex; flex-direction: column; gap: clamp(8px, 1.8vh, 20px); min-height: 0; }
+.js .sub { flex: 1; }
+.js .qstep:not(.is-sub2) .sub2 { display: none; }
+.js .qstep.is-sub2 .sub1 { display: none; }
+html:not(.js) .more-btn, html:not(.js) .x2-line { display: none; }
+.sub2 .area-line.total-line { margin-top: 0; }
+.x2-line { display: none; margin-left: auto; align-items: center; flex-wrap: wrap; gap: 6px clamp(10px, 1vw, 16px); }
+.x2-line.is-on { display: inline-flex; }
+.x2-text { font-size: clamp(22px, 3vh, 28px); font-weight: 800; color: var(--ink); }
+.x2-text b { font-weight: 800; }
+.x2-cancel { margin-left: auto; }
+
+/* 작물 단추 아래 예시(묶음 이름인 단추에만) */
+.choice-tile .choice-sub { font-size: clamp(18px, 2.4vh, 22px); line-height: 1.1; font-weight: 600; text-align: center; word-break: keep-all; color: var(--ink-soft); }
+.choice-tile .choice-text { gap: 0; }
+/* 못 누르는 단추(첫째로 고른 작물을 둘째 화면에서): 흐리게 */
+.choice input:disabled + .choice-face { opacity: .38; filter: grayscale(.7); box-shadow: none; border-color: var(--line); }
+.choice:has(input:disabled), .choice:has(input:disabled):hover .choice-face { cursor: not-allowed; }
+.choice:has(input:disabled):hover .choice-face { border-color: var(--line); }
+.choice:has(input:disabled):active .choice-face { transform: none; }
+
+/* 진행 6칸 */
+.page-q .segs .seg { width: clamp(22px, 2.8vw, 52px); }
+.page-q .segs { gap: clamp(4px, .6vw, 9px); }
+
+/* 마지막 화면: 햇수 · 배우자 · 건강보험은 한 줄씩, 맨 아랫줄은 제주 거주 · 재해 · 농사짓는 땅이 나란히 */
+.press-group.s3 { grid-column: 1 / -1; }
+.press-row { grid-column: 1 / -1; display: flex; align-items: flex-start; gap: clamp(8px, 1.4vh, 14px) clamp(12px, 1.4vw, 22px); min-width: 0; }
+.press-row > .press-group.g-res { flex: 2.8 1 0; }
+.press-row > .press-group.g-dis { flex: 1.6 1 0; }
+.press-land { flex: 1.7 1 0; display: flex; align-items: flex-start; gap: clamp(8px, 1.4vh, 14px) clamp(12px, 1.4vw, 22px); min-width: 0; }
+.press-land:has(.own-only.is-on) { flex: 4.4 1 0; }
+.press-land:has(.g-big.is-on) { flex: 5.8 1 0; }
+.press-land > .press-group { flex: 1 1 0; }
+.press-land > .g-land:has(.own-only.is-on) { flex: 3 1 0; --cols: 3; }
+.press-group.g-land { --cols: 1; }
+.press-group.g-land:has(.own-only.is-on) { --cols: 3; }
+@media (min-width: 1000px) and (max-width: 1180px) {
+  .press-group[data-must="residence"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 999px) {
+  .press-row, .press-land { display: contents; }
+  .press-group.g-res, .press-group.g-dis, .press-group.g-land, .press-group.g-big { grid-column: 1 / -1; }
+}
+
+/* 마지막 화면 맨 아랫줄: 땅 단추 셋은 짧은 글("내 땅이에요")에 좁은 칸을 준다 */
+.press-group.g-land:has(.own-only.is-on) { grid-template-columns: .95fr 1.2fr 1.2fr; }
+/* 좁은 창: 작물 단추에 예시가 붙어 키가 커져도 그림이 접히지 않게 */
+@media (max-width: 999px) {
+  .tiles, .js .tiles { grid-auto-rows: minmax(132px, auto); }
+  .choice-tile .choice-icon { min-height: 64px; }
+  .choice-tile .choice-sub { font-size: 18px; }
+}
+@media (min-width: 1000px) and (max-width: 1500px) {
+  .press-row .choice-sm .choice-face { padding-left: 10px; padding-right: 40px; }
+  .press-row .choice-sm input:checked + .choice-face { padding-left: 8px; padding-right: 38px; }
+  .press-row .choice-sm .choice-mark { right: 8px; width: 26px; height: 26px; margin-top: -13px; }
+}
+
+/* =====================================================================================================
+   마지막 질문 화면(.press6): 묶음마다 한 줄씩 세로로 쌓는다(사장 지시). 넓은 창에서는 왼쪽에 묶음 이름,
+   오른쪽에 단추(세 칸 눈금에 맞춤, 햇수만 네 칸). 좁은 창(폭 1000px 미만)은 이름 아래에 단추가 온다.
+   ===================================================================================================== */
+.press.press6 { display: flex; flex-direction: column; gap: clamp(4px, 1.1vh, 14px); }
+.press6 .press-group { grid-column: auto; }
+@media (min-width: 1000px) {
+  .press6 .press-group {
+    display: grid; grid-template-columns: clamp(170px, 14.5vw, 280px) repeat(12, minmax(0, 1fr)) !important;
+    align-items: center; gap: 0 clamp(8px, 1vw, 18px);
+  }
+  .press6 .press-q { grid-column: 1; margin: 0; font-size: clamp(20px, min(3vh, 1.7vw), 28px); line-height: 1.15; }
+  .press6 .press-q small, .press6 .press-group[data-must="residence"] .press-q small { display: block; margin-left: 0; font-size: clamp(16px, 2vh, 18px); }
+  .press6 .press-group .choice { grid-column: span 4; }
+  .press6 .press-group.q4 .choice { grid-column: span 3; }
+  .press6 .choice-sm .choice-face { min-height: clamp(40px, 6.6vh, 66px); }
+}
+@media (min-width: 1000px) and (max-height: 800px) { .press6 .press-q small:not(.must-tag) { display: none !important; } }
+@media (max-width: 999px) { .press6 .press-group { grid-column: 1 / -1; } }
+@media (min-width: 1000px) { .press6 .press-group[data-when="own4700"] .press-q { display: block !important; } }
+.press6 .press-group.is-need { outline-width: 4px; outline-offset: 2px; }
+
+
+/* =====================================================================================================
+   고른 보기(2026-11-16 사장 지시로 주황으로 되돌림): 옅은 주황 바탕 + 굵은 주황 테두리 + 주황으로 찬 칸 + 굵은 흰 체크. 색만이 아니라 테두리 굵기와 체크로도 보인다
+   ===================================================================================================== */
+.page-q .choice:hover .choice-face { border-color: var(--tang-deep); }
+.page-q .choice-mark { border-color: var(--ink-soft); }
+.page-q .choice input:checked + .choice-face { background: #FFE6BF; border: 5px solid var(--tang-deep); box-shadow: 0 5px 0 var(--tang-deep); }
+.page-q .choice input:checked + .choice-face .choice-mark { background: var(--tang-deep); border-color: var(--tang-deep); }
+.page-q .choice input:checked + .choice-face .choice-mark svg { opacity: 1; }
+.page-q .choice input:checked:active + .choice-face { box-shadow: 0 1px 0 var(--tang-deep); }
+
+/* 좁은 창: 자조금 세 단추는 한 줄에 하나씩(글자가 한 글자씩 꺾이지 않게) */
+@media (max-width: 699px) {
+  .fund .choice-row { flex-direction: column; }
+  .fund .choice { flex: none; }
+}
+
+/* =====================================================================================================
+   어르신 기준(원칙 7): 누르는 곳은 높이 56px 이상, 글씨는 22px 이상. 창이 낮아도 줄이지 않는다(자리가 모자라면 질문 부분만 스크롤).
+   ===================================================================================================== */
+.page-q .choice-sm .choice-face, .page-q .emd-big .choice-face, .page-q .press .choice-sm .choice-face, .page-q .press6 .choice-sm .choice-face { min-height: 56px; padding-top: 4px; padding-bottom: 4px; }
+.page-q .choice-sm .choice-label, .page-q .emd-big .choice-label, .page-q .press .choice-sm .choice-label, .page-q .press6 .choice-sm .choice-label, .page-q .choice-tile .choice-label { font-size: clamp(22px, 3vh, 28px); }
+.page-q .step-btn, .page-q .quick-btn, .page-q .more-btn { min-height: 56px; }
+.page-q .numfield { height: clamp(56px, 7.6vh, 80px); }
+.page-q .tab { min-height: clamp(56px, 10vh, 100px); }
+.page-q .press6 .press-q { font-size: clamp(22px, min(3vh, 1.7vw), 28px); }
+.page-q .press6 .press-q small:not(.must-tag) { font-size: 18px; }
+/* 마지막 질문: 가장 낮은 창에서 줄이 다 안 들어가면 글씨를 줄이지 않고 이 질문 부분만 스크롤한다(아래 띠는 그대로 붙박이) */
+.js .qstep[data-step="6"] { overflow-y: auto; overflow-x: hidden; padding-left: 10px; padding-right: 10px; margin: 0 -10px; }
