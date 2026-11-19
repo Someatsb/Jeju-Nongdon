@@ -68,7 +68,7 @@
 
 ## 재현 명령
 
-- 전체 시험: `run_tests.bat` → 끝나면 `tests\REPORT.txt`에 시험 결과와 골든 결과가 적힙니다. 골든 12건: 12건 통과(`tests/REPORT.txt` 2026-11-19 08:12판 "3636 passed, 45 skipped, 1 xfailed", "golden 12 passed"). 이 파일은 경고도 실패로 세는 `-W error`로 돌린 결과입니다.
+- 전체 시험: `run_tests.bat` → 끝나면 `tests\REPORT.txt`에 시험 결과와 골든 결과가 적힙니다. 골든 12건: 12건 통과(`tests/REPORT.txt` 2026-11-19 09:48판 "3677 passed, 45 skipped, 1 xfailed", "golden 12 passed"). 이 파일은 경고도 실패로 세는 `-W error`로 돌린 결과입니다.
 - 샘플 다시 만들기: `python -X utf8 scripts\make_samples.py --asof 2026-11-13` (PDF는 Edge 필요, `--no-pdf`로 HTML만).
 - 비밀 검사: `python -I scripts\check_secrets.py` → `OK 0 hits`.
 - 알려진 흔들림: 이 PC에서는 localhost 연결이 가끔 실패해 `tests/ui`에 ERROR가 섞일 수 있습니다. 코드 실패가 아니며 다시 돌리면 됩니다.
