@@ -6,6 +6,7 @@
   그 사유 그대로 매번 올리는 클라이언트로 바꿔 앱이 템플릿으로 계속 돌게 한다.
 - 모르는 provider는 한국어 설명을 단 클라이언트(사유 NETWORK). 키는 어디에도 출력하지 않는다.
 - replay(녹화 파일 경로)를 주면 열쇠·제공자와 상관없이 ReplayClient(Task 32). 실제 클라이언트는 만들지 않는다.
+- daily_cap은 하루 호출 상한(기본 200. 인터넷 판은 JC_AI_DAILY_MAX 로 넘긴다).
 - today_fn은 하루 상한용 날짜(기본: config의 오늘 읽는 곳 하나). 화면은 config.as_of를 넘길 수 있다.
 """
 from collections.abc import Callable
@@ -36,7 +37,7 @@ class UnavailableClient:
 
 
 def make_llm_client(store: KeyStore, *, provider: str | None = None, model: str | None = None,
-                    today_fn: Callable[[], date] | None = None, replay: Path | None = None) -> LLMClient:
+                    today_fn: Callable[[], date] | None = None, replay: Path | None = None, daily_cap: int = 200) -> LLMClient:
     if replay is not None:     # 재생 모드(Task 32): 열쇠가 있어도 녹화 답만 쓴다. 아래 실제 호출 길에는 닿지 않는다
         return ReplayClient(load_recording(replay))
     key = store.get("llm")
@@ -49,4 +50,4 @@ def make_llm_client(store: KeyStore, *, provider: str | None = None, model: str 
         inner = AnthropicClient(key, model or store.get_setting("JC_LLM_MODEL"))
     except LLMUnavailable as e:
         return UnavailableClient(e.reason, e.detail, provider="anthropic")
-    return Guard(inner, today_fn=today_fn or (config.today_fn))
+    return Guard(inner, daily_cap=daily_cap, today_fn=today_fn or (config.today_fn))

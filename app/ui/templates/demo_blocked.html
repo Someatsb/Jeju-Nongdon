@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% import "_art.html" as art %}
-{% block title %}체험판에서는 쓸 수 없어요 · {{ cfg.service_name }}{% endblock %}
-{#- 공개 체험판에서 잠근 직원 기능을 눌렀을 때 보이는 한 장(print_hold.html 과 같은 틀). -#}
+{% block title %}{{ line }} · {{ cfg.service_name }}{% endblock %}
+{#- 인터넷 판에서 잠근 직원 기능이나 지금은 시작하지 않는 일(쉬는 시간·오늘 AI 한도)을 눌렀을 때 보이는 한 장(print_hold.html 과 같은 틀). back 이 있으면 그 화면으로 돌아가는 단추도 둔다. -#}
 {% block head %}<link rel="stylesheet" href="/static/flow.css">{% endblock %}
 {% block body_class %}page-h{% endblock %}
 {% block main_class %}hmain{% endblock %}
 {% block content %}
 <section class="hold" role="alert">
   <h1>{{ line }}</h1>
-  <p class="lead">처음 화면으로 돌아가서 시연 농가를 눌러 보세요.</p>
   <div class="hold-acts">
+    {%- if back %}
+    <a class="btn btn-ghost" href="{{ back }}">직원 메뉴로</a>
+    {%- endif %}
     <a class="btn btn-primary" href="/">처음으로{{ art.arrow() }}</a>
   </div>
 </section>

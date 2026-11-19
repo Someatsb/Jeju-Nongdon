@@ -24,7 +24,7 @@ class SessionStore:
         self._touched: dict[str, float] = {}
         self._expired: dict[str, None] = {}     # 시간이 다 돼 지운 id(입력 화면 안내용, 오래된 것부터 버린다)
         self.ttl_s, self._clock = ttl_s, clock
-        self.max_sessions = max_sessions      # 공개 체험판만 둔다(None이면 한도 없음). 새 상담을 만들 때 넘으면 가장 오래 안 쓴 것부터 지운다
+        self.max_sessions = max_sessions      # 인터넷 판만 둔다(None이면 한도 없음). 새 상담을 만들 때 넘으면 가장 오래 안 쓴 것부터 지운다
 
     def _make_room(self) -> None:
         now = self._clock()

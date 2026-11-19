@@ -8,6 +8,7 @@ env 파일(사장 결정 2026-11-08, 스펙 §12-B 5행): 위에서부터 차례
   변수: ANTHROPIC_API_KEY, JC_LLM_PROVIDER=anthropic, JC_LLM_MODEL=claude-opus-5-5.
 자격 증명 저장소를 못 쓰는 PC(백엔드가 어떤 예외든 내면)는 ①을 건너뛴다. env 파일이 없거나 UTF-8이
 아니면(메모장 ANSI 저장) 빈 파일로 본다.
+인터넷 판(KeyStore.env_only())은 위 ①③을 건너뛰고 ②환경변수만 읽는다(키·공급자·모델 모두). 열쇠 저장소·.env 파일은 열지 않는다.
 set()은 keyring에만 쓴다(파일은 사장이 직접 채운다). delete()도 keyring만 지운다.
 get_setting(name): JC_LLM_PROVIDER·JC_LLM_MODEL을 환경변수 → env 파일 → 기본값 순으로 읽는다.
 키 값은 어디에도 출력·기록하지 않는다. 화면에는 get_masked()의 끝 4자리만("••••ab12").
@@ -80,11 +81,19 @@ def read_env_file(path: Path) -> dict[str, str]:
 
 
 class KeyStore:
-    def __init__(self, backend: KeyringBackend | None = None):
-        self._backend = backend if backend is not None else keyring.get_keyring()
+    def __init__(self, backend: KeyringBackend | None = None, *, env_only: bool = False):
+        self._env_only = env_only
+        self._backend = None if env_only else (backend if backend is not None else keyring.get_keyring())
+
+    @classmethod
+    def env_only(cls) -> "KeyStore":
+        """인터넷 판용: 환경변수만 읽는다(열쇠 저장소 백엔드를 만들지도 않는다. 리눅스에는 백엔드가 없어 예외가 날 수 있다)."""
+        return cls(env_only=True)
 
     def get(self, name: str) -> str | None:
         env_name = _env_name(name)
+        if self._env_only:
+            return (os.environ.get(env_name) or "").strip() or None
         sources = (lambda: self._from_keyring(name), lambda: os.environ.get(env_name),
                    lambda: read_env_value(env_name))
         for source in sources:
@@ -101,6 +110,7 @@ class KeyStore:
 
     def set(self, name: str, value: str) -> None:
         _env_name(name)
+        self._need_backend()
         value = value.strip()
         if not value:
             raise ValueError("빈 키는 저장하지 않습니다.")
@@ -108,6 +118,7 @@ class KeyStore:
 
     def delete(self, name: str) -> None:
         _env_name(name)
+        self._need_backend()
         try:
             self._backend.delete_password(SERVICE, name)
         except PasswordDeleteError:
@@ -116,6 +127,8 @@ class KeyStore:
     def test(self) -> KeyringCheck:
         """자격 증명 저장소 점검: 시험값 저장 → 읽기 → 삭제 → 읽기(None). 저장된 키는 건드리지 않는다."""
         probe = "jeju-chaenggim-selftest"
+        if self._backend is None:
+            return KeyringCheck(ok=False, backend="env-only")
         try:
             self._backend.set_password(SERVICE, _PROBE, probe)
             ok = self._backend.get_password(SERVICE, _PROBE) == probe
@@ -127,10 +140,16 @@ class KeyStore:
 
     def get_setting(self, name: str) -> str:
         default = SETTING_DEFAULTS[name]
-        value = (os.environ.get(name) or read_env_value(name) or "").strip()
+        value = (os.environ.get(name) or ("" if self._env_only else read_env_value(name)) or "").strip()
         return value or default
 
+    def _need_backend(self) -> None:
+        if self._backend is None:
+            raise RuntimeError("환경변수만 읽는 열쇠 보관(인터넷 판)은 키를 저장하거나 지우지 않습니다.")
+
     def _from_keyring(self, name: str) -> str | None:
+        if self._backend is None:
+            return None
         try:
             return self._backend.get_password(SERVICE, name)
         except Exception:                        # 어떤 백엔드 오류든 건너뛰고 환경변수·env 파일을 본다

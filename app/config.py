@@ -8,7 +8,7 @@
 import argparse
 import os
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 APP_ROOT = Path(__file__).resolve().parents[1]
@@ -28,7 +28,7 @@ class Config:
     service_subtitle: str = "농가가 받을 돈, 한 장으로"   # 종이 머리 부제(Task 17)
     center_phone: str = ""               # 재방문 문자에 적는 센터 전화(Task 39). 비면 "센터로 연락 주세요"
     catalog_dir: Path = APP_ROOT / "data" / "catalog"   # 지원 전체 보기 자료(links.csv, notices/). --catalog-dir 로 시험용 폴더를 줄 수 있다
-    public_demo: bool = False            # 공개 체험판 모드(환경변수 JC_PUBLIC_DEMO=1, 재생 모드와 함께만). 인터넷에 띄우는 심사용 체험판이다(ui/public_demo.py)
+    public_demo: bool = False            # 인터넷 판 모드(환경변수 JC_PUBLIC_DEMO=1). 인터넷에 띄우는 실제 서비스다(ui/public_demo.py)
 
 
 def _today() -> date:
@@ -38,6 +38,18 @@ def _today() -> date:
 def today_fn() -> date:
     """공개 접근자: 오늘 날짜(하루 상한 같은 곳이 쓴다). 시계는 여전히 _today() 한 곳에서만 읽는다."""
     return _today()
+
+
+KST = timezone(timedelta(hours=9))     # 한국 시간은 고정 오프셋(tzdata 에 기대지 않는다. 한국은 일광절약시간이 없다)
+
+
+def _utcnow() -> datetime:
+    return datetime.now(timezone.utc)
+
+
+def kst_today() -> date:
+    """인터넷 판(JC_PUBLIC_DEMO=1)의 '오늘': 서버(Render)가 UTC 라서 한국 시간으로 센다. PC 설치본은 쓰지 않는다(_today() 그대로)."""
+    return _utcnow().astimezone(KST).date()
 
 
 def _asof(text: str) -> date:

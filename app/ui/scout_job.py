@@ -6,6 +6,8 @@
 - 한 번에 하나만 돈다. 이미 도는 중이면 새로 시작하지 않는다(start 가 도는 일을 그대로 돌려준다).
   뒤 작업이 멈춰 돌아오지 않을 때를 위해 RUN_MAX_S 가 지나면 도는 중이어도 새로 시작할 수 있다(옛 일의 결과는 옛 객체에만 쓴다).
 - 하루 호출 한도·예산은 명령줄과 같다: 앱이 가진 AI 클라이언트(Guard)를 그대로 쓰고, 한도·요청 수·시간 한도는 run_scout·BoardClient 가 센다.
+- 인터넷 판(limits 를 주면): 끝난 뒤 쉬는 시간 동안, AI 가 없거나 오늘 한도를 다 썼을 때는 새로 시작하지 않고 ScoutRefused(쉬운 말 한 줄)를 올린다.
+  도는 중이면 이미 도는 일을 돌려준다(겹쳐 돌지 않는다).
 - 재생 모드: data/replay/S1.json 녹화와 boards 고정본으로 돈다. 올리는 곳은 임시 폴더라 실제 data/catalog·data/inbox 는 바뀌지 않는다.
 - 판정·금액·날짜는 여기서 만들지 않는다. 보고서의 글은 모두 공고 에이전트가 원문과 대조한 것이다.
 """
@@ -40,7 +42,34 @@ BROKEN = "찾는 중에 예상하지 못한 문제가 생겼어요. 잠시 뒤 �
 FIXTURE_CHANGED = "저장해 둔 게시판 고정본이 바뀌었어요. 저장해 둔 실행 기록(S1)과 맞지 않아 시연을 멈췄어요. 담당자가 S1을 다시 녹화해야 해요."
 NO_REPLAY = "재생할 저장 기록(data/replay/S1.json과 boards 폴더)이 없어요. 담당자에게 알려 주세요."
 NO_BOARDS = "게시판에 연결하지 못했어요. 인터넷 연결을 확인하고 잠시 뒤 다시 눌러 보세요."
+CAP_LINE = "오늘은 AI 사용량이 다 찼어요. 내일 다시 해 주세요."
+NO_AI_LINE = "AI 키가 설정되지 않아 지금은 공고를 찾아볼 수 없어요."
 NOT_ADDED = {"원문 대조": "원문 대조 실패로 안 올림", "이미 있는": "이미 있는 사업이라 안 올림"}
+
+
+class ScoutRefused(Exception):
+    """인터넷 판에서 지금은 시작하지 않는다(.line 은 화면에 그대로 보이는 쉬운 말)."""
+
+    def __init__(self, line: str) -> None:
+        super().__init__(line)
+        self.line = line
+
+
+class ScoutLimits:
+    """인터넷 판의 찾아보기 제한(요금): 끝난 뒤 cooldown_s 초 쉬고, AI 가 없거나 오늘 한도를 다 썼으면 시작하지 않는다."""
+
+    def __init__(self, *, cooldown_s: float, has_ai: Callable[[], bool], exhausted: Callable[[], bool]) -> None:
+        self.cooldown_s, self.has_ai, self.exhausted = cooldown_s, has_ai, exhausted
+
+    def refusal(self, since_finish: float | None) -> str | None:
+        if not self.has_ai():
+            return NO_AI_LINE
+        if self.exhausted():
+            return CAP_LINE
+        if since_finish is not None and since_finish < self.cooldown_s:
+            left = max(1, -int(-(self.cooldown_s - since_finish) // 60))      # 올림, 최소 1분
+            return f"조금 전에 찾아봤어요. {left}분 뒤에 다시 해 주세요."
+        return None
 
 
 class ScoutJob:
@@ -91,7 +120,10 @@ class ScoutRunner:
 
     def __init__(self, *, replay: bool, as_of: date, llm: LLMClient | None = None, root: Path = APP_ROOT,
                  replay_dir: Path | None = None, http: Http | None = None,
-                 sleep: Callable[[float], None] | None = None, catalog_dir: Path | None = None) -> None:
+                 sleep: Callable[[float], None] | None = None, catalog_dir: Path | None = None,
+                 limits: ScoutLimits | None = None) -> None:
+        self.limits = limits                 # 인터넷 판만 둔다(PC 설치본은 None: 제한 없음)
+        self.finished_at: float | None = None
         self.replay = replay
         self.as_of = as_of
         self.llm = llm
@@ -112,6 +144,11 @@ class ScoutRunner:
             j = self.job
             if j is not None and j.state == "run" and time.monotonic() - j.t0 < RUN_MAX_S:
                 return j, False
+            if self.limits is not None:
+                since = None if self.finished_at is None else time.monotonic() - self.finished_at
+                line = self.limits.refusal(since)
+                if line:
+                    raise ScoutRefused(line)
             j = self.job = ScoutJob(self.replay)
             threading.Thread(target=self._work, args=(j,), daemon=True, name="scout-job").start()
             return j, True
@@ -119,10 +156,14 @@ class ScoutRunner:
     def _work(self, job: ScoutJob) -> None:
         try:
             data = self._replay(job) if self.replay else self._real(job)
+            if self.limits is not None and data.get("unavailable") == "DAILY_CAP":
+                data["trouble"], data["fatal"] = [CAP_LINE], True
             job.finish("done", view(data, job))
         except Exception:
             log.exception("공고 찾아보기 중 오류")
             job.finish("failed", {"replay": self.replay, "trouble": [BROKEN], "fatal": True, "picks": [], "skips": [], "boards": []})
+        finally:
+            self.finished_at = time.monotonic()      # 쉬는 시간은 끝난 때부터 센다(성공·실패 모두)
 
     # --- 진행 표시 -----------------------------------------------------------------------------
 

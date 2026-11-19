@@ -50,6 +50,14 @@ class Guard:
     def start_budget(self) -> None:
         self._budget_start = self._clock()
 
+    def exhausted(self) -> bool:
+        """오늘 이미 하루 상한에 닿았나(인터넷 판 직원 화면이 미리 묻는다). 세지는 않는다."""
+        with self._lock:
+            today = self._today_fn()
+            if today != self._day:
+                self._day, self._calls = today, 0
+            return self._calls >= self.daily_cap
+
     def generate(self, req: GenRequest) -> GenResult:
         with self._lock:
             today = self._today_fn()
@@ -81,6 +89,13 @@ class SideCap:
     @property
     def model(self) -> str:
         return self.client.model
+
+    def exhausted(self) -> bool:
+        with self._lock:
+            today = self._today_fn()
+            if today != self._day:
+                self._day, self._calls = today, 0
+            return self._calls >= self.cap
 
     def generate(self, req: GenRequest) -> GenResult:
         with self._lock:

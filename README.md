@@ -43,11 +43,11 @@
 | 코드 | `app/agents/`, `app/tools/` | AI 설명, 규칙 검사·심사, 공고 읽기(초안) |
 | 코드 | `app/ui/` | 화면, 종이 HTML, 인쇄 전 검사(`preflight.py`) |
 | 코드 | `app/data_layer/` | 표·저장본 읽기, 허브 갱신, 문자 안내 저장 |
-| 코드 | `app/serve.py`, `render.yaml` | 인터넷 체험판(재생 모드를 공개 웹 서비스로 띄움, 설치본과는 별개) |
+| 코드 | `app/serve.py`, `render.yaml` | 인터넷 판(설치본과 같은 서비스를 공개 웹 서비스로 띄움: 오늘 날짜·실제 AI, 설치본과는 별개) |
 | 데이터 | `data/tables/` | 지원제도·작물·시즌값·창구·보험 표(CSV)와 `schema.json` |
 | 데이터 | `data/snapshot/` | 도매가·면적 저장본과 `manifest.json`(지문) |
 | 시험 | `tests/` | 단위·화면·골든(`tests/golden/`). 결과는 `tests/REPORT.txt` |
-| 문서 | `docs/` | `0_operator_answers.md` 운영진 답변 반영, `2_user_manual.md` 직원용, `3_data_spec.md` 데이터 명세, `4_result_explainer.md` 결과 설명자료(기획서 요약), `5_ai_disclosure.md` AI 활용 고지, `6_operations.md` 운영, `7_llm_transfer.md` 외부 LLM 전송 항목 표, `8_인터넷_체험판.md` 인터넷 체험판(Render) 설명 |
+| 문서 | `docs/` | `0_operator_answers.md` 운영진 답변 반영, `2_user_manual.md` 직원용, `3_data_spec.md` 데이터 명세, `4_result_explainer.md` 결과 설명자료(기획서 요약), `5_ai_disclosure.md` AI 활용 고지, `6_operations.md` 운영, `7_llm_transfer.md` 외부 LLM 전송 항목 표, `8_인터넷_체험판.md` 인터넷 판(Render) 설명 |
 | 샘플 | `samples/P1`~`P5` | 시연 농가 5명의 입력·종이(HTML·PDF). 종이는 한 장 한 면이고 뒷면은 없습니다. 샘플 5건 모두 1쪽입니다(P5는 시연 농가처럼 받고 계신 지원을 제주 농민수당만으로 했습니다) |
 | 프롬프트 | `app/agents/prompts/` | 설명·심사·공고 읽기·새 공고 맞춰 보기·공고 찾기 프롬프트(지금 쓰는 판 `narrate-v3`, `judge-v1`, `notice-v4`, `match-v2`, `scout-v1`. 일부 옛 판(`narrate-v2`·`notice-v3`·`match-v1`) 파일이 폴더에 남아 있음) |
 | 실행 환경 | `runtime/` | 내장 파이썬과 부품(`scripts/build_runtime.py`가 만듦, 인터넷 필요) |
@@ -79,4 +79,4 @@
 - 상당수 제도가 "작년 공고 기준"입니다(올해 공고 전). 종이에 배지로 표시됩니다.
 - 도매가는 전국 평균 기준이라 제주 산지가격과 다를 수 있습니다(`docs/3_data_spec.md`).
 
-- 인터넷 체험판(Render): [docs/8_인터넷_체험판.md](docs/8_인터넷_체험판.md)
+- 인터넷 판(Render): [docs/8_인터넷_체험판.md](docs/8_인터넷_체험판.md)

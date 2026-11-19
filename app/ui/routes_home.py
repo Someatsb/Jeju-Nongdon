@@ -9,7 +9,6 @@ from app.catalog import key_for_name, support_href
 from app.core.calendar import apply_window
 from app.catalog.layout import URGENT_DAYS
 from app.core.home import DUE_DAYS, home_lines
-from app.ui.public_demo import home_extra
 from app.ui.routes_supports import load_catalog_for, today_of
 
 router = APIRouter()
@@ -76,7 +75,7 @@ def home(request: Request) -> Response:
     lines = home_lines(st.tables, st.snapshot, today)
     catalog = load_catalog_for(request, today)
     return st.templates.TemplateResponse(request, "home.html", {"due_cards": due_cards(st.tables, today, lines.due30, catalog.entries), "as_of_md": _md(today),
-                                                                "support_count": catalog.count, **home_extra(request)})
+                                                                "support_count": catalog.count})
 
 
 @router.get("/counsel")

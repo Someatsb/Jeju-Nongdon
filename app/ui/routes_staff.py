@@ -15,7 +15,7 @@ from app.agents.llm.keystore import KeyStore
 from app.config import APP_ROOT
 from app.ui.report_notice import DECISION_LABEL
 from app.ui.routes_supports import load_catalog_for, staff_line
-from app.ui.scout_job import REPLAY_NOTE
+from app.ui.scout_job import REPLAY_NOTE, ScoutRefused
 
 log = logging.getLogger(__name__)
 router = APIRouter(prefix="/staff")
@@ -49,6 +49,8 @@ def ai_line(request: Request) -> str:
     """AI 문장을 쓰는지 한 줄로. 열쇠 값은 읽어도 내지 않는다."""
     if request.app.state.cfg.replay:
         return "미리 저장해 둔 답변 사용 중"
+    if getattr(request.app.state.cfg, "public_demo", False):        # 인터넷 판: 열쇠 저장소·.env 는 열지 않는다(환경변수로 만든 클라이언트가 있는지만 본다)
+        return "사용 중" if request.app.state.ai_live else "기본 문장 사용 중"
     try:
         has_key = bool(KeyStore().get("llm"))
     except Exception:       # 자격 증명 저장소를 못 열면 열쇠가 없는 것으로 본다
@@ -126,7 +128,10 @@ def notice(request: Request, notice_id: str) -> Response:
 def scout_start(request: Request) -> Response:
     """공고 찾아보기를 뒤 작업으로 시작한다. 이미 도는 중이면 새로 시작하지 않고 진행 화면으로 간다.
     다른 사이트에서 온 POST 는 앱의 Origin 검사(app.py)가 막는다."""
-    request.app.state.scout.start()
+    try:
+        request.app.state.scout.start()
+    except ScoutRefused as e:      # 인터넷 판: 쉬는 시간·오늘 한도·AI 없음
+        return request.app.state.templates.TemplateResponse(request, "demo_blocked.html", {"line": e.line, "back": "/staff"}, status_code=429)
     return RedirectResponse("/staff/scout", status_code=303)
 
 

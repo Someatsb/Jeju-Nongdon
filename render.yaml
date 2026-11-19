@@ -11,3 +11,11 @@ services:
         value: "1"
       - key: PYTHON_VERSION
         value: "3.12.10"
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: JC_LLM_PROVIDER
+        value: "anthropic"
+      - key: JC_LLM_MODEL
+        value: "claude-opus-5-5"
+      - key: JC_AI_DAILY_MAX
+        value: "400"
